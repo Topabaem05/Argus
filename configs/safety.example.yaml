@@ -1,0 +1,43 @@
+# Safety policy example for Korean Social Simulation Lab.
+# Defines allowed and prohibited scenario objectives and use cases.
+
+policy_version: "1.0"
+
+allowed_objectives:
+  - product_reaction_testing
+  - usability_assessment
+  - community_moderation_strategy
+  - conflict_prevention
+  - rumor_response_testing
+  - service_operation_planning
+  - educational_communication
+  - healthcare_communication
+  - financial_literacy
+  - policy_communication
+  - game_npc_social_world
+  - organization_dynamics
+
+prohibited_objectives:
+  - political_persuasion_targeting
+  - voter_manipulation
+  - protected_class_exploitation
+  - identity_inference_on_real_users
+  - fake_grassroots_generation
+  - covert_influence_operations
+  - malware_optimization
+  - social_engineering_optimization
+  - automated_harassment
+  - real_person_profiling
+  - divisive_political_content
+
+reporting_rules:
+  - require_aggregate_only_reporting
+  - require_uncertainty_disclaimers
+  - no_real_world_prediction_claims
+  - require_limitations_section
+  - require_follow_up_validation_recommendation
+
+redaction_rules:
+  - redact_api_keys_in_logs
+  - redact_raw_private_document_text
+  - redact_sensitive_prompt_content

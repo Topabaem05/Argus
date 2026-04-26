@@ -1,0 +1,67 @@
+# Example run configuration for product reaction simulation.
+# Uses fixture mode and dry-run by default.
+# No secrets in this file.
+
+runtime:
+  run_id: product_reaction_run_001
+  seed: 42
+  output_dir: outputs
+  dry_run: true
+  max_turns: 5
+  max_participants: 20
+  overwrite: false
+
+dataset:
+  mode: fixture
+  name: nvidia/Nemotron-Personas-Korea
+  split: train
+  fixture_path: data/samples/personas_fixture.jsonl
+
+sampling:
+  sample_size: 10
+  seed: 42
+  allow_smaller_sample: false
+  filters:
+    age_range:
+      min: 20
+      max: 60
+    country: South Korea
+
+scenario:
+  id: product_reaction_v1
+  family: product_reaction
+  title: AI file organizer product reaction
+  hypothesis: Privacy-forward messaging reduces backlash.
+  language: ko
+  participant_count: 10
+  max_turns: 5
+  interventions:
+    - id: message_a
+      description: Productivity-centered message
+    - id: message_b
+      description: Privacy-centered message
+  metrics:
+    - trust_score
+    - confusion_rate
+    - backlash_rate
+    - conversion_intent
+  safety_notes:
+    - This is a synthetic simulation. Results do not predict real user behavior.
+    - All personas are synthetic. No real individuals are profiled.
+    - Results should be validated with real user studies before product decisions.
+
+llm:
+  provider: openai
+  model: gpt-4
+  temperature: 0.7
+  max_tokens: 1024
+  timeout: 60
+  retry_count: 3
+
+rag:
+  enabled: false
+  required: false
+
+safety:
+  policy_version: "1.0"
+  block_unsafe: true

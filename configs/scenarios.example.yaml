@@ -1,0 +1,52 @@
+# Scenario templates example for Korean Social Simulation Lab.
+# Each entry describes a scenario family and its default configuration.
+
+scenarios:
+  - id: product_reaction_v1
+    family: product_reaction
+    title: Product reaction assessment
+    description: Test how synthetic personas react to a new product description.
+    language: ko
+    participant_count: 10
+    max_turns: 5
+    default_metrics:
+      - trust_score
+      - conversion_intent
+      - backlash_rate
+
+  - id: pricing_reaction_v1
+    family: pricing_reaction
+    title: Pricing reaction assessment
+    description: Test how synthetic personas react to pricing changes.
+    language: ko
+    participant_count: 10
+    max_turns: 3
+    default_metrics:
+      - trust_score
+      - conversion_intent
+      - backlash_rate
+
+  - id: rumor_crisis_v1
+    family: rumor_crisis_response
+    title: Rumor and crisis response
+    description: Test how synthetic personas react to rumor scenarios and crisis communication.
+    language: ko
+    participant_count: 15
+    max_turns: 8
+    default_metrics:
+      - trust_score
+      - confusion_rate
+      - backlash_rate
+      - consensus_score
+
+  - id: community_operation_v1
+    family: community_operation
+    title: Community operation test
+    description: Test how synthetic personas react to community rules and moderation.
+    language: ko
+    participant_count: 20
+    max_turns: 10
+    default_metrics:
+      - conflict_intensity
+      - consensus_score
+      - dropout_intent

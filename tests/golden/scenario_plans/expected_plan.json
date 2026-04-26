@@ -1,0 +1,9 @@
+{
+  "plan_id": "golden-plan-001",
+  "run_id": "golden-run-001",
+  "scenario_family": "product_reaction",
+  "agent_count": 5,
+  "max_turns": 3,
+  "language": "ko",
+  "dry_run": true
+}

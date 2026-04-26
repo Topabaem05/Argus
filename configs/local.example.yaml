@@ -1,0 +1,43 @@
+# Local configuration example for Korean Social Simulation Lab.
+# Copy to configs/local.yaml and customize for your environment.
+# Never commit local.yaml with real secrets.
+
+runtime:
+  run_id: local_dev
+  seed: 42
+  output_dir: outputs
+  dry_run: true
+  max_turns: 5
+  max_participants: 20
+  overwrite: false
+
+dataset:
+  mode: fixture
+  name: nvidia/Nemotron-Personas-Korea
+  split: train
+  fixture_path: data/samples/personas_fixture.jsonl
+
+sampling:
+  sample_size: 10
+  seed: 42
+  allow_smaller_sample: false
+
+llm:
+  provider: openai
+  model: gpt-4
+  temperature: 0.7
+  max_tokens: 1024
+  timeout: 60
+  retry_count: 3
+
+embedder:
+  provider: openai
+  model: text-embedding-3-small
+
+rag:
+  enabled: false
+  required: false
+
+safety:
+  policy_version: "1.0"
+  block_unsafe: true

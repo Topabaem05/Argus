@@ -1,0 +1,60 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+dist/
+build/
+*.egg
+
+# Virtual environments
+.venv/
+venv/
+
+# uv
+.uv/
+uv.lock
+
+# Environment variables
+.env
+.env.*
+!.env.example
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Project data (large datasets and generated outputs)
+data/raw/
+data/cache/
+outputs/
+
+# Keep sample fixtures
+!data/samples/
+
+# Secrets
+*.pem
+*.key
+credentials.json
+
+# Notebooks
+*.ipynb_checkpoints/
+
+# Type checking
+.mypy_cache/
+
+# Testing
+.pytest_cache/
+htmlcov/
+.coverage
+coverage.xml
+
+# Sisyphus
+.sisyphus/
