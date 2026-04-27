@@ -10,6 +10,10 @@ from korean_social_simulator.models import (
     SimulationPlan,
     SimulationResult,
 )
+from korean_social_simulator.simulation.nvidia_nim import (
+    is_nvidia_nim_available,
+    run_nvidia_nim_simulation,
+)
 
 CONCORDIA_IMPORT_ERROR_MESSAGE = (
     "Concordia is not installed. Install with: uv sync --extra concordia"
@@ -73,16 +77,23 @@ def run_simulation(
     plan: SimulationPlan,
     profiles: list[AgentProfile],
 ) -> SimulationResult:
-    """Run a simulation through the optional Concordia adapter boundary.
+    """Run simulation using Nvidia NIM, Concordia, or fallback to dry-run stubs.
 
-    Concordia is imported lazily to avoid module-level import failures in the
-    base install. When the dependency is unavailable, the adapter returns a
-    partial SimulationResult instead of raising an ImportError.
-
-    Raises:
-        SimulationError: If Concordia is available but the MVP adapter cannot
-            construct the stub simulation loop.
+    Prefers Nvidia NIM when NVIDIA_API_KEY is set, then tries Concordia,
+    and falls back to partial result when neither is available.
     """
+    if is_nvidia_nim_available():
+        run_nvidia_nim_simulation(plan, profiles)
+        return SimulationResult(
+            run_id=plan.run_id,
+            status="success",
+            events_path=None,
+            metrics_path=None,
+            report_path=None,
+            errors=[],
+            warnings=[],
+        )
+
     try:
         _load_concordia()
     except SimulationError:
@@ -92,7 +103,7 @@ def run_simulation(
             events_path=None,
             metrics_path=None,
             report_path=None,
-            errors=["Concordia not installed"],
+            errors=["Concordia not installed and Nvidia NIM not configured"],
             warnings=[],
         )
 

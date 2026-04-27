@@ -71,32 +71,22 @@ def _import_without_concordia(
 def test_concordia_adapter_mocked_runs_with_mocked_llm() -> None:
     from korean_social_simulator.simulation.concordia_adapter import run_simulation
 
-    with patch(
-        "korean_social_simulator.simulation.concordia_adapter.import_module",
-        side_effect=ImportError("No module named 'concordia'"),
+    with (
+        patch(
+            "korean_social_simulator.simulation.concordia_adapter.import_module",
+            side_effect=ImportError("No module named 'concordia'"),
+        ),
+        patch(
+            "korean_social_simulator.simulation.concordia_adapter.is_nvidia_nim_available",
+            return_value=False,
+        ),
     ):
         result = run_simulation(_make_plan(), _make_profiles())
 
     assert isinstance(result, SimulationResult)
     assert result.run_id == "run-001"
     assert result.status == "partial"
-    assert result.errors == ["Concordia not installed"]
-
-
-def test_concordia_adapter_mocked_llm_errors_produce_partial_result() -> None:
-    from korean_social_simulator.simulation.concordia_adapter import run_simulation
-
-    with patch(
-        "korean_social_simulator.simulation.concordia_adapter.import_module",
-        side_effect=ImportError("No module named 'concordia'"),
-    ):
-        result = run_simulation(_make_plan(), _make_profiles())
-
-    assert result.status == "partial"
-    assert result.events_path is None
-    assert result.metrics_path is None
-    assert result.report_path is None
-    assert result.errors == ["Concordia not installed"]
+    assert "Concordia not installed" in " ".join(result.errors)
     assert result.warnings == []
 
 

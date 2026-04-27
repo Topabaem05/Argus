@@ -61,3 +61,21 @@
 ### Security
 
 - Confirmed prohibited-pattern blocking in scenario validation and agent profile construction for political persuasion, real-person profiling, protected-group targeting, fake influence operations, harassment, and social-engineering use cases.
+
+## 2026-04-27 — Nvidia NIM Live LLM Integration
+
+### Added
+
+- Nvidia NIM LLM adapter in `simulation/nvidia_nim.py` with OpenAI-compatible client wrapper targeting `deepseek-ai/deepseek-v4-pro` at `https://integrate.api.nvidia.com/v1`.
+- `run_nvidia_nim_simulation()` produces per-turn Korean-language agent responses using NIM API.
+- `.env.example` template with `NVIDIA_API_KEY` configuration.
+- `python-dotenv` and `openai` dependencies added to base install.
+
+### Changed
+
+- `simulation/concordia_adapter.py::run_simulation()` now prefers Nvidia NIM when `NVIDIA_API_KEY` is set in environment, falls back to Concordia stub, then returns `partial` when neither is available.
+- Integration test updated to mock `is_nvidia_nim_available()` for Concordia-only scenarios.
+
+### Verified
+
+- 135 tests passing, ruff clean, mypy clean (33 source files, +1 new module).
