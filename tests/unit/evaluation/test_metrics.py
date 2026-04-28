@@ -68,3 +68,35 @@ def test_metrics_agent_count_is_correct() -> None:
     result = evaluate_run(events, ["agent_count"])
 
     assert result.metrics["agent_count"] == 3
+
+
+def test_metrics_product_market_metrics() -> None:
+    result = evaluate_run([], ["interest_score", "purchase_intent", "trial_intent"])
+
+    assert result.metrics == {
+        "interest_score": 0.0,
+        "purchase_intent": 0.0,
+        "trial_intent": 0.0,
+    }
+    assert result.unavailable_metrics == []
+
+
+def test_metrics_content_culture_metrics() -> None:
+    result = evaluate_run([], ["emotional_resonance", "share_intent", "controversy_risk"])
+
+    assert result.metrics == {
+        "emotional_resonance": 0.0,
+        "share_intent": 0.0,
+        "controversy_risk": 0.0,
+    }
+    assert result.unavailable_metrics == []
+
+
+def test_metrics_mixed_metrics() -> None:
+    result = evaluate_run(
+        [_make_event(1, "agent-001")], ["trust_score", "virality_score", "unknown_metric"]
+    )
+
+    assert result.metrics["trust_score"] == 0.01
+    assert result.metrics["virality_score"] == 0.0
+    assert result.unavailable_metrics == ["unknown_metric"]

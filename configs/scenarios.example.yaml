@@ -1,52 +1,80 @@
 # Scenario templates example for Korean Social Simulation Lab.
 # Each entry describes a scenario family and its default configuration.
+#
+# scenario family (choose one):
+# product_market, content_culture, marketing_viral, community_conflict,
+# policy_public_opinion, organization_workplace, education_learning,
+# healthcare_wellbeing, finance_consumer_protection, urban_local_life,
+# crisis_risk_communication, media_information_ecosystem,
+# game_npc_social_world, ai_agent_evaluation, social_norms_behavior,
+# customer_support_service
 
 scenarios:
-  - id: product_reaction_v1
-    family: product_reaction
-    title: Product reaction assessment
+  - id: product_market_v1
+    family: product_market
+    title: Product market assessment
     description: Test how synthetic personas react to a new product description.
     language: ko
     participant_count: 10
     max_turns: 5
     default_metrics:
+      - interest_score
+      - purchase_intent
+      - trial_intent
       - trust_score
-      - conversion_intent
-      - backlash_rate
+      - price_sensitivity_score
+      - feature_clarity_score
+      - churn_risk
+      - recommendation_intent
 
-  - id: pricing_reaction_v1
-    family: pricing_reaction
-    title: Pricing reaction assessment
-    description: Test how synthetic personas react to pricing changes.
+  - id: finance_consumer_protection_v1
+    family: finance_consumer_protection
+    title: Consumer protection pricing assessment
+    description: Test how synthetic personas react to fees, disclosures, and pricing changes.
     language: ko
     participant_count: 10
     max_turns: 3
     default_metrics:
       - trust_score
-      - conversion_intent
-      - backlash_rate
+      - transparency_score
+      - comprehension_score
+      - fee_sensitivity
+      - switching_intent
+      - complaint_intent
+      - regulatory_confidence
+      - fraud_awareness
 
-  - id: rumor_crisis_v1
-    family: rumor_crisis_response
-    title: Rumor and crisis response
+  - id: crisis_risk_communication_v1
+    family: crisis_risk_communication
+    title: Crisis and risk communication
     description: Test how synthetic personas react to rumor scenarios and crisis communication.
     language: ko
     participant_count: 15
     max_turns: 8
     default_metrics:
       - trust_score
-      - confusion_rate
-      - backlash_rate
-      - consensus_score
+      - compliance_score
+      - message_clarity
+      - anxiety_level
+      - behavioral_change_intent
+      - information_seeking
+      - rumor_spread_risk
+      - institutional_trust
 
-  - id: community_operation_v1
-    family: community_operation
-    title: Community operation test
-    description: Test how synthetic personas react to community rules and moderation.
+  - id: community_conflict_v1
+    family: community_conflict
+    title: Community conflict test
+    description: Test how synthetic personas react to community rules, moderation, and mediation.
     language: ko
     participant_count: 20
     max_turns: 10
     default_metrics:
       - conflict_intensity
-      - consensus_score
-      - dropout_intent
+      - trust_in_moderator
+      - rule_acceptance
+      - exit_intent
+      - toxicity_risk
+      - misunderstanding_rate
+      - mediation_effectiveness
+      - polarization_score
+      - counter_narrative_score

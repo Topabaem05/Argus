@@ -175,6 +175,11 @@ def test_rag_enabled_without_dependency_raises(monkeypatch: pytest.MonkeyPatch) 
 
 def test_live_mode_without_api_key_raises(monkeypatch: pytest.MonkeyPatch) -> None:
     monkeypatch.delenv("KSSIM_LLM_API_KEY", raising=False)
+    monkeypatch.delenv("NVIDIA_API_KEY", raising=False)
+    monkeypatch.setattr(
+        "korean_social_simulator.config.loader._ensure_dotenv_loaded",
+        lambda: None,
+    )
     data = copy.deepcopy(_MINIMAL_CONFIG)
     data["runtime"]["dry_run"] = False
     data["llm"] = {"api_key": None}
@@ -182,7 +187,7 @@ def test_live_mode_without_api_key_raises(monkeypatch: pytest.MonkeyPatch) -> No
     try:
         with pytest.raises(
             ConfigurationError,
-            match=r"Live mode requires KSSIM_LLM_API_KEY environment variable\.",
+            match=r"Live mode requires KSSIM_LLM_API_KEY or NVIDIA_API_KEY environment variable\.",
         ):
             load_config(path)
     finally:

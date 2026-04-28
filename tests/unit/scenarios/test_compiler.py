@@ -16,7 +16,7 @@ from korean_social_simulator.scenarios.registry import (
 
 
 def _make_config(
-    family: str = "product_reaction",
+    family: str = "product_market",
     metrics: list[str] | None = None,
     interventions: list[ScenarioIntervention] | None = None,
 ) -> ScenarioConfig:
@@ -50,15 +50,16 @@ def test_unknown_family_raises() -> None:
 
 def test_default_metrics_applied() -> None:
     """When no metrics configured, family defaults are applied."""
-    config = _make_config(family="product_reaction", metrics=[])
+    config = _make_config(family="product_market", metrics=[])
     plan = compile_scenario(config)
+    assert "interest_score" in plan.scenario_spec.metrics
     assert "trust_score" in plan.scenario_spec.metrics
-    assert len(plan.scenario_spec.metrics) == 3
+    assert len(plan.scenario_spec.metrics) == 8
 
 
 def test_explicit_metrics_override_defaults() -> None:
     """Explicit metrics override family defaults."""
-    config = _make_config(family="product_reaction", metrics=["custom_metric"])
+    config = _make_config(family="product_market", metrics=["custom_metric"])
     plan = compile_scenario(config)
     assert plan.scenario_spec.metrics == ["custom_metric"]
 
@@ -66,7 +67,7 @@ def test_explicit_metrics_override_defaults() -> None:
 def test_scenario_plan_has_correct_structure() -> None:
     """Compiled plan includes all expected fields."""
     config = _make_config(
-        family="rumor_crisis_response",
+        family="crisis_risk_communication",
         metrics=["trust_score"],
         interventions=[ScenarioIntervention(id="msg_a", description="Test message")],
     )
@@ -88,7 +89,7 @@ def test_rag_context_included() -> None:
         status="available",
         query="product safety docs",
     )
-    config = _make_config(family="product_reaction")
+    config = _make_config(family="product_market")
     plan = compile_scenario(config, context=ctx)
     assert "product safety docs" in plan.scenario_spec.rag_queries
 
@@ -100,16 +101,17 @@ def test_rag_context_skipped() -> None:
         status="skipped",
         query="product safety docs",
     )
-    config = _make_config(family="product_reaction")
+    config = _make_config(family="product_market")
     plan = compile_scenario(config, context=ctx)
     assert len(plan.scenario_spec.rag_queries) == 0
 
 
-def test_registry_lists_all_nine_families() -> None:
-    """Nine supported scenario families are registered."""
+def test_registry_lists_all_sixteen_families() -> None:
+    """Sixteen supported scenario families are registered."""
     families = list_supported_families()
-    assert len(families) == 9
-    assert "product_reaction" in families
+    assert len(families) == 16
+    assert "product_market" in families
+    assert "customer_support_service" in families
     assert "game_npc_social_world" in families
 
 

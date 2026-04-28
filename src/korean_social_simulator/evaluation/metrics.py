@@ -1,6 +1,24 @@
 from __future__ import annotations
 
 from korean_social_simulator.models import MetricsResult, SimulationEvent
+from korean_social_simulator.scenarios.registry import FAMILY_DEFAULT_METRICS
+
+ZERO_PLACEHOLDER_METRICS = frozenset(
+    {
+        metric_name
+        for family_metrics in FAMILY_DEFAULT_METRICS.values()
+        for metric_name in family_metrics
+    }
+    | {
+        "confidence_score",
+        "confusion_rate",
+        "backlash_rate",
+        "conversion_intent",
+        "consensus_score",
+        "dropout_intent",
+        "policy_acceptance",
+    }
+)
 
 
 def evaluate_run(
@@ -40,7 +58,7 @@ def evaluate_run(
             metric_values[metric_name] = 0.0 if event_count == 0 else min(1.0, event_count / 100.0)
             continue
 
-        if metric_name in {"confusion_rate", "backlash_rate", "conversion_intent"}:
+        if metric_name in ZERO_PLACEHOLDER_METRICS:
             metric_values[metric_name] = 0.0
             continue
 

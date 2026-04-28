@@ -37,7 +37,7 @@ def test_full_dry_run_pipeline(tmp_path: Path) -> None:
 
     scenario_config = ScenarioConfig(
         id="smoke_product_reaction",
-        family="product_reaction",
+        family="product_market",
         title="제품 반응 드라이런 스모크 테스트",
         hypothesis="건식 실행에서도 전체 파이프라인 산출물이 일관되게 생성된다.",
         participant_count=5,
