@@ -6,6 +6,8 @@ for base installs; import errors are caught and reported clearly.
 
 from __future__ import annotations
 
+from pydantic import ValidationError
+
 from korean_social_simulator.errors import DatasetLoadError
 from korean_social_simulator.models import PersonaRecord
 
@@ -52,7 +54,7 @@ def load_personas_hf(
         row_dict = dict(row)
         try:
             records.append(PersonaRecord.model_validate(row_dict))
-        except Exception as e:
+        except ValidationError as e:
             raise DatasetLoadError(f"Invalid persona row in dataset '{dataset_name}': {e}") from e
 
     return records

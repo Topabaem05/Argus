@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import json
+import re
 from pathlib import Path
 
 from korean_social_simulator.agents.profile_builder import build_agent_profiles
@@ -10,15 +12,21 @@ from korean_social_simulator.config.models import (
 )
 from korean_social_simulator.errors import KoreanSocialSimulationError
 from korean_social_simulator.evaluation.metrics import evaluate_run
+from korean_social_simulator.models import SimulationResult
 from korean_social_simulator.reporting.markdown import render_report
 from korean_social_simulator.safety.validator import validate_safety
 from korean_social_simulator.scenarios.compiler import compile_scenario
+from korean_social_simulator.simulation.concordia_adapter import run_simulation
 from korean_social_simulator.simulation.dry_run import run_dry_run
-from korean_social_simulator.simulation.nvidia_nim import run_nvidia_nim_simulation
 from korean_social_simulator.storage.run_store import RunStore
 
 FIXTURE_PATH = Path("data/samples/personas_fixture.jsonl")
 OUTPUT_ROOT = Path("outputs")
+
+
+def _slugify_run_id(title: str) -> str:
+    slug = re.sub(r"[^A-Za-z0-9._-]+", "_", title).strip("._-").lower()
+    return slug[:40] or "scenario"
 
 
 def run_scenario(
@@ -31,7 +39,7 @@ def run_scenario(
     from korean_social_simulator.data.loader import load_personas_fixture
     from korean_social_simulator.personas.sampler import sample_population
 
-    slug = scenario_title.replace(" ", "_").replace("-", "_").lower()[:40]
+    slug = _slugify_run_id(scenario_title)
     run_id = f"sim_{slug}"
 
     personas = load_personas_fixture(FIXTURE_PATH)
@@ -58,16 +66,37 @@ def run_scenario(
     except KoreanSocialSimulationError:
         return {"status": "blocked", "error": "Safety validation blocked this scenario"}
 
-    events = run_nvidia_nim_simulation(plan, profiles)
-    agent_responses = [e for e in events if e.event_type == "agent_action"]
+    execution = run_simulation(plan, profiles)
+    agent_responses = [e for e in execution.events if e.event_type == "agent_action"]
 
     dry_events = run_dry_run(plan, profiles)
     metrics_result = evaluate_run(dry_events, metric_names)
 
     output_dir = OUTPUT_ROOT / run_id
     store = RunStore(run_dir=output_dir, overwrite=True)
+    (output_dir / "sample.json").write_text(
+        json.dumps(sample.model_dump(mode="json"), ensure_ascii=False, indent=2, sort_keys=True)
+        + "\n",
+        encoding="utf-8",
+    )
+    (output_dir / "profiles.json").write_text(
+        json.dumps(
+            [profile.model_dump(mode="json") for profile in profiles],
+            ensure_ascii=False,
+            indent=2,
+            sort_keys=True,
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+    (output_dir / "plan.json").write_text(
+        json.dumps(plan.model_dump(mode="json"), ensure_ascii=False, indent=2, sort_keys=True)
+        + "\n",
+        encoding="utf-8",
+    )
     store.write_events_batch(dry_events)
-    store.write_metrics(metrics_result.metrics)
+    store.write_metrics(metrics_result.model_dump(mode="json"))
+    store.write_metrics_csv(metrics_result.metrics)
 
     report = render_report(
         run_id=run_id,
@@ -78,6 +107,37 @@ def run_scenario(
         scenario_hypothesis=hypothesis,
     )
     (output_dir / "report.md").write_text(report, encoding="utf-8")
+    store.write_metadata(
+        {
+            "run_id": run_id,
+            "plan_id": plan.plan_id,
+            "scenario_id": plan.scenario_spec.scenario_id,
+            "family": plan.scenario_spec.family,
+            "dry_run": plan.dry_run,
+            "live_status": execution.status,
+            "live_errors": execution.errors,
+            "live_warnings": execution.warnings,
+            "metric_names": list(metrics_result.metrics.keys()),
+            "artifact_paths": {
+                "run_metadata": str(output_dir / "run_metadata.json"),
+                "sample": str(output_dir / "sample.json"),
+                "profiles": str(output_dir / "profiles.json"),
+                "plan": str(output_dir / "plan.json"),
+                "events": str(output_dir / "events.jsonl"),
+                "metrics_json": str(output_dir / "metrics.json"),
+                "metrics_csv": str(output_dir / "metrics.csv"),
+                "report": str(output_dir / "report.md"),
+            },
+        }
+    )
+    store.finalize(
+        SimulationResult(
+            run_id=run_id,
+            status="success",
+            metrics_path=str(output_dir / "metrics.json"),
+            report_path=str(output_dir / "report.md"),
+        )
+    )
 
     from collections import defaultdict
 
@@ -99,6 +159,9 @@ def run_scenario(
     return {
         "status": "success",
         "run_id": run_id,
+        "live_status": execution.status,
+        "live_errors": execution.errors,
+        "live_warnings": execution.warnings,
         "responses": len(agent_responses),
         "age_distribution": {k: len(v) for k, v in age_groups.items()},
         "age_groups": dict(age_groups),
@@ -124,6 +187,8 @@ def print_results(label: str, result: dict):
         print(f"  FAILED: {result.get('error', 'unknown')}")
         return
     print(f"  Responses: {result['responses']}")
+    if result.get("live_errors"):
+        print(f"  Live adapter: {result.get('live_status')} ({'; '.join(result['live_errors'])})")
     age_dist = result.get("age_distribution", {})
     print(f"  Age groups: {dict(sorted(age_dist.items()))}")
     print()
@@ -144,75 +209,78 @@ def print_results(label: str, result: dict):
             print()
 
 
-result_1 = run_scenario(
-    scenario_title="New K-pop Ballad / Dance Track Target Demographic",
-    hypothesis="A new K-pop mid-tempo ballad with retro synth elements will resonate most strongly with 20-30s office workers and students who seek emotional catharsis, while an aggressive EDM dance track will split demographically between late teens and early 30s clubgoers.",
-    family="product_reaction",
-    metric_names=[
-        "trust_score",
-        "confusion_rate",
-        "conversion_intent",
-        "event_count",
-        "turn_count",
-        "agent_count",
-    ],
-)
-print_results("SCENARIO 1: K-pop Song Demographics", result_1)
-
-
-result_2 = run_scenario(
-    scenario_title="Universal Basic Income (UBI) Policy Reception",
-    hypothesis="A UBI proposal of 500,000 KRW per month will be received positively by self-employed workers and students but met with skepticism by civil servants and professionals in stable careers. Younger respondents will focus on freedom, older on fiscal responsibility.",
-    family="policy_notice_acceptance",
-    metric_names=[
-        "comprehension_score",
-        "acceptance_rate",
-        "rejection_reasons",
-        "event_count",
-        "turn_count",
-        "agent_count",
-    ],
-)
-print_results("SCENARIO 2: Policy Reception (UBI)", result_2)
-
-
-result_3 = run_scenario(
-    scenario_title="YouTube Shorts vs Long-form Video Engagement",
-    hypothesis="A 60-second YouTube Shorts format with fast cuts and trending audio will hook viewers under 30 within 2 seconds, while older viewers (40+) prefer 10+ minute deep-dive formats with calm pacing. Mid-career professionals fall in between, preferring 3-5 minute concise explainers.",
-    family="viral_marketing_risk",
-    metric_names=[
-        "sentiment_score",
-        "spreading_prob",
-        "engagement_rate",
-        "event_count",
-        "turn_count",
-        "agent_count",
-    ],
-)
-print_results("SCENARIO 3: YouTube Video Engagement", result_3)
-
-
-result_4 = run_scenario(
-    scenario_title="AI Coding Assistant - Occupation x Age Reception",
-    hypothesis="Software engineers and students (20-30s) will enthusiastically embrace AI coding tools as productivity enhancers, while experienced professionals in their 40-50s (doctors, lawyers, civil servants) will express concern about reliability, accountability, and skill erosion. Retired personas will be indifferent.",
-    family="product_reaction",
-    metric_names=[
-        "trust_score",
-        "confusion_rate",
-        "conversion_intent",
-        "backlash_rate",
-        "event_count",
-        "turn_count",
-        "agent_count",
-    ],
-)
-print_results("SCENARIO 4: AI Coding Tool by Occupation", result_4)
-
-
-all_results = [r for r in [result_1, result_2, result_3, result_4] if r.get("status") == "success"]
-print(f"  Successful simulations: {len(all_results)}/4")
-for r in all_results:
-    resp_count = r.get("responses", 0)
-    print(
-        f"  {r.get('run_id', '?'):50s}  {resp_count:3d} responses  metrics: {len(r.get('metrics', {}))}"
+def main() -> None:
+    result_1 = run_scenario(
+        scenario_title="New K-pop Ballad / Dance Track Target Demographic",
+        hypothesis="A new K-pop mid-tempo ballad with retro synth elements will resonate most strongly with 20-30s office workers and students who seek emotional catharsis, while an aggressive EDM dance track will split demographically between late teens and early 30s clubgoers.",
+        family="product_market",
+        metric_names=[
+            "trust_score",
+            "confusion_rate",
+            "conversion_intent",
+            "event_count",
+            "turn_count",
+            "agent_count",
+        ],
     )
+    print_results("SCENARIO 1: K-pop Song Demographics", result_1)
+
+    result_2 = run_scenario(
+        scenario_title="Universal Basic Income (UBI) Policy Reception",
+        hypothesis="A UBI proposal of 500,000 KRW per month will be received positively by self-employed workers and students but met with skepticism by civil servants and professionals in stable careers. Younger respondents will focus on freedom, older on fiscal responsibility.",
+        family="policy_public_opinion",
+        metric_names=[
+            "comprehension_score",
+            "acceptance_rate",
+            "rejection_reasons",
+            "event_count",
+            "turn_count",
+            "agent_count",
+        ],
+    )
+    print_results("SCENARIO 2: Policy Reception (UBI)", result_2)
+
+    result_3 = run_scenario(
+        scenario_title="YouTube Shorts vs Long-form Video Engagement",
+        hypothesis="A 60-second YouTube Shorts format with fast cuts and trending audio will hook viewers under 30 within 2 seconds, while older viewers (40+) prefer 10+ minute deep-dive formats with calm pacing. Mid-career professionals fall in between, preferring 3-5 minute concise explainers.",
+        family="marketing_viral",
+        metric_names=[
+            "sentiment_score",
+            "spreading_prob",
+            "engagement_rate",
+            "event_count",
+            "turn_count",
+            "agent_count",
+        ],
+    )
+    print_results("SCENARIO 3: YouTube Video Engagement", result_3)
+
+    result_4 = run_scenario(
+        scenario_title="AI Coding Assistant - Occupation x Age Reception",
+        hypothesis="Software engineers and students (20-30s) will enthusiastically embrace AI coding tools as productivity enhancers, while experienced professionals in their 40-50s (doctors, lawyers, civil servants) will express concern about reliability, accountability, and skill erosion. Retired personas will be indifferent.",
+        family="product_market",
+        metric_names=[
+            "trust_score",
+            "confusion_rate",
+            "conversion_intent",
+            "backlash_rate",
+            "event_count",
+            "turn_count",
+            "agent_count",
+        ],
+    )
+    print_results("SCENARIO 4: AI Coding Tool by Occupation", result_4)
+
+    all_results = [
+        r for r in [result_1, result_2, result_3, result_4] if r.get("status") == "success"
+    ]
+    print(f"  Successful simulations: {len(all_results)}/4")
+    for r in all_results:
+        resp_count = r.get("responses", 0)
+        print(
+            f"  {r.get('run_id', '?'):50s}  {resp_count:3d} responses  metrics: {len(r.get('metrics', {}))}"
+        )
+
+
+if __name__ == "__main__":
+    main()

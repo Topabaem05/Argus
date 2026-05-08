@@ -89,14 +89,14 @@ def test_scenario_spec_creation() -> None:
     """ScenarioSpec validates participant_count and max_turns."""
     spec = ScenarioSpec(
         scenario_id="prod-r-001",
-        family="product_reaction",
+        family="product_market",
         title="Test Product",
         hypothesis="Privacy messaging wins",
         participant_count=10,
         max_turns=5,
         metrics=["trust_score", "backlash_rate"],
     )
-    assert spec.family == "product_reaction"
+    assert spec.family == "product_market"
     assert len(spec.metrics) == 2
 
 
@@ -104,7 +104,7 @@ def test_simulation_plan_creation() -> None:
     """SimulationPlan connects scenario spec to run parameters."""
     spec = ScenarioSpec(
         scenario_id="prod-r-001",
-        family="product_reaction",
+        family="product_market",
         title="Test",
         hypothesis="H",
         participant_count=5,

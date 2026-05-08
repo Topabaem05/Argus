@@ -20,3 +20,17 @@ def test_kssim_help_exit_code() -> None:
     assert "run" in result.stdout
     assert "evaluate" in result.stdout
     assert "report" in result.stdout
+    assert "bridge" in result.stdout
+
+
+def test_kssim_bridge_help_exit_code() -> None:
+    """Verify that `kssim bridge --help` exits with code 0 and lists bridge commands."""
+    result = subprocess.run(
+        [sys.executable, "-m", "korean_social_simulator.cli", "bridge", "--help"],
+        capture_output=True,
+        text=True,
+    )
+    assert result.returncode == 0, f"Expected exit code 0, got {result.returncode}"
+    assert "validate-config" in result.stdout
+    assert "serve" in result.stdout
+    assert "export-replay" in result.stdout

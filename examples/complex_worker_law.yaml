@@ -1,0 +1,71 @@
+# Complex scenario: worker-protection law reception by age, occupation, and role.
+# Uses synthetic fixture personas and offline dry-run execution.
+
+runtime:
+  run_id: complex_worker_law
+  seed: 20260428
+  output_dir: outputs/complex_scenarios
+  dry_run: true
+  max_turns: 6
+  max_participants: 3000
+  overwrite: true
+
+dataset:
+  mode: fixture
+  name: nvidia/Nemotron-Personas-Korea
+  split: train
+  fixture_path: data/samples/personas_fixture.jsonl
+  expand_to_size: 3000
+
+sampling:
+  sample_size: 3000
+  seed: 20260428
+  allow_smaller_sample: false
+  filters:
+    country: South Korea
+
+scenario:
+  id: complex_worker_law_v1
+  family: policy_public_opinion
+  title: Worker health and scheduling protection law reception
+  hypothesis: Younger wage workers will support stronger rest and overtime protections, while small employers and deadline-heavy managers will report the largest short-term burden.
+  language: ko
+  participant_count: 3000
+  max_turns: 6
+  interventions:
+    - id: rest_period_enforcement
+      description: Require enforceable rest windows after long shifts and make overtime records easier to audit.
+    - id: platform_worker_coverage
+      description: Extend basic safety and payment transparency protections to platform and freelance workers.
+    - id: small_business_transition
+      description: Provide temporary subsidies and scheduling templates for small businesses adapting to the new law.
+    - id: worker_stop_right
+      description: Clarify workers' right to stop unsafe work without retaliation and require corrective response.
+  metrics:
+    - comprehension_score
+    - acceptance_rate
+    - rejection_reasons
+    - fairness_perception
+    - fiscal_concern_score
+    - implementation_feasibility
+    - social_equity_score
+  safety_notes:
+    - Synthetic simulation only; not legal advice.
+    - The law scenario is hypothetical and uses public labor-policy analogs for framing.
+    - Validate policy conclusions with legal review, labor representatives, and employer interviews.
+
+llm:
+  provider: openai
+  model: gpt-4
+  temperature: 0.7
+  max_tokens: 1024
+  timeout: 60
+  retry_count: 3
+
+rag:
+  enabled: false
+  required: false
+
+safety:
+  policy_version: "1.0"
+  block_unsafe: true

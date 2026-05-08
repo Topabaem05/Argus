@@ -25,6 +25,12 @@ namespace ArgusUnity.Runtime
         private int maxTurnsOverride;
 
         [SerializeField]
+        private string simulationChatText = "";
+
+        [SerializeField]
+        private string attachmentMetadataJson = "[]";
+
+        [SerializeField]
         private bool triggerSimulationAfterHandshake = true;
 
         private SimulationSceneOrchestrator orchestrator;
@@ -49,6 +55,14 @@ namespace ArgusUnity.Runtime
         public string SessionId => bridgeSessionId;
 
         public bool IsBridgeSocketConnected => client != null && client.IsConnected;
+
+        public void SetSimulationInput(string chatText, string attachmentsJson = "[]")
+        {
+            simulationChatText = chatText ?? "";
+            attachmentMetadataJson = string.IsNullOrWhiteSpace(attachmentsJson)
+                ? "[]"
+                : attachmentsJson.Trim();
+        }
 
         /// <summary>Send a validated envelope toward the bridge (typically <c>observer.*</c>).</summary>
         public bool TrySendBridgeEnvelope(BridgeEnvelope envelope)
@@ -145,6 +159,21 @@ namespace ArgusUnity.Runtime
             if (maxTurnsOverride > 0)
             {
                 payload["max_turns_override"] = maxTurnsOverride;
+            }
+            if (!string.IsNullOrWhiteSpace(simulationChatText))
+            {
+                payload["chat_text"] = simulationChatText.Trim();
+            }
+            if (!string.IsNullOrWhiteSpace(attachmentMetadataJson))
+            {
+                try
+                {
+                    payload["attachments"] = JArray.Parse(attachmentMetadataJson);
+                }
+                catch (JsonReaderException ex)
+                {
+                    Debug.LogWarning($"Attachment metadata JSON ignored: {ex.Message}");
+                }
             }
 
             var body = Encoding.UTF8.GetBytes(payload.ToString(Formatting.None));

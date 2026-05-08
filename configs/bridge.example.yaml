@@ -1,0 +1,35 @@
+# Local Unity bridge configuration.
+# Binds to localhost. Physics uses deterministic local fallback.
+
+server:
+  host: "127.0.0.1"
+  port: 8765
+  allow_remote_clients: false
+  max_payload_bytes: 1048576
+
+schema:
+  version: "1.0.0"
+  strict: true
+
+unity:
+  require_ack: true
+  ack_timeout_ms: 2000
+  reconnect_buffer_size: 1000
+  out_of_order_policy: "skip"
+  client_token: null
+
+replay:
+  enabled: true
+  output_dir: "reports/replays"
+  write_policy: "pause_on_failure"
+
+world:
+  bounds:
+    min: [-20.0, 0.0, -20.0]
+    max: [20.0, 5.0, 20.0]
+
+safety:
+  non_graphic_mode: true
+  max_physical_intensity: 0.7
+
+log_level: "INFO"

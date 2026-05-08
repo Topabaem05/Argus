@@ -7,9 +7,10 @@ from korean_social_simulator.errors import SimulationError
 from korean_social_simulator.models import (
     AgentProfile,
     SimulationEvent,
+    SimulationExecution,
     SimulationPlan,
-    SimulationResult,
 )
+from korean_social_simulator.redaction import redact_known_secrets
 from korean_social_simulator.simulation.nvidia_nim import (
     is_nvidia_nim_available,
     run_nvidia_nim_simulation,
@@ -76,20 +77,35 @@ def _build_stub_events(
 def run_simulation(
     plan: SimulationPlan,
     profiles: list[AgentProfile],
-) -> SimulationResult:
+) -> SimulationExecution:
     """Run simulation using Nvidia NIM, Concordia, or fallback to dry-run stubs.
 
     Prefers Nvidia NIM when NVIDIA_API_KEY is set, then tries Concordia,
     and falls back to partial result when neither is available.
     """
     if is_nvidia_nim_available():
-        run_nvidia_nim_simulation(plan, profiles)
-        return SimulationResult(
+        try:
+            events = run_nvidia_nim_simulation(plan, profiles)
+        except Exception as exc:
+            return SimulationExecution(
+                run_id=plan.run_id,
+                status="failed",
+                events=[],
+                errors=[f"NVIDIA NIM simulation failed: {redact_known_secrets(exc)}"],
+                warnings=[],
+            )
+        if events and not any(event.event_type == "agent_action" for event in events):
+            return SimulationExecution(
+                run_id=plan.run_id,
+                status="partial",
+                events=events,
+                errors=[],
+                warnings=["NVIDIA NIM produced no agent responses."],
+            )
+        return SimulationExecution(
             run_id=plan.run_id,
             status="success",
-            events_path=None,
-            metrics_path=None,
-            report_path=None,
+            events=events,
             errors=[],
             warnings=[],
         )
@@ -97,24 +113,20 @@ def run_simulation(
     try:
         _load_concordia()
     except SimulationError:
-        return SimulationResult(
+        return SimulationExecution(
             run_id=plan.run_id,
             status="partial",
-            events_path=None,
-            metrics_path=None,
-            report_path=None,
+            events=[],
             errors=["Concordia not installed and Nvidia NIM not configured"],
             warnings=[],
         )
 
-    _build_stub_events(plan, profiles)
+    events = _build_stub_events(plan, profiles)
 
-    return SimulationResult(
+    return SimulationExecution(
         run_id=plan.run_id,
         status="success",
-        events_path=None,
-        metrics_path=None,
-        report_path=None,
+        events=events,
         errors=[],
         warnings=[],
     )

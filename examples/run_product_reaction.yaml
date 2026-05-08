@@ -29,7 +29,7 @@ sampling:
 
 scenario:
   id: product_reaction_v1
-  family: product_reaction
+  family: product_market
   title: AI file organizer product reaction
   hypothesis: Privacy-forward messaging reduces backlash.
   language: ko
@@ -61,6 +61,36 @@ llm:
 rag:
   enabled: false
   required: false
+
+input:
+  chat_text: "AI file organizer product reaction with privacy-forward messaging."
+  attachments: []
+  attachment_policy:
+    max_attachments: 5
+    max_attachment_bytes: 10485760
+    allowed_extensions:
+      - .jpg
+      - .jpeg
+      - .png
+      - .gif
+      - .webp
+      - .mp4
+      - .mov
+      - .txt
+      - .md
+      - .csv
+      - .json
+      - .pdf
+
+persona_selection:
+  enabled: true
+  max_personas: 20
+  seed: 42
+
+persona_memory:
+  enabled: false
+  apply_confirmed: false
+  output_dir: persona_memory_updates
 
 safety:
   policy_version: "1.0"

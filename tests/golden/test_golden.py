@@ -3,6 +3,9 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
+from korean_social_simulator.models import SimulationEvent
+from korean_social_simulator.reporting.markdown import render_report
+
 GOLDEN_DIR = Path(__file__).parent
 
 
@@ -29,7 +32,7 @@ def test_golden_fixtures_loadable() -> None:
     assert {"event_count", "turn_count", "agent_count"}.issubset(metrics["metrics"])
 
     report = (GOLDEN_DIR / "reports" / "expected_report.md").read_text(encoding="utf-8")
-    assert report.startswith("# Simulation Report: golden-run-001")
+    assert report.startswith("## Simulation Report: golden-run-001")
     assert "## Summary" in report
     assert "## Limitations" in report
 
@@ -45,3 +48,28 @@ def test_golden_fixtures_loadable() -> None:
         "language",
         "dry_run",
     }.issubset(plan)
+
+
+def test_golden_report_matches_renderer() -> None:
+    events = [
+        SimulationEvent(
+            run_id="golden-run-001",
+            turn=1,
+            event_type="system",
+            timestamp="2026-04-27T00:00:01+00:00",
+            payload={"phase": "turn_start", "dry_run": True},
+        )
+    ]
+
+    rendered = render_report(
+        run_id="golden-run-001",
+        status="success",
+        metrics={"event_count": 1, "turn_count": 1, "agent_count": 0},
+        events=events,
+        scenario_title="Golden scenario",
+        scenario_hypothesis="Golden reports remain stable.",
+        safety_notes=["Synthetic participants only."],
+    )
+    expected = (GOLDEN_DIR / "reports" / "expected_report.md").read_text(encoding="utf-8")
+
+    assert rendered == expected.rstrip("\n")

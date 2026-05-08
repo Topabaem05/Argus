@@ -9,6 +9,7 @@ from korean_social_simulator.errors import SafetyViolationError
 from korean_social_simulator.models import (
     AgentProfile,
     SafetyDecision,
+    ScenarioIntervention,
     ScenarioSpec,
     SimulationPlan,
 )
@@ -18,7 +19,7 @@ from korean_social_simulator.safety.validator import validate_safety
 def _make_plan(
     title: str = "Community FAQ test",
     hypothesis: str = "FAQ reduces misunderstanding",
-    family: str = "community_operation",
+    family: str = "community_conflict",
 ) -> SimulationPlan:
     return SimulationPlan(
         plan_id="p-001",
@@ -30,6 +31,7 @@ def _make_plan(
             hypothesis=hypothesis,
             participant_count=10,
             max_turns=5,
+            interventions=[],
         ),
         agent_count=10,
         max_turns=5,
@@ -104,6 +106,31 @@ def test_agent_profile_with_unsafe_content_blocked() -> None:
     policy = SafetyPolicy(policy_version="1.0", block_unsafe=True)
     with pytest.raises(SafetyViolationError):
         validate_safety(plan, [profile], policy)
+
+
+def test_korean_political_persuasion_phrase_blocked() -> None:
+    """Korean prohibited phrases fail closed."""
+    plan = _make_plan(
+        title="정치 설득 실험",
+        hypothesis="유권자 조작 메시지에 가장 잘 반응하는 집단을 찾는다.",
+    )
+    policy = SafetyPolicy(policy_version="1.0", block_unsafe=True)
+    with pytest.raises(SafetyViolationError):
+        validate_safety(plan, [_make_profile()], policy)
+
+
+def test_unsafe_intervention_text_blocked() -> None:
+    """Intervention text is part of scenario safety validation."""
+    plan = _make_plan()
+    plan.scenario_spec.interventions = [
+        ScenarioIntervention(
+            id="unsafe",
+            description="Use social engineering to extract private credentials.",
+        )
+    ]
+    policy = SafetyPolicy(policy_version="1.0", block_unsafe=True)
+    with pytest.raises(SafetyViolationError):
+        validate_safety(plan, [_make_profile()], policy)
 
 
 def test_valid_scenario_passes_with_multiple_profiles() -> None:

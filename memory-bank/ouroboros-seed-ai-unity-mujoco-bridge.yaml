@@ -1,0 +1,49 @@
+seed:
+  title: "Argus Unity Bridge with Deterministic Physics"
+  mode: "brownfield"
+  repository: "/Users/guribbong/code/Argus"
+  source_documents:
+    - "/Users/guribbong/Downloads/AI_Unity_MuJoCo_Bridge_Documentation.zip"
+  goal: >-
+    Implement a local bridge that streams Argus simulation events to Unity robot
+    visualization with deterministic local physics fallback while preserving
+    Argus as the authoritative text simulation.
+  current_phase: "creative_complete_build_ready"
+  primary_artifacts:
+    - "memory-bank/tasks.md"
+    - "memory-bank/activeContext.md"
+    - "memory-bank/projectbrief.md"
+    - "memory-bank/creative/creative-ai-unity-mujoco-bridge.md"
+  constraints:
+    - "Argus text simulation remains source of truth."
+    - "Unity cannot mutate cognition, memories, beliefs, relationships, or hidden state."
+    - "Network communication binds localhost by default."
+    - "Deterministic fallback physics is the sole physics backend (MuJoCo removed)."
+    - "No runtime asset downloads."
+    - "No third-party raw assets committed unless license permits redistribution."
+    - "Dry-run and existing tests remain network-free."
+    - "Bridge and Unity dependencies remain optional."
+  acceptance_criteria:
+    - "Bridge schema validates required envelope fields, rejects unknown major versions, invalid enums, unknown fields in strict mode, and oversized payloads."
+    - "Bridge server exposes health and schema endpoints plus local WebSocket /ws/unity."
+    - "Fake Unity client can connect, send unity.ready, receive bridge.ready, receive ordered events, send ACKs, and disconnect cleanly."
+    - "Argus dry-run events can be adapted to canonical bridge messages without changing original events."
+    - "Replay JSONL append, load, corruption reporting, and deterministic ordering are covered by tests."
+    - "Deterministic fallback physics produces consistent physical results."
+    - "Unity project can parse bridge envelopes, enqueue messages on main thread, spawn robot placeholders, render dialogue/movement/emotion/conflict, and send ACK/error messages."
+    - "A smoke scenario with at least 20 agents can stream spawn, dialogue, movement, emotion, conflict, and one physical fallback event."
+    - "Python, Unity, and manual asset verification results are recorded exactly."
+  non_goals:
+    - "No Sims clone."
+    - "No full-body locomotion for every avatar."
+    - "No graphic harm or injury."
+    - "No online multiplayer."
+    - "No direct Unity-to-LLM calls."
+    - "No custom robot modeling from scratch for MVP."
+  next_steps:
+    - "Run Wave 0 baseline checks and document current Argus event contracts."
+    - "Import/adapt the ai-unity-mujoco-bridge spec pack into Argus paths."
+    - "Start Wave 1 with bridge schema models after baseline is recorded."
+
+# Note: MuJoCo integration has been removed. Deterministic local fallback is now the sole physics backend.
+

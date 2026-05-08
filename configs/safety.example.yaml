@@ -4,7 +4,7 @@
 policy_version: "1.0"
 
 allowed_objectives:
-  - product_reaction_testing
+  - product_market_testing
   - usability_assessment
   - community_moderation_strategy
   - conflict_prevention

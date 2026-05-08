@@ -1,20 +1,15 @@
 from __future__ import annotations
 
-import json
 from pathlib import Path
 
 from korean_social_simulator.agents.profile_builder import build_agent_profiles
-from korean_social_simulator.config.loader import load_config
-from korean_social_simulator.config.models import SamplingConfig, ScenarioConfig, SafetyPolicy
+from korean_social_simulator.config.models import SafetyPolicy, SamplingConfig, ScenarioConfig
 from korean_social_simulator.data.loader import load_personas_fixture
 from korean_social_simulator.errors import KoreanSocialSimulationError
-from korean_social_simulator.evaluation.metrics import evaluate_run
 from korean_social_simulator.personas.sampler import sample_population
 from korean_social_simulator.safety.validator import validate_safety
 from korean_social_simulator.scenarios.compiler import compile_scenario
-from korean_social_simulator.simulation.dry_run import run_dry_run
-from korean_social_simulator.simulation.nvidia_nim import run_nvidia_nim_simulation
-from korean_social_simulator.storage.run_store import RunStore
+from korean_social_simulator.simulation.concordia_adapter import run_simulation
 
 FIXTURE_PATH = Path("data/samples/personas_fixture.jsonl")
 OUTPUT_ROOT = Path("outputs")
@@ -166,8 +161,8 @@ def run_sub_scenario(family_key: str, sub: dict, profiles: list, sample) -> dict
     except KoreanSocialSimulationError:
         return {"status": "blocked", "error": "Safety blocked"}
 
-    events = run_nvidia_nim_simulation(plan, profiles)
-    agent_responses = [e for e in events if e.event_type == "agent_action"]
+    execution = run_simulation(plan, profiles)
+    agent_responses = [e for e in execution.events if e.event_type == "agent_action"]
 
     response_data = []
     for e in agent_responses:
@@ -196,6 +191,9 @@ def run_sub_scenario(family_key: str, sub: dict, profiles: list, sample) -> dict
         "title": sub["title"],
         "hypothesis": sub["hypothesis"],
         "family": family,
+        "live_status": execution.status,
+        "live_errors": execution.errors,
+        "live_warnings": execution.warnings,
         "responses": response_data,
     }
 
@@ -207,6 +205,10 @@ def analyze_sub(name: str, result: dict):
     resp_data = result.get("responses", [])
     if not resp_data:
         print("  No NIM responses.")
+        if result.get("live_errors"):
+            print(
+                f"  Live adapter: {result.get('live_status')} ({'; '.join(result['live_errors'])})"
+            )
         return
     print(f"  Responses: {len(resp_data)}")
     for rd in resp_data:

@@ -94,7 +94,7 @@ def test_run_store_overwrite_protection(tmp_path: Path) -> None:
     store = RunStore(run_dir)
     store.write_event(_make_event(turn=1))
 
-    with pytest.raises(StorageError, match=r"already contains events\.jsonl"):
+    with pytest.raises(StorageError, match=r"set runtime\.overwrite: true"):
         RunStore(run_dir, overwrite=False)
 
 

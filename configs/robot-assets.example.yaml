@@ -1,0 +1,24 @@
+# Example robot asset manifest.
+# Do not commit raw third-party assets unless redistribution is explicitly allowed.
+
+selected_robot:
+  asset_id: "cute-robots-low-poly-rigged-animated"
+  prefab_path: "Assets/Project/Robots/Prefabs/SimulationRobot.prefab"
+  raw_asset_committed: false
+  attribution_required: true
+
+fallback_robot:
+  prefab_path: "Assets/Project/Robots/Prefabs/FallbackRobot.prefab"
+
+animation_mapping:
+  idle: "Idle"
+  walk: "Walk"
+  run: "Run"
+  speak: "Talk"
+  argue: "Argue"
+  push: "Push"
+  blocked: "Block"
+  stumble: "Stumble"
+  fall: "Fall"
+  recover: "Recover"
+

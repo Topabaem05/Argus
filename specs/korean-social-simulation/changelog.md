@@ -2,10 +2,19 @@
 
 ## Unreleased
 
+### Stabilized
+
+- Repository stabilization spec imported under `specs/repository-stabilization/`.
+- CLI commands now execute the real offline pipeline and persist the full artifact tree.
+- Current supported scenario families are the 16 registry values documented in `qa_verify_scenario_families.py` and `scenarios/registry.py`.
+- `openai` and `python-dotenv` moved out of base dependencies into the optional `llm` extra.
+- Live PageIndex/RAG remains future wiring; mocked/compiler-level RAG behavior is tested.
+- Current verification: `uv run pytest -q` passes 162 tests, `uv run ruff check .` passes, `uv run ruff format --check .` passes, and `uv run mypy src` passes on 35 source files.
+
 ### Added
 
 - Initial specification for Korean Social Simulation MVP.
-- Scenario families: product reaction, pricing reaction, viral marketing risk, rumor crisis response, conflict mediation, policy notice acceptance, community operation, organization negotiation, and game NPC social world.
+- Initial scenario-family taxonomy, later superseded by the current 16-family registry.
 - Safety non-goals for political persuasion targeting, real-user profiling, protected-group exploitation, and fake influence operations.
 - Optional PageIndex MCP/RAG architecture.
 - Post-MVP fine-tuning position as optional optimization only.
@@ -39,12 +48,12 @@
 - Implemented persona ingestion and preparation in `data/loader.py`, `data/huggingface_loader.py`, `personas/sampler.py`, and `agents/profile_builder.py`.
 - Implemented scenario planning and grounding in `scenarios/registry.py`, `scenarios/compiler.py`, `rag/base.py`, and `rag/pageindex_mcp.py`.
 - Implemented execution, safety, storage, evaluation, and reporting in `safety/validator.py`, `simulation/dry_run.py`, `simulation/concordia_adapter.py`, `storage/run_store.py`, `evaluation/metrics.py`, and `reporting/markdown.py`.
-- Completed MVP support for all nine scenario families: product reaction, pricing reaction, viral marketing risk, rumor crisis response, conflict mediation, policy notice acceptance, community operation, organization negotiation, and game NPC social world.
+- Completed initial MVP support for the early scenario taxonomy, later superseded by the current 16-family registry.
 
 ### Changed
 
 - Updated the root README and architecture documentation to reflect the implemented MVP module layout and end-to-end workflow.
-- Verified the MVP with `uv run pytest` (127 tests passing), `uv run ruff check .` (clean), and `uv run mypy src` (clean on 32 source files).
+- Captured an initial verification snapshot, superseded by the current stabilization verification above.
 
 ### Deprecated
 
@@ -69,7 +78,7 @@
 - Nvidia NIM LLM adapter in `simulation/nvidia_nim.py` with OpenAI-compatible client wrapper targeting `deepseek-ai/deepseek-v4-pro` at `https://integrate.api.nvidia.com/v1`.
 - `run_nvidia_nim_simulation()` produces per-turn Korean-language agent responses using NIM API.
 - `.env.example` template with `NVIDIA_API_KEY` configuration.
-- `python-dotenv` and `openai` dependencies added to base install.
+- Added `python-dotenv` and `openai` for live LLM use; stabilization later moved them into the optional `llm` extra.
 
 ### Changed
 
@@ -78,4 +87,4 @@
 
 ### Verified
 
-- 135 tests passing, ruff clean, mypy clean (33 source files, +1 new module).
+- Captured an initial live-adapter verification snapshot, superseded by the current stabilization verification above.

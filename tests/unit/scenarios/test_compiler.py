@@ -82,6 +82,13 @@ def test_scenario_plan_has_correct_structure() -> None:
     assert plan.scenario_spec.interventions[0].id == "msg_a"
 
 
+def test_dry_run_mode_propagates_to_plan() -> None:
+    """Compiler uses effective runtime mode instead of hard-coding dry-run."""
+    config = _make_config(family="product_market")
+    plan = compile_scenario(config, dry_run=False)
+    assert plan.dry_run is False
+
+
 def test_rag_context_included() -> None:
     """RAG context is included in scenario spec when available."""
     ctx = RetrievedContext(
@@ -104,6 +111,40 @@ def test_rag_context_skipped() -> None:
     config = _make_config(family="product_market")
     plan = compile_scenario(config, context=ctx)
     assert len(plan.scenario_spec.rag_queries) == 0
+    assert len(plan.scenario_spec.rag_warnings) == 0
+
+
+def test_optional_rag_unavailable_adds_warning() -> None:
+    """Optional unavailable RAG context is omitted but recorded as a warning."""
+    ctx = RetrievedContext(
+        provider="pageindex",
+        status="unavailable",
+        query="product safety docs",
+        warnings=["PageIndex unavailable in offline mode."],
+    )
+    config = _make_config(family="product_market")
+
+    plan = compile_scenario(config, context=ctx)
+
+    assert plan.scenario_spec.rag_queries == []
+    assert plan.scenario_spec.rag_warnings == ["PageIndex unavailable in offline mode."]
+
+
+def test_optional_rag_unavailable_without_warning_gets_default_warning() -> None:
+    """Unavailable optional RAG still leaves an explicit warning when provider gives none."""
+    ctx = RetrievedContext(
+        provider="pageindex",
+        status="unavailable",
+        query="product safety docs",
+    )
+    config = _make_config(family="product_market")
+
+    plan = compile_scenario(config, context=ctx)
+
+    assert plan.scenario_spec.rag_queries == []
+    assert plan.scenario_spec.rag_warnings == [
+        "Optional RAG context unavailable for query: product safety docs"
+    ]
 
 
 def test_registry_lists_all_sixteen_families() -> None:

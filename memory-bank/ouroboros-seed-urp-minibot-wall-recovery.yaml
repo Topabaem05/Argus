@@ -1,0 +1,35 @@
+seed:
+  title: "Argus Unity URP and Mini-bot Wall Recovery"
+  mode: "brownfield"
+  repository: "/Users/guribbong/code/Argus"
+  source_documents:
+    - "memory-bank/tasks.md#plan-addendum-urp-shaders-and-mini-bot-wall-recovery"
+    - "memory-bank/activeContext.md"
+  goal: >-
+    Upgrade the Unity visualization to use URP-compatible shader paths and fix
+    Mini-bot roaming so agents recover from walls with a 90-degree turn or a
+    deterministic random interior route while allowing desks to be pushed.
+  current_phase: "build"
+  constraints:
+    - "Keep the work local to the Unity visualization and Memory Bank artifacts."
+    - "Do not add network calls, runtime asset downloads, telemetry, or account-bound package sources."
+    - "Do not commit paid or unverified third-party assets."
+    - "Do not treat pushed desk movement as a failure."
+    - "Preserve Argus Python offline behavior."
+  acceptance_criteria:
+    - "URP is declared for the Unity project and a project configurator can create and assign the URP pipeline asset."
+    - "Runtime and editor material creation prefer URP Lit or URP Unlit before legacy fallbacks."
+    - "No source code path creates new materials by preferring Built-in Standard."
+    - "Mini-bots recover from wall pressure by turning approximately 90 degrees with inward bias or selecting a seeded random interior fallback."
+    - "Run-around demo paths stay inside room bounds instead of teleporting through walls."
+    - "Pushable desks/furniture remain floor-bound and contact-safe."
+    - "EditMode tests cover shader selection, wall-turn math, random fallback bounds, and pushable furniture handling."
+  non_goals:
+    - "No gameplay redesign."
+    - "No paid asset import."
+    - "No full Unity visual polish pass beyond URP compatibility."
+    - "No changes to Argus simulation semantics."
+  verification:
+    - "Run available static searches to ensure Standard is not preferred in source material factories."
+    - "Run Unity EditMode tests if a Unity editor is available."
+    - "If Unity editor is unavailable, record that blocker and the strongest local checks performed."

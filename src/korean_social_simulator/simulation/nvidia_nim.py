@@ -3,36 +3,77 @@
 from __future__ import annotations
 
 import os
+from collections.abc import Callable
 from datetime import UTC, datetime
-from typing import TYPE_CHECKING
+from importlib import import_module
+from typing import Protocol, cast
 
 from korean_social_simulator.models import AgentProfile, SimulationEvent, SimulationPlan
-
-if TYPE_CHECKING:
-    from openai import OpenAI
+from korean_social_simulator.redaction import redact_known_secrets
 
 NVIDIA_BASE_URL = "https://integrate.api.nvidia.com/v1"
 NVIDIA_MODEL = "deepseek-ai/deepseek-v4-pro"
 NVIDIA_ENV_KEY = "NVIDIA_API_KEY"
 
 
+class _ChatMessage(Protocol):
+    content: str | None
+
+
+class _ChatChoice(Protocol):
+    message: _ChatMessage
+
+
+class _ChatCompletionResponse(Protocol):
+    choices: list[_ChatChoice]
+
+
+class _CompletionsClient(Protocol):
+    def create(
+        self,
+        *,
+        model: str,
+        messages: list[dict[str, str]],
+        temperature: float,
+        top_p: float,
+        max_tokens: int,
+        extra_body: dict[str, object],
+    ) -> _ChatCompletionResponse: ...
+
+
+class _ChatClient(Protocol):
+    completions: _CompletionsClient
+
+
+class _OpenAIClient(Protocol):
+    chat: _ChatClient
+
+
+class _OpenAIClientFactory(Protocol):
+    def __call__(self, *, base_url: str, api_key: str) -> _OpenAIClient: ...
+
+
 def _load_api_key() -> str:
     key = os.environ.get(NVIDIA_ENV_KEY, "")
     if not key:
         try:
-            from dotenv import load_dotenv
-
+            dotenv_module = import_module("dotenv")
+            load_dotenv = cast(Callable[[], object], vars(dotenv_module)["load_dotenv"])
             load_dotenv()
             key = os.environ.get(NVIDIA_ENV_KEY, "")
-        except ImportError:
+        except (ImportError, KeyError):
             pass
     return key
 
 
-def _get_openai_client() -> OpenAI:
-    from openai import OpenAI
+def _get_openai_client() -> _OpenAIClient:
+    try:
+        openai_module = import_module("openai")
+    except ImportError as exc:
+        raise RuntimeError("NVIDIA NIM live mode requires: uv sync --extra llm") from exc
 
-    return OpenAI(base_url=NVIDIA_BASE_URL, api_key=_load_api_key())
+    client_factory = cast(_OpenAIClientFactory, vars(openai_module)["OpenAI"])
+    return client_factory(base_url=NVIDIA_BASE_URL, api_key=_load_api_key())
 
 
 def is_nvidia_nim_available() -> bool:
@@ -112,7 +153,7 @@ def run_nvidia_nim_simulation(
                         actor_id=profile.agent_id,
                         timestamp=datetime.now(UTC).isoformat(),
                         payload={
-                            "error": str(e),
+                            "error": redact_known_secrets(e),
                             "agent": profile.display_name,
                             "backend": "nvidia_nim",
                         },

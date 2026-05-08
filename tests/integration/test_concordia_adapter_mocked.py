@@ -8,8 +8,8 @@ from unittest.mock import patch
 from korean_social_simulator.models import (
     AgentProfile,
     ScenarioSpec,
+    SimulationExecution,
     SimulationPlan,
-    SimulationResult,
 )
 
 _REAL_IMPORT = builtins.__import__
@@ -18,7 +18,7 @@ _REAL_IMPORT = builtins.__import__
 def _make_plan() -> SimulationPlan:
     spec = ScenarioSpec(
         scenario_id="scenario-001",
-        family="product_reaction",
+        family="product_market",
         title="신규 서비스 반응 테스트",
         hypothesis="사용자는 핵심 가치 제안에 관심을 보일 수 있다.",
         participant_count=2,
@@ -83,11 +83,116 @@ def test_concordia_adapter_mocked_runs_with_mocked_llm() -> None:
     ):
         result = run_simulation(_make_plan(), _make_profiles())
 
-    assert isinstance(result, SimulationResult)
+    assert isinstance(result, SimulationExecution)
     assert result.run_id == "run-001"
     assert result.status == "partial"
+    assert result.events == []
     assert "Concordia not installed" in " ".join(result.errors)
     assert result.warnings == []
+
+
+def test_concordia_adapter_preserves_nim_events() -> None:
+    from korean_social_simulator.models import SimulationEvent
+    from korean_social_simulator.simulation.concordia_adapter import run_simulation
+
+    nim_events = [
+        SimulationEvent(
+            run_id="run-001",
+            turn=1,
+            event_type="agent_action",
+            actor_id="agent-1",
+            payload={"response": "ok"},
+        )
+    ]
+
+    with (
+        patch(
+            "korean_social_simulator.simulation.concordia_adapter.is_nvidia_nim_available",
+            return_value=True,
+        ),
+        patch(
+            "korean_social_simulator.simulation.concordia_adapter.run_nvidia_nim_simulation",
+            return_value=nim_events,
+        ),
+    ):
+        result = run_simulation(_make_plan(), _make_profiles())
+
+    assert result.status == "success"
+    assert result.events == nim_events
+
+
+def test_concordia_adapter_reports_nim_failure() -> None:
+    from korean_social_simulator.simulation.concordia_adapter import run_simulation
+
+    with (
+        patch(
+            "korean_social_simulator.simulation.concordia_adapter.is_nvidia_nim_available",
+            return_value=True,
+        ),
+        patch(
+            "korean_social_simulator.simulation.concordia_adapter.run_nvidia_nim_simulation",
+            side_effect=RuntimeError("missing optional llm extra"),
+        ),
+    ):
+        result = run_simulation(_make_plan(), _make_profiles())
+
+    assert result.status == "failed"
+    assert result.events == []
+    assert "missing optional llm extra" in " ".join(result.errors)
+
+
+def test_concordia_adapter_marks_nim_system_only_events_partial() -> None:
+    from korean_social_simulator.models import SimulationEvent
+    from korean_social_simulator.simulation.concordia_adapter import run_simulation
+
+    nim_events = [
+        SimulationEvent(
+            run_id="run-001",
+            turn=1,
+            event_type="system",
+            actor_id="agent-1",
+            payload={"error": "provider timeout"},
+        )
+    ]
+
+    with (
+        patch(
+            "korean_social_simulator.simulation.concordia_adapter.is_nvidia_nim_available",
+            return_value=True,
+        ),
+        patch(
+            "korean_social_simulator.simulation.concordia_adapter.run_nvidia_nim_simulation",
+            return_value=nim_events,
+        ),
+    ):
+        result = run_simulation(_make_plan(), _make_profiles())
+
+    assert result.status == "partial"
+    assert result.events == nim_events
+    assert "no agent responses" in " ".join(result.warnings)
+
+
+def test_concordia_adapter_redacts_nim_failure_secret(monkeypatch) -> None:
+    from korean_social_simulator.simulation.concordia_adapter import run_simulation
+
+    secret = "nvapi-live-secret-123456"
+    monkeypatch.setenv("NVIDIA_API_KEY", secret)
+
+    with (
+        patch(
+            "korean_social_simulator.simulation.concordia_adapter.is_nvidia_nim_available",
+            return_value=True,
+        ),
+        patch(
+            "korean_social_simulator.simulation.concordia_adapter.run_nvidia_nim_simulation",
+            side_effect=RuntimeError(f"provider rejected key {secret}"),
+        ),
+    ):
+        result = run_simulation(_make_plan(), _make_profiles())
+
+    error_text = " ".join(result.errors)
+    assert secret not in error_text
+    assert "***REDACTED***" in error_text
 
 
 def test_concordia_adapter_mocked_no_concordia_details_leak() -> None:

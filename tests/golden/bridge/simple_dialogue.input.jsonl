@@ -1,0 +1,4 @@
+{"run_id":"run-001","turn":1,"event_type":"system","actor_id":null,"timestamp":"1970-01-01T00:00:01+00:00","payload":{"phase":"turn_start","dry_run":true,"plan_id":"plan-001"}}
+{"run_id":"run-001","turn":1,"event_type":"observation","actor_id":"agent-001","timestamp":"1970-01-01T00:00:02+00:00","payload":{"phase":"observation","display_name":"Agent One","language":"ko"}}
+{"run_id":"run-001","turn":1,"event_type":"agent_action","actor_id":"agent-001","timestamp":"1970-01-01T00:00:03+00:00","payload":{"bridge_type":"agent.dialogue","bridge_payload":{"speaker_id":"agent-001","target_ids":["agent-002"],"text":"Hello from fixture.","emotion":{"label":"happy","intensity":0.6},"speech_act":"say","duration_ms":1500}}}
+{"run_id":"run-001","turn":1,"event_type":"metric_hook","actor_id":null,"timestamp":"1970-01-01T00:00:04+00:00","payload":{"phase":"turn_limit_reached","max_turns":1}}

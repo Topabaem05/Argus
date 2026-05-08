@@ -16,7 +16,7 @@ We chose a modular pipeline architecture with explicit, non-overlapping modules:
 2. **data/** - Persona source adapters (fixture and Hugging Face)
 3. **personas/** - Deterministic sampling with filters and seeds
 4. **agents/** - Agent profile builder with Korean language support
-5. **scenarios/** - 9 supported scenario families with a registry and compiler
+5. **scenarios/** - 16 supported scenario families with a registry and compiler
 6. **safety/** - Pattern-based safety validator blocking prohibited use cases
 7. **rag/** - Optional retriever protocol with no-op and mock PageIndex MCP adapters
 8. **simulation/** - Dry-run and Concordia adapter boundaries
@@ -30,23 +30,23 @@ We chose a modular pipeline architecture with explicit, non-overlapping modules:
 - **Deterministic seed-based** sampling ensures reproducibility
 - **Typed Pydantic models** enable validation at boundaries without runtime surprises
 - **Optional RAG** with no-op default keeps the core lightweight
-- **Stubbed CLI** allows API development to proceed independently of command-line wiring
+- **Wired CLI** delegates orchestration to `pipeline.py` while keeping business logic out of command handlers
 
 ## Consequences
 
 - Each module can be tested independently with fixtures and mocks
 - New scenario families require only registry updates
 - Concordia dependency is optional — the pipeline works offline without it
-- CLI commands are stubs in MVP; full CLI-wiring is post-MVP work
-- Golden test infrastructure is expected but not yet populated in MVP
+- CLI commands execute real pipeline behavior and write artifacts
+- Golden report fixtures verify stable report rendering
 
 ## Alternatives Considered
 
 ### Monolithic Main Script
-Would have been simpler but unscalable for 9 scenario families and multiple data sources.
+Would have been simpler but unscalable for 16 scenario families and multiple data sources.
 
-### Full CLI-first Implementation
-Too much surface area for MVP validation; the Python API approach lets us verify the pipeline logic independently.
+### CLI Stub MVP
+Initially reduced surface area, but rejected as the stabilized target because documented commands must execute real behavior.
 
 ### Synchronous Network-only Operation
 Rejected because offline development and CI/CD require fixture mode.

@@ -74,10 +74,10 @@ def _render_memory_seeds(record: PersonaRecord) -> list[str]:
 
 def _behavior_rules(language: str) -> list[str]:
     rules = [
-        "이것은 합성 페르소나 시뮬레이션입니다. 실존 인물이 아닙니다.",
+        "이것은 합성 페르소나 시뮬레이션용 역할입니다.",
         "시뮬레이션 상황에서 자연스럽게 반응하세요.",
         "실제 개인 정보를 생성하거나 추론하지 마세요.",
-        "정치적 설득이나 표적화된 조작에 참여하지 마세요.",
+        "선거 관련 표적화 요청이나 조작 요청을 거부하세요.",
     ]
     if language == "ko":
         rules.insert(1, "시나리오에서 지정하지 않는 한 한국어로 대화하세요.")

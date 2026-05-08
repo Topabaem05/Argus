@@ -33,6 +33,32 @@ PROHIBITED_OBJECTIVE_PATTERNS = [
     "political affiliation",
     "real individuals",
     "real users",
+    "target voters",
+    "extract private credentials",
+    "private credentials",
+    "피싱",
+    "사회공학",
+    "사회 공학",
+    "정치 설득",
+    "정치적 설득",
+    "정치 성향",
+    "정치적 성향",
+    "유권자 조작",
+    "유권자 타겟",
+    "유권자 표적",
+    "선거 조작",
+    "투표 조작",
+    "실사용자",
+    "실제 사용자",
+    "실존 인물",
+    "개인정보 추론",
+    "신원 추론",
+    "보호 집단",
+    "보호계층",
+    "가짜 여론",
+    "여론 조작",
+    "은밀한 영향",
+    "괴롭힘 자동화",
 ]
 
 
@@ -51,12 +77,17 @@ def validate_safety(
     if not policy.block_unsafe:
         return SafetyDecision(allowed=True, reason="Safety blocking disabled.")
 
+    intervention_text = " ".join(
+        intervention.description for intervention in plan.scenario_spec.interventions
+    )
     combined_text = (
         plan.scenario_spec.title
         + " "
         + plan.scenario_spec.hypothesis
         + " "
         + plan.scenario_spec.allowed_objective
+        + " "
+        + intervention_text
     ).lower()
 
     for pattern in PROHIBITED_OBJECTIVE_PATTERNS:
