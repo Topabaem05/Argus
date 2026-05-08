@@ -1,0 +1,15 @@
+{
+  "name": "ArgusUnity.Editor",
+  "rootNamespace": "ArgusUnity.Editor",
+  "references": [
+    "ArgusUnity"
+  ],
+  "includePlatforms": ["Editor"],
+  "allowUnsafeCode": false,
+  "overrideReferences": false,
+  "precompiledReferences": [],
+  "autoReferenced": true,
+  "defineConstraints": [],
+  "versionDefines": [],
+  "noEngineReferences": false
+}
