@@ -3,7 +3,6 @@
 from __future__ import annotations
 
 import copy
-import importlib
 import json
 from pathlib import Path
 from tempfile import NamedTemporaryFile
@@ -49,7 +48,7 @@ _MINIMAL_CONFIG: dict[str, object] = {
     },
     "scenario": {
         "id": "test_scenario_v1",
-        "family": "product_reaction",
+        "family": "product_market",
         "title": "Test scenario",
         "hypothesis": "Test hypothesis",
         "language": "ko",
@@ -69,7 +68,7 @@ def test_valid_config_loads() -> None:
         config = load_config(path)
         assert isinstance(config, RuntimeConfig)
         assert config.runtime.run_id == "test_run_001"
-        assert config.scenario.family == "product_reaction"
+        assert config.scenario.family == "product_market"
     finally:
         path.unlink(missing_ok=True)
 
@@ -153,21 +152,54 @@ def test_environment_override_llm_api_key(monkeypatch: pytest.MonkeyPatch) -> No
         path.unlink(missing_ok=True)
 
 
-def test_rag_enabled_without_dependency_raises(monkeypatch: pytest.MonkeyPatch) -> None:
+def test_environment_override_hf_cache_dir_declared(monkeypatch: pytest.MonkeyPatch) -> None:
+    """KSSIM_HF_CACHE_DIR maps to a declared dataset field."""
+    monkeypatch.setenv("KSSIM_HF_CACHE_DIR", "/tmp/kssim-hf-cache")
+    data = copy.deepcopy(_MINIMAL_CONFIG)
+    path = _write_temp_yaml(data)
+    try:
+        config = load_config(path)
+        assert config.dataset.cache_dir == "/tmp/kssim-hf-cache"
+    finally:
+        path.unlink(missing_ok=True)
+
+
+def test_environment_override_pageindex_api_key_declared(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    """KSSIM_PAGEINDEX_API_KEY maps to a declared RAG field and is redacted."""
+    monkeypatch.setenv("KSSIM_PAGEINDEX_API_KEY", "pageindex-secret")
+    data = copy.deepcopy(_MINIMAL_CONFIG)
+    path = _write_temp_yaml(data)
+    try:
+        config = load_config(path)
+        assert config.rag.api_key == "pageindex-secret"
+        redacted = redact_config(config)
+        rag_dict = redacted["rag"]
+        assert rag_dict.get("api_key") == "***REDACTED***"
+    finally:
+        path.unlink(missing_ok=True)
+
+
+def test_invalid_run_id_path_traversal_rejected() -> None:
+    """Runtime run_id cannot escape the configured output directory."""
+    data = copy.deepcopy(_MINIMAL_CONFIG)
+    data["runtime"]["run_id"] = "../escape"
+    path = _write_temp_yaml(data)
+    try:
+        with pytest.raises(ConfigurationError, match="run_id"):
+            load_config(path)
+    finally:
+        path.unlink(missing_ok=True)
+
+
+def test_rag_enabled_raises_until_live_pipeline_exists() -> None:
     data = copy.deepcopy(_MINIMAL_CONFIG)
     data["rag"] = {"enabled": True}
     path = _write_temp_yaml(data)
-    original_import_module = importlib.import_module
-
-    def _mock_import_module(name: str, package: str | None = None) -> object:
-        if name == "pageindex":
-            raise ImportError("No module named 'pageindex'")
-        return original_import_module(name, package)
-
-    monkeypatch.setattr(importlib, "import_module", _mock_import_module)
 
     try:
-        with pytest.raises(ConfigurationError, match="pageindex is not installed"):
+        with pytest.raises(ConfigurationError, match="Live RAG is not wired"):
             load_config(path)
     finally:
         path.unlink(missing_ok=True)

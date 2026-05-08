@@ -1,0 +1,41 @@
+seed:
+  title: "Persona Evaluation Arena Unity FBX Integration"
+  mode: "brownfield"
+  repository: "/Users/guribbong/code/Argus"
+  source_documents:
+    - "/Users/guribbong/Downloads/unity_persona_evaluation_docs.zip"
+    - "/Users/guribbong/code/Argus/docs/persona-evaluation-arena-implementation-plan.md"
+  source_model:
+    - "/Users/guribbong/Downloads/Idle.fbx"
+  goal: >-
+    Adapt the Persona Evaluation Arena handoff to the current Argus repository by
+    using the supplied Idle.fbx as the default Unity persona visual, preserving
+    offline-first simulation behavior. MuJoCo has been removed; deterministic
+    local fallback is now the sole physics backend.
+  current_phase: "execute_validate"
+  constraints:
+    - "Treat the zip documentation as a handoff, not as verified ground truth."
+    - "Argus dry-run and core tests must remain offline and deterministic."
+    - "Unity receives only public event/display fields."
+    - "Do not expose secrets, private persona setup, raw prompts, or hidden memory fields."
+    - "Use Idle.fbx from Unity Resources when available; fall back to FallbackRobot."
+    - "MuJoCo has been removed; deterministic local fallback is the sole physics backend."
+    - "Do not publish or redistribute the user-supplied FBX without explicit rights confirmation."
+  acceptance_criteria:
+    - "The plan document summarizes the zip contents and maps them to current repo files."
+    - "The plan document includes process, sequence, and state-flow diagrams."
+    - "Idle.fbx is present under the Unity project Resources tree."
+    - "Unity batch mode imports Idle.fbx and writes metadata."
+    - "MainSimulation demo mode can run a smoke check using the preferred resource model."
+    - "MuJoCo is no longer present; deterministic local fallback is the sole physics backend."
+    - "Relevant Python and Unity validation results are recorded."
+  validation:
+    - "uv run ruff format ."
+    - "uv run ruff check . --fix"
+    - "uv run mypy src"
+    - "uv run pytest -m \"not live_hf and not live_llm and not integration and not live_pageindex\""
+    - "\"/Applications/Unity/Hub/Editor/2022.3.0f1/Unity.app/Contents/MacOS/Unity\" -batchmode -quit -projectPath unity/EmbodiedDebate -logFile tmp/unity-import.log"
+    - "\"/Applications/Unity/Hub/Editor/2022.3.0f1/Unity.app/Contents/MacOS/Unity\" -batchmode -projectPath unity/EmbodiedDebate -executeMethod ArgusUnity.Editor.BridgePlayModeSmoke.CaptureAndQuit -logFile tmp/unity-smoke.log"
+  open_questions:
+    - "Should Idle.fbx be committed as a redistributable asset or remain local-only?"
+    - "Should the next loop implement ML-Agents training, or keep the bridge-first visualization architecture?"

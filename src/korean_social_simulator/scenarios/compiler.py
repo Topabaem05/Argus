@@ -22,6 +22,7 @@ def compile_scenario(
     context: RetrievedContext | None = None,
     run_id: str = "run_default",
     plan_id: str = "plan_default",
+    dry_run: bool = True,
 ) -> SimulationPlan:
     """Compile a scenario config into a typed SimulationPlan.
 
@@ -45,8 +46,14 @@ def compile_scenario(
     ]
 
     rag_queries: list[str] = []
-    if context is not None and context.status == "available":
-        rag_queries.append(context.query)
+    rag_warnings: list[str] = []
+    if context is not None:
+        if context.status == "available":
+            rag_queries.append(context.query)
+        elif context.status == "unavailable":
+            rag_warnings.extend(context.warnings)
+            if not rag_warnings:
+                rag_warnings.append(f"Optional RAG context unavailable for query: {context.query}")
 
     spec = ScenarioSpec(
         scenario_id=config.id,
@@ -58,6 +65,7 @@ def compile_scenario(
         interventions=interventions,
         metrics=metrics,
         rag_queries=rag_queries,
+        rag_warnings=rag_warnings,
     )
 
     return SimulationPlan(
@@ -67,5 +75,5 @@ def compile_scenario(
         agent_count=config.participant_count,
         max_turns=config.max_turns,
         language=config.language,
-        dry_run=True,
+        dry_run=dry_run,
     )

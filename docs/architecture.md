@@ -1,209 +1,178 @@
 # Architecture
 
-Korean Social Simulation Lab's MVP is implemented as a local-first pipeline under `src/korean_social_simulator/`. The current codebase separates configuration, persona ingestion, deterministic sampling, agent profile building, scenario compilation, safety validation, simulation execution, storage, evaluation, and reporting into explicit modules.
+## System Context
 
-## Module Layout
+Argus sits between synthetic persona sources and auditable experiment artifacts. It should support a deterministic offline MVP first, then optional live adapters.
 
-```text
-src/korean_social_simulator/
-├── __init__.py
-├── cli.py
-├── config/
-│   ├── __init__.py
-│   ├── loader.py
-│   └── models.py
-├── data/
-│   ├── __init__.py
-│   ├── huggingface_loader.py
-│   └── loader.py
-├── personas/
-│   ├── __init__.py
-│   └── sampler.py
-├── agents/
-│   ├── __init__.py
-│   └── profile_builder.py
-├── scenarios/
-│   ├── __init__.py
-│   ├── compiler.py
-│   └── registry.py
-├── safety/
-│   ├── __init__.py
-│   └── validator.py
-├── rag/
-│   ├── __init__.py
-│   ├── base.py
-│   ├── noop.py
-│   └── pageindex_mcp.py
-├── simulation/
-│   ├── __init__.py
-│   ├── concordia_adapter.py
-│   └── dry_run.py
-├── storage/
-│   ├── __init__.py
-│   └── run_store.py
-├── evaluation/
-│   ├── __init__.py
-│   └── metrics.py
-├── reporting/
-│   ├── __init__.py
-│   └── markdown.py
-├── errors.py
-└── models.py
+```mermaid
+flowchart TD
+    User[Developer or AI Agent] --> CLI[Typer CLI]
+    CLI --> Pipeline[Argus Pipeline]
+    Pipeline --> Artifacts[Run Artifacts]
+    Artifacts --> Report[Markdown Report]
+    HF[Hugging Face] -. optional .-> Pipeline
+    RAG[PageIndex MCP/RAG] -. optional .-> Pipeline
+    LLM[NVIDIA NIM / LLM] -. optional .-> Pipeline
+    Concordia[Concordia] -. optional .-> Pipeline
 ```
 
-## Pipeline Flow
+## Target Pipeline
 
 ```mermaid
 flowchart LR
-    A[Config YAML] --> B[config.loader.load_config]
-    B --> C[data.loader / data.huggingface_loader]
-    C --> D[personas.sampler.sample_population]
-    D --> E[agents.profile_builder.build_agent_profiles]
-    B --> F[rag.base.NoOpRetriever / rag.pageindex_mcp.MockPageIndexMCP]
-    B --> G[scenarios.compiler.compile_scenario]
-    F -. RetrievedContext .-> G
-    E --> H[safety.validator.validate_safety]
-    G --> H
-    H --> I[simulation.dry_run.run_dry_run / simulation.concordia_adapter.run_simulation]
-    I --> J[storage.run_store.RunStore]
-    J --> K[evaluation.metrics.evaluate_run]
-    K --> L[reporting.markdown.render_report]
+    Config[YAML Config] --> LoadConfig[Config Loader]
+    LoadConfig --> PersonaLoader[Persona Loader]
+    PersonaLoader --> Sampler[Deterministic Sampler]
+    Sampler --> ProfileBuilder[Agent Profile Builder]
+    LoadConfig --> ScenarioCompiler[Scenario Compiler]
+    ProfileBuilder --> Safety[Safety Validator]
+    ScenarioCompiler --> Safety
+    Safety --> Runner[Simulation Runner]
+    Runner --> Store[Run Store]
+    Store --> Eval[Evaluation]
+    Eval --> Reporter[Reporter]
+    Reporter --> Store
 ```
 
-## Modules and Public API
+## Module Responsibilities
 
-### 1. `cli.py`
+| Module | Purpose | Inputs | Outputs | Failure Behavior | Test Strategy |
+|---|---|---|---|---|---|
+| `cli.py` | User-facing commands | CLI args | messages, artifacts | typed error -> non-zero exit | CLI integration |
+| `config.loader` | YAML/env loading | config path, env | `RuntimeConfig` | `ConfigurationError` | unit |
+| `data.loader` | fixture loading | JSONL path | `PersonaRecord` list | `DatasetLoadError`, `PersonaSchemaError` | unit |
+| `data.huggingface_loader` | optional HF loading | dataset name/split | `PersonaRecord` list | `DatasetLoadError` | mocked + marked live |
+| `personas.sampler` | deterministic selection | personas, filters | `PopulationSample` | `SamplingError` | unit |
+| `agents.profile_builder` | profile generation | sample, safety policy | `AgentProfile` list | `AgentProfileError`, `SafetyViolationError` | unit |
+| `scenarios.registry` | scenario family registry | family name | support/default metrics | unsupported -> compiler error | unit |
+| `scenarios.compiler` | plan creation | scenario config | `SimulationPlan` | `ScenarioValidationError` | unit |
+| `rag.pageindex_mcp` | mock retrieval | query, required flag | `RetrievedContext` | `RetrievalError` if required | unit |
+| `safety.validator` | block unsafe uses | plan, profiles | `SafetyDecision` | `SafetyViolationError` | unit |
+| `simulation.dry_run` | offline events | plan, profiles | `SimulationEvent` list | invalid plan error | unit |
+| `simulation.*adapter` | optional live runs | plan, profiles, credentials | events + status | partial/failed status | mocked |
+| `storage.run_store` | artifact persistence | events, metrics, report | files | `StorageError` | unit + integration |
+| `evaluation.metrics` | metrics | events, metric names | `MetricsResult` | unavailable metrics recorded | unit |
+| `reporting.markdown` | report rendering | metrics, events | Markdown | pure renderer | golden |
 
-- Typer CLI root app: `app`
-- Six commands: `validate_config()`, `sample()`, `compile_scenario()`, `run()`, `evaluate()`, and `report()`
-- Console entrypoint: `main()`
+## Data Flow
 
-### 2. `config/models.py` and `config/loader.py`
+1. Load YAML config.
+2. Apply safe environment overrides.
+3. Load personas from fixture or optional HF.
+4. Filter and sample with seed.
+5. Build agent profiles.
+6. Compile supported scenario family.
+7. Attach optional retrieved context when adapter code provides it; the stable CLI path skips live RAG.
+8. Validate safety.
+9. Run dry-run or optional live adapter.
+10. Write events.
+11. Evaluate metrics.
+12. Write metrics.
+13. Render report.
+14. Finalize metadata.
 
-- `config.models` Pydantic models:
-  - `AgeRangeFilter`
-  - `SamplingFilters`
-  - `DatasetConfig`
-  - `SamplingConfig`
-  - `LLMConfig`
-  - `EmbedderConfig`
-  - `RAGConfig`
-  - `ScenarioIntervention`
-  - `ScenarioConfig`
-  - `SafetyPolicy`
-  - `RuntimeSection`
-  - `RuntimeConfig`
-- `config.loader` public functions:
-  - `load_config(path) -> RuntimeConfig`
-  - `redact_config(config) -> dict[str, object]`
-- Behavior: YAML parsing, Pydantic validation, business-rule validation, and environment overrides for `KSSIM_LLM_API_KEY`, `KSSIM_PAGEINDEX_API_KEY`, `KSSIM_OUTPUT_DIR`, and `KSSIM_HF_CACHE_DIR`
+## Control Flow
 
-### 3. `models.py`
+```txt
+initialized
+ -> config_loaded
+ -> personas_loaded
+ -> sampled
+ -> profiles_built
+ -> scenario_compiled
+ -> safety_validated
+ -> simulation_completed
+ -> artifacts_written
+ -> metrics_written
+ -> report_written
+ -> finalized
+```
 
-- Core data models:
-  - `PersonaRecord`
-  - `PopulationSample`
-  - `AgentProfile`
-  - `ScenarioIntervention`
-  - `ScenarioSpec`
-  - `SimulationPlan`
-  - `RetrievedSection`
-  - `RetrievedContext`
-  - `SimulationEvent`
-  - `SimulationResult`
-  - `MetricsResult`
-  - `SafetyDecision`
-- Type aliases:
-  - `EventType`
-  - `RunStatus`
+Failure states:
 
-### 4. `errors.py`
+- `failed`: runtime or validation failure.
+- `blocked`: safety policy rejection.
+- `partial`: optional adapter unavailable or failed after partial progress.
 
-- Shared base exception: `KoreanSocialSimulationError`
-- Eleven typed error subclasses:
-  - `ConfigurationError`
-  - `DatasetLoadError`
-  - `PersonaSchemaError`
-  - `SamplingError`
-  - `AgentProfileError`
-  - `ScenarioValidationError`
-  - `SafetyViolationError`
-  - `RetrievalError`
-  - `SimulationError`
-  - `StorageError`
-  - `EvaluationError`
+## Error Handling Strategy
 
-### 5. `data/loader.py` and `data/huggingface_loader.py`
+Use typed exceptions:
 
-- `load_personas_fixture(path) -> list[PersonaRecord]`
-- `load_personas_hf(dataset_name="nvidia/Nemotron-Personas-Korea", split="train", cache_dir=None, max_rows=None) -> list[PersonaRecord]`
-- Covers offline fixture loading and optional Hugging Face dataset loading
+- `ConfigurationError`
+- `DatasetLoadError`
+- `PersonaSchemaError`
+- `SamplingError`
+- `AgentProfileError`
+- `ScenarioValidationError`
+- `SafetyViolationError`
+- `RetrievalError`
+- `SimulationError`
+- `StorageError`
+- `EvaluationError`
 
-### 6. `personas/sampler.py`
+CLI must catch known project errors, print concise messages, and avoid secrets and stack traces by default.
 
-- `sample_population(personas, config) -> PopulationSample`
-- Applies deterministic filtering and seeded sampling
+## Configuration Strategy
 
-### 7. `agents/profile_builder.py`
+Rules:
 
-- `build_agent_profiles(sample, language="ko", safety_policy=None) -> list[AgentProfile]`
-- Renders Korean-language background text, memory seeds, goals, behavior rules, and profile safety notes
+- YAML is canonical.
+- `extra="forbid"` should stay enabled.
+- Environment overrides must map to declared fields.
+- Dry-run mode requires no secrets.
+- Live mode requires the selected backend credential.
+- `sampling.sample_size <= runtime.max_participants`.
+- `scenario.participant_count <= runtime.max_participants`.
+- `scenario.max_turns <= runtime.max_turns`.
 
-### 8. `scenarios/registry.py` and `scenarios/compiler.py`
+## Artifact Strategy
 
-- `scenarios.registry` public API:
-  - `SUPPORTED_FAMILIES`
-  - `FAMILY_DEFAULT_METRICS`
-  - `is_supported_family(family) -> bool`
-  - `get_default_metrics(family) -> list[str]`
-  - `list_supported_families() -> list[str]`
-- Supported scenario families:
-  - `product_reaction`
-  - `pricing_reaction`
-  - `viral_marketing_risk`
-  - `rumor_crisis_response`
-  - `conflict_mediation`
-  - `policy_notice_acceptance`
-  - `community_operation`
-  - `organization_negotiation`
-  - `game_npc_social_world`
-- `scenarios.compiler` public API:
-  - `compile_scenario(config, context=None, run_id="run_default", plan_id="plan_default") -> SimulationPlan`
+Target output tree:
 
-### 9. `safety/validator.py`
+```txt
+outputs/<run_id>/
+  run_metadata.json
+  sample.json
+  profiles.json
+  plan.json
+  events.jsonl
+  metrics.json
+  metrics.csv
+  report.md
+```
 
-- `validate_safety(plan, profiles, policy) -> SafetyDecision`
-- Blocks prohibited political persuasion, real-person profiling, protected-group targeting, fake influence, harassment, and social-engineering patterns
+`events.jsonl` must contain one valid JSON object per line.
 
-### 10. `rag/base.py` and `rag/pageindex_mcp.py`
+## Performance Considerations
 
-- `NoOpRetriever.retrieve(query) -> RetrievedContext`
-- `MockPageIndexMCP.retrieve(query, required=False) -> RetrievedContext`
-- Provides the MVP no-op retriever path and a mock PageIndex MCP adapter for offline testing
+- Default examples must stay small.
+- Fixture mode must be fast and offline.
+- HF loading can be slow and belongs to optional tests.
+- Live LLM calls must not run in normal offline CI.
+- Reports should show event samples, not full logs.
 
-### 11. `simulation/dry_run.py` and `simulation/concordia_adapter.py`
+## Security and Safety Considerations
 
-- `run_dry_run(plan, profiles) -> list[SimulationEvent]`
-- `run_simulation(plan, profiles) -> SimulationResult`
-- `run_dry_run()` emits deterministic placeholder turn events without LLM calls
-- `run_simulation()` is the Concordia boundary adapter and returns a partial result when Concordia is unavailable
+Argus must block or avoid:
 
-### 12. `storage/run_store.py`
+- political persuasion,
+- voter targeting,
+- protected-group targeting,
+- real-person profiling,
+- identity inference,
+- harassment automation,
+- social engineering,
+- covert influence,
+- fake grassroots manipulation.
 
-- Class: `RunStore(run_dir, overwrite=False)`
-- Public methods:
-  - `write_event(event)`
-  - `write_events_batch(events)`
-  - `write_metadata(metadata)`
-  - `finalize(result) -> SimulationResult`
-- Manages stable run artifacts including `events.jsonl`, `run_metadata.json`, `metrics.json`, and `report.md`
+Reports must state that outputs are synthetic and non-predictive.
 
-### 13. `evaluation/metrics.py`
+## Extensibility
 
-- `evaluate_run(events, metric_names) -> MetricsResult`
-- Evaluates deterministic MVP metrics including `event_count`, `turn_count`, `agent_count`, `trust_score`, `confusion_rate`, `backlash_rate`, and `conversion_intent`
+Add new behavior through explicit interfaces:
 
-### 14. `reporting/markdown.py`
-
-- `render_report(run_id, status, metrics, events, scenario_title="", scenario_hypothesis="", safety_notes=None, errors=None, warnings=None) -> str`
-- Produces the markdown report used for run summaries, sample events, limitations, and follow-up validation notes
+- new persona source -> loader + config + tests,
+- new scenario family -> registry + default metrics + tests,
+- new metric -> evaluator + report tests,
+- new RAG backend -> provider + optional dependency + tests,
+- new simulation backend -> adapter + mocked tests + marked live tests.

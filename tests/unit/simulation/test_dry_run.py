@@ -10,7 +10,7 @@ def _make_plan(max_turns: int = 5, agent_count: int = 1) -> SimulationPlan:
         run_id="run-001",
         scenario_spec=ScenarioSpec(
             scenario_id="scenario-001",
-            family="community_operation",
+            family="community_conflict",
             title="Community notice dry run",
             hypothesis="Placeholder observations model turn structure",
             participant_count=agent_count,

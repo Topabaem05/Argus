@@ -1,0 +1,63 @@
+# Offline dry-run preset for bridge + conflict/group visualization smoke paths.
+# Participant cap uses fixture personas (see sampling.allow_smaller_sample).
+# Matches Argus YAML shape used under examples/run_product_reaction.yaml.
+
+runtime:
+  run_id: conflict_push_bridge_smoke_001
+  seed: 7
+  output_dir: outputs
+  dry_run: true
+  max_turns: 4
+  max_participants: 24
+  overwrite: false
+
+dataset:
+  mode: fixture
+  name: nvidia/Nemotron-Personas-Korea
+  split: train
+  fixture_path: data/samples/personas_fixture.jsonl
+
+sampling:
+  sample_size: 20
+  seed: 7
+  allow_smaller_sample: true
+  filters:
+    age_range:
+      min: 20
+      max: 65
+    country: South Korea
+
+scenario:
+  id: conflict_push_bridge_smoke_v1
+  family: product_market
+  title: Bridge conflict and group visualization smoke preset
+  hypothesis: Larger cohort dry-run emits varied observation traffic for downstream replay tooling.
+  language: ko
+  participant_count: 20
+  max_turns: 4
+  interventions:
+    - id: stance_neutral
+      description: Neutral framing for synthetic smoke content
+    - id: stance_skeptical
+      description: Mild skeptic framing for synthetic smoke content
+  metrics:
+    - trust_score
+    - backlash_rate
+  safety_notes:
+    - Synthetic personas only; no real individuals are modeled.
+
+llm:
+  provider: openai
+  model: gpt-4
+  temperature: 0.2
+  max_tokens: 512
+  timeout: 30
+  retry_count: 1
+
+rag:
+  enabled: false
+  required: false
+
+safety:
+  policy_version: "1.0"
+  block_unsafe: true

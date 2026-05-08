@@ -1,0 +1,60 @@
+runtime:
+  run_id: human_acts_run_001
+  seed: 42
+  output_dir: outputs
+  dry_run: false
+  max_turns: 2
+  max_participants: 12
+  overwrite: true
+
+dataset:
+  mode: fixture
+  fixture_path: data/samples/personas_fixture.jsonl
+  name: nvidia/Nemotron-Personas-Korea
+  split: train
+
+sampling:
+  sample_size: 12
+  seed: 42
+  allow_smaller_sample: true
+  filters:
+    age_range:
+      min: 20
+      max: 65
+    country: South Korea
+
+scenario:
+  id: human_acts_v1
+  family: content_culture
+  title: "Han Kang Human Acts - Book Content Reaction Simulation"
+  hypothesis: "Han Kang's 'Human Acts' elicits the strongest emotional resonance among readers in their 20s to 40s, with literary depiction of personal loss and trauma outweighing the historical weight of the Gwangju Uprising."
+  language: ko
+  participant_count: 12
+  max_turns: 2
+  interventions:
+    - id: read_excerpt
+      description: "Excerpt: A boy searches for his father's body at dawn during Gwangju 1980."
+    - id: reflect_trauma
+      description: "Q: What emotions does this novel evoke for you? How does collective vs individual trauma feel?"
+  metrics:
+    - trust_score
+    - confusion_rate
+    - backlash_rate
+    - conversion_intent
+  safety_notes:
+    - "Synthetic persona simulation. Does not predict real reader reactions."
+    - "Historical context (Gwangju) treated for literary and educational analysis only."
+
+llm:
+  provider: nvidia
+  model: deepseek-ai/deepseek-v4-pro
+  temperature: 1
+  max_tokens: 16384
+
+rag:
+  enabled: false
+  required: false
+
+safety:
+  policy_version: "1.0"
+  block_unsafe: true

@@ -3,11 +3,15 @@
 from __future__ import annotations
 
 import os
+from collections.abc import Callable
+from importlib import import_module
 from pathlib import Path
+from typing import cast
 
 import yaml
+from pydantic import ValidationError
 
-from korean_social_simulator.config.models import RuntimeConfig
+from korean_social_simulator.config.models import BridgeConfig, RuntimeConfig
 from korean_social_simulator.errors import ConfigurationError
 
 _SECRET_KEYS = frozenset(
@@ -30,7 +34,7 @@ def _redact_dict(data: dict[str, object]) -> dict[str, object]:
     return result
 
 
-def load_config(path: str | Path) -> RuntimeConfig:
+def load_config(path: str | Path, dry_run_override: bool | None = None) -> RuntimeConfig:
     """Load and validate a YAML configuration file.
 
     Expected config keys are documented in the RuntimeConfig model.
@@ -39,25 +43,17 @@ def load_config(path: str | Path) -> RuntimeConfig:
         ConfigurationError: If the file is missing, malformed, or fails validation.
     """
     config_path = Path(path)
-    if not config_path.exists():
-        raise ConfigurationError(f"Configuration file not found: {config_path}")
-
-    with config_path.open("r", encoding="utf-8") as f:
-        try:
-            raw = yaml.safe_load(f)
-        except yaml.YAMLError as e:
-            raise ConfigurationError(f"Invalid YAML in {config_path}: {e}") from e
-
-    if raw is None:
-        raise ConfigurationError(f"Empty configuration file: {config_path}")
-    if not isinstance(raw, dict):
-        raise ConfigurationError(f"Configuration must be a mapping, got {type(raw).__name__}")
+    raw = _load_yaml_mapping(config_path)
 
     raw = _apply_environment_overrides(raw)
+    if dry_run_override is not None:
+        raw.setdefault("runtime", {})
+        if isinstance(raw["runtime"], dict):
+            raw["runtime"]["dry_run"] = dry_run_override
 
     try:
         config = RuntimeConfig.model_validate(raw)
-    except Exception as e:
+    except ValidationError as e:
         error_message = str(e).replace("age_range", "age range")
         raise ConfigurationError(f"Configuration validation failed: {error_message}") from e
 
@@ -66,6 +62,22 @@ def load_config(path: str | Path) -> RuntimeConfig:
     _validate_rag_dependencies(config)
 
     return config
+
+
+def load_bridge_config(path: str | Path) -> BridgeConfig:
+    """Load and validate a local bridge YAML configuration file.
+
+    Raises:
+        ConfigurationError: If the file is missing, malformed, or fails validation.
+    """
+    config_path = Path(path)
+    raw = _load_yaml_mapping(config_path)
+    raw = _apply_bridge_environment_overrides(raw)
+
+    try:
+        return BridgeConfig.model_validate(raw)
+    except ValidationError as e:
+        raise ConfigurationError(f"Bridge configuration validation failed: {e}") from e
 
 
 def redact_config(config: RuntimeConfig) -> dict[str, object]:
@@ -104,6 +116,70 @@ def _apply_environment_overrides(raw: dict[str, object]) -> dict[str, object]:
     return raw
 
 
+def _load_yaml_mapping(config_path: Path) -> dict[str, object]:
+    if not config_path.exists():
+        raise ConfigurationError(f"Configuration file not found: {config_path}")
+
+    with config_path.open("r", encoding="utf-8") as f:
+        try:
+            raw = yaml.safe_load(f)
+        except yaml.YAMLError as e:
+            raise ConfigurationError(f"Invalid YAML in {config_path}: {e}") from e
+
+    if raw is None:
+        raise ConfigurationError(f"Empty configuration file: {config_path}")
+    if not isinstance(raw, dict):
+        raise ConfigurationError(f"Configuration must be a mapping, got {type(raw).__name__}")
+
+    return cast(dict[str, object], raw)
+
+
+def _apply_bridge_environment_overrides(raw: dict[str, object]) -> dict[str, object]:
+    host = os.environ.get("BRIDGE_HOST")
+    if host:
+        server = _optional_config_section(raw, "server")
+        if server is not None:
+            server["host"] = host
+
+    port = os.environ.get("BRIDGE_PORT")
+    if port:
+        server = _optional_config_section(raw, "server")
+        if server is not None:
+            server["port"] = int(port)
+
+    unity_client_token = os.environ.get("UNITY_CLIENT_TOKEN")
+    if unity_client_token:
+        unity = _optional_config_section(raw, "unity")
+        if unity is not None:
+            unity["client_token"] = unity_client_token
+
+    log_level = os.environ.get("LOG_LEVEL")
+    if log_level:
+        raw["log_level"] = log_level.upper()
+
+    return raw
+
+
+def _optional_config_section(
+    raw: dict[str, object],
+    section_name: str,
+) -> dict[str, object] | None:
+    raw.setdefault(section_name, {})
+    section = raw[section_name]
+    if isinstance(section, dict):
+        return cast(dict[str, object], section)
+    return None
+
+
+def _parse_bool_env(name: str, value: str) -> bool:
+    normalized = value.strip().lower()
+    if normalized in {"1", "true", "yes", "on"}:
+        return True
+    if normalized in {"0", "false", "no", "off"}:
+        return False
+    raise ConfigurationError(f"{name} must be a boolean value.")
+
+
 def _validate_config_business_rules(config: RuntimeConfig) -> None:
     sampling = config.sampling
     scenario = config.scenario
@@ -137,20 +213,31 @@ def _validate_live_mode_secrets(config: RuntimeConfig) -> None:
         return
     if config.llm.api_key is not None:
         return
+    _ensure_dotenv_loaded()
     if os.environ.get("KSSIM_LLM_API_KEY"):
         return
-    raise ConfigurationError("Live mode requires KSSIM_LLM_API_KEY environment variable.")
+    if os.environ.get("NVIDIA_API_KEY"):
+        return
+    raise ConfigurationError(
+        "Live mode requires KSSIM_LLM_API_KEY or NVIDIA_API_KEY environment variable."
+    )
+
+
+def _ensure_dotenv_loaded() -> None:
+    try:
+        dotenv_module = import_module("dotenv")
+        load_dotenv = cast(Callable[[], object], vars(dotenv_module)["load_dotenv"])
+        load_dotenv()
+    except (ImportError, KeyError):
+        pass
 
 
 def _validate_rag_dependencies(config: RuntimeConfig) -> None:
     if not config.rag.enabled:
         return
 
-    try:
-        import importlib
-
-        importlib.import_module("pageindex")
-    except ImportError as e:
-        raise ConfigurationError(
-            "RAG is enabled but pageindex is not installed. Install with: uv sync --extra rag"
-        ) from e
+    raise ConfigurationError(
+        "Live RAG is not wired into the CLI pipeline in the offline MVP. "
+        "Keep rag.enabled false; use compiler context or mocked RAG tests until "
+        "provider integration lands."
+    )

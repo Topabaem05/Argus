@@ -1,0 +1,70 @@
+# Complex scenario: cosmetic commercial concepts for people in their 20s.
+# Uses synthetic fixture personas and offline dry-run execution.
+
+runtime:
+  run_id: complex_cosmetics_20s
+  seed: 20260428
+  output_dir: outputs/complex_scenarios
+  dry_run: true
+  max_turns: 6
+  max_participants: 3000
+  overwrite: true
+
+dataset:
+  mode: fixture
+  name: nvidia/Nemotron-Personas-Korea
+  split: train
+  fixture_path: data/samples/personas_fixture.jsonl
+  expand_to_size: 3000
+
+sampling:
+  sample_size: 3000
+  seed: 20260428
+  allow_smaller_sample: false
+  filters:
+    country: South Korea
+
+scenario:
+  id: complex_cosmetics_20s_v1
+  family: product_market
+  title: Cosmetic commercial response among Korean consumers in their 20s
+  hypothesis: Creator-led, proof-backed skincare messaging will outperform celebrity-only glossy advertising among 20s consumers.
+  language: ko
+  participant_count: 3000
+  max_turns: 6
+  interventions:
+    - id: commute_skinfit_poster
+      description: Affordable commute-ready sunscreen cushion poster with real routine footage and creator review snippets.
+    - id: idol_glow_challenge
+      description: Idol-style glossy lip and glow challenge with a short K-pop hook and selfie template.
+    - id: dermatologist_barrier_serum
+      description: Dermatologist-proof barrier serum poster with ingredient callouts and sensitive-skin reassurance.
+    - id: refillable_vegan_lip_tint
+      description: Refillable vegan lip tint poster with color swatches, sustainability cue, and everyday campus styling.
+  metrics:
+    - interest_score
+    - purchase_intent
+    - trial_intent
+    - trust_score
+    - price_sensitivity_score
+    - recommendation_intent
+  safety_notes:
+    - Synthetic simulation only; do not treat results as market research.
+    - Avoid inferring protected traits beyond the synthetic fixture fields.
+    - Validate campaign conclusions with real audience interviews before production.
+
+llm:
+  provider: openai
+  model: gpt-4
+  temperature: 0.7
+  max_tokens: 1024
+  timeout: 60
+  retry_count: 3
+
+rag:
+  enabled: false
+  required: false
+
+safety:
+  policy_version: "1.0"
+  block_unsafe: true

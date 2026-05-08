@@ -1,9 +1,9 @@
 {
   "run_id": "golden-run-001",
   "metrics": {
-    "event_count": 21,
-    "turn_count": 3,
-    "agent_count": 5
+    "event_count": 1,
+    "turn_count": 1,
+    "agent_count": 0
   },
   "unavailable_metrics": [],
   "errors": []

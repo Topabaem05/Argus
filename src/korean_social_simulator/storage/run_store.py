@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+from collections.abc import Mapping
 from pathlib import Path
 
 from korean_social_simulator.errors import StorageError
@@ -38,7 +39,8 @@ class RunStore:
 
         if self._events_path.exists() and not self._overwrite:
             raise StorageError(
-                f"Run directory already contains {self._events_path.name}: {self.run_dir}"
+                f"Run directory already contains {self._events_path.name}: {self.run_dir}. "
+                "Choose a new runtime.run_id, remove the run directory, or set runtime.overwrite: true."
             )
 
         if self._overwrite:
@@ -82,14 +84,14 @@ class RunStore:
                 f"Failed to write run metadata {self._metadata_path}: {exc}"
             ) from exc
 
-    def write_metrics(self, metrics: dict[str, object]) -> None:
+    def write_metrics(self, metrics: Mapping[str, object]) -> None:
         try:
             payload = json.dumps(metrics, ensure_ascii=False, indent=2, sort_keys=True)
             self._metrics_path.write_text(f"{payload}\n", encoding="utf-8")
         except (OSError, TypeError) as exc:
             raise StorageError(f"Failed to write metrics {self._metrics_path}: {exc}") from exc
 
-    def write_metrics_csv(self, metrics: dict[str, object]) -> None:
+    def write_metrics_csv(self, metrics: Mapping[str, object]) -> None:
         metrics_csv_path = self.run_dir / "metrics.csv"
         rows = ["metric,value"]
         rows.extend(f"{metric},{value}" for metric, value in metrics.items())
@@ -153,6 +155,13 @@ class RunStore:
             self._metadata_path,
             self._metrics_path,
             self.run_dir / "metrics.csv",
+            self.run_dir / "sample.json",
+            self.run_dir / "profiles.json",
+            self.run_dir / "plan.json",
+            self.run_dir / "input_summary.json",
+            self.run_dir / "persona_selection.json",
+            self.run_dir / "individual_evaluations.json",
+            self._report_path,
         ):
             if not path.exists():
                 continue

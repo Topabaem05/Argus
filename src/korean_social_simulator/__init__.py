@@ -1,7 +1,6 @@
-"""Korean Social Simulation Lab.
+"""Argus Korean Social Simulation Lab.
 
-A specification-driven Python project for building synthetic Korean social simulations
-using Concordia, Nemotron-Personas-Korea, and optional PageIndex MCP/RAG.
+Deterministic offline synthetic Korean social simulation with optional live adapters.
 """
 
 __version__ = "0.1.0"

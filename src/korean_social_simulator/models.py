@@ -62,6 +62,98 @@ class AgentProfile(BaseModel):
     safety_notes: list[str] = Field(default_factory=list)
 
 
+AttachmentKind = Literal["image", "video", "text", "document", "unknown"]
+
+
+class AttachmentInput(BaseModel):
+    """User-supplied attachment metadata for a simulation request."""
+
+    model_config = ConfigDict(extra="forbid")
+
+    path: str = Field(min_length=1)
+    media_type: str | None = None
+    size_bytes: int | None = Field(default=None, ge=0)
+
+
+class AttachmentValidation(BaseModel):
+    """Validation outcome for one attachment before simulation use."""
+
+    model_config = ConfigDict(extra="forbid")
+
+    path: str
+    filename: str
+    extension: str
+    kind: AttachmentKind
+    accepted: bool
+    reason: str
+    size_bytes: int | None = Field(default=None, ge=0)
+
+
+class SimulationInputSummary(BaseModel):
+    """Sanitized user input summary passed into persona selection."""
+
+    model_config = ConfigDict(extra="forbid")
+
+    chat_text: str = ""
+    attachments: list[AttachmentValidation] = Field(default_factory=list)
+    accepted_attachment_count: int = 0
+    rejected_attachment_count: int = 0
+    topic_summary: str = ""
+
+
+class PersonaSelectionResult(BaseModel):
+    """Why a synthetic persona was selected for a run."""
+
+    model_config = ConfigDict(extra="forbid")
+
+    agent_id: str
+    persona_uuid: str
+    display_name: str
+    reason: str
+    confidence: float = Field(ge=0.0, le=1.0)
+    matched_terms: list[str] = Field(default_factory=list)
+    safety_notes: list[str] = Field(default_factory=list)
+
+
+class IndividualEvaluation(BaseModel):
+    """Structured dry-run individual evaluation for one synthetic persona."""
+
+    model_config = ConfigDict(extra="forbid")
+
+    agent_id: str
+    stance: Literal["supports", "opposes", "mixed", "uncertain"]
+    confidence: float = Field(ge=0.0, le=1.0)
+    rationale: str = Field(min_length=1)
+    uncertainty: str = Field(min_length=1)
+
+
+class DiscussionTurn(BaseModel):
+    """Structured dry-run discussion turn."""
+
+    model_config = ConfigDict(extra="forbid")
+
+    round_index: int = Field(ge=1)
+    speaker_id: str
+    target_ids: list[str] = Field(default_factory=list)
+    speech_act: Literal["say", "ask", "argue", "apologize", "warn", "shout"]
+    text: str = Field(min_length=1)
+    stance_after: Literal["supports", "opposes", "mixed", "uncertain"]
+    confidence_after: float = Field(ge=0.0, le=1.0)
+
+
+class PersonaMemoryProposal(BaseModel):
+    """Opt-in proposal for persona memory update; never applied by default."""
+
+    model_config = ConfigDict(extra="forbid")
+
+    persona_uuid: str
+    agent_id: str
+    proposed_memory: str = Field(min_length=1)
+    reason: str = Field(min_length=1)
+    evidence_event_ids: list[str] = Field(default_factory=list)
+    safe_to_apply: bool = False
+
+
 class ScenarioIntervention(BaseModel):
     """A single intervention step within a scenario."""
 
@@ -86,6 +178,7 @@ class ScenarioSpec(BaseModel):
     interventions: list[ScenarioIntervention] = Field(default_factory=list)
     metrics: list[str] = Field(default_factory=list)
     rag_queries: list[str] = Field(default_factory=list)
+    rag_warnings: list[str] = Field(default_factory=list)
 
 
 class SimulationPlan(BaseModel):
@@ -158,6 +251,18 @@ class SimulationResult(BaseModel):
     report_path: str | None = None
     errors: list[str] = Field(default_factory=list)
     warnings: list[str] = Field(default_factory=list)
+
+
+class SimulationExecution(BaseModel):
+    """In-memory simulation execution result before artifact persistence."""
+
+    model_config = ConfigDict(extra="forbid")
+
+    run_id: str
+    status: RunStatus
+    events: list[SimulationEvent] = Field(default_factory=list)
+    warnings: list[str] = Field(default_factory=list)
+    errors: list[str] = Field(default_factory=list)
 
 
 class MetricsResult(BaseModel):
