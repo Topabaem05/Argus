@@ -1,0 +1,469 @@
+using System;
+using System.IO;
+using ArgusUnity.Runtime;
+using UnityEditor;
+using UnityEditor.SceneManagement;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+
+namespace ArgusUnity.Editor
+{
+    public static class MiniBotScenarioBuilder
+    {
+        private const string MiniBotPath = "Assets/Project/Resources/UserModels/Idle.fbx";
+        private const string PretendardPath = "Assets/Project/Resources/Fonts/Pretendard-Regular.otf";
+        private const string FootstepScenePath = "Assets/Project/Scenes/MiniBotFootstepPreview.unity";
+        private const string PersonaScenePath = "Assets/Project/Scenes/MiniBotPersonaScenario.unity";
+        private const string RunAroundScenePath = "Assets/Project/Scenes/MiniBotRunAround.unity";
+        private const float LabelSizeScale = 0.6f;
+
+        private readonly struct Persona
+        {
+            public Persona(
+                string id,
+                string ageGroup,
+                string occupation,
+                string goal,
+                Vector3 position,
+                Vector3 target,
+                Color color)
+            {
+                Id = id;
+                AgeGroup = ageGroup;
+                Occupation = occupation;
+                Goal = goal;
+                Position = position;
+                Target = target;
+                Color = color;
+            }
+
+            public string Id { get; }
+            public string AgeGroup { get; }
+            public string Occupation { get; }
+            public string Goal { get; }
+            public Vector3 Position { get; }
+            public Vector3 Target { get; }
+            public Color Color { get; }
+        }
+
+        public static void BuildFootstepPreview()
+        {
+            AssetDatabase.Refresh();
+            LogRigInfo();
+
+            var scene = EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
+            scene.name = "MiniBotFootstepPreview";
+
+            BuildRoom("Rig Footstep Test Space", 10f);
+            var bot = InstantiateMiniBot("Mini-bot unchanged FBX instance", new Vector3(-1.2f, 0f, -1.2f), 1.65f);
+            bot.AddComponent<MiniBotFootstepPreview>();
+            AddFootMarkers(bot.transform);
+            BuildCamera(new Vector3(3.5f, 2.6f, -4.7f), new Vector3(-0.25f, 0.85f, -0.25f), 38f);
+            AddSmoke();
+
+            EditorSceneManager.SaveScene(scene, FootstepScenePath);
+            Debug.Log($"MiniBotScenarioBuilder: saved {FootstepScenePath}");
+        }
+
+        public static void CaptureFootstepPreview()
+        {
+            BuildFootstepPreview();
+            Capture(FootstepScenePath, "mini_bot_footstep_preview.png");
+        }
+
+        public static void BuildPersonaScenario()
+        {
+            AssetDatabase.Refresh();
+
+            var scene = EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
+            scene.name = "MiniBotPersonaScenario";
+
+            BuildRoom("Persona Interaction Mini-bot Space", 16f);
+            var runtime = new GameObject("Persona Scenario Runtime")
+                .AddComponent<MiniBotPersonaInteractionScenario>();
+
+            var personas = new[]
+            {
+                new Persona("A01", "20s", "Student", "tests novelty", new Vector3(-4.4f, 0f, -2.8f), new Vector3(-2.4f, 0f, -1.4f), new Color(0.2f, 0.55f, 0.95f)),
+                new Persona("A02", "20s", "Retail worker", "compares price", new Vector3(-4.4f, 0f, 2.8f), new Vector3(-2.2f, 0f, 1.3f), new Color(0.2f, 0.55f, 0.95f)),
+                new Persona("B01", "30s", "Designer", "critiques usability", new Vector3(0f, 0f, -4.3f), new Vector3(-0.4f, 0f, -1.8f), new Color(0.98f, 0.55f, 0.18f)),
+                new Persona("B02", "30s", "Engineer", "checks feasibility", new Vector3(0f, 0f, 4.3f), new Vector3(0.4f, 0f, 1.8f), new Color(0.98f, 0.55f, 0.18f)),
+                new Persona("C01", "40s", "Teacher", "asks for clarity", new Vector3(4.4f, 0f, -2.8f), new Vector3(2.3f, 0f, -1.4f), new Color(0.46f, 0.78f, 0.32f)),
+                new Persona("C02", "50s", "Healthcare manager", "flags risk", new Vector3(4.4f, 0f, 2.8f), new Vector3(2.4f, 0f, 1.4f), new Color(0.46f, 0.78f, 0.32f)),
+            };
+
+            foreach (var persona in personas)
+            {
+                var bot = InstantiateMiniBot($"{persona.Id} mini-bot", persona.Position, 0.95f);
+                bot.AddComponent<MiniBotWalkAnimator>();
+                runtime.RegisterAgent(bot.transform, persona.Target);
+                AddBaseRing(persona.Position, persona.Color);
+                AddLabel(
+                    $"{persona.Id} / {persona.AgeGroup}\n{persona.Occupation}",
+                    persona.Position + Vector3.up * 1.85f,
+                    0.065f,
+                    persona.Color);
+            }
+
+            AddInteraction("price concern", new Vector3(-2.4f, 0.06f, -1.4f), new Vector3(-2.2f, 0.06f, 1.3f), new Color(0.2f, 0.55f, 0.95f));
+            AddInteraction("feasibility reply", new Vector3(-0.4f, 0.08f, -1.8f), new Vector3(0.4f, 0.08f, 1.8f), new Color(0.98f, 0.55f, 0.18f));
+            AddInteraction("risk + clarity", new Vector3(2.3f, 0.1f, -1.4f), new Vector3(2.4f, 0.1f, 1.4f), new Color(0.46f, 0.78f, 0.32f));
+            AddLabel("Scenario target: product concept comparison by age + occupation", new Vector3(0f, 0.08f, -6.2f), 0.065f, Color.white);
+            AddLabel("Interactions attached to mini-bots: movement, facing, dialogue links", new Vector3(0f, 0.08f, 6.2f), 0.065f, new Color(0.95f, 0.75f, 0.3f));
+
+            BuildCamera(new Vector3(9.8f, 8.5f, -9.8f), new Vector3(0f, 0.9f, 0f), 48f);
+            AddSmoke();
+
+            EditorSceneManager.SaveScene(scene, PersonaScenePath);
+            Debug.Log($"MiniBotScenarioBuilder: saved {PersonaScenePath}");
+        }
+
+        public static void CapturePersonaScenario()
+        {
+            BuildPersonaScenario();
+            Capture(PersonaScenePath, "mini_bot_persona_interaction.png");
+        }
+
+        public static void BuildRunAroundScenario()
+        {
+            AssetDatabase.Refresh();
+
+            var scene = EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
+            scene.name = "MiniBotRunAround";
+
+            BuildRoom("Mini-bot Run Around Capture Space", 18f);
+            var runtime = new GameObject("Mini-bot Run Around Runtime")
+                .AddComponent<MiniBotRunAroundScenario>();
+
+            var personas = new[]
+            {
+                new Persona("A01", "20s", "Student", "runs a wide left loop", Vector3.zero, Vector3.zero, new Color(0.2f, 0.55f, 0.95f)),
+                new Persona("A02", "20s", "Retail worker", "runs a tight left loop", Vector3.zero, Vector3.zero, new Color(0.2f, 0.55f, 0.95f)),
+                new Persona("B01", "30s", "Designer", "runs a center lane", Vector3.zero, Vector3.zero, new Color(0.98f, 0.55f, 0.18f)),
+                new Persona("B02", "30s", "Engineer", "runs a counter lane", Vector3.zero, Vector3.zero, new Color(0.98f, 0.55f, 0.18f)),
+                new Persona("C01", "40s", "Teacher", "runs a wide right loop", Vector3.zero, Vector3.zero, new Color(0.46f, 0.78f, 0.32f)),
+                new Persona("C02", "50s", "Healthcare manager", "runs a tight right loop", Vector3.zero, Vector3.zero, new Color(0.46f, 0.78f, 0.32f)),
+            };
+
+            var centers = new[]
+            {
+                new Vector3(-4.8f, 0f, -2.4f),
+                new Vector3(-4.4f, 0f, 2.6f),
+                new Vector3(0f, 0f, -2.6f),
+                new Vector3(0.2f, 0f, 2.5f),
+                new Vector3(4.5f, 0f, -2.4f),
+                new Vector3(4.7f, 0f, 2.6f),
+            };
+
+            for (var i = 0; i < personas.Length; i++)
+            {
+                var persona = personas[i];
+                var center = centers[i];
+                var radius = i % 2 == 0 ? 1.25f : 0.95f;
+                var phase = i * Mathf.PI * 0.33f;
+                var position = center + new Vector3(Mathf.Cos(phase) * radius, 0f, Mathf.Sin(phase) * radius);
+                var bot = InstantiateMiniBot($"{persona.Id} running mini-bot", position, 0.95f);
+                bot.AddComponent<MiniBotWalkAnimator>();
+                runtime.RegisterRunner(bot.transform, center, radius, 2.2f + i * 0.08f, phase);
+                AddBaseRing(center, persona.Color);
+                AddRunPath(center, radius, persona.Color);
+                AddLabel(
+                    $"{persona.Id} / {persona.AgeGroup}\n{persona.Occupation}",
+                    center + Vector3.up * 1.85f,
+                    0.065f,
+                    persona.Color);
+            }
+
+            AddLabel("Mini-bots running around with procedural foot animation", new Vector3(0f, 0.08f, -7.1f), 0.065f, Color.white);
+            BuildCamera(new Vector3(10.6f, 8.2f, -10.8f), new Vector3(0f, 0.75f, 0f), 50f);
+            AddVideoCapture();
+
+            EditorSceneManager.SaveScene(scene, RunAroundScenePath);
+            Debug.Log($"MiniBotScenarioBuilder: saved {RunAroundScenePath}");
+        }
+
+        public static void CaptureRunAroundVideo()
+        {
+            BuildRunAroundScenario();
+            Environment.SetEnvironmentVariable("ARGUS_UNITY_VIDEO_CAPTURE", "1");
+            Environment.SetEnvironmentVariable("ARGUS_UNITY_VIDEO_DIR", ResolveVideoFrameDir());
+            Environment.SetEnvironmentVariable("ARGUS_UNITY_VIDEO_PREFIX", "mini_bot_run");
+            EditorSceneManager.OpenScene(RunAroundScenePath);
+            EditorApplication.EnterPlaymode();
+        }
+
+        private static void BuildRoom(string name, float size)
+        {
+            var root = new GameObject(name).transform;
+            var floorMaterial = Material("MiniBotFloor", new Color(0.35f, 0.38f, 0.4f));
+            var wallMaterial = Material("MiniBotWall", new Color(0.16f, 0.19f, 0.2f));
+
+            var floor = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            floor.name = "Isolated Floor";
+            floor.transform.SetParent(root);
+            floor.transform.position = new Vector3(0f, -0.08f, 0f);
+            floor.transform.localScale = new Vector3(size, 0.16f, size);
+            ApplyMaterial(floor, floorMaterial);
+
+            CreateWall(root, "North Wall", new Vector3(0f, 1.25f, size * 0.5f), new Vector3(size, 2.5f, 0.35f), wallMaterial);
+            CreateWall(root, "South Wall", new Vector3(0f, 1.25f, -size * 0.5f), new Vector3(size, 2.5f, 0.35f), wallMaterial);
+            CreateWall(root, "West Wall", new Vector3(-size * 0.5f, 1.25f, 0f), new Vector3(0.35f, 2.5f, size), wallMaterial);
+            CreateWall(root, "East Wall", new Vector3(size * 0.5f, 1.25f, 0f), new Vector3(0.35f, 2.5f, size), wallMaterial);
+        }
+
+        private static void CreateWall(Transform root, string name, Vector3 position, Vector3 scale, Material material)
+        {
+            var wall = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            wall.name = name;
+            wall.transform.SetParent(root);
+            wall.transform.position = position;
+            wall.transform.localScale = scale;
+            ApplyMaterial(wall, material);
+        }
+
+        private static GameObject InstantiateMiniBot(string name, Vector3 position, float targetHeight)
+        {
+            var prefab = AssetDatabase.LoadAssetAtPath<GameObject>(MiniBotPath);
+            if (prefab == null)
+            {
+                throw new InvalidOperationException($"Mini-bot model missing: {MiniBotPath}");
+            }
+
+            var instance = (GameObject)PrefabUtility.InstantiatePrefab(prefab);
+            instance.name = name;
+            instance.transform.position = position;
+            instance.transform.rotation = Quaternion.identity;
+            FitToHeight(instance, targetHeight);
+            return instance;
+        }
+
+        private static void AddFootMarkers(Transform bot)
+        {
+            AddBoneMarker(bot, "LeftFoot", new Color(0.25f, 0.6f, 1f));
+            AddBoneMarker(bot, "RightFoot", new Color(1f, 0.65f, 0.2f));
+        }
+
+        private static void AddBoneMarker(Transform bot, string suffix, Color color)
+        {
+            var bone = FindChild(bot, suffix);
+            if (bone == null)
+            {
+                return;
+            }
+
+            var marker = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+            marker.name = $"{suffix} marker";
+            marker.transform.SetParent(bone);
+            marker.transform.localPosition = Vector3.zero;
+            marker.transform.localScale = Vector3.one * 0.22f;
+            ApplyMaterial(marker, Material($"{suffix}Marker", color));
+        }
+
+        private static Transform FindChild(Transform root, string suffix)
+        {
+            foreach (var child in root.GetComponentsInChildren<Transform>())
+            {
+                if (child.name.EndsWith(suffix, StringComparison.Ordinal))
+                {
+                    return child;
+                }
+            }
+
+            return null;
+        }
+
+        private static void AddBaseRing(Vector3 position, Color color)
+        {
+            var ring = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
+            ring.name = "Persona group base";
+            ring.transform.position = position + Vector3.up * 0.02f;
+            ring.transform.localScale = new Vector3(0.72f, 0.025f, 0.72f);
+            ApplyMaterial(ring, Material($"PersonaBase{ColorUtility.ToHtmlStringRGB(color)}", color));
+        }
+
+        private static void AddInteraction(string label, Vector3 from, Vector3 to, Color color)
+        {
+            var go = new GameObject($"Interaction - {label}");
+            var line = go.AddComponent<LineRenderer>();
+            line.positionCount = 3;
+            line.SetPosition(0, from + Vector3.up * 0.42f);
+            line.SetPosition(1, Vector3.Lerp(from, to, 0.5f) + Vector3.up * 1.05f);
+            line.SetPosition(2, to + Vector3.up * 0.42f);
+            line.startWidth = 0.05f;
+            line.endWidth = 0.025f;
+            line.material = Material($"Interaction{label.Replace(" ", string.Empty)}", color);
+
+            AddLabel(label, Vector3.Lerp(from, to, 0.5f) + Vector3.up * 1.35f, 0.055f, color);
+        }
+
+        private static void AddRunPath(Vector3 center, float radius, Color color)
+        {
+            var go = new GameObject("Run Path");
+            var line = go.AddComponent<LineRenderer>();
+            const int points = 72;
+            line.positionCount = points + 1;
+            for (var i = 0; i <= points; i++)
+            {
+                var angle = (Mathf.PI * 2f * i) / points;
+                line.SetPosition(i, center + new Vector3(Mathf.Cos(angle) * radius, 0.09f, Mathf.Sin(angle) * radius));
+            }
+
+            line.startWidth = 0.035f;
+            line.endWidth = 0.035f;
+            var pathColor = new Color(color.r, color.g, color.b, 0.72f);
+            line.material = Material($"RunPath{ColorUtility.ToHtmlStringRGB(color)}", pathColor);
+        }
+
+        private static GameObject AddLabel(string text, Vector3 position, float size, Color color)
+        {
+            var label = new GameObject($"Label - {text.Split('\n')[0]}");
+            label.transform.position = position;
+            label.transform.rotation = Quaternion.Euler(60f, 0f, 0f);
+            var mesh = label.AddComponent<TextMesh>();
+            mesh.text = text;
+            mesh.characterSize = size * LabelSizeScale;
+            mesh.fontSize = Mathf.RoundToInt(52 * LabelSizeScale);
+            mesh.anchor = TextAnchor.MiddleCenter;
+            mesh.alignment = TextAlignment.Center;
+            mesh.color = color;
+            var font = AssetDatabase.LoadAssetAtPath<Font>(PretendardPath);
+            if (font != null)
+            {
+                mesh.font = font;
+                var renderer = label.GetComponent<MeshRenderer>();
+                if (renderer != null)
+                {
+                    renderer.sharedMaterial = font.material;
+                }
+            }
+            else
+            {
+                Debug.LogWarning($"MiniBotScenarioBuilder: Pretendard font missing at {PretendardPath}");
+            }
+
+            return label;
+        }
+
+        private static void BuildCamera(Vector3 position, Vector3 target, float fov)
+        {
+            var cameraGo = new GameObject("Main Camera");
+            cameraGo.tag = "MainCamera";
+            cameraGo.transform.position = position;
+            cameraGo.transform.LookAt(target);
+            var camera = cameraGo.AddComponent<Camera>();
+            camera.clearFlags = CameraClearFlags.SolidColor;
+            camera.backgroundColor = new Color(0.73f, 0.82f, 0.9f);
+            camera.fieldOfView = fov;
+
+            var sun = new GameObject("Directional Light");
+            sun.transform.rotation = Quaternion.Euler(34f, -52f, 0f);
+            var light = sun.AddComponent<Light>();
+            light.type = LightType.Directional;
+            light.intensity = 1.65f;
+            light.color = new Color(1f, 0.82f, 0.58f);
+            light.shadows = LightShadows.Soft;
+            light.shadowStrength = 0.78f;
+            light.shadowResolution = UnityEngine.Rendering.LightShadowResolution.High;
+            light.shadowBias = 0.04f;
+            light.shadowNormalBias = 0.22f;
+            RenderSettings.ambientMode = UnityEngine.Rendering.AmbientMode.Flat;
+            RenderSettings.ambientLight = new Color(0.2f, 0.25f, 0.32f);
+        }
+
+        private static void AddSmoke()
+        {
+            new GameObject("SmokeScreenshot").AddComponent<SmokeScreenshot>();
+        }
+
+        private static void AddVideoCapture()
+        {
+            new GameObject("SmokeVideoCapture").AddComponent<SmokeVideoCapture>();
+        }
+
+        private static void Capture(string scenePath, string fileName)
+        {
+            Environment.SetEnvironmentVariable("ARGUS_UNITY_BRIDGE_CAPTURE", "1");
+            Environment.SetEnvironmentVariable("ARGUS_UNITY_CAPTURE_PATH", ResolveCapturePath(fileName));
+            EditorSceneManager.OpenScene(scenePath);
+            EditorApplication.EnterPlaymode();
+        }
+
+        private static void LogRigInfo()
+        {
+            var importer = AssetImporter.GetAtPath(MiniBotPath) as ModelImporter;
+            var avatar = AssetDatabase.LoadAssetAtPath<Avatar>(MiniBotPath);
+            Debug.Log(
+                "MiniBotScenarioBuilder: mini-bot import " +
+                $"animationType={importer?.animationType}, importAnimation={importer?.importAnimation}, " +
+                $"avatarValid={avatar != null && avatar.isValid}, avatarHuman={avatar != null && avatar.isHuman}.");
+        }
+
+        private static void FitToHeight(GameObject go, float targetHeight)
+        {
+            if (!TryGetBounds(go, out var bounds) || bounds.size.y <= 0.0001f)
+            {
+                return;
+            }
+
+            go.transform.localScale *= targetHeight / bounds.size.y;
+        }
+
+        private static bool TryGetBounds(GameObject go, out Bounds bounds)
+        {
+            bounds = default;
+            var renderers = go.GetComponentsInChildren<Renderer>();
+            if (renderers.Length == 0)
+            {
+                return false;
+            }
+
+            bounds = renderers[0].bounds;
+            for (var i = 1; i < renderers.Length; i++)
+            {
+                bounds.Encapsulate(renderers[i].bounds);
+            }
+
+            return true;
+        }
+
+        private static Material Material(string name, Color color)
+        {
+            const string dir = "Assets/Project/Materials";
+            Directory.CreateDirectory(dir);
+            var path = $"{dir}/{name}.mat";
+            var existing = AssetDatabase.LoadAssetAtPath<Material>(path);
+            if (existing != null)
+            {
+                UrpMaterialFactory.ApplyLit(existing, color);
+                EditorUtility.SetDirty(existing);
+                return existing;
+            }
+
+            var material = UrpMaterialFactory.CreateLit(color);
+            AssetDatabase.CreateAsset(material, path);
+            return material;
+        }
+
+        private static void ApplyMaterial(GameObject go, Material material)
+        {
+            foreach (var renderer in go.GetComponentsInChildren<Renderer>())
+            {
+                renderer.sharedMaterial = material;
+            }
+        }
+
+        private static string ResolveCapturePath(string fileName)
+        {
+            var projectDir = Directory.GetCurrentDirectory();
+            var repoRoot = Path.GetFullPath(Path.Combine(projectDir, "..", ".."));
+            return Path.Combine(repoRoot, "tmp", fileName);
+        }
+
+        private static string ResolveVideoFrameDir()
+        {
+            var projectDir = Directory.GetCurrentDirectory();
+            var repoRoot = Path.GetFullPath(Path.Combine(projectDir, "..", ".."));
+            return Path.Combine(repoRoot, "tmp", "mini_bot_run_frames");
+        }
+    }
+}

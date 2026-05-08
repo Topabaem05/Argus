@@ -1,0 +1,19 @@
+{
+  "name": "ArgusUnity",
+  "rootNamespace": "",
+  "references": [
+    "Newtonsoft.Json",
+    "UnityEngine.ImageConversionModule",
+    "UnityEngine.PhysicsModule",
+    "UnityEngine.UnityWebRequestModule"
+  ],
+  "includePlatforms": [],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": false,
+  "precompiledReferences": [],
+  "autoReferenced": true,
+  "defineConstraints": [],
+  "versionDefines": [],
+  "noEngineReferences": false
+}

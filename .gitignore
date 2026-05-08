@@ -61,3 +61,15 @@ coverage.xml
 
 # Sisyphus
 .sisyphus/
+
+# Unity project: unity/EmbodiedDebate
+unity/EmbodiedDebate/[Ll]ibrary/
+unity/EmbodiedDebate/[Tt]emp/
+unity/EmbodiedDebate/tmp/
+unity/EmbodiedDebate/[Oo]bj/
+unity/EmbodiedDebate/[Ll]ogs/
+unity/EmbodiedDebate/[Bb]uild/
+unity/EmbodiedDebate/[Bb]uilds/
+unity/EmbodiedDebate/[Uu]ser[Ss]ettings/
+unity/EmbodiedDebate/MemoryCaptures/
+unity/EmbodiedDebate/Assets/AssetStoreTools*
