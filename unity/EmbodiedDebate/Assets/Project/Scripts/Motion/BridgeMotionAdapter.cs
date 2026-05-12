@@ -78,6 +78,7 @@ namespace ArgusUnity.Motion
             }
 
             var intent = new MotionIntent(
+                PersonaMotionMapper.TypeForMove("walk", "walk", speedMetersPerSecond),
                 true,
                 AgentSpawnHandler.GroundedPosition(target),
                 null,
@@ -87,7 +88,9 @@ namespace ArgusUnity.Motion
                 MotionGesture.None,
                 MotionAction.None,
                 true,
-                urgency);
+                urgency,
+                MotionClipId.None,
+                "bridge_move_direct");
             controller.ApplyIntent(intent);
             return true;
         }
@@ -115,6 +118,10 @@ namespace ArgusUnity.Motion
                         0.58f;
             var urgency = envelope.Payload["urgency"]?.ToObject<float>() ?? Mathf.Clamp01(speed);
             var intent = new MotionIntent(
+                PersonaMotionMapper.TypeForMove(
+                    envelope.Payload["locomotion"]?.ToObject<string>() ?? "walk",
+                    envelope.Payload["intent"]?.ToObject<string>() ?? "walk",
+                    speed),
                 true,
                 AgentSpawnHandler.GroundedPosition(target),
                 null,
@@ -124,7 +131,9 @@ namespace ArgusUnity.Motion
                 MotionGesture.None,
                 MotionAction.None,
                 true,
-                urgency);
+                urgency,
+                MotionClipId.None,
+                "bridge_agent_move");
             controller.ApplyIntent(intent);
         }
 

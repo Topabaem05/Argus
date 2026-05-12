@@ -24,17 +24,21 @@ namespace ArgusUnity.Motion
         {
             var motionEmotion = MapEmotion(emotion, intent);
             var speed = SpeedFor(locomotion, intent, urgency, motionEmotion);
+            var hasTarget = speed > 0.01f && PlanarDistance(currentPosition, target) > 0.05f;
             return new MotionIntent(
-                true,
-                target,
+                TypeForMove(locomotion, intent, speed),
+                hasTarget,
+                hasTarget ? target : currentPosition,
                 null,
                 speed,
                 0.12f,
                 motionEmotion,
                 MotionGesture.None,
-                MotionAction.None,
+                ActionForIntent(intent),
                 true,
-                urgency);
+                urgency,
+                MotionClipId.None,
+                "bridge_move");
         }
 
         public MotionIntent BuildDialogueIntent(
@@ -45,17 +49,21 @@ namespace ArgusUnity.Motion
             bool allowMovement = true)
         {
             var emotion = MapEmotion(semanticEmotion, dialogueAct);
+            var gesture = MapGesture(dialogueAct, semanticEmotion);
             return new MotionIntent(
+                TypeForGestureAndEmotion(gesture, emotion, dialogueAct),
                 false,
                 currentPosition,
                 focusTarget,
                 0f,
                 0.12f,
                 emotion,
-                MapGesture(dialogueAct, semanticEmotion),
+                gesture,
                 MotionAction.None,
                 allowMovement,
-                0.4f);
+                0.4f,
+                MotionClipId.None,
+                "bridge_dialogue");
         }
 
         public MotionIntent BuildPhysicsReactionIntent(
@@ -65,6 +73,7 @@ namespace ArgusUnity.Motion
         {
             var action = MapPhysicsAction(resultKind, intensity);
             return new MotionIntent(
+                MotionCatalog.TypeForAction(action),
                 false,
                 currentPosition,
                 null,
@@ -74,26 +83,43 @@ namespace ArgusUnity.Motion
                 MotionGesture.None,
                 action,
                 false,
-                Mathf.Clamp01(intensity));
+                Mathf.Clamp01(intensity),
+                MotionClipId.None,
+                "bridge_physics");
         }
 
         public MotionIntent BuildFromBehaviorPayload(Vector3 currentPosition, JObject payload)
         {
-            var target = ParseVector(payload?["target_position"] as JObject, currentPosition);
+            var targetToken = payload?["target_position"] as JObject;
+            var target = ParseVector(targetToken, currentPosition);
             var urgency = payload?["urgency"]?.ToObject<float>() ?? 0.35f;
             var locomotion = payload?["locomotion"]?.ToObject<string>() ?? "walk";
             var intent = payload?["intent"]?.ToObject<string>() ?? "walk";
-            var emotion = payload?["emotion"]?["label"]?.ToObject<string>() ??
-                          payload?["emotion"]?.ToObject<string>() ??
-                          "neutral";
+            var emotion = ParseEmotion(payload);
 
-            return BuildMoveIntent(
-                currentPosition,
-                target,
-                urgency,
-                locomotion,
-                emotion,
-                intent);
+            var motionEmotion = MapEmotion(emotion, intent);
+            var action = ActionForIntent(intent);
+            if (targetToken == null || SpeedFor(locomotion, intent, urgency, motionEmotion) <= 0.01f)
+            {
+                return new MotionIntent(
+                    MotionCatalog.TypeForAction(action) != MotionIntentType.None
+                        ? MotionCatalog.TypeForAction(action)
+                        : TypeForGestureAndEmotion(MapGesture(intent, emotion), motionEmotion, intent),
+                    false,
+                    currentPosition,
+                    null,
+                    0f,
+                    0.12f,
+                    motionEmotion,
+                    MapGesture(intent, emotion),
+                    action,
+                    action == MotionAction.None,
+                    urgency,
+                    MotionClipId.None,
+                    "bridge_behavior_no_target");
+            }
+
+            return BuildMoveIntent(currentPosition, target, urgency, locomotion, emotion, intent);
         }
 
         public float SpeedFor(string locomotion, string intent, float urgency, MotionEmotion emotion)
@@ -124,6 +150,103 @@ namespace ArgusUnity.Motion
             }
 
             return Mathf.Lerp(baseSpeed * 0.85f, baseSpeed, Mathf.Clamp01(urgency));
+        }
+
+        public static MotionIntentType TypeForMove(string locomotion, string intent, float speed)
+        {
+            var normalizedLocomotion = Normalize(locomotion);
+            var normalizedIntent = Normalize(intent);
+            if (normalizedLocomotion == "idle" || speed <= 0.01f)
+            {
+                return MotionIntentType.Idle;
+            }
+
+            if (normalizedIntent == "charge")
+            {
+                return MotionIntentType.Charge;
+            }
+
+            if (normalizedLocomotion == "run" || speed >= 1f)
+            {
+                return MotionIntentType.Run;
+            }
+
+            if (normalizedLocomotion == "backward" || normalizedIntent == "retreat")
+            {
+                return MotionIntentType.WalkBackward;
+            }
+
+            if (normalizedLocomotion == "strafe_left")
+            {
+                return MotionIntentType.StrafeLeft;
+            }
+
+            if (normalizedLocomotion == "strafe_right")
+            {
+                return MotionIntentType.StrafeRight;
+            }
+
+            return MotionIntentType.WalkForward;
+        }
+
+        public static MotionIntentType TypeForGestureAndEmotion(
+            MotionGesture gesture,
+            MotionEmotion emotion,
+            string dialogueAct)
+        {
+            var act = Normalize(dialogueAct);
+            if (act == "explain" || act == "ask")
+            {
+                return MotionIntentType.Explain;
+            }
+
+            var gestureType = MotionCatalog.TypeForGesture(gesture);
+            if (gestureType != MotionIntentType.None)
+            {
+                return gestureType;
+            }
+
+            switch (emotion)
+            {
+                case MotionEmotion.Thinking:
+                    return MotionIntentType.Think;
+                case MotionEmotion.Excited:
+                    return MotionIntentType.Excited;
+                case MotionEmotion.Sad:
+                    return MotionIntentType.Sad;
+                case MotionEmotion.Surprised:
+                    return MotionIntentType.Surprised;
+                default:
+                    return MotionIntentType.Talk;
+            }
+        }
+
+        public static MotionAction ActionForIntent(string intent)
+        {
+            switch (Normalize(intent))
+            {
+                case "button":
+                case "button_push":
+                case "press":
+                    return MotionAction.ButtonPush;
+                case "pickup":
+                case "pick_up":
+                case "inspect":
+                    return MotionAction.PickUp;
+                case "push":
+                    return MotionAction.Push;
+                case "pull":
+                    return MotionAction.PullHeavy;
+                case "dodge":
+                    return MotionAction.Dodge;
+                case "charge":
+                    return MotionAction.Charge;
+                case "step_back":
+                case "retreat":
+                    return MotionAction.StepBackward;
+                default:
+                    return MotionAction.None;
+            }
         }
 
         public static MotionEmotion MapEmotion(string emotion, string intent = "")
@@ -238,6 +361,28 @@ namespace ArgusUnity.Motion
             return string.IsNullOrWhiteSpace(value)
                 ? string.Empty
                 : value.Trim().ToLowerInvariant().Replace("-", "_");
+        }
+
+        private static float PlanarDistance(Vector3 a, Vector3 b)
+        {
+            var delta = b - a;
+            delta.y = 0f;
+            return delta.magnitude;
+        }
+
+        private static string ParseEmotion(JObject payload)
+        {
+            if (payload == null)
+            {
+                return "neutral";
+            }
+
+            if (payload["emotion"] is JObject emotionObject)
+            {
+                return emotionObject["label"]?.ToObject<string>() ?? "neutral";
+            }
+
+            return payload["emotion"]?.ToObject<string>() ?? "neutral";
         }
     }
 }

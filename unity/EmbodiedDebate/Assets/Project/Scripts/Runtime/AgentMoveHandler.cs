@@ -121,6 +121,7 @@ namespace ArgusUnity.Runtime
             }
 
             controller.ApplyIntent(new MotionIntent(
+                PersonaMotionMapper.TypeForMove("walk", "walk", speedMetersPerSecond),
                 true,
                 AgentSpawnHandler.GroundedPosition(target),
                 null,
@@ -130,7 +131,9 @@ namespace ArgusUnity.Runtime
                 MotionGesture.None,
                 MotionAction.None,
                 true,
-                Mathf.Clamp01(speedMetersPerSecond / Mathf.Max(0.001f, maxMoveSpeedMetersPerSecond))));
+                Mathf.Clamp01(speedMetersPerSecond / Mathf.Max(0.001f, maxMoveSpeedMetersPerSecond)),
+                MotionClipId.None,
+                "agent_move_handler"));
             return true;
         }
 

@@ -14,11 +14,17 @@ namespace ArgusUnity.Editor
             "Standing Idle",
             "Breathing Idle",
             "Idle-2",
+            "Sad Idle",
+            "Thinking-2",
             "Walking-3",
+            "Step Walking",
             "Running-2",
+            "Charge",
             "Walking Backward",
             "Left Strafe Walking",
-            "Right Strafe Walking"
+            "Right Strafe Walking",
+            "Walk Backward Arc Left",
+            "Walk Backward Arc Right"
         };
 
         private void OnPreprocessModel()

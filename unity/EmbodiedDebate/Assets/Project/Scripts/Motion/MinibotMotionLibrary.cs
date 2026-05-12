@@ -13,29 +13,18 @@ namespace ArgusUnity.Motion
 
         public static MotionSlot[] DefaultSlots()
         {
-            return new[]
+            var clips = MotionCatalog.All;
+            var slots = new MotionSlot[clips.Count];
+            for (var i = 0; i < clips.Count; i++)
             {
-                new MotionSlot("IdleNeutral", "Standing Idle", true, true),
-                new MotionSlot("IdleBreathing", "Breathing Idle", true, true),
-                new MotionSlot("IdleThinking", "Thinking-2", true, false),
-                new MotionSlot("WalkForward", "Walking-3", true, true),
-                new MotionSlot("RunForward", "Running-2", true, true),
-                new MotionSlot("WalkBackward", "Walking Backward", true, true),
-                new MotionSlot("StrafeLeft", "Left Strafe Walking", true, true),
-                new MotionSlot("StrafeRight", "Right Strafe Walking", true, true),
-                new MotionSlot("TurnLeft", "Left Turn", false, false),
-                new MotionSlot("TurnRight", "Right Turn", false, false),
-                new MotionSlot("Stop", "Stop Walking", false, false),
-                new MotionSlot("Talk", "Talking", false, false),
-                new MotionSlot("TalkAlt", "Talking-2", false, false),
-                new MotionSlot("Nod", "Thoughtful Head Nod", false, false),
-                new MotionSlot("ShakeNo", "Shaking Head No", false, false),
-                new MotionSlot("LookAround", "Look Around", false, false),
-                new MotionSlot("StepBack", "Step Backward", false, false),
-                new MotionSlot("Hit", "Zombie Reaction Hit", false, false),
-                new MotionSlot("Fall", "Falling Flat Impact", false, false),
-                new MotionSlot("GetUp", "Getting Up", false, false)
-            };
+                slots[i] = new MotionSlot(
+                    clips[i].ClipId.ToString(),
+                    clips[i].ClipName,
+                    clips[i].LoopTime,
+                    clips[i].Category == MotionCategory.Locomotion);
+            }
+
+            return slots;
         }
     }
 

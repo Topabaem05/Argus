@@ -243,6 +243,7 @@ namespace ArgusUnity.Runtime
                     var collider = tr != null ? tr.GetComponentInChildren<Collider>() : null;
                     var motion = tr != null ? tr.GetComponent<MinibotMotionController>() : null;
                     var motor = motion != null ? motion.Motor : null;
+                    var debug = motion != null ? motion.DebugState : null;
                     agents.Add(new JObject
                     {
                         ["agent_id"] = pair.Key,
@@ -251,8 +252,17 @@ namespace ArgusUnity.Runtime
                         ["has_collider"] = collider != null,
                         ["has_motion_runtime"] = motion != null,
                         ["motion_state"] = motion != null ? motion.State.ToString() : string.Empty,
+                        ["motion_intent"] = motion != null ? motion.CurrentIntent.Type.ToString() : string.Empty,
+                        ["motion_selected_base_clip"] = debug != null ? debug.SelectedBaseClipName : string.Empty,
+                        ["motion_selected_overlay_clip"] = debug != null ? debug.SelectedOverlayClipName : string.Empty,
+                        ["motion_selected_emotion_clip"] = debug != null ? debug.SelectedEmotionClipName : string.Empty,
+                        ["motion_applied_base_clip"] = debug != null ? debug.CurrentBaseClipName : string.Empty,
+                        ["motion_applied_overlay_clip"] = debug != null ? debug.CurrentOverlayClipName : string.Empty,
+                        ["motion_applied_emotion_clip"] = debug != null ? debug.CurrentEmotionClipName : string.Empty,
                         ["motion_speed_mps"] = motor != null ? motor.CurrentVelocity.magnitude : 0f,
                         ["motion_target_distance"] = motor != null ? motor.DistanceToTarget : 0f,
+                        ["motion_is_stuck"] = debug != null && debug.IsStuck,
+                        ["last_recovery_time"] = debug != null ? debug.LastRecoveryTime : 0f,
                         ["rigidbody_is_kinematic"] = rb != null && rb.isKinematic,
                         ["rigidbody_use_gravity"] = rb != null && rb.useGravity
                     });
