@@ -1,6 +1,5 @@
 using ArgusUnity.Bridge;
 using ArgusUnity.Robots;
-using Newtonsoft.Json.Linq;
 using NUnit.Framework;
 
 namespace ArgusUnity.Tests.PlayMode
@@ -64,37 +63,30 @@ namespace ArgusUnity.Tests.PlayMode
             string groupId,
             string prefabKey)
         {
-            var agent = new JObject
-            {
-                ["agent_id"] = agentId,
-                ["display_name"] = displayName,
-                ["position"] = new JObject
-                {
-                    ["x"] = 1.0,
-                    ["y"] = 0.0,
-                    ["z"] = 2.0
-                },
-                ["visible"] = true
-            };
-            if (groupId != null)
-            {
-                agent["group_id"] = groupId;
-            }
+            var groupLine = groupId == null ? string.Empty : $@",""group_id"":""{groupId}""";
+            return ParseEnvelope($@"{{
+                ""schema_version"": ""1.0.0"",
+                ""message_id"": ""spawn-{agentId}"",
+                ""session_id"": ""session-1"",
+                ""sequence"": 1,
+                ""sent_at_ms"": 1000,
+                ""type"": ""agent.spawn"",
+                ""payload"": {{
+                    ""agent"": {{
+                        ""agent_id"": ""{agentId}"",
+                        ""display_name"": ""{displayName}"",
+                        ""position"": {{ ""x"": 1.0, ""y"": 0.0, ""z"": 2.0 }},
+                        ""visible"": true{groupLine}
+                    }},
+                    ""prefab_key"": ""{prefabKey}""
+                }}
+            }}");
+        }
 
-            return new BridgeEnvelope
-            {
-                SchemaVersion = "1.0.0",
-                MessageId = "spawn-" + agentId,
-                SessionId = "session-1",
-                Sequence = 1,
-                SentAtMs = 1000,
-                Type = "agent.spawn",
-                Payload = new JObject
-                {
-                    ["agent"] = agent,
-                    ["prefab_key"] = prefabKey
-                }
-            };
+        private static BridgeEnvelope ParseEnvelope(string json)
+        {
+            Assert.That(BridgeEnvelope.TryParse(json, out var envelope, out var error), Is.True, error?.ToString());
+            return envelope;
         }
     }
 }

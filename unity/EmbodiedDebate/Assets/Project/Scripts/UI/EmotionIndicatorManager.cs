@@ -24,6 +24,7 @@ namespace ArgusUnity.UI
             if (orchestrator != null)
             {
                 orchestrator.AgentEmotion -= OnAgentEmotion;
+                orchestrator.AgentBehavior -= OnAgentEmotion;
             }
 
             orchestrator = orch;
@@ -32,6 +33,7 @@ namespace ArgusUnity.UI
             if (orchestrator != null)
             {
                 orchestrator.AgentEmotion += OnAgentEmotion;
+                orchestrator.AgentBehavior += OnAgentEmotion;
             }
         }
 
@@ -40,6 +42,7 @@ namespace ArgusUnity.UI
             if (orchestrator != null)
             {
                 orchestrator.AgentEmotion -= OnAgentEmotion;
+                orchestrator.AgentBehavior -= OnAgentEmotion;
             }
 
             foreach (var pair in orbsByAgent)

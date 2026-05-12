@@ -78,10 +78,23 @@ namespace ArgusUnity.Runtime
                 maxMoveSpeedMetersPerSecond,
                 0.05f);
 
+            QueueMove(agentId, target, speed);
+        }
+
+        public void QueueMove(string agentId, Vector3 target, float speedMetersPerSecond)
+        {
+            if (string.IsNullOrWhiteSpace(agentId))
+            {
+                return;
+            }
+
             activeMoves[agentId] = new MoveState
             {
-                Target = target,
-                SpeedMetersPerSecond = speed,
+                Target = AgentSpawnHandler.GroundedPosition(target),
+                SpeedMetersPerSecond = Mathf.Clamp(
+                    speedMetersPerSecond,
+                    0.05f,
+                    maxMoveSpeedMetersPerSecond),
             };
         }
 

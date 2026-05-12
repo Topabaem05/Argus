@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using ArgusUnity.Runtime;
+using ArgusUnity.UI;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
@@ -137,45 +138,84 @@ namespace ArgusUnity.Editor
 
             var personas = new[]
             {
-                new Persona("A01", "20s", "Student", "runs a wide left loop", Vector3.zero, Vector3.zero, new Color(0.2f, 0.55f, 0.95f)),
-                new Persona("A02", "20s", "Retail worker", "runs a tight left loop", Vector3.zero, Vector3.zero, new Color(0.2f, 0.55f, 0.95f)),
-                new Persona("B01", "30s", "Designer", "runs a center lane", Vector3.zero, Vector3.zero, new Color(0.98f, 0.55f, 0.18f)),
-                new Persona("B02", "30s", "Engineer", "runs a counter lane", Vector3.zero, Vector3.zero, new Color(0.98f, 0.55f, 0.18f)),
-                new Persona("C01", "40s", "Teacher", "runs a wide right loop", Vector3.zero, Vector3.zero, new Color(0.46f, 0.78f, 0.32f)),
-                new Persona("C02", "50s", "Healthcare manager", "runs a tight right loop", Vector3.zero, Vector3.zero, new Color(0.46f, 0.78f, 0.32f)),
+                new Persona("A01", "friendly", "Student", "greets neighbors", Vector3.zero, Vector3.zero, new Color(0.2f, 0.55f, 0.95f)),
+                new Persona("A02", "curious", "Retail worker", "asks questions", Vector3.zero, Vector3.zero, new Color(0.2f, 0.72f, 0.88f)),
+                new Persona("B01", "energetic", "Designer", "shares ideas", Vector3.zero, Vector3.zero, new Color(0.98f, 0.55f, 0.18f)),
+                new Persona("B02", "skeptical", "Engineer", "checks details", Vector3.zero, Vector3.zero, new Color(0.95f, 0.38f, 0.25f)),
+                new Persona("C01", "calm", "Teacher", "listens first", Vector3.zero, Vector3.zero, new Color(0.46f, 0.78f, 0.32f)),
+                new Persona("C02", "cautious", "Healthcare manager", "flags risks", Vector3.zero, Vector3.zero, new Color(0.62f, 0.72f, 0.28f)),
             };
 
-            var centers = new[]
+            var waypointSets = new[]
             {
-                new Vector3(-4.8f, 0f, -2.4f),
-                new Vector3(-4.4f, 0f, 2.6f),
-                new Vector3(0f, 0f, -2.6f),
-                new Vector3(0.2f, 0f, 2.5f),
-                new Vector3(4.5f, 0f, -2.4f),
-                new Vector3(4.7f, 0f, 2.6f),
+                new[] { new Vector3(-6.3f, 0f, -3.6f), new Vector3(-4.5f, 0f, -4.7f), new Vector3(-2.8f, 0f, -2.0f), new Vector3(-5.8f, 0f, 0.9f) },
+                new[] { new Vector3(-6.4f, 0f, 3.7f), new Vector3(-4.1f, 0f, 4.4f), new Vector3(-2.5f, 0f, 1.6f), new Vector3(-5.9f, 0f, 1.4f) },
+                new[] { new Vector3(-1.6f, 0f, -5.0f), new Vector3(1.4f, 0f, -4.4f), new Vector3(0.0f, 0f, -1.6f), new Vector3(-2.1f, 0f, -2.7f) },
+                new[] { new Vector3(1.9f, 0f, 5.0f), new Vector3(-0.9f, 0f, 4.4f), new Vector3(0.4f, 0f, 1.7f), new Vector3(2.5f, 0f, 2.7f) },
+                new[] { new Vector3(5.9f, 0f, -3.8f), new Vector3(4.1f, 0f, -4.8f), new Vector3(2.7f, 0f, -1.5f), new Vector3(5.6f, 0f, 0.8f) },
+                new[] { new Vector3(6.1f, 0f, 3.9f), new Vector3(4.0f, 0f, 4.6f), new Vector3(2.4f, 0f, 1.4f), new Vector3(5.8f, 0f, 1.2f) },
             };
 
             for (var i = 0; i < personas.Length; i++)
             {
                 var persona = personas[i];
-                var center = centers[i];
-                var radius = i % 2 == 0 ? 1.25f : 0.95f;
-                var phase = i * Mathf.PI * 0.33f;
-                var position = center + new Vector3(Mathf.Cos(phase) * radius, 0f, Mathf.Sin(phase) * radius);
+                var waypoints = waypointSets[i];
+                var position = waypoints[0];
                 var bot = InstantiateMiniBot($"{persona.Id} running mini-bot", position, 0.95f);
                 bot.AddComponent<MiniBotWalkAnimator>();
-                runtime.RegisterRunner(bot.transform, center, radius, 2.2f + i * 0.08f, phase);
-                AddBaseRing(center, persona.Color);
-                AddRunPath(center, radius, persona.Color);
-                AddLabel(
-                    $"{persona.Id} / {persona.AgeGroup}\n{persona.Occupation}",
-                    center + Vector3.up * 1.85f,
-                    0.065f,
-                    persona.Color);
+                var marker = AddEmotionMarker(bot.transform, persona.Color);
+                runtime.RegisterSocialAgent(
+                    bot.transform,
+                    persona.Id,
+                    persona.AgeGroup,
+                    waypoints,
+                    0.85f + i * 0.04f,
+                    i * 0.38f,
+                    marker);
             }
 
-            AddLabel("Mini-bots running around with procedural foot animation", new Vector3(0f, 0.08f, -7.1f), 0.065f, Color.white);
+            runtime.RegisterInteraction(
+                "A01",
+                "A02",
+                new Vector3(-3.05f, 0f, -0.25f),
+                Vector3.right,
+                0.7f,
+                1.35f,
+                1.75f,
+                0.8f,
+                1.2f,
+                new Vector3(-5.7f, 0f, 1.1f),
+                new Vector3(-4.0f, 0f, 4.15f),
+                "agree");
+            runtime.RegisterInteraction(
+                "B01",
+                "B02",
+                new Vector3(0.15f, 0f, 0.05f),
+                Vector3.forward,
+                3.05f,
+                1.35f,
+                1.6f,
+                0.75f,
+                1.2f,
+                new Vector3(-1.9f, 0f, -3.8f),
+                new Vector3(2.1f, 0f, 3.8f),
+                "debate");
+            runtime.RegisterInteraction(
+                "C01",
+                "C02",
+                new Vector3(3.0f, 0f, -0.15f),
+                Vector3.right,
+                5.2f,
+                1.25f,
+                1.25f,
+                0.75f,
+                1.1f,
+                new Vector3(5.3f, 0f, -3.4f),
+                new Vector3(5.5f, 0f, 2.8f),
+                "ask");
+
             BuildCamera(new Vector3(10.6f, 8.2f, -10.8f), new Vector3(0f, 0.75f, 0f), 50f);
+            AddScreenUi(runtime);
             AddVideoCapture();
 
             EditorSceneManager.SaveScene(scene, RunAroundScenePath);
@@ -296,22 +336,23 @@ namespace ArgusUnity.Editor
             AddLabel(label, Vector3.Lerp(from, to, 0.5f) + Vector3.up * 1.35f, 0.055f, color);
         }
 
-        private static void AddRunPath(Vector3 center, float radius, Color color)
+        private static Transform AddEmotionMarker(Transform bot, Color color)
         {
-            var go = new GameObject("Run Path");
-            var line = go.AddComponent<LineRenderer>();
-            const int points = 72;
-            line.positionCount = points + 1;
-            for (var i = 0; i <= points; i++)
+            var marker = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+            marker.name = "Social Emotion Marker";
+            marker.transform.SetParent(bot);
+            marker.transform.localPosition = Vector3.up * 1.28f;
+            marker.transform.localRotation = Quaternion.identity;
+            marker.transform.localScale = Vector3.one * 0.24f;
+            ApplyMaterial(marker, Material($"SocialEmotion{ColorUtility.ToHtmlStringRGB(color)}", color));
+            var collider = marker.GetComponent<Collider>();
+            if (collider != null)
             {
-                var angle = (Mathf.PI * 2f * i) / points;
-                line.SetPosition(i, center + new Vector3(Mathf.Cos(angle) * radius, 0.09f, Mathf.Sin(angle) * radius));
+                UnityEngine.Object.DestroyImmediate(collider);
             }
 
-            line.startWidth = 0.035f;
-            line.endWidth = 0.035f;
-            var pathColor = new Color(color.r, color.g, color.b, 0.72f);
-            line.material = Material($"RunPath{ColorUtility.ToHtmlStringRGB(color)}", pathColor);
+            marker.SetActive(false);
+            return marker.transform;
         }
 
         private static GameObject AddLabel(string text, Vector3 position, float size, Color color)
@@ -378,6 +419,12 @@ namespace ArgusUnity.Editor
         private static void AddVideoCapture()
         {
             new GameObject("SmokeVideoCapture").AddComponent<SmokeVideoCapture>();
+        }
+
+        private static void AddScreenUi(MiniBotRunAroundScenario runtime)
+        {
+            var ui = new GameObject("MiniBot Social UI").AddComponent<MiniBotSocialUiController>();
+            ui.Initialize(runtime);
         }
 
         private static void Capture(string scenePath, string fileName)

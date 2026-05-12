@@ -179,8 +179,13 @@ namespace ArgusUnity.Bridge
                 case "bridge.error":
                 case "simulation.snapshot":
                 case "simulation.event":
+                case "simulation.summary":
+                case "environment.load":
+                case "ui.status":
                 case "agent.spawn":
                 case "agent.move":
+                case "agent.behavior":
+                case "agent.animation":
                 case "agent.dialogue":
                 case "agent.emotion":
                 case "group.update":

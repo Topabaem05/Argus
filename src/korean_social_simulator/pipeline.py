@@ -106,8 +106,11 @@ def bridge_prepare_dry_run_stream(
     *,
     dry_run: bool = True,
     max_turns_override: int | None = None,
+    persona_count_override: int | None = None,
     chat_text_override: str | None = None,
+    scenario_text_override: str | None = None,
     attachments_override: list[AttachmentInput] | None = None,
+    background_id: str = "schoolroom",
 ) -> tuple[list[SimulationEvent], list[AgentProfile], SimulationPlan, RuntimeConfig]:
     """Build dry-run simulation events for streaming to the Unity bridge (no artifacts).
 
@@ -124,16 +127,49 @@ def bridge_prepare_dry_run_stream(
         config = config.model_copy(
             update={
                 "runtime": config.runtime.model_copy(update={"max_turns": max_turns_override}),
+                "scenario": config.scenario.model_copy(update={"max_turns": max_turns_override}),
             },
         )
-    if chat_text_override is not None or attachments_override is not None:
+    if persona_count_override is not None:
+        config = config.model_copy(
+            update={
+                "runtime": config.runtime.model_copy(
+                    update={"max_participants": persona_count_override}
+                ),
+                "sampling": config.sampling.model_copy(
+                    update={"sample_size": persona_count_override}
+                ),
+                "scenario": config.scenario.model_copy(
+                    update={"participant_count": persona_count_override}
+                ),
+                "persona_selection": config.persona_selection.model_copy(
+                    update={"max_personas": persona_count_override}
+                ),
+            },
+        )
+    if scenario_text_override is not None:
+        config = config.model_copy(
+            update={
+                "scenario": config.scenario.model_copy(
+                    update={"hypothesis": scenario_text_override},
+                )
+            }
+        )
+    if (
+        chat_text_override is not None
+        or scenario_text_override is not None
+        or attachments_override is not None
+    ):
+        chat_text = (
+            _combined_interaction_text(scenario_text_override, chat_text_override)
+            if scenario_text_override is not None
+            else chat_text_override
+        )
         config = config.model_copy(
             update={
                 "input": config.input.model_copy(
                     update={
-                        "chat_text": chat_text_override
-                        if chat_text_override is not None
-                        else config.input.chat_text,
+                        "chat_text": chat_text if chat_text is not None else config.input.chat_text,
                         "attachments": attachments_override
                         if attachments_override is not None
                         else config.input.attachments,
@@ -163,7 +199,12 @@ def bridge_prepare_dry_run_stream(
         context.selections,
         selection_enabled=config.persona_selection.enabled,
     )
-    events = run_dry_run(plan, selected_profiles, interaction_context=context)
+    events = run_dry_run(
+        plan,
+        selected_profiles,
+        interaction_context=context,
+        background_id=background_id,
+    )
     return events, selected_profiles, plan, config
 
 
@@ -302,6 +343,15 @@ def report_command(input_path: str | Path, output_path: str | Path) -> str:
 def _build_sample(config: RuntimeConfig) -> PopulationSample:
     personas = load_personas(config.dataset)
     return sample_population(personas, config.sampling)
+
+
+def _combined_interaction_text(scenario_text: str | None, chat_text: str | None) -> str:
+    parts: list[str] = []
+    if scenario_text:
+        parts.append(f"Scenario: {scenario_text}")
+    if chat_text:
+        parts.append(f"Chat: {chat_text}")
+    return "\n\n".join(parts)
 
 
 def _compile_plan(config: RuntimeConfig) -> SimulationPlan:

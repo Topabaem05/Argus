@@ -37,6 +37,10 @@ def test_simulation_start_streams_spawn_and_physics_to_unity_ws() -> None:
             json={
                 "config_path": "examples/run_product_reaction.yaml",
                 "max_turns_override": 1,
+                "persona_count_override": 3,
+                "scenario_text": "A community center debates a kiosk policy.",
+                "chat_text": "Show stance-driven public mini-bot behavior.",
+                "background_id": "community_center",
             },
         )
         assert response.status_code == 200, response.text
@@ -51,6 +55,9 @@ def test_simulation_start_streams_spawn_and_physics_to_unity_ws() -> None:
             seen.append(msg["type"])
 
         assert "agent.spawn" in seen
+        assert seen[0] == "environment.load"
+        assert "agent.behavior" in seen
+        assert "simulation.summary" in seen
         has_physics = "physics.result" in seen or "agent.move" in seen
         assert has_physics, f"Expected physics.result or agent.move in {seen}"
 
@@ -66,3 +73,20 @@ def test_simulation_start_without_connected_unity_returns_503() -> None:
     )
 
     assert response.status_code == 503
+
+
+@pytest.mark.integration
+def test_simulation_start_rejects_unknown_background_before_streaming() -> None:
+    app = create_app(load_bridge_config("configs/bridge.example.yaml"))
+    client = TestClient(app)
+
+    response = client.post(
+        "/simulation/start",
+        json={
+            "config_path": "examples/run_product_reaction.yaml",
+            "background_id": "unknown_map",
+        },
+    )
+
+    assert response.status_code == 422
+    assert "Unsupported background_id" in response.text

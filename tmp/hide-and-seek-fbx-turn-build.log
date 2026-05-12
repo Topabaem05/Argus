@@ -1,0 +1,548 @@
+Unity Editor version:    2022.3.0f1 (fb119bb0b476)
+Branch:                  2022.3/release
+Build type:              Release
+Batch mode:              YES
+macOS version:           Version 26.3.1 (a) (Build 25D771280a)
+Darwin version:          25.3.0
+Architecture:            arm64
+Running under Rosetta:   NO
+Available memory:        8192 MB
+[Licensing::Module] Trying to connect to existing licensing client channel...
+[Licensing::IpcConnector] Connection attempt to the License Client on channel: "LicenseClient-guribbong" failed because channel doesn't exist; code: "0x80000002"
+Launching external process: /Applications/Unity/Hub/Editor/2022.3.0f1/Unity.app/Contents/Frameworks/UnityLicensingClient.app/Contents/MacOS/Unity.Licensing.Client
+[Licensing::Module] Successfully launched the LicensingClient (PId: 51466)
+[Licensing::IpcConnector] Successfully connected to the License Client on channel: "LicenseClient-guribbong"
+[Licensing::Client] Handshaking with LicensingClient:
+  Version:                 1.12.1+9338cad
+  Session Id:              3143678e17234703a17a9be668c2e086
+  Correlation Id:          dfcecadba84c196557e3ba5d93ad8e64
+  External correlation Id: 3363366643334294618
+  Machine Id:              kK/taOzULwH3CoqhnK6anvJ0b88=
+[Licensing::Module] Successfully connected to LicensingClient on channel: "LicenseClient-guribbong" (connect: 5.63s, validation: 0.34s, handshake: 0.82s)
+[Licensing::IpcConnector] Successfully connected to the License Notification on channel: "LicenseClient-guribbong-notifications"
+[Licensing::Module] Connected to LicensingClient (PId: 51466, launch time: 0.00, total connection time: 6.79s)
+[Licensing::Module] Error: Access token is unavailable; failed to update
+[Licensing::Client] Error: Code 500 while processing request (status: Unable to update licenses. Errors: No ULF license found.,Token not found in cache)
+[Licensing::Client] Error: Code 500 while updating license in client (status: Unable to update licenses. Errors: No ULF license found.,Token not found in cache)
+[Licensing::Client] Successfully resolved entitlements
+[Licensing::Module] Serial number assigned to: "14568638156105-UnityPersXXXX"
+Pro License: NO
+Launching external process: /Applications/Unity/Hub/Editor/2022.3.0f1/Unity.app/Contents/Resources/PackageManager/Server/UnityPackageManager
+
+COMMAND LINE ARGUMENTS:
+/Applications/Unity/Hub/Editor/2022.3.0f1/Unity.app/Contents/MacOS/Unity
+-batchmode
+-projectPath
+/Users/guribbong/code/Argus/unity/EmbodiedDebate
+-executeMethod
+ArgusUnity.Editor.HideAndSeekDesignBuilder.BuildScene
+-logFile
+/Users/guribbong/code/Argus/tmp/hide-and-seek-fbx-turn-build.log
+Successfully changed project path to: /Users/guribbong/code/Argus/unity/EmbodiedDebate
+/Users/guribbong/code/Argus/unity/EmbodiedDebate
+[UnityMemory] Configuration Parameters - Can be set up in boot.config
+    "memorysetup-bucket-allocator-granularity=16"
+    "memorysetup-bucket-allocator-bucket-count=8"
+    "memorysetup-bucket-allocator-block-size=33554432"
+    "memorysetup-bucket-allocator-block-count=8"
+    "memorysetup-main-allocator-block-size=16777216"
+    "memorysetup-thread-allocator-block-size=16777216"
+    "memorysetup-gfx-main-allocator-block-size=16777216"
+    "memorysetup-gfx-thread-allocator-block-size=16777216"
+    "memorysetup-cache-allocator-block-size=4194304"
+    "memorysetup-typetree-allocator-block-size=2097152"
+    "memorysetup-profiler-bucket-allocator-granularity=16"
+    "memorysetup-profiler-bucket-allocator-bucket-count=8"
+    "memorysetup-profiler-bucket-allocator-block-size=33554432"
+    "memorysetup-profiler-bucket-allocator-block-count=8"
+    "memorysetup-profiler-allocator-block-size=16777216"
+    "memorysetup-profiler-editor-allocator-block-size=1048576"
+    "memorysetup-temp-allocator-size-main=16777216"
+    "memorysetup-job-temp-allocator-block-size=2097152"
+    "memorysetup-job-temp-allocator-block-size-background=1048576"
+    "memorysetup-job-temp-allocator-reduction-small-platforms=262144"
+    "memorysetup-allocator-temp-initial-block-size-main=262144"
+    "memorysetup-allocator-temp-initial-block-size-worker=262144"
+    "memorysetup-temp-allocator-size-background-worker=32768"
+    "memorysetup-temp-allocator-size-job-worker=262144"
+    "memorysetup-temp-allocator-size-preload-manager=33554432"
+    "memorysetup-temp-allocator-size-nav-mesh-worker=65536"
+    "memorysetup-temp-allocator-size-audio-worker=65536"
+    "memorysetup-temp-allocator-size-cloud-worker=32768"
+    "memorysetup-temp-allocator-size-gi-baking-worker=262144"
+    "memorysetup-temp-allocator-size-gfx=262144"
+Player connection [8649715968] Host "[IP] 192.168.3.1 [Port] 55496 [Flags] 2 [Guid] 655127611 [EditorId] 655127611 [Version] 1048832 [Id] OSXEditor(0,topabaem.local) [Debug] 1 [PackageName] OSXEditor [ProjectName] Editor" joined multi-casting on [225.0.0.222:54997]...
+
+Player connection [8649715968] Host "[IP] 192.168.3.1 [Port] 55496 [Flags] 2 [Guid] 655127611 [EditorId] 655127611 [Version] 1048832 [Id] OSXEditor(0,topabaem.local) [Debug] 1 [PackageName] OSXEditor [ProjectName] Editor" joined alternative multi-casting on [225.0.0.222:34997]...
+
+[Package Manager] UpmClient::Connect -- Connected to IPC stream "Upm-51409" after 2.3 seconds.
+[Licensing::Client] Successfully resolved entitlements
+[Package Manager] Restoring resolved packages state from cache
+[Licensing::Client] Successfully resolved entitlement details
+[Package Manager] Registered 12 packages:
+  Packages from [https://packages.unity.com]:
+    com.unity.nuget.newtonsoft-json@3.2.1 (location: /Users/guribbong/code/Argus/unity/EmbodiedDebate/Library/PackageCache/com.unity.nuget.newtonsoft-json@3.2.1)
+    com.unity.test-framework@1.1.33 (location: /Users/guribbong/code/Argus/unity/EmbodiedDebate/Library/PackageCache/com.unity.test-framework@1.1.33)
+    com.unity.ext.nunit@1.0.6 (location: /Users/guribbong/code/Argus/unity/EmbodiedDebate/Library/PackageCache/com.unity.ext.nunit@1.0.6)
+    com.unity.mathematics@1.2.6 (location: /Users/guribbong/code/Argus/unity/EmbodiedDebate/Library/PackageCache/com.unity.mathematics@1.2.6)
+    com.unity.burst@1.8.4 (location: /Users/guribbong/code/Argus/unity/EmbodiedDebate/Library/PackageCache/com.unity.burst@1.8.4)
+  Built-in packages:
+    com.unity.modules.animation@1.0.0 (location: /Users/guribbong/code/Argus/unity/EmbodiedDebate/Library/PackageCache/com.unity.modules.animation@1.0.0)
+    com.unity.modules.imageconversion@1.0.0 (location: /Users/guribbong/code/Argus/unity/EmbodiedDebate/Library/PackageCache/com.unity.modules.imageconversion@1.0.0)
+    com.unity.modules.physics@1.0.0 (location: /Users/guribbong/code/Argus/unity/EmbodiedDebate/Library/PackageCache/com.unity.modules.physics@1.0.0)
+    com.unity.modules.unitywebrequest@1.0.0 (location: /Users/guribbong/code/Argus/unity/EmbodiedDebate/Library/PackageCache/com.unity.modules.unitywebrequest@1.0.0)
+    com.unity.modules.imgui@1.0.0 (location: /Users/guribbong/code/Argus/unity/EmbodiedDebate/Library/PackageCache/com.unity.modules.imgui@1.0.0)
+    com.unity.modules.jsonserialize@1.0.0 (location: /Users/guribbong/code/Argus/unity/EmbodiedDebate/Library/PackageCache/com.unity.modules.jsonserialize@1.0.0)
+  Embedded packages:
+    com.unity.cloud.gltfast@file:/Users/guribbong/code/Argus/unity/EmbodiedDebate/Packages/com.unity.cloud.gltfast (location: /Users/guribbong/code/Argus/unity/EmbodiedDebate/Packages/com.unity.cloud.gltfast)
+[Subsystems] No new subsystems found in resolved package list.
+Package Manager log level set to [2]
+[Package Manager] Done registering packages in 0.88 seconds
+Refreshing native plugins compatible for Editor in 14.28 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Initialize engine version: 2022.3.0f1 (fb119bb0b476)
+[Subsystems] Discovering subsystems at path /Applications/Unity/Hub/Editor/2022.3.0f1/Unity.app/Contents/Resources/UnitySubsystems
+[Subsystems] Discovering subsystems at path /Users/guribbong/code/Argus/unity/EmbodiedDebate/Assets
+GfxDevice: creating device client; threaded=0; jobified=0
+ preferred device: Apple M2 (high power)
+Metal devices available: 1
+0: Apple M2 (high power)
+Using device Apple M2 (high power)
+Initializing Metal device caps: Apple M2
+[Licensing::Client] Successfully resolved entitlements
+Initialize mono
+Mono path[0] = '/Applications/Unity/Hub/Editor/2022.3.0f1/Unity.app/Contents/Managed'
+Mono path[1] = '/Applications/Unity/Hub/Editor/2022.3.0f1/Unity.app/Contents/MonoBleedingEdge/lib/mono/unityjit-macos'
+Mono config path = '/Applications/Unity/Hub/Editor/2022.3.0f1/Unity.app/Contents/MonoBleedingEdge/etc'
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56409
+Using cacheserver namespaces - metadata:defaultmetadata, artifacts:defaultartifacts
+Using cacheserver namespaces - metadata:defaultmetadata, artifacts:defaultartifacts
+ImportWorker Server TCP listen port: 0
+Begin MonoManager ReloadAssembly
+Registering precompiled unity dll's ...
+Register platform support module: /Applications/Unity/Hub/Editor/2022.3.0f1/Unity.app/Contents/PlaybackEngines/MacStandaloneSupport/UnityEditor.OSXStandalone.Extensions.dll
+Registered in 0.002113 seconds.
+- Loaded All Assemblies, in  0.461 seconds
+Native extension for OSXStandalone target not found
+Mono: successfully reloaded assembly
+- Finished resetting the current domain, in  0.283 seconds
+Domain Reload Profiling: 745ms
+	BeginReloadAssembly (157ms)
+		ExecutionOrderSort (0ms)
+		DisableScriptedObjects (0ms)
+		BackupInstance (0ms)
+		ReleaseScriptingObjects (0ms)
+		CreateAndSetChildDomain (4ms)
+	RebuildCommonClasses (45ms)
+	RebuildNativeTypeToScriptingClass (10ms)
+	initialDomainReloadingComplete (56ms)
+	LoadAllAssembliesAndSetupDomain (193ms)
+		LoadAssemblies (151ms)
+		RebuildTransferFunctionScriptingTraits (0ms)
+		AnalyzeDomain (183ms)
+			TypeCache.Refresh (181ms)
+				TypeCache.ScanAssembly (149ms)
+			ScanForSourceGeneratedMonoScriptInfo (1ms)
+			ResolveRequiredComponents (1ms)
+	FinalizeReload (284ms)
+		ReleaseScriptCaches (0ms)
+		RebuildScriptCaches (0ms)
+		SetupLoadedEditorAssemblies (220ms)
+			LogAssemblyErrors (0ms)
+			InitializePlatformSupportModulesInManaged (7ms)
+			SetLoadedEditorAssemblies (9ms)
+			RefreshPlugins (0ms)
+			BeforeProcessingInitializeOnLoad (5ms)
+			ProcessInitializeOnLoadAttributes (127ms)
+			ProcessInitializeOnLoadMethodAttributes (70ms)
+			AfterProcessingInitializeOnLoad (0ms)
+			EditorAssembliesLoaded (0ms)
+		ExecutionOrderSort2 (0ms)
+		AwakeInstancesAfterBackupRestoration (0ms)
+[Licensing::Client] Successfully resolved entitlements
+Application.AssetDatabase Initial Refresh Start
+[40m[32minfo[39m[22m[49m: Microsoft.Hosting.Lifetime[14]
+      Now listening on: http://unix:/tmp/ilpp.sock-8e16111b622e4d5ea6b5ecc926298bfd
+[40m[32minfo[39m[22m[49m: Microsoft.Hosting.Lifetime[0]
+      Application started. Press Ctrl+C to shut down.
+[40m[32minfo[39m[22m[49m: Microsoft.Hosting.Lifetime[0]
+      Hosting environment: Production
+[40m[32minfo[39m[22m[49m: Microsoft.Hosting.Lifetime[0]
+      Content root path: /Users/guribbong/code/Argus/unity/EmbodiedDebate/
+[40m[32minfo[39m[22m[49m: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/2 POST http://ilpp/UnityILPP.PostProcessing/Ping application/grpc -
+[40m[32minfo[39m[22m[49m: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'gRPC - /UnityILPP.PostProcessing/Ping'
+[40m[32minfo[39m[22m[49m: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'gRPC - /UnityILPP.PostProcessing/Ping'
+[40m[32minfo[39m[22m[49m: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished HTTP/2 POST http://ilpp/UnityILPP.PostProcessing/Ping application/grpc - - 200 - application/grpc 67.8175ms
+Starting: /Applications/Unity/Hub/Editor/2022.3.0f1/Unity.app/Contents/bee_backend --dont-print-to-structured-log --ipc --defer-dag-verification --dagfile="Library/Bee/200b0aE.dag" --continue-on-failure --profile="Library/Bee/backend1.traceevents" ScriptAssemblies
+WorkingDir: /Users/guribbong/code/Argus/unity/EmbodiedDebate
+DisplayProgressbar: Compiling Scripts
+Starting: /Applications/Unity/Hub/Editor/2022.3.0f1/Unity.app/Contents/Tools/netcorerun/netcorerun "/Applications/Unity/Hub/Editor/2022.3.0f1/Unity.app/Contents/Tools/BuildPipeline/ScriptCompilationBuildProgram.exe" "Library/Bee/200b0aE.dag.json" "Library/Bee/200b0aE-inputdata.json" "Library/Bee/buildprogram0.traceevents"
+ExitCode: 4 Duration: 0s91ms
+Rebuilding DAG because FileSignature timestamp changed: Library/Bee/200b0aE-inputdata.json
+*** Tundra requires additional run (0.06 seconds), 0 items updated, 0 evaluated
+WorkingDir: /Users/guribbong/code/Argus/unity/EmbodiedDebate
+ExitCode: 0 Duration: 1s427ms
+Starting: /Applications/Unity/Hub/Editor/2022.3.0f1/Unity.app/Contents/bee_backend --dont-print-to-structured-log --ipc --defer-dag-verification --dagfile="Library/Bee/200b0aE.dag" --continue-on-failure --dagfilejson="Library/Bee/200b0aE.dag.json" --profile="Library/Bee/backend2.traceevents" ScriptAssemblies
+WorkingDir: /Users/guribbong/code/Argus/unity/EmbodiedDebate
+[40m[32minfo[39m[22m[49m: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/2 POST http://ilpp/UnityILPP.PostProcessing/ConfigurePostProcessors application/grpc -
+[40m[32minfo[39m[22m[49m: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'gRPC - /UnityILPP.PostProcessing/ConfigurePostProcessors'
+[40m[1m[33mwarn[39m[22m[49m: Unity.ILPP.Runner.PostProcessingAssemblyLoadContext[0]
+      Assembly system.runtime.interopservices.windowsruntime has duplicate hint path. Ignoring "/Applications/Unity/Hub/Editor/2022.3.0f1/Unity.app/Contents/UnityReferenceAssemblies/unity-4.8-api/Facades/System.Runtime.InteropServices.WindowsRuntime.dll" in favor of "/Applications/Unity/Hub/Editor/2022.3.0f1/Unity.app/Contents/NetStandard/Extensions/2.0.0/System.Runtime.InteropServices.WindowsRuntime.dll"
+[40m[1m[33mwarn[39m[22m[49m: Unity.ILPP.Runner.PostProcessingAssemblyLoadContext[0]
+      Assembly system.componentmodel.composition has duplicate hint path. Ignoring "/Applications/Unity/Hub/Editor/2022.3.0f1/Unity.app/Contents/UnityReferenceAssemblies/unity-4.8-api/System.ComponentModel.Composition.dll" in favor of "/Applications/Unity/Hub/Editor/2022.3.0f1/Unity.app/Contents/NetStandard/compat/2.1.0/shims/netfx/System.ComponentModel.Composition.dll"
+[40m[32minfo[39m[22m[49m: Unity.ILPP.Runner.PostProcessingAssemblyLoadContext[0]
+      Resolved Unity.Burst.Cecil, Version=0.11.4.0, Culture=neutral, PublicKeyToken=50cebf1cceb9d05e with Library/PackageCache/com.unity.burst@1.8.4/Unity.Burst.CodeGen/Unity.Burst.Cecil.dll
+[40m[32minfo[39m[22m[49m: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'gRPC - /UnityILPP.PostProcessing/ConfigurePostProcessors'
+[40m[32minfo[39m[22m[49m: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished HTTP/2 POST http://ilpp/UnityILPP.PostProcessing/ConfigurePostProcessors application/grpc - - 200 - application/grpc 94.2300ms
+ExitCode: 0 Duration: 1s109ms
+Finished compiling graph: 242 nodes, 2045 flattened edges (1825 ToBuild, 32 ToUse), maximum node priority 92
+[199/239    0s] ILPP-Configuration Library/ilpp-configuration.nevergeneratedoutput
+*** Tundra build success (1.08 seconds), 1 items updated, 239 evaluated
+Total cache size 13674288
+Total cache size after purge 13674288
+AssetDatabase: script compilation time: 3.640857s
+Begin MonoManager ReloadAssembly
+Symbol file LoadedFromMemory is not a mono symbol file
+- Loaded All Assemblies, in  0.593 seconds
+Refreshing native plugins compatible for Editor in 0.68 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Refreshing native plugins compatible for Editor in 0.66 ms, found 0 plugins.
+Native extension for OSXStandalone target not found
+Mono: successfully reloaded assembly
+- Finished resetting the current domain, in  2.001 seconds
+Domain Reload Profiling: 2598ms
+	BeginReloadAssembly (202ms)
+		ExecutionOrderSort (0ms)
+		DisableScriptedObjects (7ms)
+		BackupInstance (0ms)
+		ReleaseScriptingObjects (0ms)
+		CreateAndSetChildDomain (53ms)
+	RebuildCommonClasses (38ms)
+	RebuildNativeTypeToScriptingClass (10ms)
+	initialDomainReloadingComplete (28ms)
+	LoadAllAssembliesAndSetupDomain (316ms)
+		LoadAssemblies (225ms)
+		RebuildTransferFunctionScriptingTraits (0ms)
+		AnalyzeDomain (178ms)
+			TypeCache.Refresh (173ms)
+				TypeCache.ScanAssembly (161ms)
+			ScanForSourceGeneratedMonoScriptInfo (4ms)
+			ResolveRequiredComponents (1ms)
+	FinalizeReload (2004ms)
+		ReleaseScriptCaches (0ms)
+		RebuildScriptCaches (0ms)
+		SetupLoadedEditorAssemblies (1886ms)
+			LogAssemblyErrors (0ms)
+			InitializePlatformSupportModulesInManaged (4ms)
+			SetLoadedEditorAssemblies (4ms)
+			RefreshPlugins (0ms)
+			BeforeProcessingInitializeOnLoad (31ms)
+			ProcessInitializeOnLoadAttributes (1797ms)
+			ProcessInitializeOnLoadMethodAttributes (46ms)
+			AfterProcessingInitializeOnLoad (1ms)
+			EditorAssembliesLoaded (3ms)
+		ExecutionOrderSort2 (0ms)
+		AwakeInstancesAfterBackupRestoration (5ms)
+Asset Pipeline Refresh (id=3d8153d2bea5d4a8f837f8104c4b7c7d): Total: 6.985 seconds - Initiated by InitialRefreshV2(ForceSynchronousImport)
+	Summary:
+		Imports: total=4 (actual=0, local cache=4, cache server=0)
+		Asset DB Process Time: managed=0 ms, native=701 ms
+		Asset DB Callback time: managed=9 ms, native=1 ms
+		Scripting: domain reloads=1, domain reload time=2623 ms, compile time=3641 ms, other=7 ms
+		Project Asset Count: scripts=1021, non-scripts=615
+		Asset File Changes: new=0, changed=0, moved=0, deleted=0
+		Scan Filter Count: 1
+	InvokeBeforeRefreshCallbacks: 0.800ms
+	ApplyChangesToAssetFolders: 0.018ms
+	Scan: 257.526ms
+	OnSourceAssetsModified: 0.001ms
+	GetAllGuidsForCategorization: 0.366ms
+	CategorizeAssets: 76.427ms
+	ImportOutOfDateAssets: 2015.621ms (-1629.261ms without children)
+		CompileScripts: 3641.332ms
+		ReloadNativeAssets: 0.000ms
+		UnloadImportedAssets: 2.414ms
+		EnsureUptoDateAssetsAreRegisteredWithGuidPM: 0.390ms
+		InitializingProgressBar: 0.000ms
+		PostProcessAllAssetNotificationsAddChangedAssets: 0.000ms
+		OnDemandSchedulerStart: 0.744ms
+	PostProcessAllAssets: 9.906ms
+	GatherAllCurrentPrimaryArtifactRevisions: 0.002ms
+	UnloadStreamsBegin: 0.429ms
+	PersistCurrentRevisions: 0.060ms
+	UnloadStreamsEnd: 0.014ms
+	GenerateScriptTypeHashes: 0.905ms
+	Untracked: 4624.116ms
+Application.AssetDatabase Initial Refresh End
+Launching external process: /Applications/Unity/Hub/Editor/2022.3.0f1/Unity.app/Contents/Tools/UnityShaderCompiler
+Launched and connected shader compiler UnityShaderCompiler after 0.53 seconds
+Scanning for USB devices : 0.245ms
+Initializing Unity extensions:
+[Licensing::Client] Successfully resolved entitlements
+[MODES] ModeService[none].Initialize
+[MODES] ModeService[none].LoadModes
+[MODES] Loading mode Default (0) for mode-current-id-EmbodiedDebate
+ProgressiveSceneManager::Cancel()
+Unloading 3 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 35 unused Assets / (375.6 KB). Loaded Objects now: 1337.
+Memory consumption went from 93.7 MB to 93.3 MB.
+Total: 4.901291 ms (FindLiveObjects: 0.232375 ms CreateObjectMapping: 0.021625 ms MarkObjects: 4.119750 ms  DeleteObjects: 0.527000 ms)
+
+Asset Pipeline Refresh (id=f0002053acfcc4f41810df8d3fc8e74f): Total: 0.103 seconds - Initiated by RefreshV2(NoUpdateAssetOptions)
+Start importing Assets/ThirdParty/StylooClassroomAssetPack/StylooClassroomAssetPack GLTF & FBX/classroom/GLTF/wallsfloor.glb using Guid(95d4331adf82140bbb5c243cad6bfa64) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '2f4597164da06dcd23f707636f81de45') in 0.194277 seconds
+Refreshing native plugins compatible for Editor in 0.73 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=e8502ca80270a49e39ba905dcb109b02): Total: 0.252 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+HideAndSeekDesignBuilder: GLTF asset wallsfloor.glb, importer=GLTFast.Editor.GltfImporter, gameObjectLoaded=True
+UnityEngine.StackTraceUtility:ExtractStackTrace () (at /Users/bokken/build/output/unity/unity/Runtime/Export/Scripting/StackTrace.cs:37)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+ArgusUnity.Editor.HideAndSeekDesignBuilder:EnsureGltfClassroomImports () (at Assets/Editor/HideAndSeekDesignBuilder.cs:93)
+ArgusUnity.Editor.HideAndSeekDesignBuilder:BuildScene () (at Assets/Editor/HideAndSeekDesignBuilder.cs:33)
+
+(Filename: Assets/Editor/HideAndSeekDesignBuilder.cs Line: 93)
+
+Start importing Assets/ThirdParty/StylooClassroomAssetPack/StylooClassroomAssetPack GLTF & FBX/classroom/GLTF/table.glb using Guid(0fac535ef0639442ea3d608d5efbaf9b) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '0a8cc223b14d120b3f35fefb97523cfd') in 0.010226 seconds
+Refreshing native plugins compatible for Editor in 1.14 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=f51fb35e62285461a830e0663d914218): Total: 0.025 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+HideAndSeekDesignBuilder: GLTF asset table.glb, importer=GLTFast.Editor.GltfImporter, gameObjectLoaded=True
+UnityEngine.StackTraceUtility:ExtractStackTrace () (at /Users/bokken/build/output/unity/unity/Runtime/Export/Scripting/StackTrace.cs:37)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+ArgusUnity.Editor.HideAndSeekDesignBuilder:EnsureGltfClassroomImports () (at Assets/Editor/HideAndSeekDesignBuilder.cs:93)
+ArgusUnity.Editor.HideAndSeekDesignBuilder:BuildScene () (at Assets/Editor/HideAndSeekDesignBuilder.cs:33)
+
+(Filename: Assets/Editor/HideAndSeekDesignBuilder.cs Line: 93)
+
+Start importing Assets/ThirdParty/StylooClassroomAssetPack/StylooClassroomAssetPack GLTF & FBX/classroom/GLTF/desk.glb using Guid(0efed4ee7808840d3b57c7df53106661) Importer(-1,00000000000000000000000000000000)  -> (artifact id: 'b763c2214533a676cae910b2f21ee7f4') in 0.004395 seconds
+Refreshing native plugins compatible for Editor in 0.66 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=15d377c11fde6452eb731546ce15b9f5): Total: 0.018 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+HideAndSeekDesignBuilder: GLTF asset desk.glb, importer=GLTFast.Editor.GltfImporter, gameObjectLoaded=True
+UnityEngine.StackTraceUtility:ExtractStackTrace () (at /Users/bokken/build/output/unity/unity/Runtime/Export/Scripting/StackTrace.cs:37)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+ArgusUnity.Editor.HideAndSeekDesignBuilder:EnsureGltfClassroomImports () (at Assets/Editor/HideAndSeekDesignBuilder.cs:93)
+ArgusUnity.Editor.HideAndSeekDesignBuilder:BuildScene () (at Assets/Editor/HideAndSeekDesignBuilder.cs:33)
+
+(Filename: Assets/Editor/HideAndSeekDesignBuilder.cs Line: 93)
+
+Start importing Assets/Project/Resources/Animations/FBXTurns using Guid(2c5eaeef359124210a615c52c4a11a47) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '792f21ec6a606ec50b29dfe23f89816a') in 0.001237 seconds
+Start importing Assets/Project/Resources/Animations/FBXTurns/Right Turn 90.fbx using Guid(82cc6131a0e2f4d71a2a3455b84d0688) Importer(-1,00000000000000000000000000000000) Keyframe reduction: Ratio: 0.000000%;
+ -> (artifact id: 'c9a7bc1793d35270053960945f425dd4') in 0.298492 seconds
+Refreshing native plugins compatible for Editor in 1.18 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=784d3108e0967483b908655f3f1b416c): Total: 0.356 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+	Summary:
+		Imports: total=2 (actual=2, local cache=0, cache server=0)
+		Asset DB Process Time: managed=17 ms, native=301 ms
+		Asset DB Callback time: managed=20 ms, native=16 ms
+		Scripting: domain reloads=0, domain reload time=0 ms, compile time=0 ms, other=0 ms
+		Project Asset Count: scripts=1022, non-scripts=616
+		Asset File Changes: new=2, changed=2, moved=0, deleted=0
+		Scan Filter Count: 6
+	InvokeBeforeRefreshCallbacks: 0.000ms
+	ApplyChangesToAssetFolders: 0.012ms
+	Scan: 1.049ms
+	OnSourceAssetsModified: 0.601ms
+	GetAllGuidsForCategorization: 0.044ms
+	CategorizeAssets: 2.191ms
+	ImportOutOfDateAssets: 305.725ms (0.534ms without children)
+		ImportManagerImport: 301.856ms (0.705ms without children)
+			ImportInProcess: 301.115ms
+			UpdateCategorizedAssets: 0.037ms
+		ReloadNativeAssets: 0.000ms
+		UnloadImportedAssets: 0.007ms
+		ReloadImportedAssets: 0.000ms
+		EnsureUptoDateAssetsAreRegisteredWithGuidPM: 0.182ms
+		InitializingProgressBar: 0.002ms
+		PostProcessAllAssetNotificationsAddChangedAssets: 0.000ms
+		OnDemandSchedulerStart: 3.144ms
+	PostProcessAllAssets: 18.038ms
+	Hotreload: 18.363ms
+	GatherAllCurrentPrimaryArtifactRevisions: 0.047ms
+	UnloadStreamsBegin: 0.025ms
+	PersistCurrentRevisions: 0.570ms
+	UnloadStreamsEnd: 0.008ms
+	Untracked: 9.253ms
+Start importing Assets/Project/Resources/Animations/FBXTurns/Right Turn 90.fbx using Guid(82cc6131a0e2f4d71a2a3455b84d0688) Importer(-1,00000000000000000000000000000000)  -> (artifact id: 'feabab098f753e4c57d5cc7bbc737f41') in 0.258205 seconds
+Refreshing native plugins compatible for Editor in 0.67 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=e90330874094d4025a18c8bc96b0d2c6): Total: 0.306 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+	Summary:
+		Imports: total=1 (actual=1, local cache=0, cache server=0)
+		Asset DB Process Time: managed=1 ms, native=301 ms
+		Asset DB Callback time: managed=2 ms, native=1 ms
+		Scripting: domain reloads=0, domain reload time=0 ms, compile time=0 ms, other=0 ms
+		Project Asset Count: scripts=1022, non-scripts=616
+		Asset File Changes: new=1, changed=1, moved=0, deleted=0
+		Scan Filter Count: 6
+	InvokeBeforeRefreshCallbacks: 0.000ms
+	ApplyChangesToAssetFolders: 0.022ms
+	Scan: 6.726ms
+	OnSourceAssetsModified: 0.125ms
+	GetAllGuidsForCategorization: 0.279ms
+	CategorizeAssets: 8.698ms
+	ImportOutOfDateAssets: 262.111ms (-0.526ms without children)
+		ImportManagerImport: 260.924ms (1.285ms without children)
+			ImportInProcess: 259.591ms
+			UpdateCategorizedAssets: 0.048ms
+		ReloadNativeAssets: 0.000ms
+		UnloadImportedAssets: 0.130ms
+		ReloadImportedAssets: 0.869ms
+		EnsureUptoDateAssetsAreRegisteredWithGuidPM: 0.223ms
+		InitializingProgressBar: 0.004ms
+		PostProcessAllAssetNotificationsAddChangedAssets: 0.001ms
+		OnDemandSchedulerStart: 0.486ms
+	PostProcessAllAssets: 1.884ms
+	Hotreload: 1.434ms
+	GatherAllCurrentPrimaryArtifactRevisions: 0.053ms
+	UnloadStreamsBegin: 0.048ms
+	PersistCurrentRevisions: 0.111ms
+	UnloadStreamsEnd: 0.007ms
+	Untracked: 24.727ms
+HideAndSeekDesignBuilder: FBX turn animation role=right-90, asset=Right Turn 90.fbx, importedClips=1, minus2MeansLeft=False
+UnityEngine.StackTraceUtility:ExtractStackTrace () (at /Users/bokken/build/output/unity/unity/Runtime/Export/Scripting/StackTrace.cs:37)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+ArgusUnity.Editor.HideAndSeekDesignBuilder:EnsureTurnAnimationImports () (at Assets/Editor/HideAndSeekDesignBuilder.cs:155)
+ArgusUnity.Editor.HideAndSeekDesignBuilder:BuildScene () (at Assets/Editor/HideAndSeekDesignBuilder.cs:34)
+
+(Filename: Assets/Editor/HideAndSeekDesignBuilder.cs Line: 155)
+
+Start importing Assets/Project/Resources/Animations/FBXTurns/Right Turn 90-2.fbx using Guid(1170e0a4254694dcc89393ce7f5d98cf) Importer(-1,00000000000000000000000000000000) Keyframe reduction: Ratio: 0.000000%;
+ -> (artifact id: 'aa6d8fbe455882302c9940ce559b052c') in 0.212728 seconds
+Refreshing native plugins compatible for Editor in 0.82 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=8533c5d6649154ccf90b11fbcdaf5158): Total: 0.235 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Start importing Assets/Project/Resources/Animations/FBXTurns/Right Turn 90-2.fbx using Guid(1170e0a4254694dcc89393ce7f5d98cf) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '8d61fcf8d2f8e7fd33a95a6898d1a496') in 0.260661 seconds
+Refreshing native plugins compatible for Editor in 1.70 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=4de55e04dee3a464495db55304aa2dc7): Total: 0.295 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+HideAndSeekDesignBuilder: FBX turn animation role=left-90-from-minus-2, asset=Right Turn 90-2.fbx, importedClips=1, minus2MeansLeft=True
+UnityEngine.StackTraceUtility:ExtractStackTrace () (at /Users/bokken/build/output/unity/unity/Runtime/Export/Scripting/StackTrace.cs:37)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+ArgusUnity.Editor.HideAndSeekDesignBuilder:EnsureTurnAnimationImports () (at Assets/Editor/HideAndSeekDesignBuilder.cs:155)
+ArgusUnity.Editor.HideAndSeekDesignBuilder:BuildScene () (at Assets/Editor/HideAndSeekDesignBuilder.cs:34)
+
+(Filename: Assets/Editor/HideAndSeekDesignBuilder.cs Line: 155)
+
+Start importing Assets/Project/Resources/Animations/FBXTurns/Happy Right Turn.fbx using Guid(1be269054e1384c259b5d79fb375c6f8) Importer(-1,00000000000000000000000000000000) Keyframe reduction: Ratio: 0.000000%;
+ -> (artifact id: '5abf8b5d354b4c1136e95cc3ec7188c5') in 0.212714 seconds
+Refreshing native plugins compatible for Editor in 0.64 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=b81151f3ee7494a8282153aa5374ce71): Total: 0.232 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Start importing Assets/Project/Resources/Animations/FBXTurns/Happy Right Turn.fbx using Guid(1be269054e1384c259b5d79fb375c6f8) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '0a4304117256efcf441b8ff80be9248b') in 0.208043 seconds
+Refreshing native plugins compatible for Editor in 0.62 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=d85afe0579d7f4ef2b7c5fe78ba0a7d3): Total: 0.228 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+HideAndSeekDesignBuilder: FBX turn animation role=happy-right, asset=Happy Right Turn.fbx, importedClips=1, minus2MeansLeft=False
+UnityEngine.StackTraceUtility:ExtractStackTrace () (at /Users/bokken/build/output/unity/unity/Runtime/Export/Scripting/StackTrace.cs:37)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+ArgusUnity.Editor.HideAndSeekDesignBuilder:EnsureTurnAnimationImports () (at Assets/Editor/HideAndSeekDesignBuilder.cs:155)
+ArgusUnity.Editor.HideAndSeekDesignBuilder:BuildScene () (at Assets/Editor/HideAndSeekDesignBuilder.cs:34)
+
+(Filename: Assets/Editor/HideAndSeekDesignBuilder.cs Line: 155)
+
+Start importing Assets/Project/Resources/Animations/FBXTurns/Happy Right Turn-2.fbx using Guid(61038be6e25984c94a7ef50954a36c5b) Importer(-1,00000000000000000000000000000000) Keyframe reduction: Ratio: 0.000000%;
+ -> (artifact id: '9951ccbd821bca9b5d41b82d926d8d43') in 0.193193 seconds
+Refreshing native plugins compatible for Editor in 1.09 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=f438c76a2227e484f86764d27e794484): Total: 0.221 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Start importing Assets/Project/Resources/Animations/FBXTurns/Happy Right Turn-2.fbx using Guid(61038be6e25984c94a7ef50954a36c5b) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '7980855351221ddbb29ef1dfd101f7f5') in 0.187954 seconds
+Refreshing native plugins compatible for Editor in 0.59 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=bac6a6487e3bf49e0b1410e14912048e): Total: 0.213 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+HideAndSeekDesignBuilder: FBX turn animation role=happy-left-from-minus-2, asset=Happy Right Turn-2.fbx, importedClips=1, minus2MeansLeft=True
+UnityEngine.StackTraceUtility:ExtractStackTrace () (at /Users/bokken/build/output/unity/unity/Runtime/Export/Scripting/StackTrace.cs:37)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+ArgusUnity.Editor.HideAndSeekDesignBuilder:EnsureTurnAnimationImports () (at Assets/Editor/HideAndSeekDesignBuilder.cs:155)
+ArgusUnity.Editor.HideAndSeekDesignBuilder:BuildScene () (at Assets/Editor/HideAndSeekDesignBuilder.cs:34)
+
+(Filename: Assets/Editor/HideAndSeekDesignBuilder.cs Line: 155)
+
+HideAndSeekDesignBuilder: mini-bot import animationType=Generic, importAnimation=True, avatarValid=False, avatarHuman=False, walkingBones leftFoot=True, rightFoot=True, leftLeg=True, rightLeg=True.
+UnityEngine.StackTraceUtility:ExtractStackTrace () (at /Users/bokken/build/output/unity/unity/Runtime/Export/Scripting/StackTrace.cs:37)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+ArgusUnity.Editor.HideAndSeekDesignBuilder:LogMiniBotRigInfo () (at Assets/Editor/HideAndSeekDesignBuilder.cs:607)
+ArgusUnity.Editor.HideAndSeekDesignBuilder:BuildScene () (at Assets/Editor/HideAndSeekDesignBuilder.cs:35)
+
+(Filename: Assets/Editor/HideAndSeekDesignBuilder.cs Line: 607)
+
+Unloading 2 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 349 unused Assets / (66.7 KB). Loaded Objects now: 1337.
+Memory consumption went from 101.6 MB to 101.5 MB.
+Total: 21.091958 ms (FindLiveObjects: 0.115833 ms CreateObjectMapping: 0.180458 ms MarkObjects: 20.324084 ms  DeleteObjects: 0.470333 ms)
+
+Start importing Assets/Project/Materials/HideSeekDefenseBlue.mat using Guid(1ab91de9bb9934e9f880738d62def819) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '5393f3c5a3a094310f103cc049b5b045') in 0.014089 seconds
+Start importing Assets/Project/Materials/HideSeekAttackRed.mat using Guid(4aa4d8a01259243b6b5dba6db789b200) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '2e7068000da311e85c1b16a61381ad53') in 0.001359 seconds
+Refreshing native plugins compatible for Editor in 2.34 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=4243e61bc464942a482a31fe1a97e85e): Total: 0.076 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Start importing Assets/Project/Scenes/MiniBotHideAndSeekDesign.unity using Guid(9a4a9106e8b4148eea11b87fdf0edb7b) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '86db11fac14919a0782f830a509d9486') in 0.000941 seconds
+Refreshing native plugins compatible for Editor in 0.62 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=2ae90e12d37074497808323e90f72544): Total: 0.043 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+HideAndSeekDesignBuilder: physics setup activeFurnitureRigidbodies=13, staticSchoolroomColliders=5.
+UnityEngine.StackTraceUtility:ExtractStackTrace () (at /Users/bokken/build/output/unity/unity/Runtime/Export/Scripting/StackTrace.cs:37)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+ArgusUnity.Editor.HideAndSeekDesignBuilder:BuildScene () (at Assets/Editor/HideAndSeekDesignBuilder.cs:54)
+
+(Filename: Assets/Editor/HideAndSeekDesignBuilder.cs Line: 54)
+
+HideAndSeekDesignBuilder: saved Assets/Project/Scenes/MiniBotHideAndSeekDesign.unity
+UnityEngine.StackTraceUtility:ExtractStackTrace () (at /Users/bokken/build/output/unity/unity/Runtime/Export/Scripting/StackTrace.cs:37)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+ArgusUnity.Editor.HideAndSeekDesignBuilder:BuildScene () (at Assets/Editor/HideAndSeekDesignBuilder.cs:57)
+
+(Filename: Assets/Editor/HideAndSeekDesignBuilder.cs Line: 57)
+
+[Project] Loading completed in 27.099 seconds
+	Project init time: 				14.090 seconds
+		Template init time: 		0.000 seconds
+		Package Manager init time: 		2.273 seconds
+		Asset Database init time: 		1.359 seconds
+		Global illumination init time: 	0.013 seconds
+		Assemblies load time: 			0.755 seconds
+		Unity extensions init time: 	0.004 seconds
+		Asset Database refresh time: 	0.103 seconds
+	Scene opening time: 			5.063 seconds
+##utp:{"type":"ProjectInfo","version":2,"phase":"Immediate","time":1777994838478,"processId":51409,"projectLoad":27.099112542000005,"projectInit":14.090135459,"templateInit":0.0,"packageManagerInit":2.273107917,"assetDatabaseInit":1.358992333,"globalIlluminationInit":0.012601416,"assembliesLoad":0.75490825,"unityExtensionsInit":0.003654875,"assetDatabaseRefresh":0.103357542,"sceneOpening":5.062742334}
+##utp:{"type":"EditorInfo","version":2,"phase":"Immediate","time":1777994838478,"processId":51409,"editorVersion":"2022.3.0f1 (fb119bb0b476)","branch":"2022.3/release","buildType":"Release","platform":"OSX"}
+Subscribe to USB device events
+Scanning for USB devices : 0.225ms
+[UnityConnectServicesConfig] config is NOT valid, switching to default
+Created GICache directory at /Users/guribbong/Library/Caches/com.unity3d.UnityEditor/GiCache. Took: 0.010s, timestamps: [27.133 - 27.143]
+gi::BakeBackendSwitch: switching bake backend from 3 to 2.
+[00:00:02] Builtin Sky manager started.
+[00:00:02] Finished 1 Bake Ambient Probe job (0.00s execute, 0.00s integrate, 0.05s wallclock)
+[00:00:02] Finished 1 Bake Ambient Probe job (0.00s execute, 0.00s integrate, 0.05s wallclock)
+[40m[32minfo[39m[22m[49m: Microsoft.Hosting.Lifetime[0]
+      Application is shutting down...
+[40m[32minfo[39m[22m[49m: Unity.ILPP.Runner.PostProcessingAssemblyLoadContext[0]
+      ALC ILPP context 1 is unloading

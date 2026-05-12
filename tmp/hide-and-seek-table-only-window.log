@@ -1,0 +1,775 @@
+Unity Editor version:    2022.3.0f1 (fb119bb0b476)
+Branch:                  2022.3/release
+Build type:              Release
+Batch mode:              NO
+macOS version:           Version 26.3.1 (a) (Build 25D771280a)
+Darwin version:          25.3.0
+Architecture:            arm64
+Running under Rosetta:   NO
+Available memory:        8192 MB
+[Licensing::Module] Trying to connect to existing licensing client channel...
+[Licensing::IpcConnector] Connection attempt to the License Client on channel: "LicenseClient-guribbong" failed because channel doesn't exist; code: "0x80000002"
+Launching external process: /Applications/Unity/Hub/Editor/2022.3.0f1/Unity.app/Contents/Frameworks/UnityLicensingClient.app/Contents/MacOS/Unity.Licensing.Client
+[Licensing::Module] Successfully launched the LicensingClient (PId: 22147)
+[Licensing::IpcConnector] Successfully connected to the License Client on channel: "LicenseClient-guribbong"
+[Licensing::Client] Handshaking with LicensingClient:
+  Version:                 1.12.1+9338cad
+  Session Id:              f94b5e2cacb345468d67332fbf448a22
+  Correlation Id:          86033d1b417f1d46dfc98f05a10efc6a
+  External correlation Id: 7926626070937424282
+  Machine Id:              kK/taOzULwH3CoqhnK6anvJ0b88=
+[Licensing::Module] Successfully connected to LicensingClient on channel: "LicenseClient-guribbong" (connect: 6.03s, validation: 0.23s, handshake: 0.44s)
+[Licensing::IpcConnector] Successfully connected to the License Notification on channel: "LicenseClient-guribbong-notifications"
+[Licensing::Module] Connected to LicensingClient (PId: 22147, launch time: 0.00, total connection time: 6.69s)
+[Licensing::Module] Error: Access token is unavailable; failed to update
+[Licensing::Client] Error: Code 500 while processing request (status: Unable to update licenses. Errors: No ULF license found.,Token not found in cache)
+[Licensing::Client] Error: Code 500 while updating license in client (status: Unable to update licenses. Errors: No ULF license found.,Token not found in cache)
+[Licensing::Client] Successfully resolved entitlements
+[Licensing::Module] Serial number assigned to: "14568638156105-UnityPersXXXX"
+Pro License: NO
+Launching external process: /Applications/Unity/Hub/Editor/2022.3.0f1/Unity.app/Contents/Resources/PackageManager/Server/UnityPackageManager
+
+COMMAND LINE ARGUMENTS:
+/Applications/Unity/Hub/Editor/2022.3.0f1/Unity.app/Contents/MacOS/Unity
+-projectPath
+/Users/guribbong/code/Argus/unity/EmbodiedDebate
+-executeMethod
+ArgusUnity.Editor.HideAndSeekDesignBuilder.OpenSceneInPlayMode
+-logFile
+/Users/guribbong/code/Argus/tmp/hide-and-seek-table-only-window.log
+Successfully changed project path to: /Users/guribbong/code/Argus/unity/EmbodiedDebate
+/Users/guribbong/code/Argus/unity/EmbodiedDebate
+[UnityMemory] Configuration Parameters - Can be set up in boot.config
+    "memorysetup-bucket-allocator-granularity=16"
+    "memorysetup-bucket-allocator-bucket-count=8"
+    "memorysetup-bucket-allocator-block-size=33554432"
+    "memorysetup-bucket-allocator-block-count=8"
+    "memorysetup-main-allocator-block-size=16777216"
+    "memorysetup-thread-allocator-block-size=16777216"
+    "memorysetup-gfx-main-allocator-block-size=16777216"
+    "memorysetup-gfx-thread-allocator-block-size=16777216"
+    "memorysetup-cache-allocator-block-size=4194304"
+    "memorysetup-typetree-allocator-block-size=2097152"
+    "memorysetup-profiler-bucket-allocator-granularity=16"
+    "memorysetup-profiler-bucket-allocator-bucket-count=8"
+    "memorysetup-profiler-bucket-allocator-block-size=33554432"
+    "memorysetup-profiler-bucket-allocator-block-count=8"
+    "memorysetup-profiler-allocator-block-size=16777216"
+    "memorysetup-profiler-editor-allocator-block-size=1048576"
+    "memorysetup-temp-allocator-size-main=16777216"
+    "memorysetup-job-temp-allocator-block-size=2097152"
+    "memorysetup-job-temp-allocator-block-size-background=1048576"
+    "memorysetup-job-temp-allocator-reduction-small-platforms=262144"
+    "memorysetup-allocator-temp-initial-block-size-main=262144"
+    "memorysetup-allocator-temp-initial-block-size-worker=262144"
+    "memorysetup-temp-allocator-size-background-worker=32768"
+    "memorysetup-temp-allocator-size-job-worker=262144"
+    "memorysetup-temp-allocator-size-preload-manager=33554432"
+    "memorysetup-temp-allocator-size-nav-mesh-worker=65536"
+    "memorysetup-temp-allocator-size-audio-worker=65536"
+    "memorysetup-temp-allocator-size-cloud-worker=32768"
+    "memorysetup-temp-allocator-size-gi-baking-worker=262144"
+    "memorysetup-temp-allocator-size-gfx=262144"
+Player connection [8649715968] Host "[IP] 192.168.3.1 [Port] 55496 [Flags] 2 [Guid] 592219501 [EditorId] 592219501 [Version] 1048832 [Id] OSXEditor(0,topabaem.local) [Debug] 1 [PackageName] OSXEditor [ProjectName] Editor" joined multi-casting on [225.0.0.222:54997]...
+
+Player connection [8649715968] Host "[IP] 192.168.3.1 [Port] 55496 [Flags] 2 [Guid] 592219501 [EditorId] 592219501 [Version] 1048832 [Id] OSXEditor(0,topabaem.local) [Debug] 1 [PackageName] OSXEditor [ProjectName] Editor" joined alternative multi-casting on [225.0.0.222:34997]...
+
+[Package Manager] UpmClient::Connect -- Connected to IPC stream "Upm-22146" after 4.7 seconds.
+[Licensing::Client] Successfully resolved entitlements
+[Package Manager] Restoring resolved packages state from cache
+[Licensing::Client] Successfully resolved entitlement details
+[Package Manager] Registered 8 packages:
+  Packages from [https://packages.unity.com]:
+    com.unity.nuget.newtonsoft-json@3.2.1 (location: /Users/guribbong/code/Argus/unity/EmbodiedDebate/Library/PackageCache/com.unity.nuget.newtonsoft-json@3.2.1)
+    com.unity.test-framework@1.1.33 (location: /Users/guribbong/code/Argus/unity/EmbodiedDebate/Library/PackageCache/com.unity.test-framework@1.1.33)
+    com.unity.ext.nunit@1.0.6 (location: /Users/guribbong/code/Argus/unity/EmbodiedDebate/Library/PackageCache/com.unity.ext.nunit@1.0.6)
+  Built-in packages:
+    com.unity.modules.imageconversion@1.0.0 (location: /Users/guribbong/code/Argus/unity/EmbodiedDebate/Library/PackageCache/com.unity.modules.imageconversion@1.0.0)
+    com.unity.modules.physics@1.0.0 (location: /Users/guribbong/code/Argus/unity/EmbodiedDebate/Library/PackageCache/com.unity.modules.physics@1.0.0)
+    com.unity.modules.unitywebrequest@1.0.0 (location: /Users/guribbong/code/Argus/unity/EmbodiedDebate/Library/PackageCache/com.unity.modules.unitywebrequest@1.0.0)
+    com.unity.modules.imgui@1.0.0 (location: /Users/guribbong/code/Argus/unity/EmbodiedDebate/Library/PackageCache/com.unity.modules.imgui@1.0.0)
+    com.unity.modules.jsonserialize@1.0.0 (location: /Users/guribbong/code/Argus/unity/EmbodiedDebate/Library/PackageCache/com.unity.modules.jsonserialize@1.0.0)
+[Subsystems] No new subsystems found in resolved package list.
+Package Manager log level set to [2]
+[Package Manager] Done registering packages in 0.35 seconds
+Refreshing native plugins compatible for Editor in 5.59 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Initialize engine version: 2022.3.0f1 (fb119bb0b476)
+[Subsystems] Discovering subsystems at path /Applications/Unity/Hub/Editor/2022.3.0f1/Unity.app/Contents/Resources/UnitySubsystems
+[Subsystems] Discovering subsystems at path /Users/guribbong/code/Argus/unity/EmbodiedDebate/Assets
+GfxDevice: creating device client; threaded=1; jobified=0
+ preferred device: Apple M2 (high power)
+Metal devices available: 1
+0: Apple M2 (high power)
+Using device Apple M2 (high power)
+Initializing Metal device caps: Apple M2
+[Licensing::Client] Successfully resolved entitlements
+Initialize mono
+Mono path[0] = '/Applications/Unity/Hub/Editor/2022.3.0f1/Unity.app/Contents/Managed'
+Mono path[1] = '/Applications/Unity/Hub/Editor/2022.3.0f1/Unity.app/Contents/MonoBleedingEdge/lib/mono/unityjit-macos'
+Mono config path = '/Applications/Unity/Hub/Editor/2022.3.0f1/Unity.app/Contents/MonoBleedingEdge/etc'
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56146
+Using cacheserver namespaces - metadata:defaultmetadata, artifacts:defaultartifacts
+Using cacheserver namespaces - metadata:defaultmetadata, artifacts:defaultartifacts
+ImportWorker Server TCP listen port: 0
+Begin MonoManager ReloadAssembly
+Registering precompiled unity dll's ...
+Register platform support module: /Applications/Unity/Hub/Editor/2022.3.0f1/Unity.app/Contents/PlaybackEngines/MacStandaloneSupport/UnityEditor.OSXStandalone.Extensions.dll
+Registered in 0.001722 seconds.
+- Loaded All Assemblies, in  0.304 seconds
+Native extension for OSXStandalone target not found
+Mono: successfully reloaded assembly
+- Finished resetting the current domain, in  0.215 seconds
+Domain Reload Profiling: 519ms
+	BeginReloadAssembly (114ms)
+		ExecutionOrderSort (0ms)
+		DisableScriptedObjects (0ms)
+		BackupInstance (0ms)
+		ReleaseScriptingObjects (0ms)
+		CreateAndSetChildDomain (2ms)
+	RebuildCommonClasses (33ms)
+	RebuildNativeTypeToScriptingClass (8ms)
+	initialDomainReloadingComplete (37ms)
+	LoadAllAssembliesAndSetupDomain (112ms)
+		LoadAssemblies (109ms)
+		RebuildTransferFunctionScriptingTraits (0ms)
+		AnalyzeDomain (108ms)
+			TypeCache.Refresh (107ms)
+				TypeCache.ScanAssembly (93ms)
+			ScanForSourceGeneratedMonoScriptInfo (0ms)
+			ResolveRequiredComponents (1ms)
+	FinalizeReload (215ms)
+		ReleaseScriptCaches (0ms)
+		RebuildScriptCaches (0ms)
+		SetupLoadedEditorAssemblies (171ms)
+			LogAssemblyErrors (0ms)
+			InitializePlatformSupportModulesInManaged (5ms)
+			SetLoadedEditorAssemblies (5ms)
+			RefreshPlugins (0ms)
+			BeforeProcessingInitializeOnLoad (3ms)
+			ProcessInitializeOnLoadAttributes (102ms)
+			ProcessInitializeOnLoadMethodAttributes (58ms)
+			AfterProcessingInitializeOnLoad (0ms)
+			EditorAssembliesLoaded (0ms)
+		ExecutionOrderSort2 (0ms)
+		AwakeInstancesAfterBackupRestoration (0ms)
+[Licensing::Client] Successfully resolved entitlements
+Application.AssetDatabase Initial Refresh Start
+[40m[32minfo[39m[22m[49m: Microsoft.Hosting.Lifetime[14]
+      Now listening on: http://unix:/tmp/ilpp.sock-8e16111b622e4d5ea6b5ecc926298bfd
+[40m[32minfo[39m[22m[49m: Microsoft.Hosting.Lifetime[0]
+      Application started. Press Ctrl+C to shut down.
+[40m[32minfo[39m[22m[49m: Microsoft.Hosting.Lifetime[0]
+      Hosting environment: Production
+[40m[32minfo[39m[22m[49m: Microsoft.Hosting.Lifetime[0]
+      Content root path: /Users/guribbong/code/Argus/unity/EmbodiedDebate/
+[40m[32minfo[39m[22m[49m: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/2 POST http://ilpp/UnityILPP.PostProcessing/Ping application/grpc -
+[40m[32minfo[39m[22m[49m: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'gRPC - /UnityILPP.PostProcessing/Ping'
+[40m[32minfo[39m[22m[49m: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'gRPC - /UnityILPP.PostProcessing/Ping'
+[40m[32minfo[39m[22m[49m: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished HTTP/2 POST http://ilpp/UnityILPP.PostProcessing/Ping application/grpc - - 200 - application/grpc 55.0312ms
+Starting: /Applications/Unity/Hub/Editor/2022.3.0f1/Unity.app/Contents/bee_backend --dont-print-to-structured-log --ipc --defer-dag-verification --dagfile="Library/Bee/200b0aE.dag" --continue-on-failure --profile="Library/Bee/backend1.traceevents" ScriptAssemblies
+WorkingDir: /Users/guribbong/code/Argus/unity/EmbodiedDebate
+ExitCode: 4 Duration: 0s55ms
+Rebuilding DAG because FileSignature timestamp changed: Library/Bee/200b0aE-inputdata.json
+*** Tundra requires additional run (0.03 seconds), 0 items updated, 112 evaluated
+Starting: /Applications/Unity/Hub/Editor/2022.3.0f1/Unity.app/Contents/Tools/netcorerun/netcorerun "/Applications/Unity/Hub/Editor/2022.3.0f1/Unity.app/Contents/Tools/BuildPipeline/ScriptCompilationBuildProgram.exe" "Library/Bee/200b0aE.dag.json" "Library/Bee/200b0aE-inputdata.json" "Library/Bee/buildprogram0.traceevents"
+WorkingDir: /Users/guribbong/code/Argus/unity/EmbodiedDebate
+ExitCode: 0 Duration: 0s651ms
+Starting: /Applications/Unity/Hub/Editor/2022.3.0f1/Unity.app/Contents/bee_backend --dont-print-to-structured-log --ipc --defer-dag-verification --dagfile="Library/Bee/200b0aE.dag" --continue-on-failure --dagfilejson="Library/Bee/200b0aE.dag.json" --profile="Library/Bee/backend2.traceevents" ScriptAssemblies
+WorkingDir: /Users/guribbong/code/Argus/unity/EmbodiedDebate
+ExitCode: 0 Duration: 0s40ms
+Finished compiling graph: 140 nodes, 808 flattened edges (762 ToBuild, 12 ToUse), maximum node priority 46
+*** Tundra build success (0.02 seconds), 0 items updated, 137 evaluated
+Total cache size 1512040
+Total cache size after purge 1512040
+AssetDatabase: script compilation time: 1.509013s
+Begin MonoManager ReloadAssembly
+Symbol file LoadedFromMemory is not a mono symbol file
+- Loaded All Assemblies, in  0.337 seconds
+Refreshing native plugins compatible for Editor in 0.27 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Refreshing native plugins compatible for Editor in 0.27 ms, found 0 plugins.
+Native extension for OSXStandalone target not found
+Mono: successfully reloaded assembly
+- Finished resetting the current domain, in  0.219 seconds
+Domain Reload Profiling: 556ms
+	BeginReloadAssembly (110ms)
+		ExecutionOrderSort (0ms)
+		DisableScriptedObjects (4ms)
+		BackupInstance (0ms)
+		ReleaseScriptingObjects (0ms)
+		CreateAndSetChildDomain (23ms)
+	RebuildCommonClasses (25ms)
+	RebuildNativeTypeToScriptingClass (10ms)
+	initialDomainReloadingComplete (20ms)
+	LoadAllAssembliesAndSetupDomain (171ms)
+		LoadAssemblies (133ms)
+		RebuildTransferFunctionScriptingTraits (0ms)
+		AnalyzeDomain (101ms)
+			TypeCache.Refresh (99ms)
+				TypeCache.ScanAssembly (92ms)
+			ScanForSourceGeneratedMonoScriptInfo (1ms)
+			ResolveRequiredComponents (1ms)
+	FinalizeReload (219ms)
+		ReleaseScriptCaches (0ms)
+		RebuildScriptCaches (0ms)
+		SetupLoadedEditorAssemblies (133ms)
+			LogAssemblyErrors (0ms)
+			InitializePlatformSupportModulesInManaged (3ms)
+			SetLoadedEditorAssemblies (2ms)
+			RefreshPlugins (0ms)
+			BeforeProcessingInitializeOnLoad (17ms)
+			ProcessInitializeOnLoadAttributes (84ms)
+			ProcessInitializeOnLoadMethodAttributes (25ms)
+			AfterProcessingInitializeOnLoad (1ms)
+			EditorAssembliesLoaded (0ms)
+		ExecutionOrderSort2 (0ms)
+		AwakeInstancesAfterBackupRestoration (4ms)
+Asset Pipeline Refresh (id=b4461e088a610439796703021f0fd1ab): Total: 2.434 seconds - Initiated by InitialRefreshV2(ForceSynchronousImport)
+	Summary:
+		Imports: total=4 (actual=0, local cache=4, cache server=0)
+		Asset DB Process Time: managed=0 ms, native=344 ms
+		Asset DB Callback time: managed=11 ms, native=0 ms
+		Scripting: domain reloads=1, domain reload time=565 ms, compile time=1509 ms, other=2 ms
+		Project Asset Count: scripts=455, non-scripts=531
+		Asset File Changes: new=0, changed=0, moved=0, deleted=0
+		Scan Filter Count: 1
+	InvokeBeforeRefreshCallbacks: 0.150ms
+	ApplyChangesToAssetFolders: 0.012ms
+	Scan: 163.560ms
+	OnSourceAssetsModified: 0.001ms
+	GetAllGuidsForCategorization: 0.058ms
+	CategorizeAssets: 29.531ms
+	ImportOutOfDateAssets: 242.099ms (-1268.942ms without children)
+		CompileScripts: 1509.113ms
+		ReloadNativeAssets: 0.000ms
+		UnloadImportedAssets: 0.991ms
+		EnsureUptoDateAssetsAreRegisteredWithGuidPM: 0.241ms
+		InitializingProgressBar: 0.000ms
+		PostProcessAllAssetNotificationsAddChangedAssets: 0.000ms
+		OnDemandSchedulerStart: 0.696ms
+	PostProcessAllAssets: 11.575ms
+	GatherAllCurrentPrimaryArtifactRevisions: 0.000ms
+	UnloadStreamsBegin: 0.133ms
+	PersistCurrentRevisions: 0.032ms
+	UnloadStreamsEnd: 0.003ms
+	GenerateScriptTypeHashes: 0.008ms
+	Untracked: 1986.490ms
+Application.AssetDatabase Initial Refresh End
+Launching external process: /Applications/Unity/Hub/Editor/2022.3.0f1/Unity.app/Contents/Tools/UnityShaderCompiler
+Launched and connected shader compiler UnityShaderCompiler after 0.29 seconds
+Scanning for USB devices : 0.189ms
+Initializing Unity extensions:
+[Licensing::Client] Successfully resolved entitlements
+[MODES] ModeService[none].Initialize
+[MODES] ModeService[none].LoadModes
+[MODES] Loading mode Default (0) for mode-current-id-EmbodiedDebate
+Unloading 2 Unused Serialized files (Serialized files now loaded: 0)
+ProgressiveSceneManager::Cancel()
+Loaded scene 'Assets/Project/Scenes/MiniBotHideAndSeekDesign.unity'
+	Deserialize:            4.490 ms
+	Integration:            29.545 ms
+	Integration of assets:  0.002 ms
+	Thread Wait Time:       0.014 ms
+	Total Operation Time:   34.051 ms
+Unloading 23 unused Assets / (368.1 KB). Loaded Objects now: 1278.
+Memory consumption went from 93.0 MB to 92.7 MB.
+Total: 3.128709 ms (FindLiveObjects: 0.248917 ms CreateObjectMapping: 0.013791 ms MarkObjects: 2.694167 ms  DeleteObjects: 0.171417 ms)
+
+[LAYOUT] About to load UserSettings/Layouts/default-2022.dwlt, keepMainWindow=False
+[MODES] ModeService[default].InitializeCurrentMode
+[MODES] ModeService[default].RaiseModeChanged(default, default)
+Asset Pipeline Refresh (id=835ab9d0132694ea9b65d1023387a148): Total: 0.111 seconds - Initiated by RefreshV2(NoUpdateAssetOptions)
+HideAndSeekDesignBuilder: mini-bot import animationType=Generic, importAnimation=True, avatarValid=False, avatarHuman=False, walkingBones leftFoot=True, rightFoot=True, leftLeg=True, rightLeg=True.
+UnityEngine.StackTraceUtility:ExtractStackTrace () (at /Users/bokken/build/output/unity/unity/Runtime/Export/Scripting/StackTrace.cs:37)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+ArgusUnity.Editor.HideAndSeekDesignBuilder:LogMiniBotRigInfo () (at Assets/Editor/HideAndSeekDesignBuilder.cs:344)
+ArgusUnity.Editor.HideAndSeekDesignBuilder:BuildScene () (at Assets/Editor/HideAndSeekDesignBuilder.cs:24)
+ArgusUnity.Editor.HideAndSeekDesignBuilder:OpenSceneInPlayMode () (at Assets/Editor/HideAndSeekDesignBuilder.cs:56)
+
+(Filename: Assets/Editor/HideAndSeekDesignBuilder.cs Line: 344)
+
+Unloading 8 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 138 unused Assets / (16.4 MB). Loaded Objects now: 1729.
+Memory consumption went from 132.9 MB to 116.5 MB.
+Total: 11.147625 ms (FindLiveObjects: 0.285459 ms CreateObjectMapping: 0.018459 ms MarkObjects: 8.340500 ms  DeleteObjects: 2.502667 ms)
+
+Start importing Assets/Project/Materials/HideSeekDefenseBlue.mat using Guid(1ab91de9bb9934e9f880738d62def819) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '5393f3c5a3a094310f103cc049b5b045') in 0.011905 seconds
+Start importing Assets/Project/Materials/HideSeekAttackRed.mat using Guid(4aa4d8a01259243b6b5dba6db789b200) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '2e7068000da311e85c1b16a61381ad53') in 0.020684 seconds
+Refreshing native plugins compatible for Editor in 1.51 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=ecd663eeeb8074a6b9fb40816775f34b): Total: 0.082 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Start importing Assets/Project/Scenes/MiniBotHideAndSeekDesign.unity using Guid(9a4a9106e8b4148eea11b87fdf0edb7b) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '2ec46c4e3a8c979abdd32926a51bfcc1') in 0.000591 seconds
+Refreshing native plugins compatible for Editor in 0.25 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=08ddeb55dfebb46a09e3906220c479ad): Total: 0.024 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+HideAndSeekDesignBuilder: saved Assets/Project/Scenes/MiniBotHideAndSeekDesign.unity
+UnityEngine.StackTraceUtility:ExtractStackTrace () (at /Users/bokken/build/output/unity/unity/Runtime/Export/Scripting/StackTrace.cs:37)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+ArgusUnity.Editor.HideAndSeekDesignBuilder:BuildScene () (at Assets/Editor/HideAndSeekDesignBuilder.cs:42)
+ArgusUnity.Editor.HideAndSeekDesignBuilder:OpenSceneInPlayMode () (at Assets/Editor/HideAndSeekDesignBuilder.cs:56)
+
+(Filename: Assets/Editor/HideAndSeekDesignBuilder.cs Line: 42)
+
+Opening scene 'Assets/Project/Scenes/MiniBotHideAndSeekDesign.unity'
+Unloading 0 Unused Serialized files (Serialized files now loaded: 0)
+Loaded scene 'Assets/Project/Scenes/MiniBotHideAndSeekDesign.unity'
+	Deserialize:            1.962 ms
+	Integration:            9.261 ms
+	Integration of assets:  0.002 ms
+	Thread Wait Time:       0.003 ms
+	Total Operation Time:   11.229 ms
+Unloading 8 unused Assets / (3.9 KB). Loaded Objects now: 2144.
+Memory consumption went from 117.9 MB to 117.9 MB.
+Total: 9.269667 ms (FindLiveObjects: 0.083791 ms CreateObjectMapping: 0.014000 ms MarkObjects: 9.151375 ms  DeleteObjects: 0.019667 ms)
+
+HideAndSeekDesignBuilder: opened scene and entered Play Mode.
+UnityEngine.StackTraceUtility:ExtractStackTrace () (at /Users/bokken/build/output/unity/unity/Runtime/Export/Scripting/StackTrace.cs:37)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+ArgusUnity.Editor.HideAndSeekDesignBuilder:OpenSceneInPlayMode () (at Assets/Editor/HideAndSeekDesignBuilder.cs:60)
+
+(Filename: Assets/Editor/HideAndSeekDesignBuilder.cs Line: 60)
+
+IsTimeToCheckForNewEditor: Update time 1777970797 current 1777971788
+[Project] Loading completed in 21.687 seconds
+	Project init time: 				9.568 seconds
+		Template init time: 		0.000 seconds
+		Package Manager init time: 		4.715 seconds
+		Asset Database init time: 		0.485 seconds
+		Global illumination init time: 	0.005 seconds
+		Assemblies load time: 			0.524 seconds
+		Unity extensions init time: 	0.001 seconds
+		Asset Database refresh time: 	0.117 seconds
+	Scene opening time: 			4.403 seconds
+##utp:{"type":"ProjectInfo","version":2,"phase":"Immediate","time":1777971788798,"processId":22146,"projectLoad":21.686702459000004,"projectInit":9.56770125,"templateInit":0.0,"packageManagerInit":4.714532084,"assetDatabaseInit":0.485347709,"globalIlluminationInit":0.005305416,"assembliesLoad":0.524318125,"unityExtensionsInit":0.000754125,"assetDatabaseRefresh":0.11724925,"sceneOpening":4.403489208}
+##utp:{"type":"EditorInfo","version":2,"phase":"Immediate","time":1777971788798,"processId":22146,"editorVersion":"2022.3.0f1 (fb119bb0b476)","branch":"2022.3/release","buildType":"Release","platform":"OSX"}
+Subscribe to USB device events
+Scanning for USB devices : 0.142ms
+Thread 0x320c87000 may have been prematurely finalized
+Reloading assemblies for play mode.
+Reloading assemblies after forced synchronous recompile.
+Begin MonoManager ReloadAssembly
+Symbol file LoadedFromMemory is not a mono symbol file
+- Loaded All Assemblies, in  0.255 seconds
+Refreshing native plugins compatible for Editor in 0.25 ms, found 0 plugins.
+Native extension for OSXStandalone target not found
+[MODES] ModeService[none].Initialize
+[MODES] ModeService[none].LoadModes
+[MODES] Loading mode Default (0) for mode-current-id-EmbodiedDebate
+Mono: successfully reloaded assembly
+- Finished resetting the current domain, in  0.587 seconds
+Domain Reload Profiling: 844ms
+	BeginReloadAssembly (191ms)
+		ExecutionOrderSort (0ms)
+		DisableScriptedObjects (18ms)
+		BackupInstance (0ms)
+		ReleaseScriptingObjects (0ms)
+		CreateAndSetChildDomain (58ms)
+	RebuildCommonClasses (29ms)
+	RebuildNativeTypeToScriptingClass (8ms)
+	initialDomainReloadingComplete (17ms)
+	LoadAllAssembliesAndSetupDomain (11ms)
+		LoadAssemblies (99ms)
+		RebuildTransferFunctionScriptingTraits (0ms)
+		AnalyzeDomain (2ms)
+			TypeCache.Refresh (1ms)
+				TypeCache.ScanAssembly (0ms)
+			ScanForSourceGeneratedMonoScriptInfo (0ms)
+			ResolveRequiredComponents (1ms)
+	FinalizeReload (588ms)
+		ReleaseScriptCaches (0ms)
+		RebuildScriptCaches (0ms)
+		SetupLoadedEditorAssemblies (134ms)
+			LogAssemblyErrors (0ms)
+			InitializePlatformSupportModulesInManaged (3ms)
+			SetLoadedEditorAssemblies (3ms)
+			RefreshPlugins (0ms)
+			BeforeProcessingInitializeOnLoad (21ms)
+			ProcessInitializeOnLoadAttributes (75ms)
+			ProcessInitializeOnLoadMethodAttributes (31ms)
+			AfterProcessingInitializeOnLoad (1ms)
+			EditorAssembliesLoaded (0ms)
+		ExecutionOrderSort2 (0ms)
+		AwakeInstancesAfterBackupRestoration (289ms)
+Asset Pipeline Refresh (id=fd0e87e87d8b9454898d634112dc8152): Total: 0.951 seconds - Initiated by StopAssetImportingV2(ForceSynchronousImport | ForceDomainReload)
+	Summary:
+		Imports: total=0 (actual=0, local cache=0, cache server=0)
+		Asset DB Process Time: managed=0 ms, native=84 ms
+		Asset DB Callback time: managed=8 ms, native=0 ms
+		Scripting: domain reloads=1, domain reload time=856 ms, compile time=0 ms, other=0 ms
+		Project Asset Count: scripts=455, non-scripts=531
+		Asset File Changes: new=0, changed=0, moved=0, deleted=0
+		Scan Filter Count: 0
+	InvokeBeforeRefreshCallbacks: 0.997ms
+	ApplyChangesToAssetFolders: 0.007ms
+	Scan: 0.001ms
+	OnSourceAssetsModified: 0.001ms
+	GetAllGuidsForCategorization: 0.105ms
+	CategorizeAssets: 6.464ms
+	ImportOutOfDateAssets: 600.386ms (599.496ms without children)
+		CompileScripts: 0.005ms
+		CollectScriptTypesHashes: 0.003ms
+		ReloadNativeAssets: 0.008ms
+		UnloadImportedAssets: 0.113ms
+		EnsureUptoDateAssetsAreRegisteredWithGuidPM: 0.208ms
+		InitializingProgressBar: 0.000ms
+		PostProcessAllAssetNotificationsAddChangedAssets: 0.000ms
+		OnDemandSchedulerStart: 0.552ms
+	PostProcessAllAssets: 8.208ms
+	GatherAllCurrentPrimaryArtifactRevisions: 0.025ms
+	UnloadStreamsBegin: 0.027ms
+	PersistCurrentRevisions: 0.031ms
+	UnloadStreamsEnd: 0.003ms
+	GenerateScriptTypeHashes: 0.011ms
+	Untracked: 334.281ms
+MiniBotWalkAnimator: walking bones leftFoot=True, rightFoot=True, leftLeg=True, rightLeg=True.
+UnityEngine.StackTraceUtility:ExtractStackTrace () (at /Users/bokken/build/output/unity/unity/Runtime/Export/Scripting/StackTrace.cs:37)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+ArgusUnity.Runtime.MiniBotWalkAnimator:Awake () (at Assets/Project/Scripts/Runtime/MiniBotWalkAnimator.cs:34)
+
+(Filename: Assets/Project/Scripts/Runtime/MiniBotWalkAnimator.cs Line: 34)
+
+MiniBotWalkAnimator: walking bones leftFoot=True, rightFoot=True, leftLeg=True, rightLeg=True.
+UnityEngine.StackTraceUtility:ExtractStackTrace () (at /Users/bokken/build/output/unity/unity/Runtime/Export/Scripting/StackTrace.cs:37)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+ArgusUnity.Runtime.MiniBotWalkAnimator:Awake () (at Assets/Project/Scripts/Runtime/MiniBotWalkAnimator.cs:34)
+
+(Filename: Assets/Project/Scripts/Runtime/MiniBotWalkAnimator.cs Line: 34)
+
+MiniBotWalkAnimator: walking bones leftFoot=True, rightFoot=True, leftLeg=True, rightLeg=True.
+UnityEngine.StackTraceUtility:ExtractStackTrace () (at /Users/bokken/build/output/unity/unity/Runtime/Export/Scripting/StackTrace.cs:37)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+ArgusUnity.Runtime.MiniBotWalkAnimator:Awake () (at Assets/Project/Scripts/Runtime/MiniBotWalkAnimator.cs:34)
+
+(Filename: Assets/Project/Scripts/Runtime/MiniBotWalkAnimator.cs Line: 34)
+
+MiniBotWalkAnimator: walking bones leftFoot=True, rightFoot=True, leftLeg=True, rightLeg=True.
+UnityEngine.StackTraceUtility:ExtractStackTrace () (at /Users/bokken/build/output/unity/unity/Runtime/Export/Scripting/StackTrace.cs:37)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+ArgusUnity.Runtime.MiniBotWalkAnimator:Awake () (at Assets/Project/Scripts/Runtime/MiniBotWalkAnimator.cs:34)
+
+(Filename: Assets/Project/Scripts/Runtime/MiniBotWalkAnimator.cs Line: 34)
+
+Loaded scene 'Temp/__Backupscenes/0.backup'
+	Deserialize:            2.775 ms
+	Integration:            13.602 ms
+	Integration of assets:  0.033 ms
+	Thread Wait Time:       0.005 ms
+	Total Operation Time:   16.415 ms
+Asset Pipeline Refresh (id=fe92ecb5021ef4968823f27fb8ddd487): Total: 0.023 seconds - Initiated by RefreshV2(NoUpdateAssetOptions)
+EditorUpdateCheck: Failed The requested URL returned error: 404
+Created GICache directory at /Users/guribbong/Library/Caches/com.unity3d.UnityEditor/GiCache. Took: 0.004s, timestamps: [23.089 - 23.093]
+Setting up 4 worker threads for Enlighten.
+TrimDiskCacheJob: Current cache size 0mb
+Asset Pipeline Refresh (id=3d492461e3948480ebb8592f925d25d9): Total: 0.120 seconds - Initiated by RefreshV2(NoUpdateAssetOptions)
+Thread 0x321547000 may have been prematurely finalized
+Unloading 8 Unused Serialized files (Serialized files now loaded: 0)
+Animation component deleted: Component belongs to a disabled built-in package.
+Loaded scene 'Temp/__Backupscenes/0.backup'
+	Deserialize:            5.134 ms
+	Integration:            19.435 ms
+	Integration of assets:  0.003 ms
+	Thread Wait Time:       0.003 ms
+	Total Operation Time:   24.576 ms
+Unloading 13 unused Assets / (28.8 MB). Loaded Objects now: 2239.
+Memory consumption went from 135.3 MB to 106.6 MB.
+Total: 18.337291 ms (FindLiveObjects: 0.270125 ms CreateObjectMapping: 0.030125 ms MarkObjects: 17.008125 ms  DeleteObjects: 1.027958 ms)
+
+[Licensing::Client] Successfully resolved entitlements
+[Licensing::Client] Successfully updated the access token
+[Licensing::Module] Successfully updated access token: "Al3wLMU_"... (expires: 2027-05-05 09:04:44 GMT)
+gi::BakeBackendSwitch: switching bake backend from 3 to 2.
+[00:00:00] Builtin Sky manager started.
+[00:00:00] Finished 1 Bake Ambient Probe job (0.00s execute, 0.00s integrate, 0.07s wallclock)
+[Licensing::Client] Successfully resolved entitlements
+[Licensing::Client] Successfully updated the access token
+[Licensing::Module] Successfully updated access token: "Al3wLMU_"... (expires: 2027-05-05 09:04:45 GMT)
+Thread 0x312c77000 may have been prematurely finalized
+Reloading assemblies for play mode.
+Reloading assemblies after forced synchronous recompile.
+Begin MonoManager ReloadAssembly
+Symbol file LoadedFromMemory is not a mono symbol file
+- Loaded All Assemblies, in  0.333 seconds
+Refreshing native plugins compatible for Editor in 0.23 ms, found 0 plugins.
+Native extension for OSXStandalone target not found
+[MODES] ModeService[none].Initialize
+[MODES] ModeService[none].LoadModes
+[MODES] Loading mode Default (0) for mode-current-id-EmbodiedDebate
+Mono: successfully reloaded assembly
+- Finished resetting the current domain, in  0.626 seconds
+Domain Reload Profiling: 961ms
+	BeginReloadAssembly (256ms)
+		ExecutionOrderSort (0ms)
+		DisableScriptedObjects (26ms)
+		BackupInstance (0ms)
+		ReleaseScriptingObjects (0ms)
+		CreateAndSetChildDomain (63ms)
+	RebuildCommonClasses (36ms)
+	RebuildNativeTypeToScriptingClass (9ms)
+	initialDomainReloadingComplete (21ms)
+	LoadAllAssembliesAndSetupDomain (13ms)
+		LoadAssemblies (148ms)
+		RebuildTransferFunctionScriptingTraits (0ms)
+		AnalyzeDomain (3ms)
+			TypeCache.Refresh (1ms)
+				TypeCache.ScanAssembly (0ms)
+			ScanForSourceGeneratedMonoScriptInfo (0ms)
+			ResolveRequiredComponents (1ms)
+	FinalizeReload (627ms)
+		ReleaseScriptCaches (0ms)
+		RebuildScriptCaches (0ms)
+		SetupLoadedEditorAssemblies (129ms)
+			LogAssemblyErrors (0ms)
+			InitializePlatformSupportModulesInManaged (3ms)
+			SetLoadedEditorAssemblies (3ms)
+			RefreshPlugins (0ms)
+			BeforeProcessingInitializeOnLoad (20ms)
+			ProcessInitializeOnLoadAttributes (75ms)
+			ProcessInitializeOnLoadMethodAttributes (27ms)
+			AfterProcessingInitializeOnLoad (1ms)
+			EditorAssembliesLoaded (0ms)
+		ExecutionOrderSort2 (0ms)
+		AwakeInstancesAfterBackupRestoration (316ms)
+Asset Pipeline Refresh (id=b1f9ad3024ab94817a1ce34fa07b4e34): Total: 1.170 seconds - Initiated by StopAssetImportingV2(ForceSynchronousImport | ForceDomainReload)
+	Summary:
+		Imports: total=0 (actual=0, local cache=0, cache server=0)
+		Asset DB Process Time: managed=0 ms, native=184 ms
+		Asset DB Callback time: managed=6 ms, native=1 ms
+		Scripting: domain reloads=1, domain reload time=977 ms, compile time=0 ms, other=0 ms
+		Project Asset Count: scripts=455, non-scripts=531
+		Asset File Changes: new=0, changed=0, moved=0, deleted=0
+		Scan Filter Count: 0
+	InvokeBeforeRefreshCallbacks: 1.106ms
+	ApplyChangesToAssetFolders: 0.120ms
+	Scan: 0.000ms
+	OnSourceAssetsModified: 0.001ms
+	GetAllGuidsForCategorization: 0.348ms
+	CategorizeAssets: 9.564ms
+	ImportOutOfDateAssets: 638.428ms (637.616ms without children)
+		CompileScripts: 0.010ms
+		CollectScriptTypesHashes: 0.004ms
+		ReloadNativeAssets: 0.179ms
+		UnloadImportedAssets: 0.142ms
+		EnsureUptoDateAssetsAreRegisteredWithGuidPM: 0.154ms
+		InitializingProgressBar: 0.000ms
+		PostProcessAllAssetNotificationsAddChangedAssets: 0.000ms
+		OnDemandSchedulerStart: 0.323ms
+	PostProcessAllAssets: 6.736ms
+	GatherAllCurrentPrimaryArtifactRevisions: 0.241ms
+	UnloadStreamsBegin: 1.036ms
+	PersistCurrentRevisions: 0.031ms
+	UnloadStreamsEnd: 0.002ms
+	GenerateScriptTypeHashes: 0.007ms
+	Untracked: 512.653ms
+MiniBotWalkAnimator: walking bones leftFoot=True, rightFoot=True, leftLeg=True, rightLeg=True.
+UnityEngine.StackTraceUtility:ExtractStackTrace () (at /Users/bokken/build/output/unity/unity/Runtime/Export/Scripting/StackTrace.cs:37)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+ArgusUnity.Runtime.MiniBotWalkAnimator:Awake () (at Assets/Project/Scripts/Runtime/MiniBotWalkAnimator.cs:34)
+
+(Filename: Assets/Project/Scripts/Runtime/MiniBotWalkAnimator.cs Line: 34)
+
+MiniBotWalkAnimator: walking bones leftFoot=True, rightFoot=True, leftLeg=True, rightLeg=True.
+UnityEngine.StackTraceUtility:ExtractStackTrace () (at /Users/bokken/build/output/unity/unity/Runtime/Export/Scripting/StackTrace.cs:37)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+ArgusUnity.Runtime.MiniBotWalkAnimator:Awake () (at Assets/Project/Scripts/Runtime/MiniBotWalkAnimator.cs:34)
+
+(Filename: Assets/Project/Scripts/Runtime/MiniBotWalkAnimator.cs Line: 34)
+
+MiniBotWalkAnimator: walking bones leftFoot=True, rightFoot=True, leftLeg=True, rightLeg=True.
+UnityEngine.StackTraceUtility:ExtractStackTrace () (at /Users/bokken/build/output/unity/unity/Runtime/Export/Scripting/StackTrace.cs:37)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+ArgusUnity.Runtime.MiniBotWalkAnimator:Awake () (at Assets/Project/Scripts/Runtime/MiniBotWalkAnimator.cs:34)
+
+(Filename: Assets/Project/Scripts/Runtime/MiniBotWalkAnimator.cs Line: 34)
+
+MiniBotWalkAnimator: walking bones leftFoot=True, rightFoot=True, leftLeg=True, rightLeg=True.
+UnityEngine.StackTraceUtility:ExtractStackTrace () (at /Users/bokken/build/output/unity/unity/Runtime/Export/Scripting/StackTrace.cs:37)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+ArgusUnity.Runtime.MiniBotWalkAnimator:Awake () (at Assets/Project/Scripts/Runtime/MiniBotWalkAnimator.cs:34)
+
+(Filename: Assets/Project/Scripts/Runtime/MiniBotWalkAnimator.cs Line: 34)
+
+Loaded scene 'Temp/__Backupscenes/0.backup'
+	Deserialize:            1.437 ms
+	Integration:            15.124 ms
+	Integration of assets:  0.001 ms
+	Thread Wait Time:       0.004 ms
+	Total Operation Time:   16.567 ms
+Thread 0x31390f000 may have been prematurely finalized
+Unloading 5 Unused Serialized files (Serialized files now loaded: 0)
+Loaded scene 'Temp/__Backupscenes/0.backup'
+	Deserialize:            1.670 ms
+	Integration:            8.070 ms
+	Integration of assets:  0.002 ms
+	Thread Wait Time:       0.019 ms
+	Total Operation Time:   9.762 ms
+Unloading 15 unused Assets / (28.7 MB). Loaded Objects now: 2239.
+Memory consumption went from 146.7 MB to 118.0 MB.
+Total: 7.515084 ms (FindLiveObjects: 0.099333 ms CreateObjectMapping: 0.029042 ms MarkObjects: 6.423042 ms  DeleteObjects: 0.963250 ms)
+
+2026-05-05 18:05:04.527 Unity[22146:28697870] TSM AdjustCapsLockLEDForKeyTransitionHandling - _ISSetPhysicalKeyboardCapsLockLED Inhibit
+2026-05-05 18:05:04.532 Unity[22146:28697870] error messaging the mach port for IMKCFRunLoopWakeUpReliable
+Thread 0x313187000 may have been prematurely finalized
+Reloading assemblies for play mode.
+Reloading assemblies after forced synchronous recompile.
+Begin MonoManager ReloadAssembly
+Symbol file LoadedFromMemory is not a mono symbol file
+- Loaded All Assemblies, in  0.251 seconds
+Refreshing native plugins compatible for Editor in 0.22 ms, found 0 plugins.
+Native extension for OSXStandalone target not found
+[MODES] ModeService[none].Initialize
+[MODES] ModeService[none].LoadModes
+[MODES] Loading mode Default (0) for mode-current-id-EmbodiedDebate
+Mono: successfully reloaded assembly
+- Finished resetting the current domain, in  0.725 seconds
+Domain Reload Profiling: 978ms
+	BeginReloadAssembly (189ms)
+		ExecutionOrderSort (0ms)
+		DisableScriptedObjects (23ms)
+		BackupInstance (0ms)
+		ReleaseScriptingObjects (0ms)
+		CreateAndSetChildDomain (61ms)
+	RebuildCommonClasses (26ms)
+	RebuildNativeTypeToScriptingClass (8ms)
+	initialDomainReloadingComplete (19ms)
+	LoadAllAssembliesAndSetupDomain (10ms)
+		LoadAssemblies (86ms)
+		RebuildTransferFunctionScriptingTraits (0ms)
+		AnalyzeDomain (1ms)
+			TypeCache.Refresh (1ms)
+				TypeCache.ScanAssembly (0ms)
+			ScanForSourceGeneratedMonoScriptInfo (0ms)
+			ResolveRequiredComponents (1ms)
+	FinalizeReload (727ms)
+		ReleaseScriptCaches (0ms)
+		RebuildScriptCaches (0ms)
+		SetupLoadedEditorAssemblies (139ms)
+			LogAssemblyErrors (0ms)
+			InitializePlatformSupportModulesInManaged (3ms)
+			SetLoadedEditorAssemblies (3ms)
+			RefreshPlugins (0ms)
+			BeforeProcessingInitializeOnLoad (24ms)
+			ProcessInitializeOnLoadAttributes (77ms)
+			ProcessInitializeOnLoadMethodAttributes (31ms)
+			AfterProcessingInitializeOnLoad (1ms)
+			EditorAssembliesLoaded (1ms)
+		ExecutionOrderSort2 (0ms)
+		AwakeInstancesAfterBackupRestoration (408ms)
+Asset Pipeline Refresh (id=c176b714dc96a4150a83d96ed20063cd): Total: 1.127 seconds - Initiated by StopAssetImportingV2(ForceSynchronousImport | ForceDomainReload)
+	Summary:
+		Imports: total=0 (actual=0, local cache=0, cache server=0)
+		Asset DB Process Time: managed=0 ms, native=116 ms
+		Asset DB Callback time: managed=8 ms, native=0 ms
+		Scripting: domain reloads=1, domain reload time=1001 ms, compile time=0 ms, other=0 ms
+		Project Asset Count: scripts=455, non-scripts=531
+		Asset File Changes: new=0, changed=0, moved=0, deleted=0
+		Scan Filter Count: 0
+	InvokeBeforeRefreshCallbacks: 0.585ms
+	ApplyChangesToAssetFolders: 0.015ms
+	Scan: 0.000ms
+	OnSourceAssetsModified: 0.001ms
+	GetAllGuidsForCategorization: 0.274ms
+	CategorizeAssets: 10.707ms
+	ImportOutOfDateAssets: 746.826ms (745.518ms without children)
+		CompileScripts: 0.010ms
+		CollectScriptTypesHashes: 0.004ms
+		ReloadNativeAssets: 0.216ms
+		UnloadImportedAssets: 0.422ms
+		EnsureUptoDateAssetsAreRegisteredWithGuidPM: 0.224ms
+		InitializingProgressBar: 0.000ms
+		PostProcessAllAssetNotificationsAddChangedAssets: 0.000ms
+		OnDemandSchedulerStart: 0.431ms
+	PostProcessAllAssets: 8.355ms
+	GatherAllCurrentPrimaryArtifactRevisions: 0.138ms
+	UnloadStreamsBegin: 0.299ms
+	PersistCurrentRevisions: 0.033ms
+	UnloadStreamsEnd: 0.003ms
+	GenerateScriptTypeHashes: 0.035ms
+	Untracked: 359.736ms
+MiniBotWalkAnimator: walking bones leftFoot=True, rightFoot=True, leftLeg=True, rightLeg=True.
+UnityEngine.StackTraceUtility:ExtractStackTrace () (at /Users/bokken/build/output/unity/unity/Runtime/Export/Scripting/StackTrace.cs:37)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+ArgusUnity.Runtime.MiniBotWalkAnimator:Awake () (at Assets/Project/Scripts/Runtime/MiniBotWalkAnimator.cs:34)
+
+(Filename: Assets/Project/Scripts/Runtime/MiniBotWalkAnimator.cs Line: 34)
+
+MiniBotWalkAnimator: walking bones leftFoot=True, rightFoot=True, leftLeg=True, rightLeg=True.
+UnityEngine.StackTraceUtility:ExtractStackTrace () (at /Users/bokken/build/output/unity/unity/Runtime/Export/Scripting/StackTrace.cs:37)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+ArgusUnity.Runtime.MiniBotWalkAnimator:Awake () (at Assets/Project/Scripts/Runtime/MiniBotWalkAnimator.cs:34)
+
+(Filename: Assets/Project/Scripts/Runtime/MiniBotWalkAnimator.cs Line: 34)
+
+MiniBotWalkAnimator: walking bones leftFoot=True, rightFoot=True, leftLeg=True, rightLeg=True.
+UnityEngine.StackTraceUtility:ExtractStackTrace () (at /Users/bokken/build/output/unity/unity/Runtime/Export/Scripting/StackTrace.cs:37)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+ArgusUnity.Runtime.MiniBotWalkAnimator:Awake () (at Assets/Project/Scripts/Runtime/MiniBotWalkAnimator.cs:34)
+
+(Filename: Assets/Project/Scripts/Runtime/MiniBotWalkAnimator.cs Line: 34)
+
+MiniBotWalkAnimator: walking bones leftFoot=True, rightFoot=True, leftLeg=True, rightLeg=True.
+UnityEngine.StackTraceUtility:ExtractStackTrace () (at /Users/bokken/build/output/unity/unity/Runtime/Export/Scripting/StackTrace.cs:37)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+ArgusUnity.Runtime.MiniBotWalkAnimator:Awake () (at Assets/Project/Scripts/Runtime/MiniBotWalkAnimator.cs:34)
+
+(Filename: Assets/Project/Scripts/Runtime/MiniBotWalkAnimator.cs Line: 34)
+
+Loaded scene 'Temp/__Backupscenes/0.backup'
+	Deserialize:            6.943 ms
+	Integration:            32.036 ms
+	Integration of assets:  0.004 ms
+	Thread Wait Time:       0.004 ms
+	Total Operation Time:   38.987 ms
+[Licensing::Client] Successfully resolved entitlement details
+Thread 0x312b2b000 may have been prematurely finalized
+Unloading 5 Unused Serialized files (Serialized files now loaded: 1)
+Loaded scene 'Temp/__Backupscenes/0.backup'
+	Deserialize:            3.475 ms
+	Integration:            11.809 ms
+	Integration of assets:  0.002 ms
+	Thread Wait Time:       0.004 ms
+	Total Operation Time:   15.290 ms
+Unloading 15 unused Assets / (28.8 MB). Loaded Objects now: 2253.
+Memory consumption went from 141.2 MB to 112.4 MB.
+Total: 14.737583 ms (FindLiveObjects: 0.312667 ms CreateObjectMapping: 0.041542 ms MarkObjects: 12.589791 ms  DeleteObjects: 1.792709 ms)
+
+Asset Pipeline Refresh (id=ab6aa596d121140d0b4178af59ad471b): Total: 0.122 seconds - Initiated by RefreshV2(AllowForceSynchronousImport)
+Asset Pipeline Refresh (id=a5e5273e1583544f0b2fc462256de767): Total: 0.193 seconds - Initiated by RefreshV2(AllowForceSynchronousImport)
+Asset Pipeline Refresh (id=a5b13f2181f944128b79636672fd7710): Total: 0.073 seconds - Initiated by RefreshV2(AllowForceSynchronousImport)
+Asset Pipeline Refresh (id=c4128005dafa34596a71e67d75662de2): Total: 0.049 seconds - Initiated by RefreshV2(AllowForceSynchronousImport)
+[40m[32minfo[39m[22m[49m: Microsoft.Hosting.Lifetime[0]
+      Application is shutting down...

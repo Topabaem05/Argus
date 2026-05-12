@@ -1,0 +1,12 @@
+metric,value
+comprehension_score,0.0
+acceptance_rate,0.0
+rejection_reasons,0.0
+fairness_perception,0.0
+fiscal_concern_score,0.0
+trust_score,0.49
+implementation_feasibility,0.0
+social_equity_score,0.0
+event_count,49
+turn_count,4
+agent_count,4

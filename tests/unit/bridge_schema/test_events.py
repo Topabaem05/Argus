@@ -4,10 +4,12 @@ import pytest
 from pydantic import ValidationError
 
 from korean_social_simulator.bridge_schema import (
+    AgentBehaviorIntentEvent,
     AgentEmotionEvent,
     AgentMoveEvent,
     ConflictUpdateEvent,
     EmotionState,
+    EnvironmentLoadEvent,
     GroupUpdateEvent,
     StructuredError,
     Vec3,
@@ -20,6 +22,56 @@ def test_agent_emotion_event_valid() -> None:
     )
     assert model.agent_id == "agent-9"
     assert model.intensity == pytest.approx(0.12)
+
+
+def test_agent_behavior_intent_event_validates_public_payload() -> None:
+    model = AgentBehaviorIntentEvent.model_validate(
+        {
+            "agent_id": "agent-9",
+            "intent": "argue",
+            "target_position": {"x": 1.0, "y": 0.0, "z": 2.0},
+            "locomotion": "walk",
+            "emotion": {"label": "angry", "intensity": 0.7},
+            "animation_hint": "argue",
+            "urgency": 0.7,
+            "duration_ms": 1800,
+            "public_reason": "Persona stance=opposes, confidence=0.70.",
+            "safety_tags": ["non_graphic", "synthetic_persona"],
+        }
+    )
+
+    assert model.intent == "argue"
+    assert model.emotion is not None
+    assert model.emotion.label == "angry"
+
+
+def test_agent_behavior_intent_rejects_unknown_intent() -> None:
+    with pytest.raises(ValidationError, match="intent"):
+        AgentBehaviorIntentEvent.model_validate(
+            {
+                "agent_id": "agent-9",
+                "intent": "unsafe_push",
+                "public_reason": "Invalid behavior should fail closed.",
+            }
+        )
+
+
+def test_environment_load_event_validates_bounds_and_capacity() -> None:
+    model = EnvironmentLoadEvent.model_validate(
+        {
+            "background_id": "schoolroom",
+            "display_name": "Schoolroom",
+            "spawn_capacity": 20,
+            "bounds_min": {"x": -10.0, "y": 0.0, "z": -10.0},
+            "bounds_max": {"x": 10.0, "y": 4.0, "z": 10.0},
+            "camera_preset": "simulation_free",
+            "lighting_preset": "classroom",
+            "public_summary": "Public environment metadata only.",
+        }
+    )
+
+    assert model.background_id == "schoolroom"
+    assert model.spawn_capacity == 20
 
 
 def test_agent_emotion_requires_agent_id() -> None:

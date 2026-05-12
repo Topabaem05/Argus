@@ -1,0 +1,1216 @@
+Unity Editor version:    2022.3.0f1 (fb119bb0b476)
+Branch:                  2022.3/release
+Build type:              Release
+Batch mode:              YES
+macOS version:           Version 26.3.1 (a) (Build 25D771280a)
+Darwin version:          25.3.0
+Architecture:            arm64
+Running under Rosetta:   NO
+Available memory:        8192 MB
+[Licensing::Module] Trying to connect to existing licensing client channel...
+[Licensing::IpcConnector] Connection attempt to the License Client on channel: "LicenseClient-guribbong" failed because channel doesn't exist; code: "0x80000002"
+Launching external process: /Applications/Unity/Hub/Editor/2022.3.0f1/Unity.app/Contents/Frameworks/UnityLicensingClient.app/Contents/MacOS/Unity.Licensing.Client
+[Licensing::Module] Successfully launched the LicensingClient (PId: 53884)
+[Licensing::IpcConnector] Successfully connected to the License Client on channel: "LicenseClient-guribbong"
+[Licensing::Client] Handshaking with LicensingClient:
+  Version:                 1.12.1+9338cad
+  Session Id:              a529d0fecdae4f55b0f94c416deeb540
+  Correlation Id:          9dbafb502f328cc90d3ac87c8d0ce5a8
+  External correlation Id: 6271512850599953136
+  Machine Id:              kK/taOzULwH3CoqhnK6anvJ0b88=
+[Licensing::Module] Successfully connected to LicensingClient on channel: "LicenseClient-guribbong" (connect: 1.83s, validation: 0.12s, handshake: 0.30s)
+[Licensing::IpcConnector] Successfully connected to the License Notification on channel: "LicenseClient-guribbong-notifications"
+[Licensing::Module] Connected to LicensingClient (PId: 53884, launch time: 0.00, total connection time: 2.25s)
+[Licensing::Module] Error: Access token is unavailable; failed to update
+[Licensing::Client] Error: Code 500 while processing request (status: Unable to update licenses. Errors: No ULF license found.,Token not found in cache)
+[Licensing::Client] Error: Code 500 while updating license in client (status: Unable to update licenses. Errors: No ULF license found.,Token not found in cache)
+[Licensing::Client] Successfully resolved entitlements
+[Licensing::Module] Serial number assigned to: "14568638156105-UnityPersXXXX"
+Pro License: NO
+Launching external process: /Applications/Unity/Hub/Editor/2022.3.0f1/Unity.app/Contents/Resources/PackageManager/Server/UnityPackageManager
+
+COMMAND LINE ARGUMENTS:
+/Applications/Unity/Hub/Editor/2022.3.0f1/Unity.app/Contents/MacOS/Unity
+-batchmode
+-projectPath
+/Users/guribbong/code/Argus/unity/EmbodiedDebate
+-executeMethod
+ArgusUnity.Editor.HideAndSeekDesignBuilder.BuildScene
+-quit
+-logFile
+/Users/guribbong/code/Argus/tmp/slow-smooth-build-scene.log
+Successfully changed project path to: /Users/guribbong/code/Argus/unity/EmbodiedDebate
+/Users/guribbong/code/Argus/unity/EmbodiedDebate
+[UnityMemory] Configuration Parameters - Can be set up in boot.config
+    "memorysetup-bucket-allocator-granularity=16"
+    "memorysetup-bucket-allocator-bucket-count=8"
+    "memorysetup-bucket-allocator-block-size=33554432"
+    "memorysetup-bucket-allocator-block-count=8"
+    "memorysetup-main-allocator-block-size=16777216"
+    "memorysetup-thread-allocator-block-size=16777216"
+    "memorysetup-gfx-main-allocator-block-size=16777216"
+    "memorysetup-gfx-thread-allocator-block-size=16777216"
+    "memorysetup-cache-allocator-block-size=4194304"
+    "memorysetup-typetree-allocator-block-size=2097152"
+    "memorysetup-profiler-bucket-allocator-granularity=16"
+    "memorysetup-profiler-bucket-allocator-bucket-count=8"
+    "memorysetup-profiler-bucket-allocator-block-size=33554432"
+    "memorysetup-profiler-bucket-allocator-block-count=8"
+    "memorysetup-profiler-allocator-block-size=16777216"
+    "memorysetup-profiler-editor-allocator-block-size=1048576"
+    "memorysetup-temp-allocator-size-main=16777216"
+    "memorysetup-job-temp-allocator-block-size=2097152"
+    "memorysetup-job-temp-allocator-block-size-background=1048576"
+    "memorysetup-job-temp-allocator-reduction-small-platforms=262144"
+    "memorysetup-allocator-temp-initial-block-size-main=262144"
+    "memorysetup-allocator-temp-initial-block-size-worker=262144"
+    "memorysetup-temp-allocator-size-background-worker=32768"
+    "memorysetup-temp-allocator-size-job-worker=262144"
+    "memorysetup-temp-allocator-size-preload-manager=33554432"
+    "memorysetup-temp-allocator-size-nav-mesh-worker=65536"
+    "memorysetup-temp-allocator-size-audio-worker=65536"
+    "memorysetup-temp-allocator-size-cloud-worker=32768"
+    "memorysetup-temp-allocator-size-gi-baking-worker=262144"
+    "memorysetup-temp-allocator-size-gfx=262144"
+Player connection [8649715968] Host "[IP] 192.168.3.1 [Port] 55496 [Flags] 2 [Guid] 118679671 [EditorId] 118679671 [Version] 1048832 [Id] OSXEditor(0,topabaem.local) [Debug] 1 [PackageName] OSXEditor [ProjectName] Editor" joined multi-casting on [225.0.0.222:54997]...
+
+Player connection [8649715968] Host "[IP] 192.168.3.1 [Port] 55496 [Flags] 2 [Guid] 118679671 [EditorId] 118679671 [Version] 1048832 [Id] OSXEditor(0,topabaem.local) [Debug] 1 [PackageName] OSXEditor [ProjectName] Editor" joined alternative multi-casting on [225.0.0.222:34997]...
+
+[Package Manager] UpmClient::Connect -- Connected to IPC stream "Upm-53882" after 0.6 seconds.
+[Licensing::Client] Successfully resolved entitlements
+[Package Manager] Restoring resolved packages state from cache
+[Licensing::Client] Successfully resolved entitlement details
+[Package Manager] Registered 19 packages:
+  Packages from [https://packages.unity.com]:
+    com.unity.nuget.newtonsoft-json@3.2.1 (location: /Users/guribbong/code/Argus/unity/EmbodiedDebate/Library/PackageCache/com.unity.nuget.newtonsoft-json@3.2.1)
+    com.unity.test-framework@1.1.33 (location: /Users/guribbong/code/Argus/unity/EmbodiedDebate/Library/PackageCache/com.unity.test-framework@1.1.33)
+    com.unity.ext.nunit@1.0.6 (location: /Users/guribbong/code/Argus/unity/EmbodiedDebate/Library/PackageCache/com.unity.ext.nunit@1.0.6)
+    com.unity.mathematics@1.2.6 (location: /Users/guribbong/code/Argus/unity/EmbodiedDebate/Library/PackageCache/com.unity.mathematics@1.2.6)
+    com.unity.burst@1.8.4 (location: /Users/guribbong/code/Argus/unity/EmbodiedDebate/Library/PackageCache/com.unity.burst@1.8.4)
+    com.unity.searcher@4.9.2 (location: /Users/guribbong/code/Argus/unity/EmbodiedDebate/Library/PackageCache/com.unity.searcher@4.9.2)
+  Built-in packages:
+    com.unity.modules.animation@1.0.0 (location: /Users/guribbong/code/Argus/unity/EmbodiedDebate/Library/PackageCache/com.unity.modules.animation@1.0.0)
+    com.unity.modules.imageconversion@1.0.0 (location: /Users/guribbong/code/Argus/unity/EmbodiedDebate/Library/PackageCache/com.unity.modules.imageconversion@1.0.0)
+    com.unity.modules.physics@1.0.0 (location: /Users/guribbong/code/Argus/unity/EmbodiedDebate/Library/PackageCache/com.unity.modules.physics@1.0.0)
+    com.unity.modules.unitywebrequest@1.0.0 (location: /Users/guribbong/code/Argus/unity/EmbodiedDebate/Library/PackageCache/com.unity.modules.unitywebrequest@1.0.0)
+    com.unity.render-pipelines.universal@14.0.7 (location: /Users/guribbong/code/Argus/unity/EmbodiedDebate/Library/PackageCache/com.unity.render-pipelines.universal@14.0.7)
+    com.unity.modules.imgui@1.0.0 (location: /Users/guribbong/code/Argus/unity/EmbodiedDebate/Library/PackageCache/com.unity.modules.imgui@1.0.0)
+    com.unity.modules.jsonserialize@1.0.0 (location: /Users/guribbong/code/Argus/unity/EmbodiedDebate/Library/PackageCache/com.unity.modules.jsonserialize@1.0.0)
+    com.unity.render-pipelines.core@14.0.7 (location: /Users/guribbong/code/Argus/unity/EmbodiedDebate/Library/PackageCache/com.unity.render-pipelines.core@14.0.7)
+    com.unity.shadergraph@14.0.7 (location: /Users/guribbong/code/Argus/unity/EmbodiedDebate/Library/PackageCache/com.unity.shadergraph@14.0.7)
+    com.unity.ugui@1.0.0 (location: /Users/guribbong/code/Argus/unity/EmbodiedDebate/Library/PackageCache/com.unity.ugui@1.0.0)
+    com.unity.modules.terrain@1.0.0 (location: /Users/guribbong/code/Argus/unity/EmbodiedDebate/Library/PackageCache/com.unity.modules.terrain@1.0.0)
+    com.unity.modules.ui@1.0.0 (location: /Users/guribbong/code/Argus/unity/EmbodiedDebate/Library/PackageCache/com.unity.modules.ui@1.0.0)
+  Embedded packages:
+    com.unity.cloud.gltfast@file:/Users/guribbong/code/Argus/unity/EmbodiedDebate/Packages/com.unity.cloud.gltfast (location: /Users/guribbong/code/Argus/unity/EmbodiedDebate/Packages/com.unity.cloud.gltfast)
+[Subsystems] No new subsystems found in resolved package list.
+Package Manager log level set to [2]
+[Package Manager] Done registering packages in 0.17 seconds
+Refreshing native plugins compatible for Editor in 7.47 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Initialize engine version: 2022.3.0f1 (fb119bb0b476)
+[Subsystems] Discovering subsystems at path /Applications/Unity/Hub/Editor/2022.3.0f1/Unity.app/Contents/Resources/UnitySubsystems
+[Subsystems] Discovering subsystems at path /Users/guribbong/code/Argus/unity/EmbodiedDebate/Assets
+GfxDevice: creating device client; threaded=0; jobified=0
+ preferred device: Apple M2 (high power)
+Metal devices available: 1
+0: Apple M2 (high power)
+Using device Apple M2 (high power)
+Initializing Metal device caps: Apple M2
+[Licensing::Client] Successfully resolved entitlements
+Initialize mono
+Mono path[0] = '/Applications/Unity/Hub/Editor/2022.3.0f1/Unity.app/Contents/Managed'
+Mono path[1] = '/Applications/Unity/Hub/Editor/2022.3.0f1/Unity.app/Contents/MonoBleedingEdge/lib/mono/unityjit-macos'
+Mono config path = '/Applications/Unity/Hub/Editor/2022.3.0f1/Unity.app/Contents/MonoBleedingEdge/etc'
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56882
+Using cacheserver namespaces - metadata:defaultmetadata, artifacts:defaultartifacts
+Using cacheserver namespaces - metadata:defaultmetadata, artifacts:defaultartifacts
+ImportWorker Server TCP listen port: 0
+Begin MonoManager ReloadAssembly
+Registering precompiled unity dll's ...
+Register platform support module: /Applications/Unity/Hub/Editor/2022.3.0f1/Unity.app/Contents/PlaybackEngines/MacStandaloneSupport/UnityEditor.OSXStandalone.Extensions.dll
+Registered in 0.001502 seconds.
+- Loaded All Assemblies, in  0.261 seconds
+Native extension for OSXStandalone target not found
+Mono: successfully reloaded assembly
+- Finished resetting the current domain, in  0.156 seconds
+Domain Reload Profiling: 417ms
+	BeginReloadAssembly (93ms)
+		ExecutionOrderSort (0ms)
+		DisableScriptedObjects (0ms)
+		BackupInstance (0ms)
+		ReleaseScriptingObjects (0ms)
+		CreateAndSetChildDomain (1ms)
+	RebuildCommonClasses (30ms)
+	RebuildNativeTypeToScriptingClass (7ms)
+	initialDomainReloadingComplete (34ms)
+	LoadAllAssembliesAndSetupDomain (98ms)
+		LoadAssemblies (92ms)
+		RebuildTransferFunctionScriptingTraits (0ms)
+		AnalyzeDomain (95ms)
+			TypeCache.Refresh (94ms)
+				TypeCache.ScanAssembly (82ms)
+			ScanForSourceGeneratedMonoScriptInfo (0ms)
+			ResolveRequiredComponents (1ms)
+	FinalizeReload (156ms)
+		ReleaseScriptCaches (0ms)
+		RebuildScriptCaches (0ms)
+		SetupLoadedEditorAssemblies (121ms)
+			LogAssemblyErrors (0ms)
+			InitializePlatformSupportModulesInManaged (4ms)
+			SetLoadedEditorAssemblies (4ms)
+			RefreshPlugins (0ms)
+			BeforeProcessingInitializeOnLoad (1ms)
+			ProcessInitializeOnLoadAttributes (86ms)
+			ProcessInitializeOnLoadMethodAttributes (25ms)
+			AfterProcessingInitializeOnLoad (0ms)
+			EditorAssembliesLoaded (0ms)
+		ExecutionOrderSort2 (0ms)
+		AwakeInstancesAfterBackupRestoration (0ms)
+[Licensing::Client] Successfully resolved entitlements
+Application.AssetDatabase Initial Refresh Start
+[ScriptCompilation] Requested script compilation because: Assetdatabase observed changes in script compilation related files
+[40m[32minfo[39m[22m[49m: Microsoft.Hosting.Lifetime[14]
+      Now listening on: http://unix:/tmp/ilpp.sock-8e16111b622e4d5ea6b5ecc926298bfd
+[40m[32minfo[39m[22m[49m: Microsoft.Hosting.Lifetime[0]
+      Application started. Press Ctrl+C to shut down.
+[40m[32minfo[39m[22m[49m: Microsoft.Hosting.Lifetime[0]
+      Hosting environment: Production
+[40m[32minfo[39m[22m[49m: Microsoft.Hosting.Lifetime[0]
+      Content root path: /Users/guribbong/code/Argus/unity/EmbodiedDebate/
+[40m[32minfo[39m[22m[49m: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/2 POST http://ilpp/UnityILPP.PostProcessing/Ping application/grpc -
+[40m[32minfo[39m[22m[49m: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'gRPC - /UnityILPP.PostProcessing/Ping'
+[40m[32minfo[39m[22m[49m: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'gRPC - /UnityILPP.PostProcessing/Ping'
+[40m[32minfo[39m[22m[49m: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished HTTP/2 POST http://ilpp/UnityILPP.PostProcessing/Ping application/grpc - - 200 - application/grpc 47.1505ms
+Starting: /Applications/Unity/Hub/Editor/2022.3.0f1/Unity.app/Contents/bee_backend --dont-print-to-structured-log --ipc --defer-dag-verification --dagfile="Library/Bee/200b0aE.dag" --continue-on-failure --profile="Library/Bee/backend1.traceevents" ScriptAssemblies
+WorkingDir: /Users/guribbong/code/Argus/unity/EmbodiedDebate
+DisplayProgressbar: Compiling Scripts
+[40m[32minfo[39m[22m[49m: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/2 POST http://ilpp/UnityILPP.PostProcessing/ConfigurePostProcessors application/grpc -
+[40m[32minfo[39m[22m[49m: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'gRPC - /UnityILPP.PostProcessing/ConfigurePostProcessors'
+[40m[1m[33mwarn[39m[22m[49m: Unity.ILPP.Runner.PostProcessingAssemblyLoadContext[0]
+      Assembly system.runtime.interopservices.windowsruntime has duplicate hint path. Ignoring "/Applications/Unity/Hub/Editor/2022.3.0f1/Unity.app/Contents/UnityReferenceAssemblies/unity-4.8-api/Facades/System.Runtime.InteropServices.WindowsRuntime.dll" in favor of "/Applications/Unity/Hub/Editor/2022.3.0f1/Unity.app/Contents/NetStandard/Extensions/2.0.0/System.Runtime.InteropServices.WindowsRuntime.dll"
+[40m[1m[33mwarn[39m[22m[49m: Unity.ILPP.Runner.PostProcessingAssemblyLoadContext[0]
+      Assembly system.componentmodel.composition has duplicate hint path. Ignoring "/Applications/Unity/Hub/Editor/2022.3.0f1/Unity.app/Contents/UnityReferenceAssemblies/unity-4.8-api/System.ComponentModel.Composition.dll" in favor of "/Applications/Unity/Hub/Editor/2022.3.0f1/Unity.app/Contents/NetStandard/compat/2.1.0/shims/netfx/System.ComponentModel.Composition.dll"
+[40m[32minfo[39m[22m[49m: Unity.ILPP.Runner.PostProcessingAssemblyLoadContext[0]
+      Resolved Unity.Burst.Cecil, Version=0.11.4.0, Culture=neutral, PublicKeyToken=50cebf1cceb9d05e with Library/PackageCache/com.unity.burst@1.8.4/Unity.Burst.CodeGen/Unity.Burst.Cecil.dll
+[40m[32minfo[39m[22m[49m: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'gRPC - /UnityILPP.PostProcessing/ConfigurePostProcessors'
+[40m[32minfo[39m[22m[49m: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished HTTP/2 POST http://ilpp/UnityILPP.PostProcessing/ConfigurePostProcessors application/grpc - - 200 - application/grpc 20.1998ms
+[40m[32minfo[39m[22m[49m: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/2 POST http://ilpp/UnityILPP.PostProcessing/PostProcessAssembly application/grpc -
+[40m[32minfo[39m[22m[49m: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'gRPC - /UnityILPP.PostProcessing/PostProcessAssembly'
+[40m[32minfo[39m[22m[49m: Unity.ILPP.Runner.PostProcessingPipeline[0]
+      Processing assembly Library/Bee/artifacts/200b0aE.dag/ArgusUnity.dll, with 119 defines and 186 references
+[40m[32minfo[39m[22m[49m: Unity.ILPP.Runner.PostProcessingPipeline[0]
+      processors: zzzUnity.Burst.CodeGen.BurstILPostProcessor
+[40m[32minfo[39m[22m[49m: Unity.ILPP.Runner.PostProcessingPipeline[0]
+      running zzzUnity.Burst.CodeGen.BurstILPostProcessor
+[40m[32minfo[39m[22m[49m: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'gRPC - /UnityILPP.PostProcessing/PostProcessAssembly'
+[40m[32minfo[39m[22m[49m: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished HTTP/2 POST http://ilpp/UnityILPP.PostProcessing/PostProcessAssembly application/grpc - - 200 - application/grpc 14.9868ms
+[40m[32minfo[39m[22m[49m: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/2 POST http://ilpp/UnityILPP.PostProcessing/PostProcessAssembly application/grpc -
+[40m[32minfo[39m[22m[49m: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'gRPC - /UnityILPP.PostProcessing/PostProcessAssembly'
+[40m[32minfo[39m[22m[49m: Unity.ILPP.Runner.PostProcessingPipeline[0]
+      Processing assembly Library/Bee/artifacts/200b0aE.dag/ArgusUnity.Tests.PlayMode.dll, with 117 defines and 217 references
+[40m[32minfo[39m[22m[49m: Unity.ILPP.Runner.PostProcessingPipeline[0]
+      processors: zzzUnity.Burst.CodeGen.BurstILPostProcessor
+[40m[32minfo[39m[22m[49m: Unity.ILPP.Runner.PostProcessingPipeline[0]
+      running zzzUnity.Burst.CodeGen.BurstILPostProcessor
+[40m[32minfo[39m[22m[49m: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'gRPC - /UnityILPP.PostProcessing/PostProcessAssembly'
+[40m[32minfo[39m[22m[49m: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished HTTP/2 POST http://ilpp/UnityILPP.PostProcessing/PostProcessAssembly application/grpc - - 200 - application/grpc 1.8201ms
+[40m[32minfo[39m[22m[49m: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/2 POST http://ilpp/UnityILPP.PostProcessing/PostProcessAssembly application/grpc -
+[40m[32minfo[39m[22m[49m: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'gRPC - /UnityILPP.PostProcessing/PostProcessAssembly'
+[40m[32minfo[39m[22m[49m: Unity.ILPP.Runner.PostProcessingPipeline[0]
+      Processing assembly Library/Bee/artifacts/200b0aE.dag/ArgusUnity.Editor.dll, with 117 defines and 218 references
+[40m[32minfo[39m[22m[49m: Unity.ILPP.Runner.PostProcessingPipeline[0]
+      processors: zzzUnity.Burst.CodeGen.BurstILPostProcessor
+[40m[32minfo[39m[22m[49m: Unity.ILPP.Runner.PostProcessingPipeline[0]
+      running zzzUnity.Burst.CodeGen.BurstILPostProcessor
+[40m[32minfo[39m[22m[49m: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'gRPC - /UnityILPP.PostProcessing/PostProcessAssembly'
+[40m[32minfo[39m[22m[49m: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished HTTP/2 POST http://ilpp/UnityILPP.PostProcessing/PostProcessAssembly application/grpc - - 200 - application/grpc 1.1012ms
+[40m[32minfo[39m[22m[49m: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/2 POST http://ilpp/UnityILPP.PostProcessing/PostProcessAssembly application/grpc -
+[40m[32minfo[39m[22m[49m: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'gRPC - /UnityILPP.PostProcessing/PostProcessAssembly'
+[40m[32minfo[39m[22m[49m: Unity.ILPP.Runner.PostProcessingPipeline[0]
+      Processing assembly Library/Bee/artifacts/200b0aE.dag/ArgusUnity.Tests.EditMode.dll, with 117 defines and 219 references
+[40m[32minfo[39m[22m[49m: Unity.ILPP.Runner.PostProcessingPipeline[0]
+      processors: zzzUnity.Burst.CodeGen.BurstILPostProcessor
+[40m[32minfo[39m[22m[49m: Unity.ILPP.Runner.PostProcessingPipeline[0]
+      running zzzUnity.Burst.CodeGen.BurstILPostProcessor
+[40m[32minfo[39m[22m[49m: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'gRPC - /UnityILPP.PostProcessing/PostProcessAssembly'
+[40m[32minfo[39m[22m[49m: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished HTTP/2 POST http://ilpp/UnityILPP.PostProcessing/PostProcessAssembly application/grpc - - 200 - application/grpc 1.6726ms
+ExitCode: 0 Duration: 2s820ms
+[291/377    0s] ILPP-Configuration Library/ilpp-configuration.nevergeneratedoutput
+[361/377    2s] Csc Library/Bee/artifacts/200b0aE.dag/ArgusUnity.dll (+2 others)
+[362/377    0s] ILPostProcess Library/Bee/artifacts/200b0aE.dag/post-processed/ArgusUnity.dll (+pdb)
+Processing assembly Library/Bee/artifacts/200b0aE.dag/ArgusUnity.dll, with 119 defines and 186 references
+processors: zzzUnity.Burst.CodeGen.BurstILPostProcessor
+running zzzUnity.Burst.CodeGen.BurstILPostProcessor
+[363/377    0s] CopyFiles Library/ScriptAssemblies/ArgusUnity.dll
+[364/377    0s] CopyFiles Library/ScriptAssemblies/ArgusUnity.pdb
+[365/377    0s] Csc Library/Bee/artifacts/200b0aE.dag/ArgusUnity.Tests.PlayMode.dll (+2 others)
+[366/377    0s] ILPostProcess Library/Bee/artifacts/200b0aE.dag/post-processed/ArgusUnity.Tests.PlayMode.dll (+pdb)
+Processing assembly Library/Bee/artifacts/200b0aE.dag/ArgusUnity.Tests.PlayMode.dll, with 117 defines and 217 references
+processors: zzzUnity.Burst.CodeGen.BurstILPostProcessor
+running zzzUnity.Burst.CodeGen.BurstILPostProcessor
+[367/377    0s] CopyFiles Library/ScriptAssemblies/ArgusUnity.Tests.PlayMode.pdb
+[368/377    0s] CopyFiles Library/ScriptAssemblies/ArgusUnity.Tests.PlayMode.dll
+[369/377    0s] Csc Library/Bee/artifacts/200b0aE.dag/ArgusUnity.Editor.dll (+2 others)
+[370/377    0s] ILPostProcess Library/Bee/artifacts/200b0aE.dag/post-processed/ArgusUnity.Editor.dll (+pdb)
+Processing assembly Library/Bee/artifacts/200b0aE.dag/ArgusUnity.Editor.dll, with 117 defines and 218 references
+processors: zzzUnity.Burst.CodeGen.BurstILPostProcessor
+running zzzUnity.Burst.CodeGen.BurstILPostProcessor
+[371/377    0s] CopyFiles Library/ScriptAssemblies/ArgusUnity.Editor.pdb
+[372/377    0s] CopyFiles Library/ScriptAssemblies/ArgusUnity.Editor.dll
+[373/377    0s] Csc Library/Bee/artifacts/200b0aE.dag/ArgusUnity.Tests.EditMode.dll (+2 others)
+[374/377    0s] ILPostProcess Library/Bee/artifacts/200b0aE.dag/post-processed/ArgusUnity.Tests.EditMode.dll (+pdb)
+Processing assembly Library/Bee/artifacts/200b0aE.dag/ArgusUnity.Tests.EditMode.dll, with 117 defines and 219 references
+processors: zzzUnity.Burst.CodeGen.BurstILPostProcessor
+running zzzUnity.Burst.CodeGen.BurstILPostProcessor
+[375/377    0s] CopyFiles Library/ScriptAssemblies/ArgusUnity.Tests.EditMode.dll
+[376/377    0s] CopyFiles Library/ScriptAssemblies/ArgusUnity.Tests.EditMode.pdb
+*** Tundra build success (2.80 seconds), 17 items updated, 377 evaluated
+AssetDatabase: script compilation time: 3.507471s
+Total cache size 25932744
+Total cache size after purge 25932744
+Begin MonoManager ReloadAssembly
+Symbol file LoadedFromMemory is not a mono symbol file
+- Loaded All Assemblies, in  0.342 seconds
+Refreshing native plugins compatible for Editor in 0.54 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Start importing Assets/Tests/EditMode/MiniBotAnimationLibraryTests.cs using Guid(a225c8f9fe3994368bfc616e84ee167d) Importer(-1,00000000000000000000000000000000)  -> (artifact id: 'b2c14584c6f40cd9427d1627eb75f734') in 0.020685 seconds
+Start importing Assets/Tests/EditMode/AgentLocomotionDriverTests.cs using Guid(c27cf3fdeaef54520944d9b2d4d1aa77) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '7d62497634f77333b14366d8ad5dc138') in 0.000707 seconds
+Start importing Assets/Tests/EditMode/HideAndSeekDesignBuilderTests.cs using Guid(03335c8fdbdda4182bde2493e30726fe) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '9312f63861cca70dc7d6603d51c72566') in 0.000586 seconds
+Start importing Assets/Project/Scripts/Runtime/MiniBotKeyboardController.cs using Guid(43500e3f9f7454bdfa2934152e42ddda) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '147cf750a7d86418a88933cf59ce935e') in 0.000633 seconds
+Start importing Assets/Project/Scripts/Runtime/AgentLocomotionDriver.cs using Guid(75528659740d44045a7654fab08a9e42) Importer(-1,00000000000000000000000000000000)  -> (artifact id: 'e726ea47b7fb535e8f0e4cb17f5027f1') in 0.000458 seconds
+Start importing Assets/Project/Scripts/Runtime/MiniBotHideAndSeekScenario.cs using Guid(3b5ce7513323c40ca88888f6cc916d18) Importer(-1,00000000000000000000000000000000)  -> (artifact id: 'f27dba8a33321af04c6a717911040f5e') in 0.000473 seconds
+Start importing Assets/Project/Scripts/Runtime/AgentMoveHandler.cs using Guid(ab121212345612348098761234abcd05) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '0b66dac9097dcc64ddeb2d4161e6628a') in 0.000551 seconds
+Start importing Assets/Editor/HideAndSeekDesignBuilder.cs using Guid(3e5770619d66b4652a275f68b78cf71c) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '46d21257aad9f6964ef4e8c0f0e9c7d6') in 0.000399 seconds
+Refreshing native plugins compatible for Editor in 0.45 ms, found 0 plugins.
+Native extension for OSXStandalone target not found
+Mono: successfully reloaded assembly
+- Finished resetting the current domain, in  1.355 seconds
+Domain Reload Profiling: 1698ms
+	BeginReloadAssembly (79ms)
+		ExecutionOrderSort (0ms)
+		DisableScriptedObjects (3ms)
+		BackupInstance (0ms)
+		ReleaseScriptingObjects (0ms)
+		CreateAndSetChildDomain (20ms)
+	RebuildCommonClasses (21ms)
+	RebuildNativeTypeToScriptingClass (7ms)
+	initialDomainReloadingComplete (14ms)
+	LoadAllAssembliesAndSetupDomain (220ms)
+		LoadAssemblies (124ms)
+		RebuildTransferFunctionScriptingTraits (0ms)
+		AnalyzeDomain (128ms)
+			TypeCache.Refresh (117ms)
+				TypeCache.ScanAssembly (111ms)
+			ScanForSourceGeneratedMonoScriptInfo (6ms)
+			ResolveRequiredComponents (5ms)
+	FinalizeReload (1356ms)
+		ReleaseScriptCaches (0ms)
+		RebuildScriptCaches (0ms)
+		SetupLoadedEditorAssemblies (1260ms)
+			LogAssemblyErrors (0ms)
+			InitializePlatformSupportModulesInManaged (1ms)
+			SetLoadedEditorAssemblies (1ms)
+			RefreshPlugins (0ms)
+			BeforeProcessingInitializeOnLoad (25ms)
+			ProcessInitializeOnLoadAttributes (1082ms)
+			ProcessInitializeOnLoadMethodAttributes (149ms)
+			AfterProcessingInitializeOnLoad (1ms)
+			EditorAssembliesLoaded (0ms)
+		ExecutionOrderSort2 (0ms)
+		AwakeInstancesAfterBackupRestoration (3ms)
+Refreshing native plugins compatible for Editor in 0.51 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=82a36d0ab5d1547a4ad33c2cefb7e69f): Total: 6.213 seconds - Initiated by InitialRefreshV2(ForceSynchronousImport)
+	Summary:
+		Imports: total=568 (actual=8, local cache=560, cache server=0)
+		Asset DB Process Time: managed=2 ms, native=938 ms
+		Asset DB Callback time: managed=30 ms, native=6 ms
+		Scripting: domain reloads=1, domain reload time=1715 ms, compile time=3508 ms, other=12 ms
+		Project Asset Count: scripts=3121, non-scripts=1540
+		Asset File Changes: new=0, changed=5, moved=0, deleted=0
+		Scan Filter Count: 1
+	InvokeBeforeRefreshCallbacks: 0.228ms
+	ApplyChangesToAssetFolders: 0.012ms
+	Scan: 261.148ms
+	OnSourceAssetsModified: 1.663ms
+	GetAllGuidsForCategorization: 0.232ms
+	CategorizeAssets: 90.122ms
+	ImportOutOfDateAssets: 1405.462ms (-2146.388ms without children)
+		ImportManagerImport: 35.120ms (5.984ms without children)
+			ImportInProcess: 29.133ms
+			UpdateCategorizedAssets: 0.004ms
+		CompileScripts: 3507.536ms
+		ReloadNativeAssets: 0.248ms
+		UnloadImportedAssets: 6.836ms
+		ReloadImportedAssets: 0.001ms
+		EnsureUptoDateAssetsAreRegisteredWithGuidPM: 0.886ms
+		InitializingProgressBar: 0.000ms
+		OnDemandSchedulerStart: 1.222ms
+	PostProcessAllAssets: 31.229ms
+	Hotreload: 3.592ms
+	GatherAllCurrentPrimaryArtifactRevisions: 0.001ms
+	UnloadStreamsBegin: 1.145ms
+	PersistCurrentRevisions: 0.325ms
+	UnloadStreamsEnd: 0.007ms
+	GenerateScriptTypeHashes: 1.872ms
+	Untracked: 4417.924ms
+Application.AssetDatabase Initial Refresh End
+Launching external process: /Applications/Unity/Hub/Editor/2022.3.0f1/Unity.app/Contents/Tools/UnityShaderCompiler
+Launched and connected shader compiler UnityShaderCompiler after 0.25 seconds
+Scanning for USB devices : 0.178ms
+Initializing Unity extensions:
+[Licensing::Client] Successfully resolved entitlements
+[MODES] ModeService[none].Initialize
+[MODES] ModeService[none].LoadModes
+[MODES] Loading mode Default (0) for mode-current-id-EmbodiedDebate
+ProgressiveSceneManager::Cancel()
+Unloading 6 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 59 unused Assets / (0.7 MB). Loaded Objects now: 3136.
+Memory consumption went from 136.0 MB to 135.3 MB.
+Total: 5.223041 ms (FindLiveObjects: 0.128166 ms CreateObjectMapping: 0.042709 ms MarkObjects: 4.519458 ms  DeleteObjects: 0.532250 ms)
+
+Asset Pipeline Refresh (id=cdd226028ae3f4a0081f6e2d2e4675d3): Total: 0.100 seconds - Initiated by RefreshV2(NoUpdateAssetOptions)
+Start importing Assets/ThirdParty/StylooClassroomAssetPack/StylooClassroomAssetPack GLTF & FBX/classroom/GLTF/wallsfloor.glb using Guid(95d4331adf82140bbb5c243cad6bfa64) Importer(-1,00000000000000000000000000000000)  -> (artifact id: 'f3d2890c29c26a32b800ce5d03471518') in 0.096749 seconds
+Refreshing native plugins compatible for Editor in 0.45 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=e2164a0797c394aae910e9ac93d957b0): Total: 0.112 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+HideAndSeekDesignBuilder: GLTF asset wallsfloor.glb, importer=GLTFast.Editor.GltfImporter, gameObjectLoaded=True
+UnityEngine.StackTraceUtility:ExtractStackTrace () (at /Users/bokken/build/output/unity/unity/Runtime/Export/Scripting/StackTrace.cs:37)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+ArgusUnity.Editor.HideAndSeekDesignBuilder:EnsureGltfClassroomImports () (at Assets/Editor/HideAndSeekDesignBuilder.cs:211)
+ArgusUnity.Editor.HideAndSeekDesignBuilder:BuildScene () (at Assets/Editor/HideAndSeekDesignBuilder.cs:148)
+
+(Filename: Assets/Editor/HideAndSeekDesignBuilder.cs Line: 211)
+
+Start importing Assets/ThirdParty/StylooClassroomAssetPack/StylooClassroomAssetPack GLTF & FBX/classroom/GLTF/table.glb using Guid(0fac535ef0639442ea3d608d5efbaf9b) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '5c883593d2a997f766a51e3bfbb6f666') in 0.005370 seconds
+Refreshing native plugins compatible for Editor in 0.45 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=200984111f26c42edb23edc0d1cf4d5a): Total: 0.018 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+HideAndSeekDesignBuilder: GLTF asset table.glb, importer=GLTFast.Editor.GltfImporter, gameObjectLoaded=True
+UnityEngine.StackTraceUtility:ExtractStackTrace () (at /Users/bokken/build/output/unity/unity/Runtime/Export/Scripting/StackTrace.cs:37)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+ArgusUnity.Editor.HideAndSeekDesignBuilder:EnsureGltfClassroomImports () (at Assets/Editor/HideAndSeekDesignBuilder.cs:211)
+ArgusUnity.Editor.HideAndSeekDesignBuilder:BuildScene () (at Assets/Editor/HideAndSeekDesignBuilder.cs:148)
+
+(Filename: Assets/Editor/HideAndSeekDesignBuilder.cs Line: 211)
+
+Start importing Assets/ThirdParty/StylooClassroomAssetPack/StylooClassroomAssetPack GLTF & FBX/classroom/GLTF/desk.glb using Guid(0efed4ee7808840d3b57c7df53106661) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '6796f501a18b78f3f8cc5956ac718ae5') in 0.003468 seconds
+Refreshing native plugins compatible for Editor in 0.44 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=0155053af664449e48f32f82b89759f3): Total: 0.019 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+HideAndSeekDesignBuilder: GLTF asset desk.glb, importer=GLTFast.Editor.GltfImporter, gameObjectLoaded=True
+UnityEngine.StackTraceUtility:ExtractStackTrace () (at /Users/bokken/build/output/unity/unity/Runtime/Export/Scripting/StackTrace.cs:37)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+ArgusUnity.Editor.HideAndSeekDesignBuilder:EnsureGltfClassroomImports () (at Assets/Editor/HideAndSeekDesignBuilder.cs:211)
+ArgusUnity.Editor.HideAndSeekDesignBuilder:BuildScene () (at Assets/Editor/HideAndSeekDesignBuilder.cs:148)
+
+(Filename: Assets/Editor/HideAndSeekDesignBuilder.cs Line: 211)
+
+Start importing Assets/Project/Resources/UserModels/Idle.fbx using Guid(3cef4c5e4db924e9cb5ca8890eae77de) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '9f27ba06fdf37ef31f3487c718d975db') in 0.208875 seconds
+Refreshing native plugins compatible for Editor in 0.46 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=44e85a81ab7d1490e9da66a497f03014): Total: 0.232 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Start importing Assets/Project/Resources/UserModels/Idle.fbx using Guid(3cef4c5e4db924e9cb5ca8890eae77de) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '9f27ba06fdf37ef31f3487c718d975db') in 0.152194 seconds
+Refreshing native plugins compatible for Editor in 0.45 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=bc255bf57e015436d8b5dba5e74a4030): Total: 0.168 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+HideAndSeekDesignBuilder: humanoid animation import asset=Idle.fbx, clip=Idle, loop=True, mirror=False, rootLocks=rotation:true,heightY:true,positionXZ:true, avatarSetup=CreateFromThisModel, sharedAvatar=False, sharedAvatarValid=False, sharedAvatarHuman=False, assetAvatarValid=True, assetAvatarHuman=True, importedClips=Idle.
+UnityEngine.StackTraceUtility:ExtractStackTrace () (at /Users/bokken/build/output/unity/unity/Runtime/Export/Scripting/StackTrace.cs:37)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+ArgusUnity.Editor.HideAndSeekDesignBuilder:ConfigureHumanoidAnimation (string,string,bool,UnityEngine.Avatar,bool) (at Assets/Editor/HideAndSeekDesignBuilder.cs:428)
+ArgusUnity.Editor.HideAndSeekDesignBuilder:EnsureLocomotionAnimationImports () (at Assets/Editor/HideAndSeekDesignBuilder.cs:341)
+ArgusUnity.Editor.HideAndSeekDesignBuilder:BuildScene () (at Assets/Editor/HideAndSeekDesignBuilder.cs:149)
+
+(Filename: Assets/Editor/HideAndSeekDesignBuilder.cs Line: 428)
+
+Start importing Assets/Project/Resources/Animations/Locomotion/Walking-2.fbx using Guid(f2ed7a64c18074ecfa681f4713b3f10d) Importer(-1,00000000000000000000000000000000)  -> (artifact id: 'a34faa1e46e4cb632eadaf084b989433') in 0.130730 seconds
+Refreshing native plugins compatible for Editor in 0.46 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=081e1d9b193034ec38ce54418d75f800): Total: 0.148 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Start importing Assets/Project/Resources/Animations/Locomotion/Walking-2.fbx using Guid(f2ed7a64c18074ecfa681f4713b3f10d) Importer(-1,00000000000000000000000000000000)  -> (artifact id: 'a34faa1e46e4cb632eadaf084b989433') in 0.129514 seconds
+Refreshing native plugins compatible for Editor in 0.47 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=4da71cba1d24f4d4aa58823229a5c0e9): Total: 0.143 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+HideAndSeekDesignBuilder: humanoid animation import asset=Walking-2.fbx, clip=Walk_InPlace, loop=True, mirror=False, rootLocks=rotation:true,heightY:true,positionXZ:true, avatarSetup=CopyFromOther, sharedAvatar=True, sharedAvatarValid=True, sharedAvatarHuman=True, assetAvatarValid=False, assetAvatarHuman=False, importedClips=Walk_InPlace.
+UnityEngine.StackTraceUtility:ExtractStackTrace () (at /Users/bokken/build/output/unity/unity/Runtime/Export/Scripting/StackTrace.cs:37)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+ArgusUnity.Editor.HideAndSeekDesignBuilder:ConfigureHumanoidAnimation (string,string,bool,UnityEngine.Avatar,bool) (at Assets/Editor/HideAndSeekDesignBuilder.cs:428)
+ArgusUnity.Editor.HideAndSeekDesignBuilder:EnsureLocomotionAnimationImports () (at Assets/Editor/HideAndSeekDesignBuilder.cs:357)
+ArgusUnity.Editor.HideAndSeekDesignBuilder:BuildScene () (at Assets/Editor/HideAndSeekDesignBuilder.cs:149)
+
+(Filename: Assets/Editor/HideAndSeekDesignBuilder.cs Line: 428)
+
+Start importing Assets/Project/Resources/Animations/FBXTurns/Right Turn 90.fbx using Guid(82cc6131a0e2f4d71a2a3455b84d0688) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '988cb3fb0cb2c9e371fb0c806d47c8d5') in 0.131914 seconds
+Refreshing native plugins compatible for Editor in 0.60 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=f6958ad2caac345e8bd6dea201bab443): Total: 0.154 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+HideAndSeekDesignBuilder: FBX turn animation role=right-90, asset=Right Turn 90.fbx, importedClips=1, clip=generic, minus2MeansLeft=False
+UnityEngine.StackTraceUtility:ExtractStackTrace () (at /Users/bokken/build/output/unity/unity/Runtime/Export/Scripting/StackTrace.cs:37)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+ArgusUnity.Editor.HideAndSeekDesignBuilder:EnsureTurnAnimationImports () (at Assets/Editor/HideAndSeekDesignBuilder.cs:282)
+ArgusUnity.Editor.HideAndSeekDesignBuilder:BuildScene () (at Assets/Editor/HideAndSeekDesignBuilder.cs:150)
+
+(Filename: Assets/Editor/HideAndSeekDesignBuilder.cs Line: 282)
+
+Start importing Assets/Project/Resources/Animations/FBXTurns/Right Turn 90-2.fbx using Guid(1170e0a4254694dcc89393ce7f5d98cf) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '312f182203c92c59974005b01b517093') in 0.130842 seconds
+Refreshing native plugins compatible for Editor in 0.56 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=e280adda8660448c29b191887c28976b): Total: 0.151 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+HideAndSeekDesignBuilder: FBX turn animation role=left-90-from-minus-2, asset=Right Turn 90-2.fbx, importedClips=1, clip=generic, minus2MeansLeft=True
+UnityEngine.StackTraceUtility:ExtractStackTrace () (at /Users/bokken/build/output/unity/unity/Runtime/Export/Scripting/StackTrace.cs:37)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+ArgusUnity.Editor.HideAndSeekDesignBuilder:EnsureTurnAnimationImports () (at Assets/Editor/HideAndSeekDesignBuilder.cs:282)
+ArgusUnity.Editor.HideAndSeekDesignBuilder:BuildScene () (at Assets/Editor/HideAndSeekDesignBuilder.cs:150)
+
+(Filename: Assets/Editor/HideAndSeekDesignBuilder.cs Line: 282)
+
+Start importing Assets/Project/Resources/Animations/FBXTurns/Happy Right Turn.fbx using Guid(1be269054e1384c259b5d79fb375c6f8) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '3e7d18dddea28843d5f43f6eec14061d') in 0.131643 seconds
+Refreshing native plugins compatible for Editor in 0.78 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=3c0ea27d5e82249b1b815bde498d0cfc): Total: 0.153 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Start importing Assets/Project/Resources/Animations/FBXTurns/Happy Right Turn.fbx using Guid(1be269054e1384c259b5d79fb375c6f8) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '3e7d18dddea28843d5f43f6eec14061d') in 0.126539 seconds
+Refreshing native plugins compatible for Editor in 0.47 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=f1b45c81255a941688c25aabd89b06cf): Total: 0.142 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+HideAndSeekDesignBuilder: humanoid animation import asset=Happy Right Turn.fbx, clip=TurnRight_Happy, loop=True, mirror=False, rootLocks=rotation:true,heightY:true,positionXZ:true, avatarSetup=CopyFromOther, sharedAvatar=True, sharedAvatarValid=True, sharedAvatarHuman=True, assetAvatarValid=False, assetAvatarHuman=False, importedClips=TurnRight_Happy.
+UnityEngine.StackTraceUtility:ExtractStackTrace () (at /Users/bokken/build/output/unity/unity/Runtime/Export/Scripting/StackTrace.cs:37)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+ArgusUnity.Editor.HideAndSeekDesignBuilder:ConfigureHumanoidAnimation (string,string,bool,UnityEngine.Avatar,bool) (at Assets/Editor/HideAndSeekDesignBuilder.cs:428)
+ArgusUnity.Editor.HideAndSeekDesignBuilder:EnsureTurnAnimationImports () (at Assets/Editor/HideAndSeekDesignBuilder.cs:239)
+ArgusUnity.Editor.HideAndSeekDesignBuilder:BuildScene () (at Assets/Editor/HideAndSeekDesignBuilder.cs:150)
+
+(Filename: Assets/Editor/HideAndSeekDesignBuilder.cs Line: 428)
+
+HideAndSeekDesignBuilder: FBX turn animation role=quarantined-happy-right, asset=Happy Right Turn.fbx, importedClips=1, clip=TurnRight_Happy, minus2MeansLeft=False
+UnityEngine.StackTraceUtility:ExtractStackTrace () (at /Users/bokken/build/output/unity/unity/Runtime/Export/Scripting/StackTrace.cs:37)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+ArgusUnity.Editor.HideAndSeekDesignBuilder:EnsureTurnAnimationImports () (at Assets/Editor/HideAndSeekDesignBuilder.cs:282)
+ArgusUnity.Editor.HideAndSeekDesignBuilder:BuildScene () (at Assets/Editor/HideAndSeekDesignBuilder.cs:150)
+
+(Filename: Assets/Editor/HideAndSeekDesignBuilder.cs Line: 282)
+
+Start importing Assets/Project/Resources/Animations/FBXTurns/Happy Right Turn-2.fbx using Guid(61038be6e25984c94a7ef50954a36c5b) Importer(-1,00000000000000000000000000000000)  -> (artifact id: 'db836ff54bbd137c91606cfd90d1e63a') in 0.132767 seconds
+Refreshing native plugins compatible for Editor in 0.51 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=dabc5c3f8e11840de9364745618f3ab0): Total: 0.152 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Start importing Assets/Project/Resources/Animations/FBXTurns/Happy Right Turn-2.fbx using Guid(61038be6e25984c94a7ef50954a36c5b) Importer(-1,00000000000000000000000000000000)  -> (artifact id: 'db836ff54bbd137c91606cfd90d1e63a') in 0.127154 seconds
+Refreshing native plugins compatible for Editor in 0.45 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=010d7135bce764c3cbb2f7799f9e5223): Total: 0.141 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+HideAndSeekDesignBuilder: humanoid animation import asset=Happy Right Turn-2.fbx, clip=TurnLeft_Happy, loop=True, mirror=False, rootLocks=rotation:true,heightY:true,positionXZ:true, avatarSetup=CopyFromOther, sharedAvatar=True, sharedAvatarValid=True, sharedAvatarHuman=True, assetAvatarValid=False, assetAvatarHuman=False, importedClips=TurnLeft_Happy.
+UnityEngine.StackTraceUtility:ExtractStackTrace () (at /Users/bokken/build/output/unity/unity/Runtime/Export/Scripting/StackTrace.cs:37)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+ArgusUnity.Editor.HideAndSeekDesignBuilder:ConfigureHumanoidAnimation (string,string,bool,UnityEngine.Avatar,bool) (at Assets/Editor/HideAndSeekDesignBuilder.cs:428)
+ArgusUnity.Editor.HideAndSeekDesignBuilder:EnsureTurnAnimationImports () (at Assets/Editor/HideAndSeekDesignBuilder.cs:239)
+ArgusUnity.Editor.HideAndSeekDesignBuilder:BuildScene () (at Assets/Editor/HideAndSeekDesignBuilder.cs:150)
+
+(Filename: Assets/Editor/HideAndSeekDesignBuilder.cs Line: 428)
+
+HideAndSeekDesignBuilder: FBX turn animation role=quarantined-happy-left-from-minus-2, asset=Happy Right Turn-2.fbx, importedClips=1, clip=TurnLeft_Happy, minus2MeansLeft=True
+UnityEngine.StackTraceUtility:ExtractStackTrace () (at /Users/bokken/build/output/unity/unity/Runtime/Export/Scripting/StackTrace.cs:37)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+ArgusUnity.Editor.HideAndSeekDesignBuilder:EnsureTurnAnimationImports () (at Assets/Editor/HideAndSeekDesignBuilder.cs:282)
+ArgusUnity.Editor.HideAndSeekDesignBuilder:BuildScene () (at Assets/Editor/HideAndSeekDesignBuilder.cs:150)
+
+(Filename: Assets/Editor/HideAndSeekDesignBuilder.cs Line: 282)
+
+Start importing Assets/Project/Resources/Animations/Locomotion/Running.fbx using Guid(d43575bd13fae4161bd6a39cd2fbf7a7) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '9ceefb425cd569dd44cac2701f2b0063') in 0.135842 seconds
+Refreshing native plugins compatible for Editor in 0.47 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=05af7cf0532c342cdb98567d6df95bf4): Total: 0.156 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Start importing Assets/Project/Resources/Animations/Locomotion/Running.fbx using Guid(d43575bd13fae4161bd6a39cd2fbf7a7) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '9ceefb425cd569dd44cac2701f2b0063') in 0.130776 seconds
+Refreshing native plugins compatible for Editor in 0.50 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=acad07425e2d9451ba073c6b17fae18a): Total: 0.144 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+HideAndSeekDesignBuilder: humanoid animation import asset=Running.fbx, clip=Run, loop=True, mirror=False, rootLocks=rotation:true,heightY:true,positionXZ:true, avatarSetup=CopyFromOther, sharedAvatar=True, sharedAvatarValid=True, sharedAvatarHuman=True, assetAvatarValid=False, assetAvatarHuman=False, importedClips=Run.
+UnityEngine.StackTraceUtility:ExtractStackTrace () (at /Users/bokken/build/output/unity/unity/Runtime/Export/Scripting/StackTrace.cs:37)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+ArgusUnity.Editor.HideAndSeekDesignBuilder:ConfigureHumanoidAnimation (string,string,bool,UnityEngine.Avatar,bool) (at Assets/Editor/HideAndSeekDesignBuilder.cs:428)
+ArgusUnity.Editor.HideAndSeekDesignBuilder:EnsureExpandedAnimationImports () (at Assets/Editor/HideAndSeekDesignBuilder.cs:310)
+ArgusUnity.Editor.HideAndSeekDesignBuilder:BuildScene () (at Assets/Editor/HideAndSeekDesignBuilder.cs:151)
+
+(Filename: Assets/Editor/HideAndSeekDesignBuilder.cs Line: 428)
+
+HideAndSeekDesignBuilder: expanded animation import role=quarantined-run-locomotion, activeLocomotion=False, asset=Running.fbx, clip=Run, loop=True, mirror=False, target=Assets/Project/Resources/Animations/Locomotion/Running.fbx.
+UnityEngine.StackTraceUtility:ExtractStackTrace () (at /Users/bokken/build/output/unity/unity/Runtime/Export/Scripting/StackTrace.cs:37)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+ArgusUnity.Editor.HideAndSeekDesignBuilder:EnsureExpandedAnimationImports () (at Assets/Editor/HideAndSeekDesignBuilder.cs:316)
+ArgusUnity.Editor.HideAndSeekDesignBuilder:BuildScene () (at Assets/Editor/HideAndSeekDesignBuilder.cs:151)
+
+(Filename: Assets/Editor/HideAndSeekDesignBuilder.cs Line: 316)
+
+Start importing Assets/Project/Resources/Animations/Locomotion/Slow Run.fbx using Guid(07b1cd1c4ea6a401b86df6eaebc56999) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '9bbe3bc33bce55e0322445193c00e0a3') in 0.127323 seconds
+Refreshing native plugins compatible for Editor in 0.46 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=42d9a1e33e6844c99a53ec57b43f5941): Total: 0.144 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Start importing Assets/Project/Resources/Animations/Locomotion/Slow Run.fbx using Guid(07b1cd1c4ea6a401b86df6eaebc56999) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '9bbe3bc33bce55e0322445193c00e0a3') in 0.124554 seconds
+Refreshing native plugins compatible for Editor in 0.46 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=2c2e60fcd373f4a76a20edcc66e8de5a): Total: 0.138 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+HideAndSeekDesignBuilder: humanoid animation import asset=Slow Run.fbx, clip=SlowRun, loop=True, mirror=False, rootLocks=rotation:true,heightY:true,positionXZ:true, avatarSetup=CopyFromOther, sharedAvatar=True, sharedAvatarValid=True, sharedAvatarHuman=True, assetAvatarValid=False, assetAvatarHuman=False, importedClips=SlowRun.
+UnityEngine.StackTraceUtility:ExtractStackTrace () (at /Users/bokken/build/output/unity/unity/Runtime/Export/Scripting/StackTrace.cs:37)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+ArgusUnity.Editor.HideAndSeekDesignBuilder:ConfigureHumanoidAnimation (string,string,bool,UnityEngine.Avatar,bool) (at Assets/Editor/HideAndSeekDesignBuilder.cs:428)
+ArgusUnity.Editor.HideAndSeekDesignBuilder:EnsureExpandedAnimationImports () (at Assets/Editor/HideAndSeekDesignBuilder.cs:310)
+ArgusUnity.Editor.HideAndSeekDesignBuilder:BuildScene () (at Assets/Editor/HideAndSeekDesignBuilder.cs:151)
+
+(Filename: Assets/Editor/HideAndSeekDesignBuilder.cs Line: 428)
+
+HideAndSeekDesignBuilder: expanded animation import role=quarantined-slow-run-locomotion, activeLocomotion=False, asset=Slow Run.fbx, clip=SlowRun, loop=True, mirror=False, target=Assets/Project/Resources/Animations/Locomotion/Slow Run.fbx.
+UnityEngine.StackTraceUtility:ExtractStackTrace () (at /Users/bokken/build/output/unity/unity/Runtime/Export/Scripting/StackTrace.cs:37)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+ArgusUnity.Editor.HideAndSeekDesignBuilder:EnsureExpandedAnimationImports () (at Assets/Editor/HideAndSeekDesignBuilder.cs:316)
+ArgusUnity.Editor.HideAndSeekDesignBuilder:BuildScene () (at Assets/Editor/HideAndSeekDesignBuilder.cs:151)
+
+(Filename: Assets/Editor/HideAndSeekDesignBuilder.cs Line: 316)
+
+Start importing Assets/Project/Resources/Animations/Locomotion/Running To Turn.fbx using Guid(06f4a46c02b354b268b2658de1f2164f) Importer(-1,00000000000000000000000000000000)  -> (artifact id: 'bea833bfd4f8165b854d2f1581bd56a1') in 0.147058 seconds
+Refreshing native plugins compatible for Editor in 0.49 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=482a27ea58e3d48ad9064bdb29d3ef86): Total: 0.166 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Start importing Assets/Project/Resources/Animations/Locomotion/Running To Turn.fbx using Guid(06f4a46c02b354b268b2658de1f2164f) Importer(-1,00000000000000000000000000000000)  -> (artifact id: 'bea833bfd4f8165b854d2f1581bd56a1') in 0.136814 seconds
+Refreshing native plugins compatible for Editor in 0.46 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=e2870fe50e13d4ed5b63846e3c6cdbb1): Total: 0.151 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+HideAndSeekDesignBuilder: humanoid animation import asset=Running To Turn.fbx, clip=RunToTurn, loop=False, mirror=False, rootLocks=rotation:true,heightY:true,positionXZ:true, avatarSetup=CopyFromOther, sharedAvatar=True, sharedAvatarValid=True, sharedAvatarHuman=True, assetAvatarValid=False, assetAvatarHuman=False, importedClips=RunToTurn.
+UnityEngine.StackTraceUtility:ExtractStackTrace () (at /Users/bokken/build/output/unity/unity/Runtime/Export/Scripting/StackTrace.cs:37)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+ArgusUnity.Editor.HideAndSeekDesignBuilder:ConfigureHumanoidAnimation (string,string,bool,UnityEngine.Avatar,bool) (at Assets/Editor/HideAndSeekDesignBuilder.cs:428)
+ArgusUnity.Editor.HideAndSeekDesignBuilder:EnsureExpandedAnimationImports () (at Assets/Editor/HideAndSeekDesignBuilder.cs:310)
+ArgusUnity.Editor.HideAndSeekDesignBuilder:BuildScene () (at Assets/Editor/HideAndSeekDesignBuilder.cs:151)
+
+(Filename: Assets/Editor/HideAndSeekDesignBuilder.cs Line: 428)
+
+HideAndSeekDesignBuilder: expanded animation import role=quarantined-run-turn-candidate, activeLocomotion=False, asset=Running To Turn.fbx, clip=RunToTurn, loop=False, mirror=False, target=Assets/Project/Resources/Animations/Locomotion/Running To Turn.fbx.
+UnityEngine.StackTraceUtility:ExtractStackTrace () (at /Users/bokken/build/output/unity/unity/Runtime/Export/Scripting/StackTrace.cs:37)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+ArgusUnity.Editor.HideAndSeekDesignBuilder:EnsureExpandedAnimationImports () (at Assets/Editor/HideAndSeekDesignBuilder.cs:316)
+ArgusUnity.Editor.HideAndSeekDesignBuilder:BuildScene () (at Assets/Editor/HideAndSeekDesignBuilder.cs:151)
+
+(Filename: Assets/Editor/HideAndSeekDesignBuilder.cs Line: 316)
+
+Start importing Assets/Project/Resources/Animations/FBXTurns/Left Turn W_Briefcase.fbx using Guid(aee9a1da03a1a47c6a8edda6be8f8eae) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '0261bf6e215febaa3de699757626c6e4') in 0.139635 seconds
+Refreshing native plugins compatible for Editor in 0.46 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=0df782f47fccc47d89b99223b5c2ce83): Total: 0.161 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Start importing Assets/Project/Resources/Animations/FBXTurns/Left Turn W_Briefcase.fbx using Guid(aee9a1da03a1a47c6a8edda6be8f8eae) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '0261bf6e215febaa3de699757626c6e4') in 0.137211 seconds
+Refreshing native plugins compatible for Editor in 0.46 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=220924fe92ba5476ebe1756818f4ef5d): Total: 0.151 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+HideAndSeekDesignBuilder: humanoid animation import asset=Left Turn W_Briefcase.fbx, clip=TurnLeft_Briefcase, loop=True, mirror=False, rootLocks=rotation:true,heightY:true,positionXZ:true, avatarSetup=CopyFromOther, sharedAvatar=True, sharedAvatarValid=True, sharedAvatarHuman=True, assetAvatarValid=False, assetAvatarHuman=False, importedClips=TurnLeft_Briefcase.
+UnityEngine.StackTraceUtility:ExtractStackTrace () (at /Users/bokken/build/output/unity/unity/Runtime/Export/Scripting/StackTrace.cs:37)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+ArgusUnity.Editor.HideAndSeekDesignBuilder:ConfigureHumanoidAnimation (string,string,bool,UnityEngine.Avatar,bool) (at Assets/Editor/HideAndSeekDesignBuilder.cs:428)
+ArgusUnity.Editor.HideAndSeekDesignBuilder:EnsureExpandedAnimationImports () (at Assets/Editor/HideAndSeekDesignBuilder.cs:310)
+ArgusUnity.Editor.HideAndSeekDesignBuilder:BuildScene () (at Assets/Editor/HideAndSeekDesignBuilder.cs:151)
+
+(Filename: Assets/Editor/HideAndSeekDesignBuilder.cs Line: 428)
+
+HideAndSeekDesignBuilder: expanded animation import role=production-left-briefcase-turn, activeLocomotion=True, asset=Left Turn W_Briefcase.fbx, clip=TurnLeft_Briefcase, loop=True, mirror=False, target=Assets/Project/Resources/Animations/FBXTurns/Left Turn W_Briefcase.fbx.
+UnityEngine.StackTraceUtility:ExtractStackTrace () (at /Users/bokken/build/output/unity/unity/Runtime/Export/Scripting/StackTrace.cs:37)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+ArgusUnity.Editor.HideAndSeekDesignBuilder:EnsureExpandedAnimationImports () (at Assets/Editor/HideAndSeekDesignBuilder.cs:316)
+ArgusUnity.Editor.HideAndSeekDesignBuilder:BuildScene () (at Assets/Editor/HideAndSeekDesignBuilder.cs:151)
+
+(Filename: Assets/Editor/HideAndSeekDesignBuilder.cs Line: 316)
+
+Start importing Assets/Project/Resources/Animations/FBXTurns/Left Turn W_Briefcase-2.fbx using Guid(f205dce3d15704ca6a8b9b0f86401123) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '9b7cc026d1c5e804a6f7ac31763cc466') in 0.138735 seconds
+Refreshing native plugins compatible for Editor in 0.46 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=491b471c2619e41799e8b0d26dd92856): Total: 0.159 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Start importing Assets/Project/Resources/Animations/FBXTurns/Left Turn W_Briefcase-2.fbx using Guid(f205dce3d15704ca6a8b9b0f86401123) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '9b7cc026d1c5e804a6f7ac31763cc466') in 0.135074 seconds
+Refreshing native plugins compatible for Editor in 0.46 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=66b6fb128370343bb9a804050a5887f7): Total: 0.149 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+HideAndSeekDesignBuilder: humanoid animation import asset=Left Turn W_Briefcase-2.fbx, clip=TurnLeft_Briefcase_Alt, loop=False, mirror=False, rootLocks=rotation:true,heightY:true,positionXZ:true, avatarSetup=CopyFromOther, sharedAvatar=True, sharedAvatarValid=True, sharedAvatarHuman=True, assetAvatarValid=False, assetAvatarHuman=False, importedClips=TurnLeft_Briefcase_Alt.
+UnityEngine.StackTraceUtility:ExtractStackTrace () (at /Users/bokken/build/output/unity/unity/Runtime/Export/Scripting/StackTrace.cs:37)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+ArgusUnity.Editor.HideAndSeekDesignBuilder:ConfigureHumanoidAnimation (string,string,bool,UnityEngine.Avatar,bool) (at Assets/Editor/HideAndSeekDesignBuilder.cs:428)
+ArgusUnity.Editor.HideAndSeekDesignBuilder:EnsureExpandedAnimationImports () (at Assets/Editor/HideAndSeekDesignBuilder.cs:310)
+ArgusUnity.Editor.HideAndSeekDesignBuilder:BuildScene () (at Assets/Editor/HideAndSeekDesignBuilder.cs:151)
+
+(Filename: Assets/Editor/HideAndSeekDesignBuilder.cs Line: 428)
+
+HideAndSeekDesignBuilder: expanded animation import role=briefcase-turn-alt-preview, activeLocomotion=False, asset=Left Turn W_Briefcase-2.fbx, clip=TurnLeft_Briefcase_Alt, loop=False, mirror=False, target=Assets/Project/Resources/Animations/FBXTurns/Left Turn W_Briefcase-2.fbx.
+UnityEngine.StackTraceUtility:ExtractStackTrace () (at /Users/bokken/build/output/unity/unity/Runtime/Export/Scripting/StackTrace.cs:37)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+ArgusUnity.Editor.HideAndSeekDesignBuilder:EnsureExpandedAnimationImports () (at Assets/Editor/HideAndSeekDesignBuilder.cs:316)
+ArgusUnity.Editor.HideAndSeekDesignBuilder:BuildScene () (at Assets/Editor/HideAndSeekDesignBuilder.cs:151)
+
+(Filename: Assets/Editor/HideAndSeekDesignBuilder.cs Line: 316)
+
+Start importing Assets/Project/Resources/Animations/FBXTurns/Right Turn W_Briefcase_Mirrored.fbx using Guid(88c9c815a6a8c492cb9e49b0c842be3e) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '6973b3cb5972e91b7d2dccaf72732990') in 0.138972 seconds
+Refreshing native plugins compatible for Editor in 0.48 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=550cba18b34064f8e9a66f01a0e8aa74): Total: 0.159 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Start importing Assets/Project/Resources/Animations/FBXTurns/Right Turn W_Briefcase_Mirrored.fbx using Guid(88c9c815a6a8c492cb9e49b0c842be3e) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '6973b3cb5972e91b7d2dccaf72732990') in 0.136131 seconds
+Refreshing native plugins compatible for Editor in 0.45 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=4c5b516ff0e174a7c8abb0d4fa8ff560): Total: 0.150 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+HideAndSeekDesignBuilder: humanoid animation import asset=Right Turn W_Briefcase_Mirrored.fbx, clip=TurnRight_Briefcase, loop=True, mirror=True, rootLocks=rotation:true,heightY:true,positionXZ:true, avatarSetup=CopyFromOther, sharedAvatar=True, sharedAvatarValid=True, sharedAvatarHuman=True, assetAvatarValid=False, assetAvatarHuman=False, importedClips=TurnRight_Briefcase.
+UnityEngine.StackTraceUtility:ExtractStackTrace () (at /Users/bokken/build/output/unity/unity/Runtime/Export/Scripting/StackTrace.cs:37)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+ArgusUnity.Editor.HideAndSeekDesignBuilder:ConfigureHumanoidAnimation (string,string,bool,UnityEngine.Avatar,bool) (at Assets/Editor/HideAndSeekDesignBuilder.cs:428)
+ArgusUnity.Editor.HideAndSeekDesignBuilder:EnsureExpandedAnimationImports () (at Assets/Editor/HideAndSeekDesignBuilder.cs:310)
+ArgusUnity.Editor.HideAndSeekDesignBuilder:BuildScene () (at Assets/Editor/HideAndSeekDesignBuilder.cs:151)
+
+(Filename: Assets/Editor/HideAndSeekDesignBuilder.cs Line: 428)
+
+HideAndSeekDesignBuilder: expanded animation import role=production-right-briefcase-turn-mirrored, activeLocomotion=True, asset=Right Turn W_Briefcase_Mirrored.fbx, clip=TurnRight_Briefcase, loop=True, mirror=True, target=Assets/Project/Resources/Animations/FBXTurns/Right Turn W_Briefcase_Mirrored.fbx.
+UnityEngine.StackTraceUtility:ExtractStackTrace () (at /Users/bokken/build/output/unity/unity/Runtime/Export/Scripting/StackTrace.cs:37)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+ArgusUnity.Editor.HideAndSeekDesignBuilder:EnsureExpandedAnimationImports () (at Assets/Editor/HideAndSeekDesignBuilder.cs:316)
+ArgusUnity.Editor.HideAndSeekDesignBuilder:BuildScene () (at Assets/Editor/HideAndSeekDesignBuilder.cs:151)
+
+(Filename: Assets/Editor/HideAndSeekDesignBuilder.cs Line: 316)
+
+Start importing Assets/Project/Resources/Animations/Actions/Thinking.fbx using Guid(36a75f6830f56473790d1fae92b02700) Importer(-1,00000000000000000000000000000000)  -> (artifact id: 'fd0afac4c3936fda1f44c380eda18785') in 0.154271 seconds
+Refreshing native plugins compatible for Editor in 0.46 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=668951950752c46618ebb9f67f9aab74): Total: 0.176 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Start importing Assets/Project/Resources/Animations/Actions/Thinking.fbx using Guid(36a75f6830f56473790d1fae92b02700) Importer(-1,00000000000000000000000000000000)  -> (artifact id: 'fd0afac4c3936fda1f44c380eda18785') in 0.152861 seconds
+Refreshing native plugins compatible for Editor in 0.45 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=8f9f5d69b41a24caea26c29f0c1b07b0): Total: 0.167 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+HideAndSeekDesignBuilder: humanoid animation import asset=Thinking.fbx, clip=Thinking, loop=False, mirror=False, rootLocks=rotation:true,heightY:true,positionXZ:true, avatarSetup=CopyFromOther, sharedAvatar=True, sharedAvatarValid=True, sharedAvatarHuman=True, assetAvatarValid=False, assetAvatarHuman=False, importedClips=Thinking.
+UnityEngine.StackTraceUtility:ExtractStackTrace () (at /Users/bokken/build/output/unity/unity/Runtime/Export/Scripting/StackTrace.cs:37)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+ArgusUnity.Editor.HideAndSeekDesignBuilder:ConfigureHumanoidAnimation (string,string,bool,UnityEngine.Avatar,bool) (at Assets/Editor/HideAndSeekDesignBuilder.cs:428)
+ArgusUnity.Editor.HideAndSeekDesignBuilder:EnsureExpandedAnimationImports () (at Assets/Editor/HideAndSeekDesignBuilder.cs:310)
+ArgusUnity.Editor.HideAndSeekDesignBuilder:BuildScene () (at Assets/Editor/HideAndSeekDesignBuilder.cs:151)
+
+(Filename: Assets/Editor/HideAndSeekDesignBuilder.cs Line: 428)
+
+HideAndSeekDesignBuilder: expanded animation import role=thinking-action-not-wired, activeLocomotion=False, asset=Thinking.fbx, clip=Thinking, loop=False, mirror=False, target=Assets/Project/Resources/Animations/Actions/Thinking.fbx.
+UnityEngine.StackTraceUtility:ExtractStackTrace () (at /Users/bokken/build/output/unity/unity/Runtime/Export/Scripting/StackTrace.cs:37)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+ArgusUnity.Editor.HideAndSeekDesignBuilder:EnsureExpandedAnimationImports () (at Assets/Editor/HideAndSeekDesignBuilder.cs:316)
+ArgusUnity.Editor.HideAndSeekDesignBuilder:BuildScene () (at Assets/Editor/HideAndSeekDesignBuilder.cs:151)
+
+(Filename: Assets/Editor/HideAndSeekDesignBuilder.cs Line: 316)
+
+Start importing Assets/Project/Resources/Animations/Actions/Angry.fbx using Guid(bf6f5bc26201348749cec0762d90324c) Importer(-1,00000000000000000000000000000000)  -> (artifact id: 'fa14516dafcd04b369ba93df3c24b969') in 0.291404 seconds
+Refreshing native plugins compatible for Editor in 0.50 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=ae24c52a32a0d4d67b9d39cfcac54751): Total: 0.321 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+	Summary:
+		Imports: total=1 (actual=1, local cache=0, cache server=0)
+		Asset DB Process Time: managed=0 ms, native=302 ms
+		Asset DB Callback time: managed=13 ms, native=4 ms
+		Scripting: domain reloads=0, domain reload time=0 ms, compile time=0 ms, other=0 ms
+		Project Asset Count: scripts=3121, non-scripts=1540
+		Asset File Changes: new=0, changed=0, moved=0, deleted=0
+		Scan Filter Count: 6
+	InvokeBeforeRefreshCallbacks: 0.000ms
+	ApplyChangesToAssetFolders: 0.013ms
+	Scan: 0.651ms
+	OnSourceAssetsModified: 0.000ms
+	GetAllGuidsForCategorization: 0.092ms
+	CategorizeAssets: 0.754ms
+	ImportOutOfDateAssets: 293.346ms (0.167ms without children)
+		ImportManagerImport: 292.350ms (0.173ms without children)
+			ImportInProcess: 292.168ms
+			UpdateCategorizedAssets: 0.010ms
+		ReloadNativeAssets: 0.009ms
+		UnloadImportedAssets: 0.011ms
+		ReloadImportedAssets: 0.000ms
+		EnsureUptoDateAssetsAreRegisteredWithGuidPM: 0.405ms
+		InitializingProgressBar: 0.002ms
+		PostProcessAllAssetNotificationsAddChangedAssets: 0.000ms
+		OnDemandSchedulerStart: 0.402ms
+	PostProcessAllAssets: 17.302ms
+	Hotreload: 1.164ms
+	GatherAllCurrentPrimaryArtifactRevisions: 0.089ms
+	UnloadStreamsBegin: 0.022ms
+	PersistCurrentRevisions: 0.120ms
+	UnloadStreamsEnd: 0.005ms
+	Untracked: 7.390ms
+Start importing Assets/Project/Resources/Animations/Actions/Angry.fbx using Guid(bf6f5bc26201348749cec0762d90324c) Importer(-1,00000000000000000000000000000000)  -> (artifact id: 'fa14516dafcd04b369ba93df3c24b969') in 0.286784 seconds
+Refreshing native plugins compatible for Editor in 0.48 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=2154162333f614f5ab18ed5f084af09e): Total: 0.305 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+	Summary:
+		Imports: total=1 (actual=1, local cache=0, cache server=0)
+		Asset DB Process Time: managed=0 ms, native=298 ms
+		Asset DB Callback time: managed=5 ms, native=1 ms
+		Scripting: domain reloads=0, domain reload time=0 ms, compile time=0 ms, other=0 ms
+		Project Asset Count: scripts=3121, non-scripts=1540
+		Asset File Changes: new=0, changed=0, moved=0, deleted=0
+		Scan Filter Count: 6
+	InvokeBeforeRefreshCallbacks: 0.000ms
+	ApplyChangesToAssetFolders: 0.013ms
+	Scan: 0.710ms
+	OnSourceAssetsModified: 0.000ms
+	GetAllGuidsForCategorization: 0.108ms
+	CategorizeAssets: 0.973ms
+	ImportOutOfDateAssets: 288.888ms (-0.471ms without children)
+		ImportManagerImport: 287.829ms (0.824ms without children)
+			ImportInProcess: 286.993ms
+			UpdateCategorizedAssets: 0.013ms
+		ReloadNativeAssets: 0.010ms
+		UnloadImportedAssets: 0.068ms
+		ReloadImportedAssets: 0.641ms
+		EnsureUptoDateAssetsAreRegisteredWithGuidPM: 0.407ms
+		InitializingProgressBar: 0.002ms
+		PostProcessAllAssetNotificationsAddChangedAssets: 0.000ms
+		OnDemandSchedulerStart: 0.402ms
+	PostProcessAllAssets: 5.192ms
+	Hotreload: 0.887ms
+	GatherAllCurrentPrimaryArtifactRevisions: 0.088ms
+	UnloadStreamsBegin: 0.023ms
+	PersistCurrentRevisions: 0.120ms
+	UnloadStreamsEnd: 0.006ms
+	Untracked: 7.958ms
+HideAndSeekDesignBuilder: humanoid animation import asset=Angry.fbx, clip=Angry, loop=False, mirror=False, rootLocks=rotation:true,heightY:true,positionXZ:true, avatarSetup=CopyFromOther, sharedAvatar=True, sharedAvatarValid=True, sharedAvatarHuman=True, assetAvatarValid=False, assetAvatarHuman=False, importedClips=Angry.
+UnityEngine.StackTraceUtility:ExtractStackTrace () (at /Users/bokken/build/output/unity/unity/Runtime/Export/Scripting/StackTrace.cs:37)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+ArgusUnity.Editor.HideAndSeekDesignBuilder:ConfigureHumanoidAnimation (string,string,bool,UnityEngine.Avatar,bool) (at Assets/Editor/HideAndSeekDesignBuilder.cs:428)
+ArgusUnity.Editor.HideAndSeekDesignBuilder:EnsureExpandedAnimationImports () (at Assets/Editor/HideAndSeekDesignBuilder.cs:310)
+ArgusUnity.Editor.HideAndSeekDesignBuilder:BuildScene () (at Assets/Editor/HideAndSeekDesignBuilder.cs:151)
+
+(Filename: Assets/Editor/HideAndSeekDesignBuilder.cs Line: 428)
+
+HideAndSeekDesignBuilder: expanded animation import role=angry-action-not-wired, activeLocomotion=False, asset=Angry.fbx, clip=Angry, loop=False, mirror=False, target=Assets/Project/Resources/Animations/Actions/Angry.fbx.
+UnityEngine.StackTraceUtility:ExtractStackTrace () (at /Users/bokken/build/output/unity/unity/Runtime/Export/Scripting/StackTrace.cs:37)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+ArgusUnity.Editor.HideAndSeekDesignBuilder:EnsureExpandedAnimationImports () (at Assets/Editor/HideAndSeekDesignBuilder.cs:316)
+ArgusUnity.Editor.HideAndSeekDesignBuilder:BuildScene () (at Assets/Editor/HideAndSeekDesignBuilder.cs:151)
+
+(Filename: Assets/Editor/HideAndSeekDesignBuilder.cs Line: 316)
+
+Start importing Assets/Project/Resources/Animations/Actions/Male Laying Pose.fbx using Guid(6f5314b5ac7be4cd4b67afc80b5c49f2) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '4de69289a8dc82693b729138e293b433') in 0.121243 seconds
+Refreshing native plugins compatible for Editor in 2.11 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=2d48b01b2042e40fe871fa3769b28ee1): Total: 0.139 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Start importing Assets/Project/Resources/Animations/Actions/Male Laying Pose.fbx using Guid(6f5314b5ac7be4cd4b67afc80b5c49f2) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '4de69289a8dc82693b729138e293b433') in 0.119632 seconds
+Refreshing native plugins compatible for Editor in 0.45 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=2949e3f7d22e6433ba1b65fb58fe2bbe): Total: 0.134 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+HideAndSeekDesignBuilder: humanoid animation import asset=Male Laying Pose.fbx, clip=LayingPose, loop=False, mirror=False, rootLocks=rotation:true,heightY:true,positionXZ:true, avatarSetup=CopyFromOther, sharedAvatar=True, sharedAvatarValid=True, sharedAvatarHuman=True, assetAvatarValid=False, assetAvatarHuman=False, importedClips=LayingPose.
+UnityEngine.StackTraceUtility:ExtractStackTrace () (at /Users/bokken/build/output/unity/unity/Runtime/Export/Scripting/StackTrace.cs:37)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+ArgusUnity.Editor.HideAndSeekDesignBuilder:ConfigureHumanoidAnimation (string,string,bool,UnityEngine.Avatar,bool) (at Assets/Editor/HideAndSeekDesignBuilder.cs:428)
+ArgusUnity.Editor.HideAndSeekDesignBuilder:EnsureExpandedAnimationImports () (at Assets/Editor/HideAndSeekDesignBuilder.cs:310)
+ArgusUnity.Editor.HideAndSeekDesignBuilder:BuildScene () (at Assets/Editor/HideAndSeekDesignBuilder.cs:151)
+
+(Filename: Assets/Editor/HideAndSeekDesignBuilder.cs Line: 428)
+
+HideAndSeekDesignBuilder: expanded animation import role=laying-pose-action-not-wired, activeLocomotion=False, asset=Male Laying Pose.fbx, clip=LayingPose, loop=False, mirror=False, target=Assets/Project/Resources/Animations/Actions/Male Laying Pose.fbx.
+UnityEngine.StackTraceUtility:ExtractStackTrace () (at /Users/bokken/build/output/unity/unity/Runtime/Export/Scripting/StackTrace.cs:37)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+ArgusUnity.Editor.HideAndSeekDesignBuilder:EnsureExpandedAnimationImports () (at Assets/Editor/HideAndSeekDesignBuilder.cs:316)
+ArgusUnity.Editor.HideAndSeekDesignBuilder:BuildScene () (at Assets/Editor/HideAndSeekDesignBuilder.cs:151)
+
+(Filename: Assets/Editor/HideAndSeekDesignBuilder.cs Line: 316)
+
+Start importing Assets/Project/Resources/Animations/Actions/Standing Torch Light Torch.fbx using Guid(20e51dd31e1d44271a121772694dcf0f) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '1afe57928a3c90c7991c40eeda059b5a') in 0.154438 seconds
+Refreshing native plugins compatible for Editor in 0.48 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=8bb83de384f3042528640c42ea337c82): Total: 0.174 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Start importing Assets/Project/Resources/Animations/Actions/Standing Torch Light Torch.fbx using Guid(20e51dd31e1d44271a121772694dcf0f) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '1afe57928a3c90c7991c40eeda059b5a') in 0.152446 seconds
+Refreshing native plugins compatible for Editor in 0.46 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=d6c08e13df0f646b093f04991a1e620f): Total: 0.168 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+HideAndSeekDesignBuilder: humanoid animation import asset=Standing Torch Light Torch.fbx, clip=StandingTorch, loop=False, mirror=False, rootLocks=rotation:true,heightY:true,positionXZ:true, avatarSetup=CopyFromOther, sharedAvatar=True, sharedAvatarValid=True, sharedAvatarHuman=True, assetAvatarValid=False, assetAvatarHuman=False, importedClips=StandingTorch.
+UnityEngine.StackTraceUtility:ExtractStackTrace () (at /Users/bokken/build/output/unity/unity/Runtime/Export/Scripting/StackTrace.cs:37)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+ArgusUnity.Editor.HideAndSeekDesignBuilder:ConfigureHumanoidAnimation (string,string,bool,UnityEngine.Avatar,bool) (at Assets/Editor/HideAndSeekDesignBuilder.cs:428)
+ArgusUnity.Editor.HideAndSeekDesignBuilder:EnsureExpandedAnimationImports () (at Assets/Editor/HideAndSeekDesignBuilder.cs:310)
+ArgusUnity.Editor.HideAndSeekDesignBuilder:BuildScene () (at Assets/Editor/HideAndSeekDesignBuilder.cs:151)
+
+(Filename: Assets/Editor/HideAndSeekDesignBuilder.cs Line: 428)
+
+HideAndSeekDesignBuilder: expanded animation import role=standing-torch-action-not-wired, activeLocomotion=False, asset=Standing Torch Light Torch.fbx, clip=StandingTorch, loop=False, mirror=False, target=Assets/Project/Resources/Animations/Actions/Standing Torch Light Torch.fbx.
+UnityEngine.StackTraceUtility:ExtractStackTrace () (at /Users/bokken/build/output/unity/unity/Runtime/Export/Scripting/StackTrace.cs:37)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+ArgusUnity.Editor.HideAndSeekDesignBuilder:EnsureExpandedAnimationImports () (at Assets/Editor/HideAndSeekDesignBuilder.cs:316)
+ArgusUnity.Editor.HideAndSeekDesignBuilder:BuildScene () (at Assets/Editor/HideAndSeekDesignBuilder.cs:151)
+
+(Filename: Assets/Editor/HideAndSeekDesignBuilder.cs Line: 316)
+
+Refreshing native plugins compatible for Editor in 0.81 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=33730da3ca91b4699a17a3e730cff708): Total: 0.028 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Start importing Assets/Project/Resources/Animations/Controllers/MiniBotLocomotion.controller using Guid(ebda5135bdb3d4046b43dbf48b9b966f) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '453c605dc07cd93abac116ec88f7d157') in 0.001032 seconds
+Refreshing native plugins compatible for Editor in 0.44 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=ee5418e0ceec74903b8eb72ca05cd36d): Total: 0.027 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Start importing Assets/Project/Resources/Animations/Controllers/MiniBotLocomotion.controller using Guid(ebda5135bdb3d4046b43dbf48b9b966f) Importer(-1,00000000000000000000000000000000)  -> (artifact id: 'e161f84f768812cbe6cc2c6b47db7ad0') in 0.000762 seconds
+Refreshing native plugins compatible for Editor in 0.45 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=1d686ed9f83754a839cc1deb731209e4): Total: 0.024 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+HideAndSeekDesignBuilder: locomotion AnimatorController ready path=Assets/Project/Resources/Animations/Controllers/MiniBotLocomotion.controller, idle=Idle, blendTree=LocomotionBlendTree, runStyle=Walk_InPlace@turn0-speed1.00x1.38, leftTurn=TurnLeft_Briefcase@turn-1-speed1.00, rightTurn=TurnRight_Briefcase@turn1-speed1.00, quarantined=SlowRun,Run,TurnLeft_Happy,TurnRight_Happy.
+UnityEngine.StackTraceUtility:ExtractStackTrace () (at /Users/bokken/build/output/unity/unity/Runtime/Export/Scripting/StackTrace.cs:37)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+ArgusUnity.Editor.HideAndSeekDesignBuilder:EnsureLocomotionAnimatorController () (at Assets/Editor/HideAndSeekDesignBuilder.cs:502)
+ArgusUnity.Editor.HideAndSeekDesignBuilder:BuildScene () (at Assets/Editor/HideAndSeekDesignBuilder.cs:152)
+
+(Filename: Assets/Editor/HideAndSeekDesignBuilder.cs Line: 502)
+
+HideAndSeekDesignBuilder: mini-bot import animationType=Human, importAnimation=True, avatarValid=True, avatarHuman=True, walkingBones leftFoot=True, rightFoot=True, leftLeg=True, rightLeg=True.
+UnityEngine.StackTraceUtility:ExtractStackTrace () (at /Users/bokken/build/output/unity/unity/Runtime/Export/Scripting/StackTrace.cs:37)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+ArgusUnity.Editor.HideAndSeekDesignBuilder:LogMiniBotRigInfo () (at Assets/Editor/HideAndSeekDesignBuilder.cs:1265)
+ArgusUnity.Editor.HideAndSeekDesignBuilder:BuildScene () (at Assets/Editor/HideAndSeekDesignBuilder.cs:153)
+
+(Filename: Assets/Editor/HideAndSeekDesignBuilder.cs Line: 1265)
+
+Unloading 0 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 1049 unused Assets / (288.1 KB). Loaded Objects now: 3136.
+Memory consumption went from 172.4 MB to 172.1 MB.
+Total: 17.207250 ms (FindLiveObjects: 0.094834 ms CreateObjectMapping: 0.045500 ms MarkObjects: 16.037042 ms  DeleteObjects: 1.029250 ms)
+
+Start importing Assets/Project/Materials/FurnitureCollision.physicMaterial using Guid(4055c0a04dcaa4517a2fc6c986d95402) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '93557a2231481f13710b813665cbb595') in 0.004114 seconds
+Start importing Assets/Project/Materials/WallsFloorColliderDisplay.mat using Guid(115fdba3630c24a26bea67f91878d92e) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '63e6ef5f919128e9728f46e2024804c9') in 0.000873 seconds
+Start importing Assets/Project/Materials/HideSeekDefenseBlue.mat using Guid(1ab91de9bb9934e9f880738d62def819) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '6192f3395ab21bcaa9fabb8e6ebbcfb2') in 0.000838 seconds
+Start importing Assets/Project/Materials/HideSeekAttackRed.mat using Guid(4aa4d8a01259243b6b5dba6db789b200) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '1e003da785150d9cba7a94d730ca518a') in 0.000641 seconds
+Start importing Assets/Project/Materials/MiniBotLowFrictionContact.physicMaterial using Guid(dc9fa6446005d48759c4f50c470f1c28) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '1c786f7e033238ce791a8fafaf87549e') in 0.000706 seconds
+Refreshing native plugins compatible for Editor in 0.55 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=425635aa2be954e6e98dd62c620aac6a): Total: 0.038 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Start importing Assets/Project/Scenes/MiniBotHideAndSeekDesign.unity using Guid(9a4a9106e8b4148eea11b87fdf0edb7b) Importer(-1,00000000000000000000000000000000)  -> (artifact id: 'bcc50e97fafd6b90ca3e894649bd75d5') in 0.000973 seconds
+Refreshing native plugins compatible for Editor in 1.11 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=7c54d551d06424559bd18336fb86d12d): Total: 0.029 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+HideAndSeekDesignBuilder: physics setup furnitureColliders=11, staticSchoolroomColliders=5.
+UnityEngine.StackTraceUtility:ExtractStackTrace () (at /Users/bokken/build/output/unity/unity/Runtime/Export/Scripting/StackTrace.cs:37)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+ArgusUnity.Editor.HideAndSeekDesignBuilder:BuildScene () (at Assets/Editor/HideAndSeekDesignBuilder.cs:172)
+
+(Filename: Assets/Editor/HideAndSeekDesignBuilder.cs Line: 172)
+
+HideAndSeekDesignBuilder: saved Assets/Project/Scenes/MiniBotHideAndSeekDesign.unity
+UnityEngine.StackTraceUtility:ExtractStackTrace () (at /Users/bokken/build/output/unity/unity/Runtime/Export/Scripting/StackTrace.cs:37)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+ArgusUnity.Editor.HideAndSeekDesignBuilder:BuildScene () (at Assets/Editor/HideAndSeekDesignBuilder.cs:175)
+
+(Filename: Assets/Editor/HideAndSeekDesignBuilder.cs Line: 175)
+
+Batchmode quit successfully invoked - shutting down!
+Thread 0x336387000 may have been prematurely finalized
+[Licensing::IpcConnector] License Notification channel disconnected successfully.
+[Licensing::IpcConnector] License Client channel disconnected successfully.
+Thread 0x179307000 may have been prematurely finalized
+Thread 0x17941f000 may have been prematurely finalized
+Thread 0x179537000 may have been prematurely finalized
+Thread 0x1795c3000 may have been prematurely finalized
+Thread 0x179393000 may have been prematurely finalized
+Thread 0x1794ab000 may have been prematurely finalized
+Cleanup mono
+[40m[32minfo[39m[22m[49m: Microsoft.Hosting.Lifetime[0]
+      Application is shutting down...
+[40m[32minfo[39m[22m[49m: Unity.ILPP.Runner.PostProcessingAssemblyLoadContext[0]
+      ALC ILPP context 1 is unloading
+debugger-agent: Unable to listen on 48
+[Performance] Application.InitializeProject                                                                                  :        1 samples, Peak.  8.58 s (1.0x), Avg.  8.58 s, Total. 8.579 s (45.1%)
+[Performance] Application.PackageManager.StartServer                                                                         :        1 samples, Peak.  1.97 ms (1.0x), Avg.  1.97 ms, Total. 1.973 ms (0.0%)
+[Performance] Application.AcquireProjectLock                                                                                 :        1 samples, Peak.  2.66 ms (1.0x), Avg.  2.66 ms, Total. 2.660 ms (0.0%)
+[Performance] Application.InitializeEngineNoGraphics                                                                         :        1 samples, Peak.  65.7 ms (1.0x), Avg.  65.7 ms, Total. 65.68 ms (0.3%)
+[Performance] Application.PackageManager.Initialize                                                                          :        1 samples, Peak.   580 ms (1.0x), Avg.   580 ms, Total. 580.1 ms (3.0%)
+[Performance] Connecting to Package Manager                                                                                  :       59 samples, Peak.  35.7 us (40.8x), Avg.   874 ns, Total. 51.59 us (0.0%)
+[Performance] Application.EngineGraphics.Initialize                                                                          :        1 samples, Peak.  94.2 ms (1.0x), Avg.  94.2 ms, Total. 94.22 ms (0.5%)
+[Performance] Application.GI.Initialize                                                                                      :        1 samples, Peak.  4.49 ms (1.0x), Avg.  4.49 ms, Total. 4.494 ms (0.0%)
+[Performance] Application.LoadAllDefaultResourcesFromEditor                                                                  :        1 samples, Peak.  1.42 ms (1.0x), Avg.  1.42 ms, Total. 1.416 ms (0.0%)
+[Performance] Application.LoadMonoAssemblies                                                                                 :        1 samples, Peak.   420 ms (1.0x), Avg.   420 ms, Total. 420.4 ms (2.2%)
+[Performance] RestoreManagedReferences                                                                                       :        2 samples, Peak.  30.4 ms (2.0x), Avg.  15.2 ms, Total. 30.35 ms (0.2%)
+[Performance] InitializeOnLoad ProjectSearch                                                                                 :        2 samples, Peak.   149 us (1.1x), Avg.   136 us, Total. 272.3 us (0.0%)
+[Performance] InitializeOnLoad AssetStoreContext                                                                             :        2 samples, Peak.  15.4 ms (1.1x), Avg.  13.9 ms, Total. 27.82 ms (0.1%)
+[Performance] InitializeOnLoad SearchService                                                                                 :        2 samples, Peak.  71.3 us (1.1x), Avg.  64.1 us, Total. 128.1 us (0.0%)
+[Performance] InitializeOnLoad ObjectSelectorSearch                                                                          :        2 samples, Peak.   188 us (1.2x), Avg.   162 us, Total. 323.7 us (0.0%)
+[Performance] InitializeOnLoad NativeFormatImporterUtility                                                                   :        2 samples, Peak.  1.32 ms (1.1x), Avg.  1.18 ms, Total. 2.352 ms (0.0%)
+[Performance] InitializeOnLoad ManagedDebuggerWindow                                                                         :        2 samples, Peak.   365 us (1.5x), Avg.   249 us, Total. 498.4 us (0.0%)
+[Performance] InitializeOnLoad PrefabInstanceChangedListener                                                                 :        2 samples, Peak.   326 us (1.0x), Avg.   320 us, Total. 639.4 us (0.0%)
+[Performance] InitializeOnLoad ManagedDebugger                                                                               :        2 samples, Peak.   250 ns (1.2x), Avg.   208 ns, Total. 417.0 ns (0.0%)
+[Performance] InitializeOnLoad CloudBuild                                                                                    :        2 samples, Peak.  1.71 us (1.1x), Avg.  1.52 us, Total. 3.043 us (0.0%)
+[Performance] InitializeOnLoad Collab                                                                                        :        2 samples, Peak.  4.83 ms (1.3x), Avg.  3.68 ms, Total. 7.353 ms (0.0%)
+[Performance] InitializeOnLoad ShortcutIntegration                                                                           :        2 samples, Peak.  34.5 us (1.0x), Avg.  34.0 us, Total. 67.92 us (0.0%)
+[Performance] InitializeOnLoad MixerEffectDefinitionReloader                                                                 :        2 samples, Peak.  1.85 ms (1.3x), Avg.  1.39 ms, Total. 2.783 ms (0.0%)
+[Performance] InitializeOnLoad DrivenRectTransformUndo                                                                       :        2 samples, Peak.   155 us (1.1x), Avg.   143 us, Total. 285.3 us (0.0%)
+[Performance] InitializeOnLoad WindowLayout                                                                                  :        2 samples, Peak.   284 us (1.1x), Avg.   263 us, Total. 526.1 us (0.0%)
+[Performance] InitializeOnLoad SettingsService                                                                               :        2 samples, Peak.  5.54 us (1.3x), Avg.  4.40 us, Total. 8.791 us (0.0%)
+[Performance] InitializeOnLoad CacheServerWindow                                                                             :        2 samples, Peak.  4.88 us (1.1x), Avg.  4.42 us, Total. 8.833 us (0.0%)
+[Performance] InitializeOnLoad MenuItems                                                                                     :        2 samples, Peak.  45.9 us (1.1x), Avg.  41.0 us, Total. 82.04 us (0.0%)
+[Performance] InitializeOnLoad CheckNavigationPackage                                                                        :        2 samples, Peak.   210 us (1.2x), Avg.   172 us, Total. 343.1 us (0.0%)
+[Performance] InitializeOnLoad UISystemProfilerRenderService                                                                 :        2 samples, Peak.  4.29 us (1.0x), Avg.  4.12 us, Total. 8.250 us (0.0%)
+[Performance] InitializeOnLoad EditMode                                                                                      :        2 samples, Peak.   380 us (1.4x), Avg.   269 us, Total. 538.1 us (0.0%)
+[Performance] InitializeOnLoad UnityConnect                                                                                  :        2 samples, Peak.  29.0 us (1.1x), Avg.  25.7 us, Total. 51.42 us (0.0%)
+[Performance] InitializeOnLoad AddComponentWindow                                                                            :        2 samples, Peak.  59.3 us (1.1x), Avg.  55.3 us, Total. 110.5 us (0.0%)
+[Performance] InitializeOnLoad PlayModeDownload                                                                              :        2 samples, Peak.  2.38 ms (1.9x), Avg.  1.24 ms, Total. 2.486 ms (0.0%)
+[Performance] InitializeOnLoad SceneSearch                                                                                   :        2 samples, Peak.  34.7 us (1.4x), Avg.  25.4 us, Total. 50.83 us (0.0%)
+[Performance] InitializeOnLoad EditorDelegateRegistration                                                                    :        2 samples, Peak.   355 us (1.0x), Avg.   350 us, Total. 699.5 us (0.0%)
+[Performance] InitializeOnLoad UxmlObjectEditorFactories                                                                     :        2 samples, Peak.   240 us (1.0x), Avg.   238 us, Total. 475.9 us (0.0%)
+[Performance] InitializeOnLoad RetainedMode                                                                                  :        2 samples, Peak.  1.33 ms (1.1x), Avg.  1.23 ms, Total. 2.452 ms (0.0%)
+[Performance] InitializeOnLoad EditorShaderLoader                                                                            :        2 samples, Peak.   510 us (1.3x), Avg.   388 us, Total. 775.2 us (0.0%)
+[Performance] InitializeOnLoad UIDocumentHierarchyWatcher                                                                    :        2 samples, Peak.  34.3 us (1.0x), Avg.  33.9 us, Total. 67.71 us (0.0%)
+[Performance] InitializeOnLoad EditorMonitor                                                                                 :        2 samples, Peak.  73.7 us (1.0x), Avg.  73.2 us, Total. 146.5 us (0.0%)
+[Performance] InitializeOnLoad LiveReloadTrackerCreator                                                                      :        2 samples, Peak.  79.3 us (1.0x), Avg.  78.8 us, Total. 157.5 us (0.0%)
+[Performance] InitializeOnLoad UXMLEditorFactories                                                                           :        2 samples, Peak.  34.1 ms (1.1x), Avg.  31.7 ms, Total. 63.47 ms (0.3%)
+[Performance] InitializeOnLoad ServicesRepository                                                                            :        2 samples, Peak.   487 us (1.1x), Avg.   456 us, Total. 911.3 us (0.0%)
+[Performance] InitializeOnLoad UDPService                                                                                    :        2 samples, Peak.  2.33 ms (1.2x), Avg.  2.00 ms, Total. 3.994 ms (0.0%)
+[Performance] InitializeOnLoad EditorGameServicesAnalytics                                                                   :        2 samples, Peak.  1.02 ms (1.7x), Avg.   618 us, Total. 1.236 ms (0.0%)
+[Performance] InitializeOnLoad CloudBuildPoller                                                                              :        2 samples, Peak.  64.9 us (1.1x), Avg.  58.2 us, Total. 116.4 us (0.0%)
+[Performance] InitializeOnLoad BuildService                                                                                  :        2 samples, Peak.  1.10 ms (1.0x), Avg.  1.09 ms, Total. 2.180 ms (0.0%)
+[Performance] InitializeOnLoad CollabService                                                                                 :        2 samples, Peak.  1.33 ms (1.1x), Avg.  1.22 ms, Total. 2.440 ms (0.0%)
+[Performance] InitializeOnLoad PurchasingService                                                                             :        2 samples, Peak.  5.21 ms (1.0x), Avg.  4.99 ms, Total. 9.985 ms (0.1%)
+[Performance] InitializeOnLoad CrashService                                                                                  :        2 samples, Peak.  1.09 ms (1.0x), Avg.  1.07 ms, Total. 2.148 ms (0.0%)
+[Performance] InitializeOnLoad AdsService                                                                                    :        2 samples, Peak.  1.61 ms (1.0x), Avg.  1.61 ms, Total. 3.215 ms (0.0%)
+[Performance] InitializeOnLoad AnalyticsService                                                                              :        2 samples, Peak.  1.28 ms (1.1x), Avg.  1.21 ms, Total. 2.414 ms (0.0%)
+[Performance] InitializeOnLoad SearchWindow                                                                                  :        2 samples, Peak.  63.5 us (1.0x), Avg.  61.5 us, Total. 123.0 us (0.0%)
+[Performance] InitializeOnLoad SearchMonitor                                                                                 :        2 samples, Peak.  6.35 ms (1.6x), Avg.  4.05 ms, Total. 8.103 ms (0.0%)
+[Performance] InitializeOnLoad ParameterControllerEditor                                                                     :        2 samples, Peak.  20.0 us (1.1x), Avg.  17.5 us, Total. 35.04 us (0.0%)
+[Performance] InitializeOnLoad LayerSettingsWindow                                                                           :        2 samples, Peak.  4.00 us (1.2x), Avg.  3.27 us, Total. 6.541 us (0.0%)
+[Performance] InitializeOnLoad PackageManagerHookGUIDConverter.RegisterPackagesEventHandler                                  :        2 samples, Peak.   441 us (1.5x), Avg.   290 us, Total. 580.7 us (0.0%)
+[Performance] InitializeOnLoad EditorDragAndDrop.RegisterEditorClient                                                        :        2 samples, Peak.   126 us (1.1x), Avg.   114 us, Total. 227.1 us (0.0%)
+[Performance] InitializeOnLoad EditorEventCallbacks.InitializeFontAssetResourceChangeCallBacks                               :        2 samples, Peak.   810 us (1.1x), Avg.   720 us, Total. 1.440 ms (0.0%)
+[Performance] InitializeOnLoad SceneTemplateService.Init                                                                     :        2 samples, Peak.   905 us (1.0x), Avg.   870 us, Total. 1.741 ms (0.0%)
+[Performance] InitializeOnLoad DiagnosticSwitchesConsoleMessage.Init                                                         :        2 samples, Peak.  1.77 ms (1.4x), Avg.  1.28 ms, Total. 2.552 ms (0.0%)
+[Performance] InitializeOnLoad ScopedRegistryAddedPopup.SubscribeToRegistriesAdded                                           :        2 samples, Peak.  15.4 ms (1.5x), Avg.  10.3 ms, Total. 20.69 ms (0.1%)
+[Performance] InitializeOnLoad PackageManagerWindow.EditorInitializedInSafeMode                                              :        2 samples, Peak.  99.9 us (1.1x), Avg.  91.6 us, Total. 183.2 us (0.0%)
+[Performance] InitializeOnLoad MemoryProfilerCompilationGuard.InjectCompileGuard                                             :        2 samples, Peak.  73.0 us (1.4x), Avg.  52.4 us, Total. 104.8 us (0.0%)
+[Performance] InitializeOnLoad SceneVisibilityManager.Initialize                                                             :        2 samples, Peak.  2.94 ms (1.6x), Avg.  1.81 ms, Total. 3.611 ms (0.0%)
+[Performance] InitializeOnLoad AssetPostprocessingInternal.RefreshCustomDependencies                                         :        2 samples, Peak.  1.71 ms (1.0x), Avg.  1.70 ms, Total. 3.404 ms (0.0%)
+[Performance] InitializeOnLoad ToolShortcutContext.Init                                                                      :        2 samples, Peak.  77.9 us (1.0x), Avg.  74.5 us, Total. 149.0 us (0.0%)
+[Performance] InitializeOnLoad SysrootManager.Initialize                                                                     :        2 samples, Peak.   335 us (1.2x), Avg.   280 us, Total. 559.7 us (0.0%)
+[Performance] InitializeOnLoad EditorWindow.Initialize                                                                       :        2 samples, Peak.  89.5 us (1.1x), Avg.  84.7 us, Total. 169.4 us (0.0%)
+[Performance] AssemblyReloadEvents.afterAssemblyReload: UnityEditor.SceneTemplate.SceneTemplateService.AfterAssemblyReload   :        2 samples, Peak.  2.14 ms (1.8x), Avg.  1.22 ms, Total. 2.446 ms (0.0%)
+[Performance] ProcessService.EditorAfterLoadAllAssemblies                                                                    :        2 samples, Peak.   198 us (1.1x), Avg.   175 us, Total. 350.1 us (0.0%)
+[Performance] Application.ReadLicenseInfo                                                                                    :        1 samples, Peak.  15.5 ms (1.0x), Avg.  15.5 ms, Total. 15.51 ms (0.1%)
+[Performance] Application.InitialRefresh                                                                                     :        1 samples, Peak.  6.21 s (1.0x), Avg.  6.21 s, Total. 6.214 s (32.7%)
+[Performance] ShaderImporter.SourceAssetModified                                                                             :        6 samples, Peak.   458 ns (1.5x), Avg.   312 ns, Total. 1.875 us (0.0%)
+[Performance] ShaderIncludeImporter.SourceAssetModified                                                                      :        6 samples, Peak.   541 ns (1.1x), Avg.   479 ns, Total. 2.874 us (0.0%)
+[Performance] Compiling Scripts                                                                                              :        1 samples, Peak.  3.51 s (1.0x), Avg.  3.51 s, Total. 3.508 s (18.4%)
+[Performance] AssemblyReloadEvents.beforeAssemblyReload: UnityEditor.SceneTemplate.SceneTemplateService.BeforeAssemblyReload :        1 samples, Peak.   277 us (1.0x), Avg.   277 us, Total. 277.4 us (0.0%)
+[Performance] PresetManagerPostProcessor.OnPreprocessAsset                                                                   :       49 samples, Peak.   581 us (32.5x), Avg.  17.9 us, Total. 875.8 us (0.0%)
+[Performance] CancelSplashScreenOnAssetChange.OnPreprocessAsset                                                              :       49 samples, Peak.   261 us (39.2x), Avg.  6.67 us, Total. 326.7 us (0.0%)
+[Performance] ShaderGraphAssetPostProcessor.OnPreprocessAsset                                                                :       49 samples, Peak.   136 us (28.0x), Avg.  4.87 us, Total. 238.5 us (0.0%)
+[Performance] InitializeOnLoad BurstLoader                                                                                   :        1 samples, Peak.   966 ms (1.0x), Avg.   966 ms, Total. 966.1 ms (5.1%)
+[Performance] InitializeOnLoad ShadowCasterGroup2DManager                                                                    :        1 samples, Peak.  46.5 us (1.0x), Avg.  46.5 us, Total. 46.46 us (0.0%)
+[Performance] InitializeOnLoad RealtimeProbeSubdivisionDebug                                                                 :        1 samples, Peak.   138 us (1.0x), Avg.   138 us, Total. 138.0 us (0.0%)
+[Performance] InitializeOnLoad ProbeGIBaking                                                                                 :        1 samples, Peak.  1.36 ms (1.0x), Avg.  1.36 ms, Total. 1.360 ms (0.0%)
+[Performance] InitializeOnLoad FilterWindow                                                                                  :        1 samples, Peak.  21.6 us (1.0x), Avg.  21.6 us, Total. 21.58 us (0.0%)
+[Performance] InitializeOnLoad NodeClassCache                                                                                :        1 samples, Peak.  5.08 us (1.0x), Avg.  5.08 us, Total. 5.083 us (0.0%)
+[Performance] InitializeOnLoad ShaderGraphMaterialsUpdater                                                                   :        2 samples, Peak.   215 us (1.5x), Avg.   142 us, Total. 284.5 us (0.0%)
+[Performance] InitializeOnLoad PrefabLayoutRebuilder                                                                         :        1 samples, Peak.   120 us (1.0x), Avg.   120 us, Total. 120.0 us (0.0%)
+[Performance] InitializeOnLoad BackgroundWatcher                                                                             :        1 samples, Peak.  61.6 us (1.0x), Avg.  61.6 us, Total. 61.62 us (0.0%)
+[Performance] InitializeOnLoad UnityTestProtocolStarter                                                                      :        1 samples, Peak.  95.6 us (1.0x), Avg.  95.6 us, Total. 95.58 us (0.0%)
+[Performance] InitializeOnLoad TestStarter                                                                                   :        1 samples, Peak.   357 us (1.0x), Avg.   357 us, Total. 357.2 us (0.0%)
+[Performance] InitializeOnLoad RerunCallbackInitializer                                                                      :        1 samples, Peak.  1.12 ms (1.0x), Avg.  1.12 ms, Total. 1.116 ms (0.0%)
+[Performance] InitializeOnLoad EditorToolManager                                                                             :        1 samples, Peak.  1.35 ms (1.0x), Avg.  1.35 ms, Total. 1.352 ms (0.0%)
+[Performance] InitializeOnLoad Renderer2DAnalytics                                                                           :        1 samples, Peak.  53.9 us (1.0x), Avg.  53.9 us, Total. 53.87 us (0.0%)
+[Performance] InitializeOnLoad RendererDataPatcher                                                                           :        1 samples, Peak.  38.3 ms (1.0x), Avg.  38.3 ms, Total. 38.34 ms (0.2%)
+[Performance] InitializeOnLoad MaterialReimporter.RegisterUpgraderReimport                                                   :        2 samples, Peak.   131 us (1.8x), Avg.  74.0 us, Total. 148.1 us (0.0%)
+[Performance] InitializeOnLoad $BurstDirectCallInitializer.Initialize                                                        :        1 samples, Peak.   107 ms (1.0x), Avg.   107 ms, Total. 106.6 ms (0.6%)
+[Performance] InitializeOnLoad TestJobDataHolder.ResumeRunningJobs                                                           :        1 samples, Peak.   520 us (1.0x), Avg.   520 us, Total. 520.3 us (0.0%)
+[Performance] InitializeOnLoad AnalyticsReporter.RegisterCallbacks                                                           :        1 samples, Peak.   121 us (1.0x), Avg.   121 us, Total. 120.8 us (0.0%)
+[Performance] InitializeOnLoad CoreRenderPipelinePreferences.InitPreferenceProviders                                         :        1 samples, Peak.  29.1 ms (1.0x), Avg.  29.1 ms, Total. 29.07 ms (0.2%)
+[Performance] InitializeOnLoad VolumeGizmoDrawer.InitVolumeGizmoCallbacks                                                    :        1 samples, Peak.   269 us (1.0x), Avg.   269 us, Total. 268.9 us (0.0%)
+[Performance] DidReloadScriptsTestRunnerWindow.CompilationCallback                                                           :        1 samples, Peak.   503 us (1.0x), Avg.   503 us, Total. 503.3 us (0.0%)
+[Performance] DidReloadScriptsTestListCache.ScriptReloaded                                                                   :        1 samples, Peak.   625 us (1.0x), Avg.   625 us, Total. 625.0 us (0.0%)
+[Performance] DidReloadScriptsDebugWindow.OnEditorReload                                                                     :        1 samples, Peak.  8.76 ms (1.0x), Avg.  8.76 ms, Total. 8.757 ms (0.0%)
+[Performance] DidReloadScriptsLookDev.OnEditorReload                                                                         :        1 samples, Peak.   112 us (1.0x), Avg.   112 us, Total. 112.0 us (0.0%)
+[Performance] DidReloadScriptsVolumeComponentEditor.OnEditorReload                                                           :        1 samples, Peak.  11.9 ms (1.0x), Avg.  11.9 ms, Total. 11.91 ms (0.1%)
+[Performance] DidReloadScriptsOnScriptsReloadHandler.OnScriptsReloaded                                                       :        1 samples, Peak.  1.21 ms (1.0x), Avg.  1.21 ms, Total. 1.206 ms (0.0%)
+[Performance] DidReloadScriptsAdvancedDropdownWindow.OnScriptReload                                                          :        1 samples, Peak.   121 us (1.0x), Avg.   121 us, Total. 121.2 us (0.0%)
+[Performance] AssetDatabase.ImportAssets                                                                                     :       45 samples, Peak.  38.9 ms (27.7x), Avg.  1.40 ms, Total. 63.11 ms (0.3%)
+[Performance] VersionControl.Task.Wait                                                                                       :        1 samples, Peak.   173 us (1.0x), Avg.   173 us, Total. 173.0 us (0.0%)
+[Performance] BuilderAssetPostprocessor.OnPostprocessAllAssets                                                               :       78 samples, Peak.  2.84 ms (28.4x), Avg.   100 us, Total. 7.826 ms (0.0%)
+[Performance] ArtifactBrowserPostProcessor.OnPostprocessAllAssets                                                            :       78 samples, Peak.   410 us (31.6x), Avg.  13.0 us, Total. 1.012 ms (0.0%)
+[Performance] AssetEvents.OnPostprocessAllAssets                                                                             :      156 samples, Peak.   107 us (22.6x), Avg.  4.70 us, Total. 733.9 us (0.0%)
+[Performance] AudioMixerPostprocessor.OnPostprocessAllAssets                                                                 :       78 samples, Peak.   200 us (28.9x), Avg.  6.92 us, Total. 539.5 us (0.0%)
+[Performance] StyleCatalogPostProcessor.OnPostprocessAllAssets                                                               :       78 samples, Peak.  10.6 ms (38.0x), Avg.   280 us, Total. 21.81 ms (0.1%)
+[Performance] BuildCatalog                                                                                                   :        1 samples, Peak.  10.0 ms (1.0x), Avg.  10.0 ms, Total. 10.03 ms (0.1%)
+[Performance] ModelImporterPostProcessor.OnPostprocessAllAssets                                                              :       78 samples, Peak.  13.5 ms (6.8x), Avg.  1.99 ms, Total. 155.2 ms (0.8%)
+[Performance] MaterialPostprocessor.OnPostprocessAllAssets                                                                   :      156 samples, Peak.  1.33 ms (28.8x), Avg.  46.4 us, Total. 7.232 ms (0.0%)
+[Performance] RetainedModeAssetPostprocessor.OnPostprocessAllAssets                                                          :       78 samples, Peak.   888 us (25.3x), Avg.  35.1 us, Total. 2.734 ms (0.0%)
+[Performance] AssetChangedListener.OnPostprocessAllAssets                                                                    :       78 samples, Peak.  4.12 ms (28.2x), Avg.   146 us, Total. 11.40 ms (0.1%)
+[Performance] PostProcessor.OnPostprocessAllAssets                                                                           :       78 samples, Peak.   181 us (11.3x), Avg.  16.0 us, Total. 1.247 ms (0.0%)
+[Performance] ShaderGraphAssetPostProcessor.OnPostprocessAllAssets                                                           :       78 samples, Peak.  1.30 ms (11.7x), Avg.   111 us, Total. 8.695 ms (0.0%)
+[Performance] SpeedTreePostProcessor.OnPostprocessAllAssets                                                                  :       78 samples, Peak.   123 us (13.0x), Avg.  9.46 us, Total. 737.8 us (0.0%)
+[Performance] TextAssetPostProcessor.OnPostprocessAllAssets                                                                  :       78 samples, Peak.   193 us (20.5x), Avg.  9.38 us, Total. 731.6 us (0.0%)
+[Performance] SyncVS.PostprocessSyncProject                                                                                  :       39 samples, Peak.   728 us (30.0x), Avg.  24.2 us, Total. 945.6 us (0.0%)
+[Performance] Selection.selectionChanged: UnityEditor.PackageManager.UI.Internal.SelectionProxy.OnSelectionChanged           :        2 samples, Peak.   361 us (2.0x), Avg.   184 us, Total. 368.0 us (0.0%)
+[Performance] Selection.selectionChanged: UnityEditorInternal.EditMode.OnSelectionChange                                     :        2 samples, Peak.   151 us (2.0x), Avg.  75.8 us, Total. 151.6 us (0.0%)
+[Performance] Application.ImportPackagesAndSetTemplateWhenCreatingProject                                                    :        1 samples, Peak.  71.5 ms (1.0x), Avg.  71.5 ms, Total. 71.52 ms (0.4%)
+[Performance] Application.SyncCurrentColorSpace                                                                              :        1 samples, Peak.   385 ms (1.0x), Avg.   385 ms, Total. 385.1 ms (2.0%)
+[Performance] Application.OnUsbDevicesChanged                                                                                :        1 samples, Peak.   364 us (1.0x), Avg.   364 us, Total. 363.6 us (0.0%)
+[Performance] Application.AssetInstanceCacheUpdate                                                                           :        1 samples, Peak.  83.0 ns (1.0x), Avg.  83.0 ns, Total. 83.00 ns (0.0%)
+[Performance] Application.UnityExtensions.Initialize                                                                         :        1 samples, Peak.  2.10 ms (1.0x), Avg.  2.10 ms, Total. 2.095 ms (0.0%)
+[Performance] CodeEditorProjectSync.SyncEditorProject                                                                        :        1 samples, Peak.  42.8 us (1.0x), Avg.  42.8 us, Total. 42.79 us (0.0%)
+[Performance] Application.ExecuteStartups                                                                                    :        1 samples, Peak.  44.7 ms (1.0x), Avg.  44.7 ms, Total. 44.74 ms (0.2%)
+[Performance] Menu.RegisterMenuInterface                                                                                     :       26 samples, Peak.   166 us (25.4x), Avg.  6.55 us, Total. 170.3 us (0.0%)
+[Performance] Gizmo.RebuildRenderers                                                                                         :        1 samples, Peak.  42.1 ms (1.0x), Avg.  42.1 ms, Total. 42.10 ms (0.2%)
+[Performance] Gizmo.AddGizmoRenderers                                                                                        :       55 samples, Peak.  1.28 ms (35.3x), Avg.  36.4 us, Total. 2.001 ms (0.0%)
+[Performance] Application.editorInitializingProject                                                                          :        1 samples, Peak.  50.6 ms (1.0x), Avg.  50.6 ms, Total. 50.63 ms (0.3%)
+[Performance] Application.InitializeMenu                                                                                     :        1 samples, Peak.   126 ms (1.0x), Avg.   126 ms, Total. 125.7 ms (0.7%)
+[Performance] Menu.RebuildAll                                                                                                :        1 samples, Peak.   126 ms (1.0x), Avg.   126 ms, Total. 125.5 ms (0.7%)
+[Performance] Menu.BuildRegisteredMenuInterfaces                                                                             :        1 samples, Peak.   116 ms (1.0x), Avg.   116 ms, Total. 115.8 ms (0.6%)
+[Performance] Menu.FilterMenuItem                                                                                            :      589 samples, Peak.  89.9 ms (587.5x), Avg.   153 us, Total. 90.11 ms (0.5%)
+[Performance] UpdateAllMenus                                                                                                 :        1 samples, Peak.   339 us (1.0x), Avg.   339 us, Total. 338.9 us (0.0%)
+[Performance] EditorSceneManager.sceneClosing: UnityEditor.SceneVisibilityManager.EditorSceneManagerOnSceneClosing           :        2 samples, Peak.   164 us (1.9x), Avg.  84.5 us, Total. 168.9 us (0.0%)
+[Performance] EditorSceneManager.sceneClosed: callback in UnityEditor.Search.SearchMonitor                                   :        2 samples, Peak.  42.9 us (2.0x), Avg.  21.6 us, Total. 43.25 us (0.0%)
+[Performance] EditorSceneManager.activeSceneChangedInEditMode: callback in UnityEditor.Search.SearchMonitor                  :        2 samples, Peak.  12.6 us (2.0x), Avg.  6.44 us, Total. 12.87 us (0.0%)
+[Performance] GUIView.RepaintAll.PlayerLoopController                                                                        :        2 samples, Peak.   792 ns (1.2x), Avg.   646 ns, Total. 1.292 us (0.0%)
+[Performance] EditorSceneManager.newSceneCreated: UnityEditor.SceneTemplate.SceneTemplateService.OnNewSceneCreated           :        2 samples, Peak.   151 us (2.0x), Avg.  75.9 us, Total. 151.9 us (0.0%)
+[Performance] EditorSceneManager.newSceneCreated: UnityEditor.SceneVisibilityManager.EditorSceneManagerOnNewSceneCreated     :        2 samples, Peak.  99.0 us (1.9x), Avg.  52.2 us, Total. 104.4 us (0.0%)
+[Performance] EditorSceneManager.newSceneCreated: UnityEditor.SceneManagement.StageNavigationManager.OnNewSceneCreated       :        2 samples, Peak.  82.9 us (2.0x), Avg.  41.9 us, Total. 83.83 us (0.0%)
+[Performance] Application.InvokeFinishedLoadingProject                                                                       :        1 samples, Peak.  6.51 ms (1.0x), Avg.  6.51 ms, Total. 6.507 ms (0.0%)
+[Performance] ProcessService.OnProjectLoaded                                                                                 :        1 samples, Peak.  55.6 us (1.0x), Avg.  55.6 us, Total. 55.62 us (0.0%)
+[Performance] AssetDatabase.Refresh                                                                                          :        1 samples, Peak.   100 ms (1.0x), Avg.   100 ms, Total. 100.3 ms (0.5%)
+[Performance] AssetDatabase.ImportAsset                                                                                      :       34 samples, Peak.   321 ms (2.1x), Avg.   152 ms, Total. 5.175 s (27.2%)
+[Performance] SceneDataContainer.TransformHierarchyChangedSetParentCallback                                                  :     2568 samples, Peak.  9.87 us (20.8x), Avg.   474 ns, Total. 1.218 ms (0.0%)
+[Performance] SceneVisibilityState.IsFlagSetInParents                                                                        :     9105 samples, Peak.  6.88 us (36.5x), Avg.   188 ns, Total. 1.715 ms (0.0%)
+[Performance] ModelImporter.Import                                                                                           :       30 samples, Peak.   282 ms (1.9x), Avg.   145 ms, Total. 4.346 s (22.8%)
+[Performance] FBXMaterialDescriptionPreprocessor.OnPreprocessMaterialDescription                                             :       60 samples, Peak.  2.63 ms (14.6x), Avg.   181 us, Total. 10.86 ms (0.1%)
+[Performance] SketchupMaterialDescriptionPreprocessor.OnPreprocessMaterialDescription                                        :       60 samples, Peak.   214 us (31.4x), Avg.  6.82 us, Total. 409.3 us (0.0%)
+[Performance] ThreeDSMaterialDescriptionPreprocessor.OnPreprocessMaterialDescription                                         :       60 samples, Peak.   238 us (37.6x), Avg.  6.32 us, Total. 379.1 us (0.0%)
+[Performance] AutodeskInteractiveMaterialImport.OnPreprocessMaterialDescription                                              :       30 samples, Peak.   784 us (27.6x), Avg.  28.4 us, Total. 852.7 us (0.0%)
+[Performance] FBXArnoldSurfaceMaterialDescriptionPreprocessor.OnPreprocessMaterialDescription                                :       30 samples, Peak.   110 us (15.6x), Avg.  7.02 us, Total. 210.5 us (0.0%)
+[Performance] PhysicalMaterial3DsMaxPreprocessor.OnPreprocessMaterialDescription                                             :       30 samples, Peak.  91.9 us (13.6x), Avg.  6.78 us, Total. 203.4 us (0.0%)
+[Performance] ModelPostprocessor.OnPostprocessModel                                                                          :       30 samples, Peak.  2.38 ms (27.6x), Avg.  86.1 us, Total. 2.583 ms (0.0%)
+[Performance] TreeAOImporter.OnPostprocessModel                                                                              :       30 samples, Peak.   471 us (23.0x), Avg.  20.5 us, Total. 615.3 us (0.0%)
+[Performance] AssetDatabase.DeleteAssets                                                                                     :        1 samples, Peak.  36.2 ms (1.0x), Avg.  36.2 ms, Total. 36.20 ms (0.2%)
+[Performance] BuilderAssetModificationProcessor.OnWillDeleteAsset                                                            :        1 samples, Peak.  1.17 ms (1.0x), Avg.  1.17 ms, Total. 1.170 ms (0.0%)
+[Performance] TMP_FontAssetPostProcessor.OnWillDeleteAsset                                                                   :        1 samples, Peak.   313 us (1.0x), Avg.   313 us, Total. 312.8 us (0.0%)
+[Performance] CancelSplashScreenOnAssetDelete.OnWillDeleteAsset                                                              :        1 samples, Peak.   139 us (1.0x), Avg.   139 us, Total. 139.3 us (0.0%)
+[Performance] EditorApplication.projectChanged: UnityEditor.Audio.MixerEffectDefinitionReloader.OnProjectChanged             :        3 samples, Peak.   568 us (1.7x), Avg.   341 us, Total. 1.024 ms (0.0%)
+[Performance] MaterialModificationProcessor.OnWillCreateAsset                                                                :        6 samples, Peak.   220 us (3.4x), Avg.  64.7 us, Total. 388.2 us (0.0%)
+[Performance] BuilderAssetModificationProcessor.OnWillCreateAsset                                                            :        3 samples, Peak.   228 us (2.7x), Avg.  83.1 us, Total. 249.3 us (0.0%)
+[Performance] Undo.willFlushUndoRecord: UnityEditor.DrivenRectTransformUndo.ForceUpdateCanvases                              :        1 samples, Peak.   145 us (1.0x), Avg.   145 us, Total. 145.1 us (0.0%)
+[Performance] BuilderAssetModificationProcessor.OnWillSaveAssets                                                             :        3 samples, Peak.   144 us (2.6x), Avg.  54.5 us, Total. 163.6 us (0.0%)
+[Performance] TerrainModificationProcessor.OnWillSaveAssets                                                                  :        3 samples, Peak.   594 us (3.0x), Avg.   199 us, Total. 596.0 us (0.0%)
+[Performance] EditorSceneManager.sceneSaving: UnityEditor.SceneTemplate.SceneTemplateService.OnSceneSaving                   :        1 samples, Peak.   176 us (1.0x), Avg.   176 us, Total. 175.9 us (0.0%)
+[Performance] EditorSceneManager.sceneSaving: UnityEditor.SceneVisibilityManager.EditorSceneManagerOnSceneSaving             :        1 samples, Peak.  84.9 us (1.0x), Avg.  84.9 us, Total. 84.92 us (0.0%)
+[Performance] EditorSceneManager.sceneSaved: UnityEditor.SceneTemplate.SceneTemplateService.OnSceneSaved                     :        1 samples, Peak.   192 ms (1.0x), Avg.   192 ms, Total. 192.1 ms (1.0%)
+[Performance] EditorSceneManager.sceneSaved: UnityEditor.SceneVisibilityManager.EditorSceneManagerOnSceneSaved               :        1 samples, Peak.  74.0 us (1.0x), Avg.  74.0 us, Total. 74.04 us (0.0%)
+[Performance] EditorApplication.quitting: UnityEditor.Search.SearchMonitor.OnQuitting                                        :        1 samples, Peak.  1.16 ms (1.0x), Avg.  1.16 ms, Total. 1.160 ms (0.0%)
+[Performance] EditorApplication.quitting: Unity.Burst.Editor.BurstLoader.OnEditorApplicationQuitting                         :        1 samples, Peak.  23.0 us (1.0x), Avg.  23.0 us, Total. 23.04 us (0.0%)
+[Performance] EditorApplication.quitting: callback in UnityEditor.TextCore.Text.EditorEventCallbacks                         :        1 samples, Peak.  3.23 ms (1.0x), Avg.  3.23 ms, Total. 3.232 ms (0.0%)
+[Performance] Application.Shutdown.PauseProfilerSession                                                                      :        1 samples, Peak.   539 us (1.0x), Avg.   539 us, Total. 538.9 us (0.0%)
+[Performance] Application.Shutdown.PauseAssetImportWorkers                                                                   :        1 samples, Peak.   136 us (1.0x), Avg.   136 us, Total. 136.4 us (0.0%)
+[Performance] Application.Shutdown.SaveAssets                                                                                :        1 samples, Peak.  2.59 ms (1.0x), Avg.  2.59 ms, Total. 2.589 ms (0.0%)
+[Performance] Application.Shutdown.CleanupRenderPipeline                                                                     :        1 samples, Peak.  7.75 us (1.0x), Avg.  7.75 us, Total. 7.750 us (0.0%)
+[Performance] Application.Shutdown.StopPreloadManager                                                                        :        1 samples, Peak.  12.0 ms (1.0x), Avg.  12.0 ms, Total. 12.03 ms (0.1%)
+[Performance] Application.Shutdown.DestroyWorld                                                                              :        1 samples, Peak.   923 us (1.0x), Avg.   923 us, Total. 923.3 us (0.0%)
+[Performance] Application.Shutdown.CleanupAfterLoad                                                                          :        1 samples, Peak.   232 ms (1.0x), Avg.   232 ms, Total. 231.7 ms (1.2%)
+[Performance] Application.Shutdown.Progress                                                                                  :        1 samples, Peak.   420 us (1.0x), Avg.   420 us, Total. 419.9 us (0.0%)
+[Performance] Application.Shutdown.GICleanupManagers                                                                         :        1 samples, Peak.  37.1 ms (1.0x), Avg.  37.1 ms, Total. 37.08 ms (0.2%)
+[Performance] Application.Shutdown.MenuCleanupClass                                                                          :        1 samples, Peak.  1.01 ms (1.0x), Avg.  1.01 ms, Total. 1.014 ms (0.0%)
+[Performance] Application.Shutdown.ADBSaveStateBeforeShutdown                                                                :        1 samples, Peak.  26.5 us (1.0x), Avg.  26.5 us, Total. 26.46 us (0.0%)
+[Performance] Application.Shutdown.RemoteShutdown                                                                            :        1 samples, Peak.   625 ns (1.0x), Avg.   625 ns, Total. 625.0 ns (0.0%)
+[Performance] Application.Shutdown.CleanupVCProvider                                                                         :        1 samples, Peak.   833 us (1.0x), Avg.   833 us, Total. 832.7 us (0.0%)
+[Performance] Application.Shutdown.InputShutdown                                                                             :        1 samples, Peak.   290 us (1.0x), Avg.   290 us, Total. 290.5 us (0.0%)
+[Performance] Application.Shutdown.GizmoManagerDestroy                                                                       :        1 samples, Peak.   889 us (1.0x), Avg.   889 us, Total. 888.7 us (0.0%)
+[Performance] Application.Shutdown.ProfilerSession                                                                           :        1 samples, Peak.  1.12 ms (1.0x), Avg.  1.12 ms, Total. 1.115 ms (0.0%)
+[Performance] Application.Shutdown.ReleaseGfxWindowOnAllGUIViews                                                             :        1 samples, Peak.   625 ns (1.0x), Avg.   625 ns, Total. 625.0 ns (0.0%)
+[Performance] Application.Shutdown.CleanupEngine                                                                             :        1 samples, Peak.   288 ms (1.0x), Avg.   288 ms, Total. 287.7 ms (1.5%)
+[Performance] Application.Shutdown.CleanupAssetDatabase                                                                      :        1 samples, Peak.  7.46 ms (1.0x), Avg.  7.46 ms, Total. 7.461 ms (0.0%)
+[Performance] Application.Shutdown.ScriptCompilationCleanUp                                                                  :        1 samples, Peak.  1.43 ms (1.0x), Avg.  1.43 ms, Total. 1.426 ms (0.0%)
+[Performance] Application.Shutdown.DestroyJobSystem                                                                          :        1 samples, Peak.  54.4 us (1.0x), Avg.  54.4 us, Total. 54.38 us (0.0%)
+[Performance] Application.Shutdown.CleanupPersistentManager                                                                  :        1 samples, Peak.  1.16 ms (1.0x), Avg.  1.16 ms, Total. 1.162 ms (0.0%)
+[Performance] Application.Shutdown.CleanupAsyncReadManager                                                                   :        1 samples, Peak.   509 us (1.0x), Avg.   509 us, Total. 508.9 us (0.0%)
+[Performance] Application.Shutdown.CleanupMono                                                                               :        1 samples, Peak.   122 ms (1.0x), Avg.   122 ms, Total. 121.9 ms (0.6%)
+[Performance] Application.Shutdown.CleanupStdConverters                                                                      :        1 samples, Peak.  3.75 us (1.0x), Avg.  3.75 us, Total. 3.750 us (0.0%)
+[Performance] Application.Shutdown.UnloadAllPlatformSupportModuleNativeDlls                                                  :        1 samples, Peak.  1.29 us (1.0x), Avg.  1.29 us, Total. 1.292 us (0.0%)
+[Performance] Application.Shutdown.UnloadAllPlatformSupportNativeLibraries                                                   :        1 samples, Peak.   166 ns (1.0x), Avg.   166 ns, Total. 166.0 ns (0.0%)
+[Performance] Application.Shutdown.CleanupAutoDocumentation                                                                  :        1 samples, Peak.   708 us (1.0x), Avg.   708 us, Total. 707.8 us (0.0%)
+[Performance] Application.Shutdown.ShaderNameManagerDestroy                                                                  :        1 samples, Peak.   210 us (1.0x), Avg.   210 us, Total. 209.7 us (0.0%)
+[Performance] Application.Shutdown.CleanupCacheServer                                                                        :        1 samples, Peak.  83.0 ns (1.0x), Avg.  83.0 ns, Total. 83.00 ns (0.0%)
+[Performance] Application.Shutdown.Virtualization_Shutdown                                                                   :        1 samples, Peak.   129 us (1.0x), Avg.   129 us, Total. 129.3 us (0.0%)
+[Performance] Application.Shutdown.DevConnections                                                                            :        1 samples, Peak.  79.1 us (1.0x), Avg.  79.1 us, Total. 79.08 us (0.0%)
+Exiting batchmode successfully now!
+[Package Manager] Server::Kill -- Server was shutdown

@@ -2,6 +2,7 @@
 using UnityEditor;
 #endif
 using System.IO;
+using ArgusUnity.UI;
 using UnityEngine;
 
 namespace ArgusUnity.Runtime
@@ -55,6 +56,11 @@ namespace ArgusUnity.Runtime
             foreach (var scenario in FindObjectsOfType<MiniBotRunAroundScenario>())
             {
                 scenario.ApplyAtTime(sampleTime);
+            }
+
+            foreach (var ui in FindObjectsOfType<MiniBotSocialUiController>())
+            {
+                ui.Refresh();
             }
 
             CaptureMainCameraToPng(Path.Combine(outputDir, $"{prefix}_{frame:D04}.png"));

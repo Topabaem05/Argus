@@ -2,12 +2,14 @@ from __future__ import annotations
 
 from datetime import UTC, datetime
 
+from korean_social_simulator.bridge.environment_catalog import build_environment_load_event
 from korean_social_simulator.models import (
     AgentProfile,
     IndividualEvaluation,
     SimulationEvent,
     SimulationPlan,
 )
+from korean_social_simulator.simulation.behavior_planner import build_behavior_intents
 from korean_social_simulator.simulation.interaction import InteractionContext
 
 
@@ -15,6 +17,7 @@ def run_dry_run(
     plan: SimulationPlan,
     profiles: list[AgentProfile],
     interaction_context: InteractionContext | None = None,
+    background_id: str = "schoolroom",
 ) -> list[SimulationEvent]:
     """Emit structural placeholder events for a dry-run simulation.
 
@@ -34,7 +37,14 @@ def run_dry_run(
     }
 
     if interaction_context is not None:
-        events.extend(_interaction_prelude_events(plan, profiles, interaction_context))
+        events.extend(
+            _interaction_prelude_events(
+                plan,
+                profiles,
+                interaction_context,
+                background_id=background_id,
+            )
+        )
 
     for turn in range(1, plan.max_turns + 1):
         events.append(
@@ -109,9 +119,12 @@ def _interaction_prelude_events(
     plan: SimulationPlan,
     profiles: list[AgentProfile],
     context: InteractionContext,
+    *,
+    background_id: str,
 ) -> list[SimulationEvent]:
     selected_ids = [selection.agent_id for selection in context.selections]
     events = [
+        _environment_load_event(plan, background_id, len(profiles)),
         SimulationEvent(
             run_id=plan.run_id,
             turn=0,
@@ -191,7 +204,44 @@ def _interaction_prelude_events(
             )
         )
 
+    for intent in build_behavior_intents(profiles, context.evaluations):
+        events.append(
+            SimulationEvent(
+                run_id=plan.run_id,
+                turn=0,
+                event_type="agent_action",
+                actor_id=intent.agent_id,
+                timestamp=datetime.now(UTC).isoformat(),
+                payload={
+                    "phase": "behavior_intent",
+                    "dry_run": True,
+                    "bridge_type": "agent.behavior",
+                    "bridge_payload": intent.model_dump(mode="json"),
+                },
+            )
+        )
+
     return events
+
+
+def _environment_load_event(
+    plan: SimulationPlan,
+    background_id: str,
+    agent_count: int,
+) -> SimulationEvent:
+    environment = build_environment_load_event(background_id, agent_count)
+    return SimulationEvent(
+        run_id=plan.run_id,
+        turn=0,
+        event_type="system",
+        timestamp=datetime.now(UTC).isoformat(),
+        payload={
+            "phase": "environment_load",
+            "dry_run": True,
+            "bridge_type": "environment.load",
+            "bridge_payload": environment.model_dump(mode="json"),
+        },
+    )
 
 
 def _dialogue_event(

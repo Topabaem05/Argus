@@ -1,0 +1,461 @@
+Argus Mini‑Bot Fixes & Persona Simulation
+Enhancement – Detailed Plan
+Overview
+This plan addresses two key objectives for the Argus repository:
+
+
+    1. Fix mini‑bot animation issues and navigation – adjust humanoid rigs, animation controllers and
+       navigation settings so that actions like running, turning and idle look natural and the character
+       can move freely in the schoolroom without sliding or colliding with walls.
+    2. Extend Argus with persona‑driven simulations – build a system that selects up to 20 personas
+       from a corpus of ~10 000 personas, uses chat or uploaded files to evaluate the content with an
+       external NVIDIA NLP model, maps the results back into selected personas, then runs an in‑world
+       discussion among the mini‑bots. The system should allow optional persona updates (with dataset
+       backups) and follow rendering guidelines similar to MuJoCo, using URP Simple Lit materials and
+       a procedural floor grid.
+
+The sections below outline step‑by‑step tasks for diagnosing the animation/rigging problems, updating
+rendering, designing the persona chat pipeline and providing skeleton code for new features.
+
+
+1. Diagnose and Correct Mini‑Bot Animations
+
+1.1 Review imported animation assets
+
+    1. Identify assets: In Unity’s Project window, locate the mini‑bot model ( FBX / GLTF ) and
+       its associated animation clips (e.g., Run , Turn , Idle ). Use the Model Importer to inspect the
+       Rig tab for the mesh and animations.
+    2. Humanoid rig configuration: Ensure the model uses the Humanoid rig. If animation issues occur
+       (e.g., the character spins in mid‑air when running or refuses to rotate on Turn 90 ), the root
+       bone might be mis‑aligned. Use the Avatar Mapping tool to match bones correctly, paying
+       attention to the orientation of the hips/root bone.
+
+    3. Apply root‑motion properly: In the Animation tab for each clip:
+
+
+    4. Enable Root Motion and set the Root Transform Position to XZ and Root Transform Rotation
+       to Body Orientation . This ensures translations and rotations come from the animation
+       instead of the script.
+
+
+    5. If the clip does not include rotation (e.g., Turn animations), set Root Transform Rotation
+       to Original so the Animator can rotate the object programmatically.
+
+1.2 Fix animation controller and turning logic
+
+    1. Animator parameters: The animator controller should have float parameters like Speed and
+        TurnAngle and bool parameters like IsTurning .
+
+
+
+
+                                                    1
+      2. Blend trees: Use 1D or 2D blend trees to smoothly transition between idle, walk/run and turn
+         animations. For example:
+
+
+      3. A 1D blend tree for forward movement keyed on Speed (0 = idle, >0 = run).
+
+
+      4. A separate state machine for turning that plays left/right turn clips based on TurnAngle . Ensure
+         the transitions use Exit Time = 0 so that the turn animation plays fully.
+      5. Character controller script: Modify the movement script (e.g., MiniBotController.cs ) to
+        compute the desired velocity and rotation from user input or AI navigation. Then set animator
+        parameters accordingly:
+
+
+  float speed = navAgent.velocity.magnitude;
+  animator.SetFloat("Speed", speed);
+  float turn = Vector3.SignedAngle(transform.forward, navAgent.desiredVelocity.normalized,
+  Vector3.up);
+  animator.SetFloat("TurnAngle", turn);
+  animator.SetBool("IsTurning", Mathf.Abs(turn) > 5f);
+  if (isTurning) {
+      // do not use root rotation; manually rotate the character
+      transform.rotation = Quaternion.RotateTowards(transform.rotation,
+       Quaternion.LookRotation(navAgent.desiredVelocity),
+       turnSpeed * Time.deltaTime);
+  }
+
+
+This prevents the character from performing a full spin when running and ensures turn 90 actually
+rotates the character.
+
+
+1.3 Navigation & collision avoidance
+
+      1. NavMesh: Bake a NavMesh for the schoolroom and set MiniBot as a NavMeshAgent with
+        appropriate Agent Radius , Agent Height and Obstacle Avoidance quality.
+      2. Wall collisions: If the mini‑bot keeps walking into walls, increase the
+         NavMeshAgent.stoppingDistance and adjust NavMeshObstacle components on walls to
+        have smaller carve times. Optionally, implement a simple obstacle avoidance behaviour:
+
+
+  if (navAgent.isOnOffMeshLink || navAgent.pathStatus != NavMeshPathStatus.PathComplete) {
+      // try to find a free direction using raycasts or NavMesh sampling
+      Vector3 avoidance = FindAvoidanceDirection();
+      navAgent.Move(avoidance * Time.deltaTime);
+  }
+
+
+      1. Sync movement and animation: Always update the Animator after applying navigation to
+        avoid visual jitter.
+
+
+
+
+                                                       2
+2. Rendering and Environment Setup (MuJoCo‑style)
+
+2.1 Use URP/Simple Lit materials
+
+Unity’s URP offers a Simple shading model which is based on the Blinn‑Phong approach, suitable for
+stylized visuals and devices where physically based rendering is unnecessary 1 . To match the MuJoCo
+look:
+
+
+      1. Replace PBR materials: Assign URP/Simple Lit to the mini‑bot and environment materials.
+         Remove all texture maps and set a pure base color (e.g., saturated red or blue). Enable Specular
+         Highlights and set Smoothness between 0.5–0.7 so only the lit areas show sharp specular
+         highlights.
+      2. Uniform lighting: Under Window → Rendering → Lighting, change Environment Lighting
+         Source to Color and choose a neutral light grey (flat grey). This removes skybox reflections and
+         prevents the underside of objects from becoming pitch black.
+      3. Directional light: Use a single directional light with Hard Shadows or slightly softened shadows;
+         disable all post‑processing (Bloom, Color Grading, Ambient Occlusion). Enable only MSAA to
+         reduce aliasing. This configuration mimics the clean look of MuJoCo.
+      4. Procedural floor grid: Create a Shader Graph for a procedural grid. Use the UV coordinates in
+         world space, apply frac() to achieve repeating lines and mix the result with base colour. The
+        grid remains crisp regardless of camera zoom.
+
+
+3. 2D Chat Bar & Persona Simulation
+
+3.1 UI & file attachments
+
+      1. Chat bar: In your scene’s Canvas , create a 2D panel anchored at the bottom. Add an
+         InputField for chat messages and a Button to send. Include another button labelled Attach
+        File that opens a file picker via StandaloneFileBrowser.OpenFilePanel (or similar). Accept
+         multiple formats (text, images, videos).
+      2. Preview attachments: Once a file is selected, display a small icon or thumbnail next to the chat
+         line. For images and videos, you can use VideoPlayer or RawImage to preview. Store file
+        bytes in memory for later processing.
+
+3.2 Persona selection pipeline
+
+      1. Persona dataset: Assume a JSON or CSV file containing ~10 000 personas, each with metadata
+         (name, description, embedding vector). Implement a PersonaSelector class that loads this
+        dataset into memory and uses a vector similarity search (e.g., dot product) to rank personas
+        against the input query. Because computing embeddings is expensive, call the NVIDIA NLP API to
+        generate an embedding for the chat content and each file attachment. The API call should be
+        asynchronous:
+
+
+  public async Task<float[]> ComputeEmbeddingAsync(string text) {
+      // Placeholder call to external NVIDIA model
+      // Use UnityWebRequest or HttpClient
+  }
+
+
+      1. Select top personas: After obtaining the query embedding, compute cosine similarity with each
+         persona’s pre‑computed embedding. Select the top K personas (K ≤ 20) whose similarity exceeds
+
+
+
+                                                     3
+       a threshold. Instantiate a MiniBot prefab for each selected persona and assign the persona
+       data to it.
+
+3.3 Mini‑bot simulation & discussion
+
+    1. MiniBot behaviour script: Each instantiated mini‑bot should have a script
+       MiniBotPersona.cs holding:
+
+
+    2. A Persona object with name, traits and an optional memory.
+
+
+    3. Methods to process incoming messages: call the NVIDIA API with both the persona context and
+       the conversation history to generate replies. Use async / await to avoid blocking the main
+       thread.
+    4. A method ThinkAndAct() that triggers random actions or conversations with other mini‑bots
+       to simulate internal thought, love/hate, or conflict. For example, schedule periodic evaluations
+       where each bot can change its stance.
+
+    5. Conversation manager: Build a PersonaConversationManager to orchestrate interactions. It
+       should:
+
+
+    6. Broadcast the user’s initial question and file contents to all mini‑bots.
+
+
+    7. Allow mini‑bots to exchange messages until a time or turn limit is reached. Use a priority queue or
+       round‑robin to ensure fairness.
+    8. Expose events ( OnDiscussionFinished ) so the UI can present final summaries or update
+       personas.
+
+    9. Persona update and backup: When the user enables persona updates:
+
+
+   10. Before updating, backup the original persona dataset to a timestamped file (e.g.,
+        Personas_backup_YYYYMMDD.json ).
+
+
+   11. Merge new knowledge or feedback into the persona’s record (e.g., append conversation
+       summaries to memory field). Save the updated dataset back to the dataset file.
+
+
+4. Skeleton Code Snippets
+Below are simplified C# scripts to illustrate the architecture. They should be added to a Scripts folder
+and attached to appropriate GameObjects.
+
+
+4.1 Persona.cs
+
+
+  [System.Serializable]
+  public class Persona {
+    public string id;
+    public string name;
+    public string description;
+    public float[] embedding;
+
+
+
+
+                                                      4
+     public List<string> memory = new List<string>();
+ }
+
+
+
+4.2 PersonaSelector.cs
+
+
+ using System.IO;
+ using System.Linq;
+ using Newtonsoft.Json;
+ using UnityEngine;
+ using System.Threading.Tasks;
+
+
+ public class PersonaSelector : MonoBehaviour {
+     public TextAsset personaDataset; // assign via Inspector
+     private List<Persona> personas;
+
+
+     private void Awake() {
+         personas = JsonConvert.DeserializeObject<List<Persona>>(personaDataset.text);
+     }
+
+
+     // Compute similarity and select top N personas
+     public async Task<List<Persona>> SelectBestAsync(string chatText, List<byte[]> fileContents, int
+ maxCount) {
+         var queryEmbedding = await ComputeEmbeddingAsync(chatText, fileContents);
+         // compute cosine similarity
+         return personas
+             .OrderByDescending(p => CosineSimilarity(p.embedding, queryEmbedding))
+             .Take(maxCount)
+             .ToList();
+     }
+
+
+     private float CosineSimilarity(float[] a, float[] b) {
+         float dot = 0f, magA = 0f, magB = 0f;
+         for (int i = 0; i < a.Length; i++) {
+             dot += a[i] * b[i];
+             magA += a[i] * a[i];
+             magB += b[i] * b[i];
+         }
+         return dot / Mathf.Sqrt(magA * magB + 1e‑6f);
+     }
+
+
+     private async Task<float[]> ComputeEmbeddingAsync(string text, List<byte[]> files) {
+         // Combine text and file contents into a single string or payload.
+         // Send to external NVIDIA embedding service.
+         // Placeholder implementation:
+         await Task.Delay(100); // simulate latency
+         return new float[768];
+
+
+
+
+                                                          5
+     }
+ }
+
+
+
+4.3 MiniBotPersona.cs
+
+
+ using UnityEngine;
+ using UnityEngine.AI;
+ using System.Collections.Generic;
+ using System.Threading.Tasks;
+
+
+ public class MiniBotPersona : MonoBehaviour {
+     public Persona persona;
+     public Animator animator;
+     public NavMeshAgent navAgent;
+     private List<string> conversationHistory = new List<string>();
+
+
+     private void Start() {
+         navAgent.updatePosition = false;
+         navAgent.updateRotation = false;
+     }
+
+
+     public async Task<string> RespondToAsync(string message) {
+         conversationHistory.Add($"User: {message}");
+         // Call external NVidia API using persona context and history
+         string reply = await GenerateReplyAsync(message);
+         conversationHistory.Add($"{persona.name}: {reply}");
+         return reply;
+     }
+
+
+     private async Task<string> GenerateReplyAsync(string input) {
+         // Placeholder for API call
+         await Task.Delay(100);
+         return $"Response from {persona.name}";
+     }
+
+
+     public void UpdateMovement(Vector3 desiredVelocity) {
+         float speed = desiredVelocity.magnitude;
+         animator.SetFloat("Speed", speed);
+         float turn = Vector3.SignedAngle(transform.forward, desiredVelocity.normalized, Vector3.up);
+         animator.SetFloat("TurnAngle", turn);
+         animator.SetBool("IsTurning", Mathf.Abs(turn) > 5f);
+         if (Mathf.Abs(turn) > 5f) {
+             transform.rotation = Quaternion.RotateTowards(transform.rotation,
+              Quaternion.LookRotation(desiredVelocity), navAgent.angularSpeed * Time.deltaTime);
+         }
+         transform.position += desiredVelocity * Time.deltaTime;
+
+
+
+
+                                                       6
+     }
+ }
+
+
+
+4.4 PersonaConversationManager.cs
+
+
+ using System.Collections.Generic;
+ using System.Threading.Tasks;
+ using UnityEngine;
+
+
+ public class PersonaConversationManager : MonoBehaviour {
+     public List<MiniBotPersona> bots;
+     public int maxTurns = 3;
+
+
+     public async Task StartDiscussionAsync(string initialMessage) {
+         // broadcast initial message
+         foreach (var bot in bots) {
+             await bot.RespondToAsync(initialMessage);
+         }
+         // round‑robin discussion
+         for (int turn = 0; turn < maxTurns; turn++) {
+             foreach (var bot in bots) {
+                 // pick another bot to speak to
+                 var target = bots[Random.Range(0, bots.Count)];
+                 string thought = $"What do you think, {target.persona.name}?";
+                 await bot.RespondToAsync(thought);
+             }
+         }
+         // end of discussion: update persona memories if needed
+     }
+ }
+
+
+
+4.5 EnvironmentSetup.cs
+
+
+ using UnityEngine;
+ using UnityEngine.Rendering;
+ using UnityEngine.Rendering.Universal;
+
+
+ public class EnvironmentSetup : MonoBehaviour {
+     public Material floorMaterial;
+     public Light directionalLight;
+
+
+     void Start() {
+         // assign Simple Lit shader to floor
+         floorMaterial.shader = Shader.Find("Universal Render Pipeline/Simple Lit");
+         floorMaterial.SetColor("_BaseColor", new Color(0.2f, 0.2f, 0.2f));
+         floorMaterial.SetFloat("_Smoothness", 0.6f);
+
+
+
+
+                                                          7
+             // disable texture maps
+             floorMaterial.SetTexture("_BaseMap", null);
+
+
+             // configure lighting
+             RenderSettings.ambientMode = AmbientMode.Flat;
+             RenderSettings.ambientLight = Color.gray;
+
+
+             // directional light settings
+             directionalLight.shadows = LightShadows.Hard;
+             directionalLight.shadowStrength = 1f;
+
+
+             // disable post‑processing
+             var pipeline = GraphicsSettings.currentRenderPipeline as UniversalRenderPipelineAsset;
+             if (pipeline != null) {
+                 pipeline.supportsHDR = false;
+             }
+             QualitySettings.antiAliasing = 4; // enable MSAA
+         }
+     }
+
+
+
+5. ReAct‑style Execution
+The ReAct (Reasoning and Acting) approach suggests iterative cycles:
+
+
+          1. Reasoning: Inspect the current mini‑bot setup (rig, animations, navigation) and hypothesize
+             causes for issues. Verify assumptions by playing the scene.
+          2. Acting: Modify the rig import settings, fix the animator controller and run the scene again. Repeat
+             until the mini‑bot’s running and turning appear natural and the bot navigates correctly.
+          3. Reasoning: Design the persona selection and simulation pipeline. Decide on data structures, API
+             calls and concurrency model.
+          4. Acting: Implement skeleton scripts ( PersonaSelector , MiniBotPersona ,
+                 PersonaConversationManager ) and connect them to the Unity UI. Use placeholder code for
+             external API calls. Test with a small subset of personas and simple chat messages.
+          5. Reasoning: Evaluate the simulation’s behaviour: do bots adopt different opinions? Does the
+             environment lighting match MuJoCo’s style? Are grid lines crisp at all scales?
+          6. Acting: Tweak parameters (blend tree thresholds, lighting colours, grid cell size) until the
+             experience feels cohesive.
+
+By following this plan, Argus will deliver smooth mini‑bot animations, visually consistent URP rendering,
+and a robust persona‑driven chat simulation capable of dynamic discussions and persona updates.
+
+
+
+ 1       Shading models in Universal Render Pipeline | Universal RP | 7.1.8
+https://docs.unity3d.com/Packages/com.unity.render‑pipelines.universal@7.1/manual/shading‑model.html
+
+
+
+
+                                                           8
+

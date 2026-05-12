@@ -1,0 +1,1199 @@
+Unity Editor version:    2022.3.0f1 (fb119bb0b476)
+Branch:                  2022.3/release
+Build type:              Release
+Batch mode:              NO
+macOS version:           Version 26.3.1 (a) (Build 25D771280a)
+Darwin version:          25.3.0
+Architecture:            arm64
+Running under Rosetta:   NO
+Available memory:        8192 MB
+[Licensing::Module] Trying to connect to existing licensing client channel...
+[Licensing::IpcConnector] Connection attempt to the License Client on channel: "LicenseClient-guribbong" failed because channel doesn't exist; code: "0x80000002"
+Launching external process: /Applications/Unity/Hub/Editor/2022.3.0f1/Unity.app/Contents/Frameworks/UnityLicensingClient.app/Contents/MacOS/Unity.Licensing.Client
+[Licensing::Module] Successfully launched the LicensingClient (PId: 53738)
+[Licensing::IpcConnector] Successfully connected to the License Client on channel: "LicenseClient-guribbong"
+[Licensing::Client] Handshaking with LicensingClient:
+  Version:                 1.12.1+9338cad
+  Session Id:              0255fe3cc1c84700aac8d4bb673cadf5
+  Correlation Id:          bbc509ca08ce660b057ca5ed96f34e2d
+  External correlation Id: 2628134622784926342
+  Machine Id:              kK/taOzULwH3CoqhnK6anvJ0b88=
+[Licensing::Module] Successfully connected to LicensingClient on channel: "LicenseClient-guribbong" (connect: 5.82s, validation: 0.81s, handshake: 0.83s)
+[Licensing::IpcConnector] Successfully connected to the License Notification on channel: "LicenseClient-guribbong-notifications"
+[Licensing::Module] Connected to LicensingClient (PId: 53738, launch time: 0.01, total connection time: 7.46s)
+[Licensing::Module] Error: Access token is unavailable; failed to update
+[Licensing::Client] Error: Code 500 while processing request (status: Unable to update licenses. Errors: No ULF license found.,Token not found in cache)
+[Licensing::Client] Error: Code 500 while updating license in client (status: Unable to update licenses. Errors: No ULF license found.,Token not found in cache)
+[Licensing::Client] Successfully resolved entitlements
+[Licensing::Module] Serial number assigned to: "14568638156105-UnityPersXXXX"
+Pro License: NO
+Launching external process: /Applications/Unity/Hub/Editor/2022.3.0f1/Unity.app/Contents/Resources/PackageManager/Server/UnityPackageManager
+
+COMMAND LINE ARGUMENTS:
+/Applications/Unity/Hub/Editor/2022.3.0f1/Unity.app/Contents/MacOS/Unity
+-projectPath
+/Users/guribbong/code/Argus/unity/EmbodiedDebate
+-executeMethod
+ArgusUnity.Editor.HideAndSeekDesignBuilder.OpenSceneInPlayMode
+-logFile
+/Users/guribbong/code/Argus/tmp/hide-and-seek-fbx-turn-window.log
+Successfully changed project path to: /Users/guribbong/code/Argus/unity/EmbodiedDebate
+/Users/guribbong/code/Argus/unity/EmbodiedDebate
+[UnityMemory] Configuration Parameters - Can be set up in boot.config
+    "memorysetup-bucket-allocator-granularity=16"
+    "memorysetup-bucket-allocator-bucket-count=8"
+    "memorysetup-bucket-allocator-block-size=33554432"
+    "memorysetup-bucket-allocator-block-count=8"
+    "memorysetup-main-allocator-block-size=16777216"
+    "memorysetup-thread-allocator-block-size=16777216"
+    "memorysetup-gfx-main-allocator-block-size=16777216"
+    "memorysetup-gfx-thread-allocator-block-size=16777216"
+    "memorysetup-cache-allocator-block-size=4194304"
+    "memorysetup-typetree-allocator-block-size=2097152"
+    "memorysetup-profiler-bucket-allocator-granularity=16"
+    "memorysetup-profiler-bucket-allocator-bucket-count=8"
+    "memorysetup-profiler-bucket-allocator-block-size=33554432"
+    "memorysetup-profiler-bucket-allocator-block-count=8"
+    "memorysetup-profiler-allocator-block-size=16777216"
+    "memorysetup-profiler-editor-allocator-block-size=1048576"
+    "memorysetup-temp-allocator-size-main=16777216"
+    "memorysetup-job-temp-allocator-block-size=2097152"
+    "memorysetup-job-temp-allocator-block-size-background=1048576"
+    "memorysetup-job-temp-allocator-reduction-small-platforms=262144"
+    "memorysetup-allocator-temp-initial-block-size-main=262144"
+    "memorysetup-allocator-temp-initial-block-size-worker=262144"
+    "memorysetup-temp-allocator-size-background-worker=32768"
+    "memorysetup-temp-allocator-size-job-worker=262144"
+    "memorysetup-temp-allocator-size-preload-manager=33554432"
+    "memorysetup-temp-allocator-size-nav-mesh-worker=65536"
+    "memorysetup-temp-allocator-size-audio-worker=65536"
+    "memorysetup-temp-allocator-size-cloud-worker=32768"
+    "memorysetup-temp-allocator-size-gi-baking-worker=262144"
+    "memorysetup-temp-allocator-size-gfx=262144"
+Player connection [8649715968] Host "[IP] 192.168.3.1 [Port] 55496 [Flags] 2 [Guid] 2609653629 [EditorId] 2609653629 [Version] 1048832 [Id] OSXEditor(0,topabaem.local) [Debug] 1 [PackageName] OSXEditor [ProjectName] Editor" joined multi-casting on [225.0.0.222:54997]...
+
+Player connection [8649715968] Host "[IP] 192.168.3.1 [Port] 55496 [Flags] 2 [Guid] 2609653629 [EditorId] 2609653629 [Version] 1048832 [Id] OSXEditor(0,topabaem.local) [Debug] 1 [PackageName] OSXEditor [ProjectName] Editor" joined alternative multi-casting on [225.0.0.222:34997]...
+
+[Package Manager] UpmClient::Connect -- Connected to IPC stream "Upm-53679" after 3.4 seconds.
+[Licensing::Client] Successfully resolved entitlements
+[Package Manager] Restoring resolved packages state from cache
+[Licensing::Client] Successfully resolved entitlement details
+[Package Manager] Registered 12 packages:
+  Packages from [https://packages.unity.com]:
+    com.unity.nuget.newtonsoft-json@3.2.1 (location: /Users/guribbong/code/Argus/unity/EmbodiedDebate/Library/PackageCache/com.unity.nuget.newtonsoft-json@3.2.1)
+    com.unity.test-framework@1.1.33 (location: /Users/guribbong/code/Argus/unity/EmbodiedDebate/Library/PackageCache/com.unity.test-framework@1.1.33)
+    com.unity.ext.nunit@1.0.6 (location: /Users/guribbong/code/Argus/unity/EmbodiedDebate/Library/PackageCache/com.unity.ext.nunit@1.0.6)
+    com.unity.mathematics@1.2.6 (location: /Users/guribbong/code/Argus/unity/EmbodiedDebate/Library/PackageCache/com.unity.mathematics@1.2.6)
+    com.unity.burst@1.8.4 (location: /Users/guribbong/code/Argus/unity/EmbodiedDebate/Library/PackageCache/com.unity.burst@1.8.4)
+  Built-in packages:
+    com.unity.modules.animation@1.0.0 (location: /Users/guribbong/code/Argus/unity/EmbodiedDebate/Library/PackageCache/com.unity.modules.animation@1.0.0)
+    com.unity.modules.imageconversion@1.0.0 (location: /Users/guribbong/code/Argus/unity/EmbodiedDebate/Library/PackageCache/com.unity.modules.imageconversion@1.0.0)
+    com.unity.modules.physics@1.0.0 (location: /Users/guribbong/code/Argus/unity/EmbodiedDebate/Library/PackageCache/com.unity.modules.physics@1.0.0)
+    com.unity.modules.unitywebrequest@1.0.0 (location: /Users/guribbong/code/Argus/unity/EmbodiedDebate/Library/PackageCache/com.unity.modules.unitywebrequest@1.0.0)
+    com.unity.modules.imgui@1.0.0 (location: /Users/guribbong/code/Argus/unity/EmbodiedDebate/Library/PackageCache/com.unity.modules.imgui@1.0.0)
+    com.unity.modules.jsonserialize@1.0.0 (location: /Users/guribbong/code/Argus/unity/EmbodiedDebate/Library/PackageCache/com.unity.modules.jsonserialize@1.0.0)
+  Embedded packages:
+    com.unity.cloud.gltfast@file:/Users/guribbong/code/Argus/unity/EmbodiedDebate/Packages/com.unity.cloud.gltfast (location: /Users/guribbong/code/Argus/unity/EmbodiedDebate/Packages/com.unity.cloud.gltfast)
+[Subsystems] No new subsystems found in resolved package list.
+Package Manager log level set to [2]
+[Package Manager] Done registering packages in 0.93 seconds
+Refreshing native plugins compatible for Editor in 12.08 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Initialize engine version: 2022.3.0f1 (fb119bb0b476)
+[Subsystems] Discovering subsystems at path /Applications/Unity/Hub/Editor/2022.3.0f1/Unity.app/Contents/Resources/UnitySubsystems
+[Subsystems] Discovering subsystems at path /Users/guribbong/code/Argus/unity/EmbodiedDebate/Assets
+GfxDevice: creating device client; threaded=1; jobified=0
+ preferred device: Apple M2 (high power)
+Metal devices available: 1
+0: Apple M2 (high power)
+Using device Apple M2 (high power)
+Initializing Metal device caps: Apple M2
+[Licensing::Client] Successfully resolved entitlements
+Initialize mono
+Mono path[0] = '/Applications/Unity/Hub/Editor/2022.3.0f1/Unity.app/Contents/Managed'
+Mono path[1] = '/Applications/Unity/Hub/Editor/2022.3.0f1/Unity.app/Contents/MonoBleedingEdge/lib/mono/unityjit-macos'
+Mono config path = '/Applications/Unity/Hub/Editor/2022.3.0f1/Unity.app/Contents/MonoBleedingEdge/etc'
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56679
+Using cacheserver namespaces - metadata:defaultmetadata, artifacts:defaultartifacts
+Using cacheserver namespaces - metadata:defaultmetadata, artifacts:defaultartifacts
+ImportWorker Server TCP listen port: 0
+Begin MonoManager ReloadAssembly
+Registering precompiled unity dll's ...
+Register platform support module: /Applications/Unity/Hub/Editor/2022.3.0f1/Unity.app/Contents/PlaybackEngines/MacStandaloneSupport/UnityEditor.OSXStandalone.Extensions.dll
+Registered in 0.002250 seconds.
+- Loaded All Assemblies, in  0.427 seconds
+Native extension for OSXStandalone target not found
+Mono: successfully reloaded assembly
+- Finished resetting the current domain, in  0.432 seconds
+Domain Reload Profiling: 861ms
+	BeginReloadAssembly (142ms)
+		ExecutionOrderSort (0ms)
+		DisableScriptedObjects (0ms)
+		BackupInstance (0ms)
+		ReleaseScriptingObjects (0ms)
+		CreateAndSetChildDomain (3ms)
+	RebuildCommonClasses (45ms)
+	RebuildNativeTypeToScriptingClass (11ms)
+	initialDomainReloadingComplete (52ms)
+	LoadAllAssembliesAndSetupDomain (177ms)
+		LoadAssemblies (137ms)
+		RebuildTransferFunctionScriptingTraits (0ms)
+		AnalyzeDomain (172ms)
+			TypeCache.Refresh (170ms)
+				TypeCache.ScanAssembly (145ms)
+			ScanForSourceGeneratedMonoScriptInfo (0ms)
+			ResolveRequiredComponents (1ms)
+	FinalizeReload (433ms)
+		ReleaseScriptCaches (0ms)
+		RebuildScriptCaches (0ms)
+		SetupLoadedEditorAssemblies (316ms)
+			LogAssemblyErrors (0ms)
+			InitializePlatformSupportModulesInManaged (8ms)
+			SetLoadedEditorAssemblies (12ms)
+			RefreshPlugins (0ms)
+			BeforeProcessingInitializeOnLoad (3ms)
+			ProcessInitializeOnLoadAttributes (180ms)
+			ProcessInitializeOnLoadMethodAttributes (112ms)
+			AfterProcessingInitializeOnLoad (0ms)
+			EditorAssembliesLoaded (0ms)
+		ExecutionOrderSort2 (0ms)
+		AwakeInstancesAfterBackupRestoration (0ms)
+[Licensing::Client] Successfully resolved entitlements
+Application.AssetDatabase Initial Refresh Start
+[40m[32minfo[39m[22m[49m: Microsoft.Hosting.Lifetime[14]
+      Now listening on: http://unix:/tmp/ilpp.sock-8e16111b622e4d5ea6b5ecc926298bfd
+[40m[32minfo[39m[22m[49m: Microsoft.Hosting.Lifetime[0]
+      Application started. Press Ctrl+C to shut down.
+[40m[32minfo[39m[22m[49m: Microsoft.Hosting.Lifetime[0]
+      Hosting environment: Production
+[40m[32minfo[39m[22m[49m: Microsoft.Hosting.Lifetime[0]
+      Content root path: /Users/guribbong/code/Argus/unity/EmbodiedDebate/
+[40m[32minfo[39m[22m[49m: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/2 POST http://ilpp/UnityILPP.PostProcessing/Ping application/grpc -
+[40m[32minfo[39m[22m[49m: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'gRPC - /UnityILPP.PostProcessing/Ping'
+[40m[32minfo[39m[22m[49m: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'gRPC - /UnityILPP.PostProcessing/Ping'
+[40m[32minfo[39m[22m[49m: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished HTTP/2 POST http://ilpp/UnityILPP.PostProcessing/Ping application/grpc - - 200 - application/grpc 105.1044ms
+Starting: /Applications/Unity/Hub/Editor/2022.3.0f1/Unity.app/Contents/bee_backend --dont-print-to-structured-log --ipc --defer-dag-verification --dagfile="Library/Bee/200b0aE.dag" --continue-on-failure --profile="Library/Bee/backend1.traceevents" ScriptAssemblies
+WorkingDir: /Users/guribbong/code/Argus/unity/EmbodiedDebate
+ExitCode: 4 Duration: 0s118ms
+Rebuilding DAG because FileSignature timestamp changed: Library/Bee/200b0aE-inputdata.json
+*** Tundra requires additional run (0.08 seconds), 0 items updated, 2 evaluated
+Starting: /Applications/Unity/Hub/Editor/2022.3.0f1/Unity.app/Contents/Tools/netcorerun/netcorerun "/Applications/Unity/Hub/Editor/2022.3.0f1/Unity.app/Contents/Tools/BuildPipeline/ScriptCompilationBuildProgram.exe" "Library/Bee/200b0aE.dag.json" "Library/Bee/200b0aE-inputdata.json" "Library/Bee/buildprogram0.traceevents"
+WorkingDir: /Users/guribbong/code/Argus/unity/EmbodiedDebate
+ExitCode: 0 Duration: 1s438ms
+Starting: /Applications/Unity/Hub/Editor/2022.3.0f1/Unity.app/Contents/bee_backend --dont-print-to-structured-log --ipc --defer-dag-verification --dagfile="Library/Bee/200b0aE.dag" --continue-on-failure --dagfilejson="Library/Bee/200b0aE.dag.json" --profile="Library/Bee/backend2.traceevents" ScriptAssemblies
+WorkingDir: /Users/guribbong/code/Argus/unity/EmbodiedDebate
+[40m[32minfo[39m[22m[49m: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/2 POST http://ilpp/UnityILPP.PostProcessing/ConfigurePostProcessors application/grpc -
+[40m[32minfo[39m[22m[49m: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'gRPC - /UnityILPP.PostProcessing/ConfigurePostProcessors'
+[40m[1m[33mwarn[39m[22m[49m: Unity.ILPP.Runner.PostProcessingAssemblyLoadContext[0]
+      Assembly system.runtime.interopservices.windowsruntime has duplicate hint path. Ignoring "/Applications/Unity/Hub/Editor/2022.3.0f1/Unity.app/Contents/UnityReferenceAssemblies/unity-4.8-api/Facades/System.Runtime.InteropServices.WindowsRuntime.dll" in favor of "/Applications/Unity/Hub/Editor/2022.3.0f1/Unity.app/Contents/NetStandard/Extensions/2.0.0/System.Runtime.InteropServices.WindowsRuntime.dll"
+[40m[1m[33mwarn[39m[22m[49m: Unity.ILPP.Runner.PostProcessingAssemblyLoadContext[0]
+      Assembly system.componentmodel.composition has duplicate hint path. Ignoring "/Applications/Unity/Hub/Editor/2022.3.0f1/Unity.app/Contents/UnityReferenceAssemblies/unity-4.8-api/System.ComponentModel.Composition.dll" in favor of "/Applications/Unity/Hub/Editor/2022.3.0f1/Unity.app/Contents/NetStandard/compat/2.1.0/shims/netfx/System.ComponentModel.Composition.dll"
+[40m[32minfo[39m[22m[49m: Unity.ILPP.Runner.PostProcessingAssemblyLoadContext[0]
+      Resolved Unity.Burst.Cecil, Version=0.11.4.0, Culture=neutral, PublicKeyToken=50cebf1cceb9d05e with Library/PackageCache/com.unity.burst@1.8.4/Unity.Burst.CodeGen/Unity.Burst.Cecil.dll
+[40m[32minfo[39m[22m[49m: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'gRPC - /UnityILPP.PostProcessing/ConfigurePostProcessors'
+[40m[32minfo[39m[22m[49m: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished HTTP/2 POST http://ilpp/UnityILPP.PostProcessing/ConfigurePostProcessors application/grpc - - 200 - application/grpc 73.2515ms
+ExitCode: 0 Duration: 0s514ms
+Finished compiling graph: 242 nodes, 2045 flattened edges (1825 ToBuild, 32 ToUse), maximum node priority 92
+[199/239    0s] ILPP-Configuration Library/ilpp-configuration.nevergeneratedoutput
+*** Tundra build success (0.49 seconds), 1 items updated, 239 evaluated
+Total cache size 13674288
+Total cache size after purge 13674288
+AssetDatabase: script compilation time: 3.673919s
+Begin MonoManager ReloadAssembly
+Symbol file LoadedFromMemory is not a mono symbol file
+- Loaded All Assemblies, in  0.564 seconds
+Refreshing native plugins compatible for Editor in 1.25 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Refreshing native plugins compatible for Editor in 0.60 ms, found 0 plugins.
+Native extension for OSXStandalone target not found
+Mono: successfully reloaded assembly
+- Finished resetting the current domain, in  2.066 seconds
+Domain Reload Profiling: 2633ms
+	BeginReloadAssembly (208ms)
+		ExecutionOrderSort (0ms)
+		DisableScriptedObjects (8ms)
+		BackupInstance (0ms)
+		ReleaseScriptingObjects (0ms)
+		CreateAndSetChildDomain (56ms)
+	RebuildCommonClasses (38ms)
+	RebuildNativeTypeToScriptingClass (12ms)
+	initialDomainReloadingComplete (29ms)
+	LoadAllAssembliesAndSetupDomain (277ms)
+		LoadAssemblies (215ms)
+		RebuildTransferFunctionScriptingTraits (0ms)
+		AnalyzeDomain (154ms)
+			TypeCache.Refresh (149ms)
+				TypeCache.ScanAssembly (140ms)
+			ScanForSourceGeneratedMonoScriptInfo (4ms)
+			ResolveRequiredComponents (1ms)
+	FinalizeReload (2068ms)
+		ReleaseScriptCaches (0ms)
+		RebuildScriptCaches (0ms)
+		SetupLoadedEditorAssemblies (1945ms)
+			LogAssemblyErrors (0ms)
+			InitializePlatformSupportModulesInManaged (3ms)
+			SetLoadedEditorAssemblies (3ms)
+			RefreshPlugins (0ms)
+			BeforeProcessingInitializeOnLoad (29ms)
+			ProcessInitializeOnLoadAttributes (1841ms)
+			ProcessInitializeOnLoadMethodAttributes (67ms)
+			AfterProcessingInitializeOnLoad (1ms)
+			EditorAssembliesLoaded (1ms)
+		ExecutionOrderSort2 (0ms)
+		AwakeInstancesAfterBackupRestoration (9ms)
+Asset Pipeline Refresh (id=39d3844313bea45d3b26170758b3113a): Total: 7.497 seconds - Initiated by InitialRefreshV2(ForceSynchronousImport)
+	Summary:
+		Imports: total=4 (actual=0, local cache=4, cache server=0)
+		Asset DB Process Time: managed=0 ms, native=1111 ms
+		Asset DB Callback time: managed=27 ms, native=1 ms
+		Scripting: domain reloads=1, domain reload time=2670 ms, compile time=3675 ms, other=10 ms
+		Project Asset Count: scripts=1022, non-scripts=619
+		Asset File Changes: new=0, changed=0, moved=0, deleted=0
+		Scan Filter Count: 1
+	InvokeBeforeRefreshCallbacks: 1.181ms
+	ApplyChangesToAssetFolders: 0.017ms
+	Scan: 575.783ms
+	OnSourceAssetsModified: 0.002ms
+	GetAllGuidsForCategorization: 0.117ms
+	CategorizeAssets: 58.175ms
+	ImportOutOfDateAssets: 2092.854ms (-1588.359ms without children)
+		CompileScripts: 3675.250ms
+		ReloadNativeAssets: 0.000ms
+		UnloadImportedAssets: 2.627ms
+		EnsureUptoDateAssetsAreRegisteredWithGuidPM: 0.414ms
+		PostProcessAllAssetNotificationsAddChangedAssets: 0.000ms
+		OnDemandSchedulerStart: 2.921ms
+	PostProcessAllAssets: 27.316ms
+	GatherAllCurrentPrimaryArtifactRevisions: 0.001ms
+	UnloadStreamsBegin: 1.585ms
+	PersistCurrentRevisions: 0.058ms
+	UnloadStreamsEnd: 0.008ms
+	GenerateScriptTypeHashes: 0.749ms
+	Untracked: 4739.411ms
+Application.AssetDatabase Initial Refresh End
+Launching external process: /Applications/Unity/Hub/Editor/2022.3.0f1/Unity.app/Contents/Tools/UnityShaderCompiler
+Launched and connected shader compiler UnityShaderCompiler after 0.48 seconds
+Scanning for USB devices : 0.247ms
+Initializing Unity extensions:
+[Licensing::Client] Successfully resolved entitlements
+[MODES] ModeService[none].Initialize
+[MODES] ModeService[none].LoadModes
+[MODES] Loading mode Default (0) for mode-current-id-EmbodiedDebate
+Unloading 2 Unused Serialized files (Serialized files now loaded: 0)
+ProgressiveSceneManager::Cancel()
+Loaded scene 'Assets/Project/Scenes/MiniBotHideAndSeekDesign.unity'
+	Deserialize:            9.618 ms
+	Integration:            138.044 ms
+	Integration of assets:  0.004 ms
+	Thread Wait Time:       0.017 ms
+	Total Operation Time:   147.683 ms
+Unloading 36 unused Assets / (0.9 MB). Loaded Objects now: 1877.
+Memory consumption went from 102.3 MB to 101.4 MB.
+Total: 9.114500 ms (FindLiveObjects: 1.044083 ms CreateObjectMapping: 0.143417 ms MarkObjects: 7.440417 ms  DeleteObjects: 0.485583 ms)
+
+[LAYOUT] About to load UserSettings/Layouts/default-2022.dwlt, keepMainWindow=False
+[MODES] ModeService[default].InitializeCurrentMode
+[MODES] ModeService[default].RaiseModeChanged(default, default)
+Asset Pipeline Refresh (id=b6434007922544171bdb2a4302770047): Total: 0.379 seconds - Initiated by RefreshV2(NoUpdateAssetOptions)
+	Summary:
+		Imports: total=0 (actual=0, local cache=0, cache server=0)
+		Asset DB Process Time: managed=0 ms, native=379 ms
+		Asset DB Callback time: managed=0 ms, native=0 ms
+		Scripting: domain reloads=0, domain reload time=0 ms, compile time=0 ms, other=0 ms
+		Project Asset Count: scripts=1022, non-scripts=619
+		Asset File Changes: new=0, changed=0, moved=0, deleted=0
+		Scan Filter Count: 1
+	InvokeBeforeRefreshCallbacks: 0.000ms
+	ApplyChangesToAssetFolders: 0.084ms
+	Scan: 345.312ms
+	OnSourceAssetsModified: 0.001ms
+	GetAllGuidsForCategorization: 0.090ms
+	CategorizeAssets: 1.210ms
+	ImportOutOfDateAssets: 0.839ms (0.240ms without children)
+		ReloadNativeAssets: 0.000ms
+		UnloadImportedAssets: 0.072ms
+		EnsureUptoDateAssetsAreRegisteredWithGuidPM: 0.200ms
+		InitializingProgressBar: 0.000ms
+		PostProcessAllAssetNotificationsAddChangedAssets: 0.000ms
+		OnDemandSchedulerStart: 0.326ms
+	GatherAllCurrentPrimaryArtifactRevisions: 0.622ms
+	UnloadStreamsBegin: 2.041ms
+	PersistCurrentRevisions: 0.059ms
+	UnloadStreamsEnd: 0.004ms
+	Untracked: 28.869ms
+Start importing Assets/ThirdParty/StylooClassroomAssetPack/StylooClassroomAssetPack GLTF & FBX/classroom/GLTF/wallsfloor.glb using Guid(95d4331adf82140bbb5c243cad6bfa64) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '2f4597164da06dcd23f707636f81de45') in 0.143008 seconds
+Refreshing native plugins compatible for Editor in 3.15 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=40d499306b1794f5a91e1f54fd3b925c): Total: 0.219 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+HideAndSeekDesignBuilder: GLTF asset wallsfloor.glb, importer=GLTFast.Editor.GltfImporter, gameObjectLoaded=True
+UnityEngine.StackTraceUtility:ExtractStackTrace () (at /Users/bokken/build/output/unity/unity/Runtime/Export/Scripting/StackTrace.cs:37)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+ArgusUnity.Editor.HideAndSeekDesignBuilder:EnsureGltfClassroomImports () (at Assets/Editor/HideAndSeekDesignBuilder.cs:93)
+ArgusUnity.Editor.HideAndSeekDesignBuilder:BuildScene () (at Assets/Editor/HideAndSeekDesignBuilder.cs:33)
+ArgusUnity.Editor.HideAndSeekDesignBuilder:OpenSceneInPlayMode () (at Assets/Editor/HideAndSeekDesignBuilder.cs:71)
+
+(Filename: Assets/Editor/HideAndSeekDesignBuilder.cs Line: 93)
+
+Start importing Assets/ThirdParty/StylooClassroomAssetPack/StylooClassroomAssetPack GLTF & FBX/classroom/GLTF/table.glb using Guid(0fac535ef0639442ea3d608d5efbaf9b) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '0a8cc223b14d120b3f35fefb97523cfd') in 0.011606 seconds
+Refreshing native plugins compatible for Editor in 0.64 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=37027db33377d43ffa85e7d79ae202d7): Total: 0.037 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+HideAndSeekDesignBuilder: GLTF asset table.glb, importer=GLTFast.Editor.GltfImporter, gameObjectLoaded=True
+UnityEngine.StackTraceUtility:ExtractStackTrace () (at /Users/bokken/build/output/unity/unity/Runtime/Export/Scripting/StackTrace.cs:37)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+ArgusUnity.Editor.HideAndSeekDesignBuilder:EnsureGltfClassroomImports () (at Assets/Editor/HideAndSeekDesignBuilder.cs:93)
+ArgusUnity.Editor.HideAndSeekDesignBuilder:BuildScene () (at Assets/Editor/HideAndSeekDesignBuilder.cs:33)
+ArgusUnity.Editor.HideAndSeekDesignBuilder:OpenSceneInPlayMode () (at Assets/Editor/HideAndSeekDesignBuilder.cs:71)
+
+(Filename: Assets/Editor/HideAndSeekDesignBuilder.cs Line: 93)
+
+Start importing Assets/ThirdParty/StylooClassroomAssetPack/StylooClassroomAssetPack GLTF & FBX/classroom/GLTF/desk.glb using Guid(0efed4ee7808840d3b57c7df53106661) Importer(-1,00000000000000000000000000000000)  -> (artifact id: 'b763c2214533a676cae910b2f21ee7f4') in 0.173497 seconds
+Refreshing native plugins compatible for Editor in 0.70 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=f8e88bef6554140029612444808fe9b4): Total: 0.201 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+HideAndSeekDesignBuilder: GLTF asset desk.glb, importer=GLTFast.Editor.GltfImporter, gameObjectLoaded=True
+UnityEngine.StackTraceUtility:ExtractStackTrace () (at /Users/bokken/build/output/unity/unity/Runtime/Export/Scripting/StackTrace.cs:37)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+ArgusUnity.Editor.HideAndSeekDesignBuilder:EnsureGltfClassroomImports () (at Assets/Editor/HideAndSeekDesignBuilder.cs:93)
+ArgusUnity.Editor.HideAndSeekDesignBuilder:BuildScene () (at Assets/Editor/HideAndSeekDesignBuilder.cs:33)
+ArgusUnity.Editor.HideAndSeekDesignBuilder:OpenSceneInPlayMode () (at Assets/Editor/HideAndSeekDesignBuilder.cs:71)
+
+(Filename: Assets/Editor/HideAndSeekDesignBuilder.cs Line: 93)
+
+Start importing Assets/Project/Resources/Animations/FBXTurns/Right Turn 90.fbx using Guid(82cc6131a0e2f4d71a2a3455b84d0688) Importer(-1,00000000000000000000000000000000)  -> (artifact id: 'feabab098f753e4c57d5cc7bbc737f41') in 0.584010 seconds
+Refreshing native plugins compatible for Editor in 0.72 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=3b7680d7d5e304f7d9ee784af5fd6f3a): Total: 0.627 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+	Summary:
+		Imports: total=1 (actual=1, local cache=0, cache server=0)
+		Asset DB Process Time: managed=24 ms, native=582 ms
+		Asset DB Callback time: managed=16 ms, native=4 ms
+		Scripting: domain reloads=0, domain reload time=0 ms, compile time=0 ms, other=0 ms
+		Project Asset Count: scripts=1022, non-scripts=619
+		Asset File Changes: new=0, changed=0, moved=0, deleted=0
+		Scan Filter Count: 6
+	InvokeBeforeRefreshCallbacks: 0.000ms
+	ApplyChangesToAssetFolders: 0.022ms
+	Scan: 1.524ms
+	OnSourceAssetsModified: 0.000ms
+	GetAllGuidsForCategorization: 0.056ms
+	CategorizeAssets: 0.871ms
+	ImportOutOfDateAssets: 587.179ms (0.282ms without children)
+		ImportManagerImport: 585.534ms (0.373ms without children)
+			ImportInProcess: 585.126ms
+			UpdateCategorizedAssets: 0.035ms
+		ReloadNativeAssets: 0.000ms
+		UnloadImportedAssets: 0.014ms
+		ReloadImportedAssets: 0.000ms
+		EnsureUptoDateAssetsAreRegisteredWithGuidPM: 0.379ms
+		InitializingProgressBar: 0.007ms
+		PostProcessAllAssetNotificationsAddChangedAssets: 0.000ms
+		OnDemandSchedulerStart: 0.961ms
+	PostProcessAllAssets: 19.106ms
+	Hotreload: 1.968ms
+	GatherAllCurrentPrimaryArtifactRevisions: 0.122ms
+	UnloadStreamsBegin: 0.037ms
+	PersistCurrentRevisions: 0.055ms
+	UnloadStreamsEnd: 0.006ms
+	Untracked: 16.521ms
+HideAndSeekDesignBuilder: FBX turn animation role=right-90, asset=Right Turn 90.fbx, importedClips=1, minus2MeansLeft=False
+UnityEngine.StackTraceUtility:ExtractStackTrace () (at /Users/bokken/build/output/unity/unity/Runtime/Export/Scripting/StackTrace.cs:37)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+ArgusUnity.Editor.HideAndSeekDesignBuilder:EnsureTurnAnimationImports () (at Assets/Editor/HideAndSeekDesignBuilder.cs:155)
+ArgusUnity.Editor.HideAndSeekDesignBuilder:BuildScene () (at Assets/Editor/HideAndSeekDesignBuilder.cs:34)
+ArgusUnity.Editor.HideAndSeekDesignBuilder:OpenSceneInPlayMode () (at Assets/Editor/HideAndSeekDesignBuilder.cs:71)
+
+(Filename: Assets/Editor/HideAndSeekDesignBuilder.cs Line: 155)
+
+Start importing Assets/Project/Resources/Animations/FBXTurns/Right Turn 90-2.fbx using Guid(1170e0a4254694dcc89393ce7f5d98cf) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '8d61fcf8d2f8e7fd33a95a6898d1a496') in 0.322918 seconds
+Refreshing native plugins compatible for Editor in 1.18 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=26c12e1c5831f42bebad934ece01ab1e): Total: 0.351 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+	Summary:
+		Imports: total=1 (actual=1, local cache=0, cache server=0)
+		Asset DB Process Time: managed=1 ms, native=342 ms
+		Asset DB Callback time: managed=4 ms, native=3 ms
+		Scripting: domain reloads=0, domain reload time=0 ms, compile time=0 ms, other=0 ms
+		Project Asset Count: scripts=1022, non-scripts=619
+		Asset File Changes: new=0, changed=0, moved=0, deleted=0
+		Scan Filter Count: 6
+	ApplyChangesToAssetFolders: 0.022ms
+	Scan: 1.211ms
+	OnSourceAssetsModified: 0.000ms
+	GetAllGuidsForCategorization: 0.114ms
+	CategorizeAssets: 1.190ms
+	ImportOutOfDateAssets: 325.567ms (0.500ms without children)
+		ImportManagerImport: 324.631ms (0.156ms without children)
+			ImportInProcess: 324.453ms
+			UpdateCategorizedAssets: 0.021ms
+		ReloadNativeAssets: 0.000ms
+		UnloadImportedAssets: 0.010ms
+		ReloadImportedAssets: 0.000ms
+		EnsureUptoDateAssetsAreRegisteredWithGuidPM: 0.186ms
+		InitializingProgressBar: 0.004ms
+		PostProcessAllAssetNotificationsAddChangedAssets: 0.000ms
+		OnDemandSchedulerStart: 0.235ms
+	PostProcessAllAssets: 5.020ms
+	Hotreload: 2.252ms
+	GatherAllCurrentPrimaryArtifactRevisions: 0.107ms
+	UnloadStreamsBegin: 0.076ms
+	PersistCurrentRevisions: 0.059ms
+	UnloadStreamsEnd: 0.006ms
+	Untracked: 15.372ms
+HideAndSeekDesignBuilder: FBX turn animation role=left-90-from-minus-2, asset=Right Turn 90-2.fbx, importedClips=1, minus2MeansLeft=True
+UnityEngine.StackTraceUtility:ExtractStackTrace () (at /Users/bokken/build/output/unity/unity/Runtime/Export/Scripting/StackTrace.cs:37)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+ArgusUnity.Editor.HideAndSeekDesignBuilder:EnsureTurnAnimationImports () (at Assets/Editor/HideAndSeekDesignBuilder.cs:155)
+ArgusUnity.Editor.HideAndSeekDesignBuilder:BuildScene () (at Assets/Editor/HideAndSeekDesignBuilder.cs:34)
+ArgusUnity.Editor.HideAndSeekDesignBuilder:OpenSceneInPlayMode () (at Assets/Editor/HideAndSeekDesignBuilder.cs:71)
+
+(Filename: Assets/Editor/HideAndSeekDesignBuilder.cs Line: 155)
+
+Start importing Assets/Project/Resources/Animations/FBXTurns/Happy Right Turn.fbx using Guid(1be269054e1384c259b5d79fb375c6f8) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '0a4304117256efcf441b8ff80be9248b') in 0.396031 seconds
+Refreshing native plugins compatible for Editor in 1.22 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=581e2ba238b42404997046b80d9a13a2): Total: 0.440 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+	Summary:
+		Imports: total=1 (actual=1, local cache=0, cache server=0)
+		Asset DB Process Time: managed=1 ms, native=421 ms
+		Asset DB Callback time: managed=12 ms, native=4 ms
+		Scripting: domain reloads=0, domain reload time=0 ms, compile time=0 ms, other=0 ms
+		Project Asset Count: scripts=1022, non-scripts=619
+		Asset File Changes: new=0, changed=0, moved=0, deleted=0
+		Scan Filter Count: 6
+	InvokeBeforeRefreshCallbacks: 0.001ms
+	ApplyChangesToAssetFolders: 0.022ms
+	Scan: 1.524ms
+	OnSourceAssetsModified: 0.001ms
+	GetAllGuidsForCategorization: 0.044ms
+	CategorizeAssets: 0.551ms
+	ImportOutOfDateAssets: 406.816ms (7.489ms without children)
+		ImportManagerImport: 398.456ms (0.326ms without children)
+			ImportInProcess: 398.091ms
+			UpdateCategorizedAssets: 0.039ms
+		ReloadNativeAssets: 0.001ms
+		UnloadImportedAssets: 0.011ms
+		ReloadImportedAssets: 0.000ms
+		EnsureUptoDateAssetsAreRegisteredWithGuidPM: 0.428ms
+		InitializingProgressBar: 0.007ms
+		PostProcessAllAssetNotificationsAddChangedAssets: 0.000ms
+		OnDemandSchedulerStart: 0.424ms
+	PostProcessAllAssets: 13.255ms
+	Hotreload: 3.158ms
+	GatherAllCurrentPrimaryArtifactRevisions: 0.074ms
+	UnloadStreamsBegin: 0.059ms
+	PersistCurrentRevisions: 0.058ms
+	UnloadStreamsEnd: 0.005ms
+	Untracked: 14.278ms
+HideAndSeekDesignBuilder: FBX turn animation role=happy-right, asset=Happy Right Turn.fbx, importedClips=1, minus2MeansLeft=False
+UnityEngine.StackTraceUtility:ExtractStackTrace () (at /Users/bokken/build/output/unity/unity/Runtime/Export/Scripting/StackTrace.cs:37)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+ArgusUnity.Editor.HideAndSeekDesignBuilder:EnsureTurnAnimationImports () (at Assets/Editor/HideAndSeekDesignBuilder.cs:155)
+ArgusUnity.Editor.HideAndSeekDesignBuilder:BuildScene () (at Assets/Editor/HideAndSeekDesignBuilder.cs:34)
+ArgusUnity.Editor.HideAndSeekDesignBuilder:OpenSceneInPlayMode () (at Assets/Editor/HideAndSeekDesignBuilder.cs:71)
+
+(Filename: Assets/Editor/HideAndSeekDesignBuilder.cs Line: 155)
+
+Start importing Assets/Project/Resources/Animations/FBXTurns/Happy Right Turn-2.fbx using Guid(61038be6e25984c94a7ef50954a36c5b) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '7980855351221ddbb29ef1dfd101f7f5') in 0.251742 seconds
+Refreshing native plugins compatible for Editor in 0.66 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=e0c0d81b676b943c7aaa362e3bfb06e2): Total: 0.279 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+HideAndSeekDesignBuilder: FBX turn animation role=happy-left-from-minus-2, asset=Happy Right Turn-2.fbx, importedClips=1, minus2MeansLeft=True
+UnityEngine.StackTraceUtility:ExtractStackTrace () (at /Users/bokken/build/output/unity/unity/Runtime/Export/Scripting/StackTrace.cs:37)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+ArgusUnity.Editor.HideAndSeekDesignBuilder:EnsureTurnAnimationImports () (at Assets/Editor/HideAndSeekDesignBuilder.cs:155)
+ArgusUnity.Editor.HideAndSeekDesignBuilder:BuildScene () (at Assets/Editor/HideAndSeekDesignBuilder.cs:34)
+ArgusUnity.Editor.HideAndSeekDesignBuilder:OpenSceneInPlayMode () (at Assets/Editor/HideAndSeekDesignBuilder.cs:71)
+
+(Filename: Assets/Editor/HideAndSeekDesignBuilder.cs Line: 155)
+
+HideAndSeekDesignBuilder: mini-bot import animationType=Generic, importAnimation=True, avatarValid=False, avatarHuman=False, walkingBones leftFoot=True, rightFoot=True, leftLeg=True, rightLeg=True.
+UnityEngine.StackTraceUtility:ExtractStackTrace () (at /Users/bokken/build/output/unity/unity/Runtime/Export/Scripting/StackTrace.cs:37)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+ArgusUnity.Editor.HideAndSeekDesignBuilder:LogMiniBotRigInfo () (at Assets/Editor/HideAndSeekDesignBuilder.cs:607)
+ArgusUnity.Editor.HideAndSeekDesignBuilder:BuildScene () (at Assets/Editor/HideAndSeekDesignBuilder.cs:35)
+ArgusUnity.Editor.HideAndSeekDesignBuilder:OpenSceneInPlayMode () (at Assets/Editor/HideAndSeekDesignBuilder.cs:71)
+
+(Filename: Assets/Editor/HideAndSeekDesignBuilder.cs Line: 607)
+
+Unloading 9 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 402 unused Assets / (16.5 MB). Loaded Objects now: 2223.
+Memory consumption went from 152.4 MB to 135.9 MB.
+Total: 51.091250 ms (FindLiveObjects: 0.976334 ms CreateObjectMapping: 0.051125 ms MarkObjects: 43.386375 ms  DeleteObjects: 6.676708 ms)
+
+Start importing Assets/Project/Materials/HideSeekDefenseBlue.mat using Guid(1ab91de9bb9934e9f880738d62def819) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '5393f3c5a3a094310f103cc049b5b045') in 0.024846 seconds
+Start importing Assets/Project/Materials/HideSeekAttackRed.mat using Guid(4aa4d8a01259243b6b5dba6db789b200) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '2e7068000da311e85c1b16a61381ad53') in 0.025235 seconds
+Refreshing native plugins compatible for Editor in 4.32 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=feb5f095ff8f949e2805bee75e47a6aa): Total: 0.124 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Start importing Assets/Project/Scenes/MiniBotHideAndSeekDesign.unity using Guid(9a4a9106e8b4148eea11b87fdf0edb7b) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '70a03ad885ea8abc64af77dc723e71c6') in 0.001109 seconds
+Refreshing native plugins compatible for Editor in 0.59 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=e07a5d4d2b49e44669bfcaab07cc7ec6): Total: 0.053 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+HideAndSeekDesignBuilder: physics setup activeFurnitureRigidbodies=13, staticSchoolroomColliders=5.
+UnityEngine.StackTraceUtility:ExtractStackTrace () (at /Users/bokken/build/output/unity/unity/Runtime/Export/Scripting/StackTrace.cs:37)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+ArgusUnity.Editor.HideAndSeekDesignBuilder:BuildScene () (at Assets/Editor/HideAndSeekDesignBuilder.cs:54)
+ArgusUnity.Editor.HideAndSeekDesignBuilder:OpenSceneInPlayMode () (at Assets/Editor/HideAndSeekDesignBuilder.cs:71)
+
+(Filename: Assets/Editor/HideAndSeekDesignBuilder.cs Line: 54)
+
+HideAndSeekDesignBuilder: saved Assets/Project/Scenes/MiniBotHideAndSeekDesign.unity
+UnityEngine.StackTraceUtility:ExtractStackTrace () (at /Users/bokken/build/output/unity/unity/Runtime/Export/Scripting/StackTrace.cs:37)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+ArgusUnity.Editor.HideAndSeekDesignBuilder:BuildScene () (at Assets/Editor/HideAndSeekDesignBuilder.cs:57)
+ArgusUnity.Editor.HideAndSeekDesignBuilder:OpenSceneInPlayMode () (at Assets/Editor/HideAndSeekDesignBuilder.cs:71)
+
+(Filename: Assets/Editor/HideAndSeekDesignBuilder.cs Line: 57)
+
+Opening scene 'Assets/Project/Scenes/MiniBotHideAndSeekDesign.unity'
+Unloading 0 Unused Serialized files (Serialized files now loaded: 0)
+Loaded scene 'Assets/Project/Scenes/MiniBotHideAndSeekDesign.unity'
+	Deserialize:            6.190 ms
+	Integration:            313.157 ms
+	Integration of assets:  0.010 ms
+	Thread Wait Time:       -0.002 ms
+	Total Operation Time:   319.355 ms
+Unloading 16 unused Assets / (8.1 KB). Loaded Objects now: 2743.
+Memory consumption went from 129.7 MB to 129.7 MB.
+Total: 31.290333 ms (FindLiveObjects: 1.028750 ms CreateObjectMapping: 0.034833 ms MarkObjects: 29.692959 ms  DeleteObjects: 0.530625 ms)
+
+HideAndSeekDesignBuilder: opened scene and entered Play Mode.
+UnityEngine.StackTraceUtility:ExtractStackTrace () (at /Users/bokken/build/output/unity/unity/Runtime/Export/Scripting/StackTrace.cs:37)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+ArgusUnity.Editor.HideAndSeekDesignBuilder:OpenSceneInPlayMode () (at Assets/Editor/HideAndSeekDesignBuilder.cs:75)
+
+(Filename: Assets/Editor/HideAndSeekDesignBuilder.cs Line: 75)
+
+IsTimeToCheckForNewEditor: Update time 1777973424 current 1777995075
+[Project] Loading completed in 36.731 seconds
+	Project init time: 				15.763 seconds
+		Template init time: 		0.000 seconds
+		Package Manager init time: 		3.436 seconds
+		Asset Database init time: 		1.356 seconds
+		Global illumination init time: 	0.006 seconds
+		Assemblies load time: 			0.872 seconds
+		Unity extensions init time: 	0.004 seconds
+		Asset Database refresh time: 	0.389 seconds
+	Scene opening time: 			11.461 seconds
+##utp:{"type":"ProjectInfo","version":2,"phase":"Immediate","time":1777995075774,"processId":53679,"projectLoad":36.731212833,"projectInit":15.763467375,"templateInit":0.0,"packageManagerInit":3.436058417,"assetDatabaseInit":1.355843125,"globalIlluminationInit":0.0061785,"assembliesLoad":0.871924209,"unityExtensionsInit":0.004231,"assetDatabaseRefresh":0.388995,"sceneOpening":11.460821667}
+##utp:{"type":"EditorInfo","version":2,"phase":"Immediate","time":1777995075774,"processId":53679,"editorVersion":"2022.3.0f1 (fb119bb0b476)","branch":"2022.3/release","buildType":"Release","platform":"OSX"}
+Subscribe to USB device events
+Scanning for USB devices : 0.204ms
+Thread 0x3492c7000 may have been prematurely finalized
+Reloading assemblies for play mode.
+Reloading assemblies after forced synchronous recompile.
+Begin MonoManager ReloadAssembly
+Symbol file LoadedFromMemory is not a mono symbol file
+- Loaded All Assemblies, in  0.924 seconds
+Refreshing native plugins compatible for Editor in 0.96 ms, found 0 plugins.
+Native extension for OSXStandalone target not found
+[MODES] ModeService[none].Initialize
+[MODES] ModeService[none].LoadModes
+[MODES] Loading mode Default (0) for mode-current-id-EmbodiedDebate
+Mono: successfully reloaded assembly
+- Finished resetting the current domain, in  1.048 seconds
+Domain Reload Profiling: 1978ms
+	BeginReloadAssembly (828ms)
+		ExecutionOrderSort (0ms)
+		DisableScriptedObjects (38ms)
+		BackupInstance (0ms)
+		ReleaseScriptingObjects (1ms)
+		CreateAndSetChildDomain (643ms)
+	RebuildCommonClasses (35ms)
+	RebuildNativeTypeToScriptingClass (12ms)
+	initialDomainReloadingComplete (19ms)
+	LoadAllAssembliesAndSetupDomain (36ms)
+		LoadAssemblies (128ms)
+		RebuildTransferFunctionScriptingTraits (0ms)
+		AnalyzeDomain (2ms)
+			TypeCache.Refresh (1ms)
+				TypeCache.ScanAssembly (0ms)
+			ScanForSourceGeneratedMonoScriptInfo (0ms)
+			ResolveRequiredComponents (1ms)
+	FinalizeReload (1050ms)
+		ReleaseScriptCaches (0ms)
+		RebuildScriptCaches (0ms)
+		SetupLoadedEditorAssemblies (214ms)
+			LogAssemblyErrors (0ms)
+			InitializePlatformSupportModulesInManaged (3ms)
+			SetLoadedEditorAssemblies (5ms)
+			RefreshPlugins (0ms)
+			BeforeProcessingInitializeOnLoad (39ms)
+			ProcessInitializeOnLoadAttributes (106ms)
+			ProcessInitializeOnLoadMethodAttributes (58ms)
+			AfterProcessingInitializeOnLoad (1ms)
+			EditorAssembliesLoaded (0ms)
+		ExecutionOrderSort2 (0ms)
+		AwakeInstancesAfterBackupRestoration (518ms)
+Asset Pipeline Refresh (id=b49be90b9fbbd442faa91d9b152a5e0f): Total: 2.174 seconds - Initiated by StopAssetImportingV2(ForceSynchronousImport | ForceDomainReload)
+	Summary:
+		Imports: total=0 (actual=0, local cache=0, cache server=0)
+		Asset DB Process Time: managed=0 ms, native=144 ms
+		Asset DB Callback time: managed=14 ms, native=2 ms
+		Scripting: domain reloads=1, domain reload time=2012 ms, compile time=0 ms, other=0 ms
+		Project Asset Count: scripts=1022, non-scripts=619
+		Asset File Changes: new=0, changed=0, moved=0, deleted=0
+		Scan Filter Count: 0
+	InvokeBeforeRefreshCallbacks: 2.145ms
+	ApplyChangesToAssetFolders: 0.031ms
+	Scan: 0.001ms
+	OnSourceAssetsModified: 0.004ms
+	GetAllGuidsForCategorization: 0.343ms
+	CategorizeAssets: 22.261ms
+	ImportOutOfDateAssets: 1085.021ms (1080.967ms without children)
+		CompileScripts: 0.023ms
+		CollectScriptTypesHashes: 0.011ms
+		ReloadNativeAssets: 0.103ms
+		UnloadImportedAssets: 1.730ms
+		EnsureUptoDateAssetsAreRegisteredWithGuidPM: 0.885ms
+		InitializingProgressBar: 0.000ms
+		PostProcessAllAssetNotificationsAddChangedAssets: 0.000ms
+		OnDemandSchedulerStart: 1.302ms
+	PostProcessAllAssets: 14.726ms
+	GatherAllCurrentPrimaryArtifactRevisions: 0.316ms
+	UnloadStreamsBegin: 0.071ms
+	PersistCurrentRevisions: 0.057ms
+	UnloadStreamsEnd: 0.005ms
+	GenerateScriptTypeHashes: 0.516ms
+	Untracked: 1048.853ms
+MiniBotWalkAnimator: loaded FBX turn clip role=right-90, resource=Animations/FBXTurns/Right Turn 90, clip=mixamo.com, length=0.93, sampledFrames=29, mappedMiniBotTracks=14/14, movingMiniBotTracks=14/14.
+UnityEngine.StackTraceUtility:ExtractStackTrace () (at /Users/bokken/build/output/unity/unity/Runtime/Export/Scripting/StackTrace.cs:37)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+ArgusUnity.Runtime.MiniBotWalkAnimator:LoadSampledFbxClip (string,string) (at Assets/Project/Scripts/Runtime/MiniBotWalkAnimator.cs:540)
+ArgusUnity.Runtime.MiniBotWalkAnimator:Awake () (at Assets/Project/Scripts/Runtime/MiniBotWalkAnimator.cs:122)
+
+(Filename: Assets/Project/Scripts/Runtime/MiniBotWalkAnimator.cs Line: 540)
+
+MiniBotWalkAnimator: loaded FBX turn clip role=left-90-from-minus-2, resource=Animations/FBXTurns/Right Turn 90-2, clip=mixamo.com, length=0.93, sampledFrames=29, mappedMiniBotTracks=14/14, movingMiniBotTracks=14/14.
+UnityEngine.StackTraceUtility:ExtractStackTrace () (at /Users/bokken/build/output/unity/unity/Runtime/Export/Scripting/StackTrace.cs:37)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+ArgusUnity.Runtime.MiniBotWalkAnimator:LoadSampledFbxClip (string,string) (at Assets/Project/Scripts/Runtime/MiniBotWalkAnimator.cs:540)
+ArgusUnity.Runtime.MiniBotWalkAnimator:Awake () (at Assets/Project/Scripts/Runtime/MiniBotWalkAnimator.cs:123)
+
+(Filename: Assets/Project/Scripts/Runtime/MiniBotWalkAnimator.cs Line: 540)
+
+MiniBotWalkAnimator: loaded FBX turn clip role=happy-right, resource=Animations/FBXTurns/Happy Right Turn, clip=mixamo.com, length=0.73, sampledFrames=22, mappedMiniBotTracks=14/14, movingMiniBotTracks=14/14.
+UnityEngine.StackTraceUtility:ExtractStackTrace () (at /Users/bokken/build/output/unity/unity/Runtime/Export/Scripting/StackTrace.cs:37)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+ArgusUnity.Runtime.MiniBotWalkAnimator:LoadSampledFbxClip (string,string) (at Assets/Project/Scripts/Runtime/MiniBotWalkAnimator.cs:540)
+ArgusUnity.Runtime.MiniBotWalkAnimator:Awake () (at Assets/Project/Scripts/Runtime/MiniBotWalkAnimator.cs:124)
+
+(Filename: Assets/Project/Scripts/Runtime/MiniBotWalkAnimator.cs Line: 540)
+
+MiniBotWalkAnimator: loaded FBX turn clip role=happy-left-from-minus-2, resource=Animations/FBXTurns/Happy Right Turn-2, clip=mixamo.com, length=0.73, sampledFrames=22, mappedMiniBotTracks=14/14, movingMiniBotTracks=14/14.
+UnityEngine.StackTraceUtility:ExtractStackTrace () (at /Users/bokken/build/output/unity/unity/Runtime/Export/Scripting/StackTrace.cs:37)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+ArgusUnity.Runtime.MiniBotWalkAnimator:LoadSampledFbxClip (string,string) (at Assets/Project/Scripts/Runtime/MiniBotWalkAnimator.cs:540)
+ArgusUnity.Runtime.MiniBotWalkAnimator:Awake () (at Assets/Project/Scripts/Runtime/MiniBotWalkAnimator.cs:125)
+
+(Filename: Assets/Project/Scripts/Runtime/MiniBotWalkAnimator.cs Line: 540)
+
+MiniBotWalkAnimator: BVH clips walk=True, turnLeft=True, turnRight=True; mappedBvhTracks=14/14, fbxTurnOverlay=True, minus2MeansLeft=True; walking bones leftFoot=True, rightFoot=True, leftLeg=True, rightLeg=True.
+UnityEngine.StackTraceUtility:ExtractStackTrace () (at /Users/bokken/build/output/unity/unity/Runtime/Export/Scripting/StackTrace.cs:37)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+ArgusUnity.Runtime.MiniBotWalkAnimator:Awake () (at Assets/Project/Scripts/Runtime/MiniBotWalkAnimator.cs:129)
+
+(Filename: Assets/Project/Scripts/Runtime/MiniBotWalkAnimator.cs Line: 129)
+
+MiniBotWalkAnimator: loaded FBX turn clip role=right-90, resource=Animations/FBXTurns/Right Turn 90, clip=mixamo.com, length=0.93, sampledFrames=29, mappedMiniBotTracks=14/14, movingMiniBotTracks=14/14.
+UnityEngine.StackTraceUtility:ExtractStackTrace () (at /Users/bokken/build/output/unity/unity/Runtime/Export/Scripting/StackTrace.cs:37)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+ArgusUnity.Runtime.MiniBotWalkAnimator:LoadSampledFbxClip (string,string) (at Assets/Project/Scripts/Runtime/MiniBotWalkAnimator.cs:540)
+ArgusUnity.Runtime.MiniBotWalkAnimator:Awake () (at Assets/Project/Scripts/Runtime/MiniBotWalkAnimator.cs:122)
+
+(Filename: Assets/Project/Scripts/Runtime/MiniBotWalkAnimator.cs Line: 540)
+
+MiniBotWalkAnimator: loaded FBX turn clip role=left-90-from-minus-2, resource=Animations/FBXTurns/Right Turn 90-2, clip=mixamo.com, length=0.93, sampledFrames=29, mappedMiniBotTracks=14/14, movingMiniBotTracks=14/14.
+UnityEngine.StackTraceUtility:ExtractStackTrace () (at /Users/bokken/build/output/unity/unity/Runtime/Export/Scripting/StackTrace.cs:37)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+ArgusUnity.Runtime.MiniBotWalkAnimator:LoadSampledFbxClip (string,string) (at Assets/Project/Scripts/Runtime/MiniBotWalkAnimator.cs:540)
+ArgusUnity.Runtime.MiniBotWalkAnimator:Awake () (at Assets/Project/Scripts/Runtime/MiniBotWalkAnimator.cs:123)
+
+(Filename: Assets/Project/Scripts/Runtime/MiniBotWalkAnimator.cs Line: 540)
+
+MiniBotWalkAnimator: loaded FBX turn clip role=happy-right, resource=Animations/FBXTurns/Happy Right Turn, clip=mixamo.com, length=0.73, sampledFrames=22, mappedMiniBotTracks=14/14, movingMiniBotTracks=14/14.
+UnityEngine.StackTraceUtility:ExtractStackTrace () (at /Users/bokken/build/output/unity/unity/Runtime/Export/Scripting/StackTrace.cs:37)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+ArgusUnity.Runtime.MiniBotWalkAnimator:LoadSampledFbxClip (string,string) (at Assets/Project/Scripts/Runtime/MiniBotWalkAnimator.cs:540)
+ArgusUnity.Runtime.MiniBotWalkAnimator:Awake () (at Assets/Project/Scripts/Runtime/MiniBotWalkAnimator.cs:124)
+
+(Filename: Assets/Project/Scripts/Runtime/MiniBotWalkAnimator.cs Line: 540)
+
+MiniBotWalkAnimator: loaded FBX turn clip role=happy-left-from-minus-2, resource=Animations/FBXTurns/Happy Right Turn-2, clip=mixamo.com, length=0.73, sampledFrames=22, mappedMiniBotTracks=14/14, movingMiniBotTracks=14/14.
+UnityEngine.StackTraceUtility:ExtractStackTrace () (at /Users/bokken/build/output/unity/unity/Runtime/Export/Scripting/StackTrace.cs:37)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+ArgusUnity.Runtime.MiniBotWalkAnimator:LoadSampledFbxClip (string,string) (at Assets/Project/Scripts/Runtime/MiniBotWalkAnimator.cs:540)
+ArgusUnity.Runtime.MiniBotWalkAnimator:Awake () (at Assets/Project/Scripts/Runtime/MiniBotWalkAnimator.cs:125)
+
+(Filename: Assets/Project/Scripts/Runtime/MiniBotWalkAnimator.cs Line: 540)
+
+MiniBotWalkAnimator: BVH clips walk=True, turnLeft=True, turnRight=True; mappedBvhTracks=14/14, fbxTurnOverlay=True, minus2MeansLeft=True; walking bones leftFoot=True, rightFoot=True, leftLeg=True, rightLeg=True.
+UnityEngine.StackTraceUtility:ExtractStackTrace () (at /Users/bokken/build/output/unity/unity/Runtime/Export/Scripting/StackTrace.cs:37)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+ArgusUnity.Runtime.MiniBotWalkAnimator:Awake () (at Assets/Project/Scripts/Runtime/MiniBotWalkAnimator.cs:129)
+
+(Filename: Assets/Project/Scripts/Runtime/MiniBotWalkAnimator.cs Line: 129)
+
+MiniBotWalkAnimator: loaded FBX turn clip role=right-90, resource=Animations/FBXTurns/Right Turn 90, clip=mixamo.com, length=0.93, sampledFrames=29, mappedMiniBotTracks=14/14, movingMiniBotTracks=14/14.
+UnityEngine.StackTraceUtility:ExtractStackTrace () (at /Users/bokken/build/output/unity/unity/Runtime/Export/Scripting/StackTrace.cs:37)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+ArgusUnity.Runtime.MiniBotWalkAnimator:LoadSampledFbxClip (string,string) (at Assets/Project/Scripts/Runtime/MiniBotWalkAnimator.cs:540)
+ArgusUnity.Runtime.MiniBotWalkAnimator:Awake () (at Assets/Project/Scripts/Runtime/MiniBotWalkAnimator.cs:122)
+
+(Filename: Assets/Project/Scripts/Runtime/MiniBotWalkAnimator.cs Line: 540)
+
+MiniBotWalkAnimator: loaded FBX turn clip role=left-90-from-minus-2, resource=Animations/FBXTurns/Right Turn 90-2, clip=mixamo.com, length=0.93, sampledFrames=29, mappedMiniBotTracks=14/14, movingMiniBotTracks=14/14.
+UnityEngine.StackTraceUtility:ExtractStackTrace () (at /Users/bokken/build/output/unity/unity/Runtime/Export/Scripting/StackTrace.cs:37)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+ArgusUnity.Runtime.MiniBotWalkAnimator:LoadSampledFbxClip (string,string) (at Assets/Project/Scripts/Runtime/MiniBotWalkAnimator.cs:540)
+ArgusUnity.Runtime.MiniBotWalkAnimator:Awake () (at Assets/Project/Scripts/Runtime/MiniBotWalkAnimator.cs:123)
+
+(Filename: Assets/Project/Scripts/Runtime/MiniBotWalkAnimator.cs Line: 540)
+
+MiniBotWalkAnimator: loaded FBX turn clip role=happy-right, resource=Animations/FBXTurns/Happy Right Turn, clip=mixamo.com, length=0.73, sampledFrames=22, mappedMiniBotTracks=14/14, movingMiniBotTracks=14/14.
+UnityEngine.StackTraceUtility:ExtractStackTrace () (at /Users/bokken/build/output/unity/unity/Runtime/Export/Scripting/StackTrace.cs:37)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+ArgusUnity.Runtime.MiniBotWalkAnimator:LoadSampledFbxClip (string,string) (at Assets/Project/Scripts/Runtime/MiniBotWalkAnimator.cs:540)
+ArgusUnity.Runtime.MiniBotWalkAnimator:Awake () (at Assets/Project/Scripts/Runtime/MiniBotWalkAnimator.cs:124)
+
+(Filename: Assets/Project/Scripts/Runtime/MiniBotWalkAnimator.cs Line: 540)
+
+MiniBotWalkAnimator: loaded FBX turn clip role=happy-left-from-minus-2, resource=Animations/FBXTurns/Happy Right Turn-2, clip=mixamo.com, length=0.73, sampledFrames=22, mappedMiniBotTracks=14/14, movingMiniBotTracks=14/14.
+UnityEngine.StackTraceUtility:ExtractStackTrace () (at /Users/bokken/build/output/unity/unity/Runtime/Export/Scripting/StackTrace.cs:37)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+ArgusUnity.Runtime.MiniBotWalkAnimator:LoadSampledFbxClip (string,string) (at Assets/Project/Scripts/Runtime/MiniBotWalkAnimator.cs:540)
+ArgusUnity.Runtime.MiniBotWalkAnimator:Awake () (at Assets/Project/Scripts/Runtime/MiniBotWalkAnimator.cs:125)
+
+(Filename: Assets/Project/Scripts/Runtime/MiniBotWalkAnimator.cs Line: 540)
+
+MiniBotWalkAnimator: BVH clips walk=True, turnLeft=True, turnRight=True; mappedBvhTracks=14/14, fbxTurnOverlay=True, minus2MeansLeft=True; walking bones leftFoot=True, rightFoot=True, leftLeg=True, rightLeg=True.
+UnityEngine.StackTraceUtility:ExtractStackTrace () (at /Users/bokken/build/output/unity/unity/Runtime/Export/Scripting/StackTrace.cs:37)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+ArgusUnity.Runtime.MiniBotWalkAnimator:Awake () (at Assets/Project/Scripts/Runtime/MiniBotWalkAnimator.cs:129)
+
+(Filename: Assets/Project/Scripts/Runtime/MiniBotWalkAnimator.cs Line: 129)
+
+MiniBotWalkAnimator: loaded FBX turn clip role=right-90, resource=Animations/FBXTurns/Right Turn 90, clip=mixamo.com, length=0.93, sampledFrames=29, mappedMiniBotTracks=14/14, movingMiniBotTracks=14/14.
+UnityEngine.StackTraceUtility:ExtractStackTrace () (at /Users/bokken/build/output/unity/unity/Runtime/Export/Scripting/StackTrace.cs:37)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+ArgusUnity.Runtime.MiniBotWalkAnimator:LoadSampledFbxClip (string,string) (at Assets/Project/Scripts/Runtime/MiniBotWalkAnimator.cs:540)
+ArgusUnity.Runtime.MiniBotWalkAnimator:Awake () (at Assets/Project/Scripts/Runtime/MiniBotWalkAnimator.cs:122)
+
+(Filename: Assets/Project/Scripts/Runtime/MiniBotWalkAnimator.cs Line: 540)
+
+MiniBotWalkAnimator: loaded FBX turn clip role=left-90-from-minus-2, resource=Animations/FBXTurns/Right Turn 90-2, clip=mixamo.com, length=0.93, sampledFrames=29, mappedMiniBotTracks=14/14, movingMiniBotTracks=14/14.
+UnityEngine.StackTraceUtility:ExtractStackTrace () (at /Users/bokken/build/output/unity/unity/Runtime/Export/Scripting/StackTrace.cs:37)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+ArgusUnity.Runtime.MiniBotWalkAnimator:LoadSampledFbxClip (string,string) (at Assets/Project/Scripts/Runtime/MiniBotWalkAnimator.cs:540)
+ArgusUnity.Runtime.MiniBotWalkAnimator:Awake () (at Assets/Project/Scripts/Runtime/MiniBotWalkAnimator.cs:123)
+
+(Filename: Assets/Project/Scripts/Runtime/MiniBotWalkAnimator.cs Line: 540)
+
+MiniBotWalkAnimator: loaded FBX turn clip role=happy-right, resource=Animations/FBXTurns/Happy Right Turn, clip=mixamo.com, length=0.73, sampledFrames=22, mappedMiniBotTracks=14/14, movingMiniBotTracks=14/14.
+UnityEngine.StackTraceUtility:ExtractStackTrace () (at /Users/bokken/build/output/unity/unity/Runtime/Export/Scripting/StackTrace.cs:37)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+ArgusUnity.Runtime.MiniBotWalkAnimator:LoadSampledFbxClip (string,string) (at Assets/Project/Scripts/Runtime/MiniBotWalkAnimator.cs:540)
+ArgusUnity.Runtime.MiniBotWalkAnimator:Awake () (at Assets/Project/Scripts/Runtime/MiniBotWalkAnimator.cs:124)
+
+(Filename: Assets/Project/Scripts/Runtime/MiniBotWalkAnimator.cs Line: 540)
+
+MiniBotWalkAnimator: loaded FBX turn clip role=happy-left-from-minus-2, resource=Animations/FBXTurns/Happy Right Turn-2, clip=mixamo.com, length=0.73, sampledFrames=22, mappedMiniBotTracks=14/14, movingMiniBotTracks=14/14.
+UnityEngine.StackTraceUtility:ExtractStackTrace () (at /Users/bokken/build/output/unity/unity/Runtime/Export/Scripting/StackTrace.cs:37)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+ArgusUnity.Runtime.MiniBotWalkAnimator:LoadSampledFbxClip (string,string) (at Assets/Project/Scripts/Runtime/MiniBotWalkAnimator.cs:540)
+ArgusUnity.Runtime.MiniBotWalkAnimator:Awake () (at Assets/Project/Scripts/Runtime/MiniBotWalkAnimator.cs:125)
+
+(Filename: Assets/Project/Scripts/Runtime/MiniBotWalkAnimator.cs Line: 540)
+
+MiniBotWalkAnimator: BVH clips walk=True, turnLeft=True, turnRight=True; mappedBvhTracks=14/14, fbxTurnOverlay=True, minus2MeansLeft=True; walking bones leftFoot=True, rightFoot=True, leftLeg=True, rightLeg=True.
+UnityEngine.StackTraceUtility:ExtractStackTrace () (at /Users/bokken/build/output/unity/unity/Runtime/Export/Scripting/StackTrace.cs:37)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+ArgusUnity.Runtime.MiniBotWalkAnimator:Awake () (at Assets/Project/Scripts/Runtime/MiniBotWalkAnimator.cs:129)
+
+(Filename: Assets/Project/Scripts/Runtime/MiniBotWalkAnimator.cs Line: 129)
+
+Loaded scene 'Temp/__Backupscenes/0.backup'
+	Deserialize:            18.036 ms
+	Integration:            1196.973 ms
+	Integration of assets:  0.141 ms
+	Thread Wait Time:       -0.002 ms
+	Total Operation Time:   1215.147 ms
+MiniBotHideAndSeekScenario: registered free-roam agents=4, bounds=(-4.65,-3.05)-(4.65,3.05).
+UnityEngine.StackTraceUtility:ExtractStackTrace () (at /Users/bokken/build/output/unity/unity/Runtime/Export/Scripting/StackTrace.cs:37)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+ArgusUnity.Runtime.MiniBotHideAndSeekScenario:Start () (at Assets/Project/Scripts/Runtime/MiniBotHideAndSeekScenario.cs:49)
+
+(Filename: Assets/Project/Scripts/Runtime/MiniBotHideAndSeekScenario.cs Line: 49)
+
+Asset Pipeline Refresh (id=c3baa3222ae1e499ea3e893e8dc63c78): Total: 0.187 seconds - Initiated by RefreshV2(NoUpdateAssetOptions)
+EditorUpdateCheck: Failed The requested URL returned error: 404
+Created GICache directory at /Users/guribbong/Library/Caches/com.unity3d.UnityEditor/GiCache. Took: 1.178s, timestamps: [51.766 - 52.944]
+Setting up 4 worker threads for Enlighten.
+MiniBotWalkAnimator: distance-synced gait moveSpeed=0.70, metersPerCycle=0.62.
+UnityEngine.StackTraceUtility:ExtractStackTrace () (at /Users/bokken/build/output/unity/unity/Runtime/Export/Scripting/StackTrace.cs:37)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+ArgusUnity.Runtime.MiniBotWalkAnimator:SetMotionIntent (bool,single,single,single,bool) (at Assets/Project/Scripts/Runtime/MiniBotWalkAnimator.cs:218)
+ArgusUnity.Runtime.MiniBotWalkAnimator:SetMotionIntent (bool,single,single,single) (at Assets/Project/Scripts/Runtime/MiniBotWalkAnimator.cs:196)
+ArgusUnity.Runtime.MiniBotHideAndSeekScenario:FixedUpdate () (at Assets/Project/Scripts/Runtime/MiniBotHideAndSeekScenario.cs:79)
+
+(Filename: Assets/Project/Scripts/Runtime/MiniBotWalkAnimator.cs Line: 218)
+
+MiniBotHideAndSeekScenario: movement confirmed for Hider 01.
+UnityEngine.StackTraceUtility:ExtractStackTrace () (at /Users/bokken/build/output/unity/unity/Runtime/Export/Scripting/StackTrace.cs:37)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+ArgusUnity.Runtime.MiniBotHideAndSeekScenario:FixedUpdate () (at Assets/Project/Scripts/Runtime/MiniBotHideAndSeekScenario.cs:85)
+
+(Filename: Assets/Project/Scripts/Runtime/MiniBotHideAndSeekScenario.cs Line: 85)
+
+MiniBotHideAndSeekScenario: free-roam speed check Hider 01 movementSpeed=0.70, walkDistanceDelta=0.014.
+UnityEngine.StackTraceUtility:ExtractStackTrace () (at /Users/bokken/build/output/unity/unity/Runtime/Export/Scripting/StackTrace.cs:37)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+ArgusUnity.Runtime.MiniBotHideAndSeekScenario:FixedUpdate () (at Assets/Project/Scripts/Runtime/MiniBotHideAndSeekScenario.cs:97)
+
+(Filename: Assets/Project/Scripts/Runtime/MiniBotHideAndSeekScenario.cs Line: 97)
+
+MiniBotWalkAnimator: distance-synced gait moveSpeed=0.61, metersPerCycle=0.62.
+UnityEngine.StackTraceUtility:ExtractStackTrace () (at /Users/bokken/build/output/unity/unity/Runtime/Export/Scripting/StackTrace.cs:37)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+ArgusUnity.Runtime.MiniBotWalkAnimator:SetMotionIntent (bool,single,single,single,bool) (at Assets/Project/Scripts/Runtime/MiniBotWalkAnimator.cs:218)
+ArgusUnity.Runtime.MiniBotWalkAnimator:SetMotionIntent (bool,single,single,single) (at Assets/Project/Scripts/Runtime/MiniBotWalkAnimator.cs:196)
+ArgusUnity.Runtime.MiniBotHideAndSeekScenario:FixedUpdate () (at Assets/Project/Scripts/Runtime/MiniBotHideAndSeekScenario.cs:79)
+
+(Filename: Assets/Project/Scripts/Runtime/MiniBotWalkAnimator.cs Line: 218)
+
+MiniBotWalkAnimator: side-turn animation active direction=right, turnDegrees=24.5, overlay=FBX, minus2Left=False.
+UnityEngine.StackTraceUtility:ExtractStackTrace () (at /Users/bokken/build/output/unity/unity/Runtime/Export/Scripting/StackTrace.cs:37)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+ArgusUnity.Runtime.MiniBotWalkAnimator:SetMotionIntent (bool,single,single,single,bool) (at Assets/Project/Scripts/Runtime/MiniBotWalkAnimator.cs:228)
+ArgusUnity.Runtime.MiniBotWalkAnimator:SetMotionIntent (bool,single,single,single) (at Assets/Project/Scripts/Runtime/MiniBotWalkAnimator.cs:196)
+ArgusUnity.Runtime.MiniBotHideAndSeekScenario:FixedUpdate () (at Assets/Project/Scripts/Runtime/MiniBotHideAndSeekScenario.cs:79)
+
+(Filename: Assets/Project/Scripts/Runtime/MiniBotWalkAnimator.cs Line: 228)
+
+MiniBotHideAndSeekScenario: movement confirmed for Hider 02.
+UnityEngine.StackTraceUtility:ExtractStackTrace () (at /Users/bokken/build/output/unity/unity/Runtime/Export/Scripting/StackTrace.cs:37)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+ArgusUnity.Runtime.MiniBotHideAndSeekScenario:FixedUpdate () (at Assets/Project/Scripts/Runtime/MiniBotHideAndSeekScenario.cs:85)
+
+(Filename: Assets/Project/Scripts/Runtime/MiniBotHideAndSeekScenario.cs Line: 85)
+
+MiniBotHideAndSeekScenario: free-roam speed check Hider 02 movementSpeed=0.61, walkDistanceDelta=0.012.
+UnityEngine.StackTraceUtility:ExtractStackTrace () (at /Users/bokken/build/output/unity/unity/Runtime/Export/Scripting/StackTrace.cs:37)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+ArgusUnity.Runtime.MiniBotHideAndSeekScenario:FixedUpdate () (at Assets/Project/Scripts/Runtime/MiniBotHideAndSeekScenario.cs:97)
+
+(Filename: Assets/Project/Scripts/Runtime/MiniBotHideAndSeekScenario.cs Line: 97)
+
+MiniBotWalkAnimator: distance-synced gait moveSpeed=0.78, metersPerCycle=0.62.
+UnityEngine.StackTraceUtility:ExtractStackTrace () (at /Users/bokken/build/output/unity/unity/Runtime/Export/Scripting/StackTrace.cs:37)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+ArgusUnity.Runtime.MiniBotWalkAnimator:SetMotionIntent (bool,single,single,single,bool) (at Assets/Project/Scripts/Runtime/MiniBotWalkAnimator.cs:218)
+ArgusUnity.Runtime.MiniBotWalkAnimator:SetMotionIntent (bool,single,single,single) (at Assets/Project/Scripts/Runtime/MiniBotWalkAnimator.cs:196)
+ArgusUnity.Runtime.MiniBotHideAndSeekScenario:FixedUpdate () (at Assets/Project/Scripts/Runtime/MiniBotHideAndSeekScenario.cs:79)
+
+(Filename: Assets/Project/Scripts/Runtime/MiniBotWalkAnimator.cs Line: 218)
+
+MiniBotHideAndSeekScenario: movement confirmed for Seeker 01.
+UnityEngine.StackTraceUtility:ExtractStackTrace () (at /Users/bokken/build/output/unity/unity/Runtime/Export/Scripting/StackTrace.cs:37)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+ArgusUnity.Runtime.MiniBotHideAndSeekScenario:FixedUpdate () (at Assets/Project/Scripts/Runtime/MiniBotHideAndSeekScenario.cs:85)
+
+(Filename: Assets/Project/Scripts/Runtime/MiniBotHideAndSeekScenario.cs Line: 85)
+
+MiniBotHideAndSeekScenario: free-roam speed check Seeker 01 movementSpeed=0.78, walkDistanceDelta=0.016.
+UnityEngine.StackTraceUtility:ExtractStackTrace () (at /Users/bokken/build/output/unity/unity/Runtime/Export/Scripting/StackTrace.cs:37)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+ArgusUnity.Runtime.MiniBotHideAndSeekScenario:FixedUpdate () (at Assets/Project/Scripts/Runtime/MiniBotHideAndSeekScenario.cs:97)
+
+(Filename: Assets/Project/Scripts/Runtime/MiniBotHideAndSeekScenario.cs Line: 97)
+
+MiniBotWalkAnimator: distance-synced gait moveSpeed=0.70, metersPerCycle=0.62.
+UnityEngine.StackTraceUtility:ExtractStackTrace () (at /Users/bokken/build/output/unity/unity/Runtime/Export/Scripting/StackTrace.cs:37)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+ArgusUnity.Runtime.MiniBotWalkAnimator:SetMotionIntent (bool,single,single,single,bool) (at Assets/Project/Scripts/Runtime/MiniBotWalkAnimator.cs:218)
+ArgusUnity.Runtime.MiniBotWalkAnimator:SetMotionIntent (bool,single,single,single) (at Assets/Project/Scripts/Runtime/MiniBotWalkAnimator.cs:196)
+ArgusUnity.Runtime.MiniBotHideAndSeekScenario:FixedUpdate () (at Assets/Project/Scripts/Runtime/MiniBotHideAndSeekScenario.cs:79)
+
+(Filename: Assets/Project/Scripts/Runtime/MiniBotWalkAnimator.cs Line: 218)
+
+MiniBotWalkAnimator: side-turn animation active direction=left, turnDegrees=-21.8, overlay=FBX, minus2Left=True.
+UnityEngine.StackTraceUtility:ExtractStackTrace () (at /Users/bokken/build/output/unity/unity/Runtime/Export/Scripting/StackTrace.cs:37)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+ArgusUnity.Runtime.MiniBotWalkAnimator:SetMotionIntent (bool,single,single,single,bool) (at Assets/Project/Scripts/Runtime/MiniBotWalkAnimator.cs:228)
+ArgusUnity.Runtime.MiniBotWalkAnimator:SetMotionIntent (bool,single,single,single) (at Assets/Project/Scripts/Runtime/MiniBotWalkAnimator.cs:196)
+ArgusUnity.Runtime.MiniBotHideAndSeekScenario:FixedUpdate () (at Assets/Project/Scripts/Runtime/MiniBotHideAndSeekScenario.cs:79)
+
+(Filename: Assets/Project/Scripts/Runtime/MiniBotWalkAnimator.cs Line: 228)
+
+MiniBotHideAndSeekScenario: movement confirmed for Seeker 02.
+UnityEngine.StackTraceUtility:ExtractStackTrace () (at /Users/bokken/build/output/unity/unity/Runtime/Export/Scripting/StackTrace.cs:37)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+ArgusUnity.Runtime.MiniBotHideAndSeekScenario:FixedUpdate () (at Assets/Project/Scripts/Runtime/MiniBotHideAndSeekScenario.cs:85)
+
+(Filename: Assets/Project/Scripts/Runtime/MiniBotHideAndSeekScenario.cs Line: 85)
+
+MiniBotHideAndSeekScenario: free-roam speed check Seeker 02 movementSpeed=0.70, walkDistanceDelta=0.014.
+UnityEngine.StackTraceUtility:ExtractStackTrace () (at /Users/bokken/build/output/unity/unity/Runtime/Export/Scripting/StackTrace.cs:37)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+ArgusUnity.Runtime.MiniBotHideAndSeekScenario:FixedUpdate () (at Assets/Project/Scripts/Runtime/MiniBotHideAndSeekScenario.cs:97)
+
+(Filename: Assets/Project/Scripts/Runtime/MiniBotHideAndSeekScenario.cs Line: 97)
+
+MiniBotWalkAnimator: side-turn animation active direction=right, turnDegrees=10.5, overlay=FBX, minus2Left=False.
+UnityEngine.StackTraceUtility:ExtractStackTrace () (at /Users/bokken/build/output/unity/unity/Runtime/Export/Scripting/StackTrace.cs:37)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+ArgusUnity.Runtime.MiniBotWalkAnimator:SetMotionIntent (bool,single,single,single,bool) (at Assets/Project/Scripts/Runtime/MiniBotWalkAnimator.cs:228)
+ArgusUnity.Runtime.MiniBotWalkAnimator:SetMotionIntent (bool,single,single,single) (at Assets/Project/Scripts/Runtime/MiniBotWalkAnimator.cs:196)
+ArgusUnity.Runtime.MiniBotHideAndSeekScenario:FixedUpdate () (at Assets/Project/Scripts/Runtime/MiniBotHideAndSeekScenario.cs:79)
+
+(Filename: Assets/Project/Scripts/Runtime/MiniBotWalkAnimator.cs Line: 228)
+
+MiniBotWalkAnimator: side-turn animation active direction=left, turnDegrees=-11.6, overlay=FBX, minus2Left=True.
+UnityEngine.StackTraceUtility:ExtractStackTrace () (at /Users/bokken/build/output/unity/unity/Runtime/Export/Scripting/StackTrace.cs:37)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+ArgusUnity.Runtime.MiniBotWalkAnimator:SetMotionIntent (bool,single,single,single,bool) (at Assets/Project/Scripts/Runtime/MiniBotWalkAnimator.cs:228)
+ArgusUnity.Runtime.MiniBotWalkAnimator:SetMotionIntent (bool,single,single,single) (at Assets/Project/Scripts/Runtime/MiniBotWalkAnimator.cs:196)
+ArgusUnity.Runtime.MiniBotHideAndSeekScenario:FixedUpdate () (at Assets/Project/Scripts/Runtime/MiniBotHideAndSeekScenario.cs:79)
+
+(Filename: Assets/Project/Scripts/Runtime/MiniBotWalkAnimator.cs Line: 228)
+
+MiniBotHideAndSeekScenario: free-roam retarget Seeker 01 -> 4.16,-2.11.
+UnityEngine.StackTraceUtility:ExtractStackTrace () (at /Users/bokken/build/output/unity/unity/Runtime/Export/Scripting/StackTrace.cs:37)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+ArgusUnity.Runtime.MiniBotHideAndSeekScenario:ResolveDesiredDirection (ArgusUnity.Runtime.MiniBotHideAndSeekScenario/WanderAgent,UnityEngine.Vector3) (at Assets/Project/Scripts/Runtime/MiniBotHideAndSeekScenario.cs:166)
+ArgusUnity.Runtime.MiniBotHideAndSeekScenario:FixedUpdate () (at Assets/Project/Scripts/Runtime/MiniBotHideAndSeekScenario.cs:74)
+
+(Filename: Assets/Project/Scripts/Runtime/MiniBotHideAndSeekScenario.cs Line: 166)
+
+MiniBotHideAndSeekScenario: free-roam retarget Hider 01 -> 2.18,-2.30.
+UnityEngine.StackTraceUtility:ExtractStackTrace () (at /Users/bokken/build/output/unity/unity/Runtime/Export/Scripting/StackTrace.cs:37)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+ArgusUnity.Runtime.MiniBotHideAndSeekScenario:ResolveDesiredDirection (ArgusUnity.Runtime.MiniBotHideAndSeekScenario/WanderAgent,UnityEngine.Vector3) (at Assets/Project/Scripts/Runtime/MiniBotHideAndSeekScenario.cs:166)
+ArgusUnity.Runtime.MiniBotHideAndSeekScenario:FixedUpdate () (at Assets/Project/Scripts/Runtime/MiniBotHideAndSeekScenario.cs:74)
+
+(Filename: Assets/Project/Scripts/Runtime/MiniBotHideAndSeekScenario.cs Line: 166)
+
+MiniBotHideAndSeekScenario: free-roam retarget Seeker 01 -> -4.48,-2.25.
+UnityEngine.StackTraceUtility:ExtractStackTrace () (at /Users/bokken/build/output/unity/unity/Runtime/Export/Scripting/StackTrace.cs:37)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+ArgusUnity.Runtime.MiniBotHideAndSeekScenario:ResolveDesiredDirection (ArgusUnity.Runtime.MiniBotHideAndSeekScenario/WanderAgent,UnityEngine.Vector3) (at Assets/Project/Scripts/Runtime/MiniBotHideAndSeekScenario.cs:166)
+ArgusUnity.Runtime.MiniBotHideAndSeekScenario:FixedUpdate () (at Assets/Project/Scripts/Runtime/MiniBotHideAndSeekScenario.cs:74)
+
+(Filename: Assets/Project/Scripts/Runtime/MiniBotHideAndSeekScenario.cs Line: 166)
+
+MiniBotHideAndSeekScenario: free-roam retarget Seeker 01 -> 1.53,0.86.
+UnityEngine.StackTraceUtility:ExtractStackTrace () (at /Users/bokken/build/output/unity/unity/Runtime/Export/Scripting/StackTrace.cs:37)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+ArgusUnity.Runtime.MiniBotHideAndSeekScenario:ResolveDesiredDirection (ArgusUnity.Runtime.MiniBotHideAndSeekScenario/WanderAgent,UnityEngine.Vector3) (at Assets/Project/Scripts/Runtime/MiniBotHideAndSeekScenario.cs:166)
+ArgusUnity.Runtime.MiniBotHideAndSeekScenario:FixedUpdate () (at Assets/Project/Scripts/Runtime/MiniBotHideAndSeekScenario.cs:74)
+
+(Filename: Assets/Project/Scripts/Runtime/MiniBotHideAndSeekScenario.cs Line: 166)
+
+MiniBotHideAndSeekScenario: free-roam retarget Hider 01 -> -0.83,1.77.
+UnityEngine.StackTraceUtility:ExtractStackTrace () (at /Users/bokken/build/output/unity/unity/Runtime/Export/Scripting/StackTrace.cs:37)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+ArgusUnity.Runtime.MiniBotHideAndSeekScenario:ResolveDesiredDirection (ArgusUnity.Runtime.MiniBotHideAndSeekScenario/WanderAgent,UnityEngine.Vector3) (at Assets/Project/Scripts/Runtime/MiniBotHideAndSeekScenario.cs:166)
+ArgusUnity.Runtime.MiniBotHideAndSeekScenario:FixedUpdate () (at Assets/Project/Scripts/Runtime/MiniBotHideAndSeekScenario.cs:74)
+
+(Filename: Assets/Project/Scripts/Runtime/MiniBotHideAndSeekScenario.cs Line: 166)
+
+MiniBotHideAndSeekScenario: free-roam retarget Hider 01 -> 1.48,0.83.
+UnityEngine.StackTraceUtility:ExtractStackTrace () (at /Users/bokken/build/output/unity/unity/Runtime/Export/Scripting/StackTrace.cs:37)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+ArgusUnity.Runtime.MiniBotHideAndSeekScenario:ResolveDesiredDirection (ArgusUnity.Runtime.MiniBotHideAndSeekScenario/WanderAgent,UnityEngine.Vector3) (at Assets/Project/Scripts/Runtime/MiniBotHideAndSeekScenario.cs:166)
+ArgusUnity.Runtime.MiniBotHideAndSeekScenario:FixedUpdate () (at Assets/Project/Scripts/Runtime/MiniBotHideAndSeekScenario.cs:74)
+
+(Filename: Assets/Project/Scripts/Runtime/MiniBotHideAndSeekScenario.cs Line: 166)
+
+MiniBotHideAndSeekScenario: free-roam retarget Seeker 01 -> 4.18,-1.23.
+UnityEngine.StackTraceUtility:ExtractStackTrace () (at /Users/bokken/build/output/unity/unity/Runtime/Export/Scripting/StackTrace.cs:37)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+ArgusUnity.Runtime.MiniBotHideAndSeekScenario:ResolveDesiredDirection (ArgusUnity.Runtime.MiniBotHideAndSeekScenario/WanderAgent,UnityEngine.Vector3) (at Assets/Project/Scripts/Runtime/MiniBotHideAndSeekScenario.cs:166)
+ArgusUnity.Runtime.MiniBotHideAndSeekScenario:FixedUpdate () (at Assets/Project/Scripts/Runtime/MiniBotHideAndSeekScenario.cs:74)
+
+(Filename: Assets/Project/Scripts/Runtime/MiniBotHideAndSeekScenario.cs Line: 166)
+
+TrimDiskCacheJob: Current cache size 0mb
+MiniBotHideAndSeekScenario: free-roam retarget Seeker 02 -> -1.86,-1.27.
+UnityEngine.StackTraceUtility:ExtractStackTrace () (at /Users/bokken/build/output/unity/unity/Runtime/Export/Scripting/StackTrace.cs:37)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+ArgusUnity.Runtime.MiniBotHideAndSeekScenario:ResolveDesiredDirection (ArgusUnity.Runtime.MiniBotHideAndSeekScenario/WanderAgent,UnityEngine.Vector3) (at Assets/Project/Scripts/Runtime/MiniBotHideAndSeekScenario.cs:166)
+ArgusUnity.Runtime.MiniBotHideAndSeekScenario:FixedUpdate () (at Assets/Project/Scripts/Runtime/MiniBotHideAndSeekScenario.cs:74)
+
+(Filename: Assets/Project/Scripts/Runtime/MiniBotHideAndSeekScenario.cs Line: 166)
+
+MiniBotHideAndSeekScenario: free-roam retarget Hider 02 -> 1.66,0.94.
+UnityEngine.StackTraceUtility:ExtractStackTrace () (at /Users/bokken/build/output/unity/unity/Runtime/Export/Scripting/StackTrace.cs:37)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+ArgusUnity.Runtime.MiniBotHideAndSeekScenario:ResolveDesiredDirection (ArgusUnity.Runtime.MiniBotHideAndSeekScenario/WanderAgent,UnityEngine.Vector3) (at Assets/Project/Scripts/Runtime/MiniBotHideAndSeekScenario.cs:166)
+ArgusUnity.Runtime.MiniBotHideAndSeekScenario:FixedUpdate () (at Assets/Project/Scripts/Runtime/MiniBotHideAndSeekScenario.cs:74)
+
+(Filename: Assets/Project/Scripts/Runtime/MiniBotHideAndSeekScenario.cs Line: 166)
+
+MiniBotHideAndSeekScenario: free-roam retarget Seeker 02 -> 4.02,-0.38.
+UnityEngine.StackTraceUtility:ExtractStackTrace () (at /Users/bokken/build/output/unity/unity/Runtime/Export/Scripting/StackTrace.cs:37)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+ArgusUnity.Runtime.MiniBotHideAndSeekScenario:ResolveDesiredDirection (ArgusUnity.Runtime.MiniBotHideAndSeekScenario/WanderAgent,UnityEngine.Vector3) (at Assets/Project/Scripts/Runtime/MiniBotHideAndSeekScenario.cs:166)
+ArgusUnity.Runtime.MiniBotHideAndSeekScenario:FixedUpdate () (at Assets/Project/Scripts/Runtime/MiniBotHideAndSeekScenario.cs:74)
+
+(Filename: Assets/Project/Scripts/Runtime/MiniBotHideAndSeekScenario.cs Line: 166)
+
+MiniBotHideAndSeekScenario: free-roam retarget Seeker 02 -> 2.43,1.10.
+UnityEngine.StackTraceUtility:ExtractStackTrace () (at /Users/bokken/build/output/unity/unity/Runtime/Export/Scripting/StackTrace.cs:37)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+ArgusUnity.Runtime.MiniBotHideAndSeekScenario:ResolveDesiredDirection (ArgusUnity.Runtime.MiniBotHideAndSeekScenario/WanderAgent,UnityEngine.Vector3) (at Assets/Project/Scripts/Runtime/MiniBotHideAndSeekScenario.cs:166)
+ArgusUnity.Runtime.MiniBotHideAndSeekScenario:FixedUpdate () (at Assets/Project/Scripts/Runtime/MiniBotHideAndSeekScenario.cs:74)
+
+(Filename: Assets/Project/Scripts/Runtime/MiniBotHideAndSeekScenario.cs Line: 166)
+
+MiniBotHideAndSeekScenario: free-roam retarget Seeker 02 -> 4.21,2.08.
+UnityEngine.StackTraceUtility:ExtractStackTrace () (at /Users/bokken/build/output/unity/unity/Runtime/Export/Scripting/StackTrace.cs:37)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+ArgusUnity.Runtime.MiniBotHideAndSeekScenario:ResolveDesiredDirection (ArgusUnity.Runtime.MiniBotHideAndSeekScenario/WanderAgent,UnityEngine.Vector3) (at Assets/Project/Scripts/Runtime/MiniBotHideAndSeekScenario.cs:166)
+ArgusUnity.Runtime.MiniBotHideAndSeekScenario:FixedUpdate () (at Assets/Project/Scripts/Runtime/MiniBotHideAndSeekScenario.cs:74)
+
+(Filename: Assets/Project/Scripts/Runtime/MiniBotHideAndSeekScenario.cs Line: 166)
+
+MiniBotHideAndSeekScenario: free-roam retarget Seeker 02 -> 3.70,-0.34.
+UnityEngine.StackTraceUtility:ExtractStackTrace () (at /Users/bokken/build/output/unity/unity/Runtime/Export/Scripting/StackTrace.cs:37)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+ArgusUnity.Runtime.MiniBotHideAndSeekScenario:ResolveDesiredDirection (ArgusUnity.Runtime.MiniBotHideAndSeekScenario/WanderAgent,UnityEngine.Vector3) (at Assets/Project/Scripts/Runtime/MiniBotHideAndSeekScenario.cs:166)
+ArgusUnity.Runtime.MiniBotHideAndSeekScenario:FixedUpdate () (at Assets/Project/Scripts/Runtime/MiniBotHideAndSeekScenario.cs:74)
+
+(Filename: Assets/Project/Scripts/Runtime/MiniBotHideAndSeekScenario.cs Line: 166)
+
+[40m[32minfo[39m[22m[49m: Microsoft.Hosting.Lifetime[0]
+      Application is shutting down...
+[40m[32minfo[39m[22m[49m: Unity.ILPP.Runner.PostProcessingAssemblyLoadContext[0]
+      ALC ILPP context 1 is unloading

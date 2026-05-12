@@ -1,0 +1,98 @@
+[
+  {
+    "agent_id": "agent-p-015",
+    "confidence": 0.362,
+    "display_name": "40대 변호사",
+    "matched_terms": [],
+    "persona_uuid": "p-015",
+    "reason": "Selected as a deterministic diversity candidate for the simulation.",
+    "safety_notes": [
+      "이것은 합성 페르소나입니다.",
+      "실제 사용자 행동을 예측하지 않습니다."
+    ]
+  },
+  {
+    "agent_id": "agent-p-001",
+    "confidence": 0.362,
+    "display_name": "30대 직장인",
+    "matched_terms": [],
+    "persona_uuid": "p-001",
+    "reason": "Selected as a deterministic diversity candidate for the simulation.",
+    "safety_notes": [
+      "이것은 합성 페르소나입니다.",
+      "실제 사용자 행동을 예측하지 않습니다."
+    ]
+  },
+  {
+    "agent_id": "agent-p-007",
+    "confidence": 0.362,
+    "display_name": "20대 신입 개발자",
+    "matched_terms": [],
+    "persona_uuid": "p-007",
+    "reason": "Selected as a deterministic diversity candidate for the simulation.",
+    "safety_notes": [
+      "이것은 합성 페르소나입니다.",
+      "실제 사용자 행동을 예측하지 않습니다."
+    ]
+  },
+  {
+    "agent_id": "agent-p-013",
+    "confidence": 0.362,
+    "display_name": "20대 간호사",
+    "matched_terms": [],
+    "persona_uuid": "p-013",
+    "reason": "Selected as a deterministic diversity candidate for the simulation.",
+    "safety_notes": [
+      "이것은 합성 페르소나입니다.",
+      "실제 사용자 행동을 예측하지 않습니다."
+    ]
+  },
+  {
+    "agent_id": "agent-p-004",
+    "confidence": 0.362,
+    "display_name": "50대 공무원",
+    "matched_terms": [],
+    "persona_uuid": "p-004",
+    "reason": "Selected as a deterministic diversity candidate for the simulation.",
+    "safety_notes": [
+      "이것은 합성 페르소나입니다.",
+      "실제 사용자 행동을 예측하지 않습니다."
+    ]
+  },
+  {
+    "agent_id": "agent-p-014",
+    "confidence": 0.362,
+    "display_name": "60대 주부",
+    "matched_terms": [],
+    "persona_uuid": "p-014",
+    "reason": "Selected as a deterministic diversity candidate for the simulation.",
+    "safety_notes": [
+      "이것은 합성 페르소나입니다.",
+      "실제 사용자 행동을 예측하지 않습니다."
+    ]
+  },
+  {
+    "agent_id": "agent-p-006",
+    "confidence": 0.362,
+    "display_name": "60대 은퇴자",
+    "matched_terms": [],
+    "persona_uuid": "p-006",
+    "reason": "Selected as a deterministic diversity candidate for the simulation.",
+    "safety_notes": [
+      "이것은 합성 페르소나입니다.",
+      "실제 사용자 행동을 예측하지 않습니다."
+    ]
+  },
+  {
+    "agent_id": "agent-p-011",
+    "confidence": 0.362,
+    "display_name": "50대 교사",
+    "matched_terms": [],
+    "persona_uuid": "p-011",
+    "reason": "Selected as a deterministic diversity candidate for the simulation.",
+    "safety_notes": [
+      "이것은 합성 페르소나입니다.",
+      "실제 사용자 행동을 예측하지 않습니다."
+    ]
+  }
+]

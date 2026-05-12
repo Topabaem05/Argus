@@ -1,7 +1,15 @@
 from __future__ import annotations
 
-from korean_social_simulator.models import AgentProfile, ScenarioSpec, SimulationPlan
+from korean_social_simulator.models import (
+    AgentProfile,
+    IndividualEvaluation,
+    PersonaSelectionResult,
+    ScenarioSpec,
+    SimulationInputSummary,
+    SimulationPlan,
+)
 from korean_social_simulator.simulation import dry_run
+from korean_social_simulator.simulation.interaction import InteractionContext
 
 
 def _make_plan(max_turns: int = 5, agent_count: int = 1) -> SimulationPlan:
@@ -107,4 +115,57 @@ def test_dry_run_records_turn_limit_reached() -> None:
     assert events[-1].payload == {
         "phase": "turn_limit_reached",
         "max_turns": plan.max_turns,
+    }
+
+
+def test_dry_run_with_interaction_context_emits_environment_and_behavior() -> None:
+    plan = _make_plan(max_turns=1, agent_count=2)
+    profiles = _make_profiles(2)
+    context = InteractionContext(
+        summary=SimulationInputSummary(chat_text="테스트 시나리오"),
+        selections=[
+            PersonaSelectionResult(
+                agent_id=profile.agent_id,
+                persona_uuid=profile.persona_uuid,
+                display_name=profile.display_name,
+                reason="Selected for dry-run test.",
+                confidence=0.8,
+            )
+            for profile in profiles
+        ],
+        evaluations=[
+            IndividualEvaluation(
+                agent_id=profiles[0].agent_id,
+                stance="supports",
+                confidence=0.7,
+                rationale="Public rationale.",
+                uncertainty="Dry-run output.",
+            ),
+            IndividualEvaluation(
+                agent_id=profiles[1].agent_id,
+                stance="opposes",
+                confidence=0.9,
+                rationale="Public rationale.",
+                uncertainty="Dry-run output.",
+            ),
+        ],
+    )
+
+    events = dry_run.run_dry_run(
+        plan,
+        profiles,
+        interaction_context=context,
+        background_id="community_center",
+    )
+
+    explicit_types = [
+        event.payload.get("bridge_type") for event in events if "bridge_type" in event.payload
+    ]
+    assert explicit_types[0] == "environment.load"
+    assert explicit_types.count("agent.behavior") == len(profiles)
+    behavior_events = [
+        event for event in events if event.payload.get("bridge_type") == "agent.behavior"
+    ]
+    assert {event.actor_id for event in behavior_events} == {
+        profile.agent_id for profile in profiles
     }

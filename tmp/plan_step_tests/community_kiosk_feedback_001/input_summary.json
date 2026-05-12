@@ -1,0 +1,26 @@
+{
+  "accepted_attachment_count": 2,
+  "attachments": [
+    {
+      "accepted": true,
+      "extension": ".png",
+      "filename": "kiosk-wireframe.png",
+      "kind": "image",
+      "path": "scenario-assets/kiosk-wireframe.png",
+      "reason": "accepted",
+      "size_bytes": 245760
+    },
+    {
+      "accepted": true,
+      "extension": ".md",
+      "filename": "privacy-notice.md",
+      "kind": "text",
+      "path": "scenario-assets/privacy-notice.md",
+      "reason": "accepted",
+      "size_bytes": 4096
+    }
+  ],
+  "chat_text": "A district community center wants feedback on a new self-service kiosk for appointment check-in, certificate requests, and class registration. Compare a basic kiosk flow with a version that shows a clear privacy notice and an easy staff-help button.",
+  "rejected_attachment_count": 0,
+  "topic_summary": "an and appointment basic button center certificate check class clear community compare"
+}

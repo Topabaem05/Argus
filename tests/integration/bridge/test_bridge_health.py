@@ -30,4 +30,6 @@ def test_schema_version_returns_supported_types() -> None:
     payload = response.json()
     assert payload["schema_version"] == "1.0.0"
     assert "agent.spawn" in payload["supported_message_types"]
+    assert "agent.behavior" in payload["supported_message_types"]
+    assert "environment.load" in payload["supported_message_types"]
     assert "physics.result" in payload["supported_message_types"]

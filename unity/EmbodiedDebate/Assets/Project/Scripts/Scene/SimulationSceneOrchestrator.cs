@@ -6,8 +6,13 @@ namespace ArgusUnity.Scene
 {
     public sealed class SimulationSceneOrchestrator
     {
+        public event Action<BridgeEnvelope> EnvironmentLoad;
+        public event Action<BridgeEnvelope> SimulationSummary;
+        public event Action<BridgeEnvelope> UiStatus;
         public event Action<BridgeEnvelope> AgentSpawn;
         public event Action<BridgeEnvelope> AgentMove;
+        public event Action<BridgeEnvelope> AgentBehavior;
+        public event Action<BridgeEnvelope> AgentAnimation;
         public event Action<BridgeEnvelope> AgentDialogue;
         public event Action<BridgeEnvelope> AgentEmotion;
         public event Action<BridgeEnvelope> GroupUpdate;
@@ -27,11 +32,26 @@ namespace ArgusUnity.Scene
             {
                 switch (envelope.Type)
                 {
+                    case "environment.load":
+                        EnvironmentLoad?.Invoke(envelope);
+                        return true;
+                    case "simulation.summary":
+                        SimulationSummary?.Invoke(envelope);
+                        return true;
+                    case "ui.status":
+                        UiStatus?.Invoke(envelope);
+                        return true;
                     case "agent.spawn":
                         AgentSpawn?.Invoke(envelope);
                         return true;
                     case "agent.move":
                         AgentMove?.Invoke(envelope);
+                        return true;
+                    case "agent.behavior":
+                        AgentBehavior?.Invoke(envelope);
+                        return true;
+                    case "agent.animation":
+                        AgentAnimation?.Invoke(envelope);
                         return true;
                     case "agent.dialogue":
                         AgentDialogue?.Invoke(envelope);

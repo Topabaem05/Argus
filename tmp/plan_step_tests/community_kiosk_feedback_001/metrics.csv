@@ -1,0 +1,6 @@
+metric,value
+trust_score,0.85
+confusion_rate,0.0
+event_count,85
+turn_count,4
+agent_count,8

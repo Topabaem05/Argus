@@ -11,8 +11,13 @@ namespace ArgusUnity.Tests.EditMode
         {
             var orchestrator = new SimulationSceneOrchestrator();
             var routedCount = 0;
+            orchestrator.EnvironmentLoad += _ => routedCount++;
+            orchestrator.SimulationSummary += _ => routedCount++;
+            orchestrator.UiStatus += _ => routedCount++;
             orchestrator.AgentSpawn += _ => routedCount++;
             orchestrator.AgentMove += _ => routedCount++;
+            orchestrator.AgentBehavior += _ => routedCount++;
+            orchestrator.AgentAnimation += _ => routedCount++;
             orchestrator.AgentDialogue += _ => routedCount++;
             orchestrator.AgentEmotion += _ => routedCount++;
             orchestrator.GroupUpdate += _ => routedCount++;
@@ -21,13 +26,18 @@ namespace ArgusUnity.Tests.EditMode
 
             Assert.That(orchestrator.TryHandle(Envelope("agent.spawn"), out var issue), Is.True);
             Assert.That(issue, Is.Null);
+            Assert.That(orchestrator.TryHandle(Envelope("environment.load"), out issue), Is.True);
+            Assert.That(orchestrator.TryHandle(Envelope("simulation.summary"), out issue), Is.True);
+            Assert.That(orchestrator.TryHandle(Envelope("ui.status"), out issue), Is.True);
             Assert.That(orchestrator.TryHandle(Envelope("agent.move"), out issue), Is.True);
+            Assert.That(orchestrator.TryHandle(Envelope("agent.behavior"), out issue), Is.True);
+            Assert.That(orchestrator.TryHandle(Envelope("agent.animation"), out issue), Is.True);
             Assert.That(orchestrator.TryHandle(Envelope("agent.dialogue"), out issue), Is.True);
             Assert.That(orchestrator.TryHandle(Envelope("agent.emotion"), out issue), Is.True);
             Assert.That(orchestrator.TryHandle(Envelope("group.update"), out issue), Is.True);
             Assert.That(orchestrator.TryHandle(Envelope("conflict.update"), out issue), Is.True);
             Assert.That(orchestrator.TryHandle(Envelope("physics.result"), out issue), Is.True);
-            Assert.That(routedCount, Is.EqualTo(7));
+            Assert.That(routedCount, Is.EqualTo(12));
         }
 
         [Test]

@@ -1,0 +1,15 @@
+{
+  "errors": [],
+  "metrics": {
+    "agent_count": 8,
+    "confusion_rate": 0.0,
+    "event_count": 85,
+    "trust_score": 0.85,
+    "turn_count": 4
+  },
+  "run_id": "community_kiosk_feedback_001",
+  "unavailable_metrics": [
+    "accessibility_concern_rate",
+    "staff_assistance_intent"
+  ]
+}

@@ -1,0 +1,75 @@
+{
+  "agent_count": 4,
+  "artifact_paths": {
+    "events": "tmp/low_birth_rate_policy_outputs_20260508192727/low_birth_rate_choice_state_001/events.jsonl",
+    "individual_evaluations": "tmp/low_birth_rate_policy_outputs_20260508192727/low_birth_rate_choice_state_001/individual_evaluations.json",
+    "input_summary": "tmp/low_birth_rate_policy_outputs_20260508192727/low_birth_rate_choice_state_001/input_summary.json",
+    "metrics_csv": "tmp/low_birth_rate_policy_outputs_20260508192727/low_birth_rate_choice_state_001/metrics.csv",
+    "metrics_json": "tmp/low_birth_rate_policy_outputs_20260508192727/low_birth_rate_choice_state_001/metrics.json",
+    "persona_selection": "tmp/low_birth_rate_policy_outputs_20260508192727/low_birth_rate_choice_state_001/persona_selection.json",
+    "plan": "tmp/low_birth_rate_policy_outputs_20260508192727/low_birth_rate_choice_state_001/plan.json",
+    "profiles": "tmp/low_birth_rate_policy_outputs_20260508192727/low_birth_rate_choice_state_001/profiles.json",
+    "report": "tmp/low_birth_rate_policy_outputs_20260508192727/low_birth_rate_choice_state_001/report.md",
+    "run_metadata": "tmp/low_birth_rate_policy_outputs_20260508192727/low_birth_rate_choice_state_001/run_metadata.json",
+    "sample": "tmp/low_birth_rate_policy_outputs_20260508192727/low_birth_rate_choice_state_001/sample.json"
+  },
+  "dry_run": true,
+  "errors": [],
+  "event_count": 49,
+  "events_path": "tmp/low_birth_rate_policy_outputs_20260508192727/low_birth_rate_choice_state_001/events.jsonl",
+  "family": "policy_public_opinion",
+  "individual_evaluation_count": 4,
+  "input": {
+    "accepted_attachment_count": 0,
+    "attachments": [],
+    "chat_text": "Is Korea's low birth rate mainly a matter of individual choice, or is it a structural problem where the state should intervene strongly? Compare views about housing, work hours, childcare, gender equality, job insecurity, fiscal burden, and respect for personal autonomy.",
+    "rejected_attachment_count": 0,
+    "topic_summary": "about and autonomy birth burden childcare choice compare equality fiscal for gender"
+  },
+  "metric_count": 11,
+  "metric_names": [
+    "comprehension_score",
+    "acceptance_rate",
+    "rejection_reasons",
+    "fairness_perception",
+    "fiscal_concern_score",
+    "trust_score",
+    "implementation_feasibility",
+    "social_equity_score",
+    "event_count",
+    "turn_count",
+    "agent_count"
+  ],
+  "metrics_path": "tmp/low_birth_rate_policy_outputs_20260508192727/low_birth_rate_choice_state_001/metrics.json",
+  "persona_memory": {
+    "applied": false,
+    "enabled": false,
+    "proposal_count": 0
+  },
+  "persona_selection": {
+    "max_personas": 4,
+    "selected_agent_ids": [
+      "agent-p-005",
+      "agent-p-002",
+      "agent-p-013",
+      "agent-p-008"
+    ],
+    "selected_count": 4
+  },
+  "plan_id": "low_birth_rate_choice_state_001-plan",
+  "report_path": "tmp/low_birth_rate_policy_outputs_20260508192727/low_birth_rate_choice_state_001/report.md",
+  "run_id": "low_birth_rate_choice_state_001",
+  "safety_notes": [
+    "This is a synthetic public-opinion simulation, not political persuasion.",
+    "Personas are synthetic and must not be used to infer real individual beliefs.",
+    "Results should be treated as qualitative hypotheses requiring real-world validation.",
+    "The simulation must not shame people for reproductive choices or target demographic groups."
+  ],
+  "sample_size": 4,
+  "scenario_hypothesis": "People may distinguish private reproductive choice from structural barriers such as housing, work culture, childcare cost, gender inequality, and job insecurity.",
+  "scenario_id": "low_birth_rate_choice_state_v1",
+  "scenario_title": "Low birth rate: individual choice or structural state problem",
+  "status": "success",
+  "turn_count": 4,
+  "warnings": []
+}

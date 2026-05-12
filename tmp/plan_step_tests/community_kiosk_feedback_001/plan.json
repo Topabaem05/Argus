@@ -1,0 +1,35 @@
+{
+  "agent_count": 8,
+  "dry_run": true,
+  "language": "ko",
+  "max_turns": 4,
+  "plan_id": "community_kiosk_feedback_001-plan",
+  "run_id": "community_kiosk_feedback_001",
+  "scenario_spec": {
+    "allowed_objective": "",
+    "family": "urban_local_life",
+    "hypothesis": "Clear privacy notices and staff fallback options reduce anxiety about kiosk use.",
+    "interventions": [
+      {
+        "description": "A standard self-service kiosk flow with minimal privacy explanation.",
+        "id": "baseline_kiosk"
+      },
+      {
+        "description": "A kiosk flow with plain-language privacy notice and visible staff assistance option.",
+        "id": "assisted_privacy_kiosk"
+      }
+    ],
+    "max_turns": 4,
+    "metrics": [
+      "trust_score",
+      "confusion_rate",
+      "accessibility_concern_rate",
+      "staff_assistance_intent"
+    ],
+    "participant_count": 8,
+    "rag_queries": [],
+    "rag_warnings": [],
+    "scenario_id": "community_kiosk_feedback_v1",
+    "title": "Community center kiosk feedback"
+  }
+}

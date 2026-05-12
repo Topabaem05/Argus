@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="57" result="Passed" total="57" passed="57" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-05-06 08:11:24Z" end-time="2026-05-06 08:11:24Z" duration="0.2407388">
+  <test-suite type="TestSuite" id="1083" name="EmbodiedDebate" fullname="EmbodiedDebate" runstate="Runnable" testcasecount="57" result="Passed" start-time="2026-05-06 08:11:24Z" end-time="2026-05-06 08:11:24Z" duration="0.240739" total="57" passed="57" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties />
+    <test-suite type="Assembly" id="1129" name="ArgusUnity.Tests.EditMode.dll" fullname="/Users/guribbong/code/Argus/unity/EmbodiedDebate/Library/ScriptAssemblies/ArgusUnity.Tests.EditMode.dll" runstate="Runnable" testcasecount="38" result="Passed" start-time="2026-05-06 08:11:24Z" end-time="2026-05-06 08:11:24Z" duration="0.148879" total="38" passed="38" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="8407" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="EditMode" />
+      </properties>
+      <test-suite type="TestSuite" id="1130" name="ArgusUnity" fullname="ArgusUnity" runstate="Runnable" testcasecount="38" result="Passed" start-time="2026-05-06 08:11:24Z" end-time="2026-05-06 08:11:24Z" duration="0.148504" total="38" passed="38" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1131" name="Tests" fullname="ArgusUnity.Tests" runstate="Runnable" testcasecount="38" result="Passed" start-time="2026-05-06 08:11:24Z" end-time="2026-05-06 08:11:24Z" duration="0.144883" total="38" passed="38" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestSuite" id="1132" name="EditMode" fullname="ArgusUnity.Tests.EditMode" runstate="Runnable" testcasecount="38" result="Passed" start-time="2026-05-06 08:11:24Z" end-time="2026-05-06 08:11:24Z" duration="0.141159" total="38" passed="38" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-suite type="TestFixture" id="1084" name="AgentInspectorFormatterTests" fullname="ArgusUnity.Tests.EditMode.AgentInspectorFormatterTests" classname="ArgusUnity.Tests.EditMode.AgentInspectorFormatterTests" runstate="Runnable" testcasecount="1" result="Passed" start-time="2026-05-06 08:11:24Z" end-time="2026-05-06 08:11:24Z" duration="0.027782" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1085" name="DropsSensitiveNestedKeysBeyondAllowlist" fullname="ArgusUnity.Tests.EditMode.AgentInspectorFormatterTests.DropsSensitiveNestedKeysBeyondAllowlist" methodname="DropsSensitiveNestedKeysBeyondAllowlist" classname="ArgusUnity.Tests.EditMode.AgentInspectorFormatterTests" runstate="Runnable" seed="244462138" result="Passed" start-time="2026-05-06 08:11:24Z" end-time="2026-05-06 08:11:24Z" duration="0.018830" asserts="0">
+                <properties />
+              </test-case>
+            </test-suite>
+            <test-suite type="TestFixture" id="1086" name="AgentLocomotionDriverTests" fullname="ArgusUnity.Tests.EditMode.AgentLocomotionDriverTests" classname="ArgusUnity.Tests.EditMode.AgentLocomotionDriverTests" runstate="Runnable" testcasecount="12" result="Passed" start-time="2026-05-06 08:11:24Z" end-time="2026-05-06 08:11:24Z" duration="0.016020" total="12" passed="12" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1098" name="AgentChildColliderIsIgnoredAsObstacle" fullname="ArgusUnity.Tests.EditMode.AgentLocomotionDriverTests.AgentChildColliderIsIgnoredAsObstacle" methodname="AgentChildColliderIsIgnoredAsObstacle" classname="ArgusUnity.Tests.EditMode.AgentLocomotionDriverTests" runstate="Runnable" seed="766413546" result="Passed" start-time="2026-05-06 08:11:24Z" end-time="2026-05-06 08:11:24Z" duration="0.001773" asserts="0">
+                <properties />
+              </test-case>
+              <test-case id="1092" name="BoundaryTurnaroundDirectionMovesInwardAndKeepsATangent" fullname="ArgusUnity.Tests.EditMode.AgentLocomotionDriverTests.BoundaryTurnaroundDirectionMovesInwardAndKeepsATangent" methodname="BoundaryTurnaroundDirectionMovesInwardAndKeepsATangent" classname="ArgusUnity.Tests.EditMode.AgentLocomotionDriverTests" runstate="Runnable" seed="2023844203" result="Passed" start-time="2026-05-06 08:11:24Z" end-time="2026-05-06 08:11:24Z" duration="0.007342" asserts="0">
+                <properties />
+              </test-case>
+              <test-case id="1090" name="ClampPlanarKeepsPositionInsideWalkableRoom" fullname="ArgusUnity.Tests.EditMode.AgentLocomotionDriverTests.ClampPlanarKeepsPositionInsideWalkableRoom" methodname="ClampPlanarKeepsPositionInsideWalkableRoom" classname="ArgusUnity.Tests.EditMode.AgentLocomotionDriverTests" runstate="Runnable" seed="1945391508" result="Passed" start-time="2026-05-06 08:11:24Z" end-time="2026-05-06 08:11:24Z" duration="0.000304" asserts="0">
+                <properties />
+              </test-case>
+              <test-case id="1091" name="ClampPlanarWithInsetMovesPositionAwayFromBoundary" fullname="ArgusUnity.Tests.EditMode.AgentLocomotionDriverTests.ClampPlanarWithInsetMovesPositionAwayFromBoundary" methodname="ClampPlanarWithInsetMovesPositionAwayFromBoundary" classname="ArgusUnity.Tests.EditMode.AgentLocomotionDriverTests" runstate="Runnable" seed="640694280" result="Passed" start-time="2026-05-06 08:11:24Z" end-time="2026-05-06 08:11:24Z" duration="0.000262" asserts="0">
+                <properties />
+              </test-case>
+              <test-case id="1097" name="DynamicFurnitureColliderIsAvoidedAsObstacle" fullname="ArgusUnity.Tests.EditMode.AgentLocomotionDriverTests.DynamicFurnitureColliderIsAvoidedAsObstacle" methodname="DynamicFurnitureColliderIsAvoidedAsObstacle" classname="ArgusUnity.Tests.EditMode.AgentLocomotionDriverTests" runstate="Runnable" seed="1017770903" result="Passed" start-time="2026-05-06 08:11:24Z" end-time="2026-05-06 08:11:24Z" duration="0.001050" asserts="0">
+                <properties />
+              </test-case>
+              <test-case id="1096" name="MaterialFactoryPrefersUrpShadersBeforeLegacyFallbacks" fullname="ArgusUnity.Tests.EditMode.AgentLocomotionDriverTests.MaterialFactoryPrefersUrpShadersBeforeLegacyFallbacks" methodname="MaterialFactoryPrefersUrpShadersBeforeLegacyFallbacks" classname="ArgusUnity.Tests.EditMode.AgentLocomotionDriverTests" runstate="Runnable" seed="2093238132" result="Passed" start-time="2026-05-06 08:11:24Z" end-time="2026-05-06 08:11:24Z" duration="0.000166" asserts="0">
+                <properties />
+              </test-case>
+              <test-case id="1087" name="PlanarSpeedIgnoresVerticalDelta" fullname="ArgusUnity.Tests.EditMode.AgentLocomotionDriverTests.PlanarSpeedIgnoresVerticalDelta" methodname="PlanarSpeedIgnoresVerticalDelta" classname="ArgusUnity.Tests.EditMode.AgentLocomotionDriverTests" runstate="Runnable" seed="76851046" result="Passed" start-time="2026-05-06 08:11:24Z" end-time="2026-05-06 08:11:24Z" duration="0.000145" asserts="0">
+                <properties />
+              </test-case>
+              <test-case id="1095" name="RandomInteriorTargetStaysInsideBounds" fullname="ArgusUnity.Tests.EditMode.AgentLocomotionDriverTests.RandomInteriorTargetStaysInsideBounds" methodname="RandomInteriorTargetStaysInsideBounds" classname="ArgusUnity.Tests.EditMode.AgentLocomotionDriverTests" runstate="Runnable" seed="1211478191" result="Passed" start-time="2026-05-06 08:11:24Z" end-time="2026-05-06 08:11:24Z" duration="0.000525" asserts="0">
+                <properties />
+              </test-case>
+              <test-case id="1088" name="ResolveMovingUsesStartStopHysteresis" fullname="ArgusUnity.Tests.EditMode.AgentLocomotionDriverTests.ResolveMovingUsesStartStopHysteresis" methodname="ResolveMovingUsesStartStopHysteresis" classname="ArgusUnity.Tests.EditMode.AgentLocomotionDriverTests" runstate="Runnable" seed="663890428" result="Passed" start-time="2026-05-06 08:11:24Z" end-time="2026-05-06 08:11:24Z" duration="0.000157" asserts="0">
+                <properties />
+              </test-case>
+              <test-case id="1094" name="WallContactRecoveryChoosesSideThatMovesAwayFromSideWall" fullname="ArgusUnity.Tests.EditMode.AgentLocomotionDriverTests.WallContactRecoveryChoosesSideThatMovesAwayFromSideWall" methodname="WallContactRecoveryChoosesSideThatMovesAwayFromSideWall" classname="ArgusUnity.Tests.EditMode.AgentLocomotionDriverTests" runstate="Runnable" seed="147605786" result="Passed" start-time="2026-05-06 08:11:24Z" end-time="2026-05-06 08:11:24Z" duration="0.000945" asserts="0">
+                <properties />
+              </test-case>
+              <test-case id="1093" name="WallContactRecoveryTurnsNinetyDegreesWithInwardBias" fullname="ArgusUnity.Tests.EditMode.AgentLocomotionDriverTests.WallContactRecoveryTurnsNinetyDegreesWithInwardBias" methodname="WallContactRecoveryTurnsNinetyDegreesWithInwardBias" classname="ArgusUnity.Tests.EditMode.AgentLocomotionDriverTests" runstate="Runnable" seed="1123572458" result="Passed" start-time="2026-05-06 08:11:24Z" end-time="2026-05-06 08:11:24Z" duration="0.000365" asserts="0">
+                <properties />
+              </test-case>
+              <test-case id="1089" name="YawFromPlanarDirectionUsesUnityForwardAxis" fullname="ArgusUnity.Tests.EditMode.AgentLocomotionDriverTests.YawFromPlanarDirectionUsesUnityForwardAxis" methodname="YawFromPlanarDirectionUsesUnityForwardAxis" classname="ArgusUnity.Tests.EditMode.AgentLocomotionDriverTests" runstate="Runnable" seed="540475068" result="Passed" start-time="2026-05-06 08:11:24Z" end-time="2026-05-06 08:11:24Z" duration="0.000243" asserts="0">
+                <properties />
+              </test-case>
+            </test-suite>
+            <test-suite type="TestFixture" id="1099" name="AnimationStateMapperTests" fullname="ArgusUnity.Tests.EditMode.AnimationStateMapperTests" classname="ArgusUnity.Tests.EditMode.AnimationStateMapperTests" runstate="Runnable" testcasecount="12" result="Passed" start-time="2026-05-06 08:11:24Z" end-time="2026-05-06 08:11:24Z" duration="0.006116" total="12" passed="12" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1112" name="EmptyActionFallsBackToIdleWarning" fullname="ArgusUnity.Tests.EditMode.AnimationStateMapperTests.EmptyActionFallsBackToIdleWarning" methodname="EmptyActionFallsBackToIdleWarning" classname="ArgusUnity.Tests.EditMode.AnimationStateMapperTests" runstate="Runnable" seed="101122741" result="Passed" start-time="2026-05-06 08:11:24Z" end-time="2026-05-06 08:11:24Z" duration="0.000977" asserts="0">
+                <properties />
+              </test-case>
+              <test-suite type="ParameterizedMethod" id="1110" name="KnownActionsMapToConfiguredClips" fullname="ArgusUnity.Tests.EditMode.AnimationStateMapperTests.KnownActionsMapToConfiguredClips" classname="ArgusUnity.Tests.EditMode.AnimationStateMapperTests" runstate="Runnable" testcasecount="10" result="Passed" start-time="2026-05-06 08:11:24Z" end-time="2026-05-06 08:11:24Z" duration="0.004145" total="10" passed="10" failed="0" inconclusive="0" skipped="0" asserts="0">
+                <properties />
+                <test-case id="1100" name="KnownActionsMapToConfiguredClips(&quot;idle&quot;,&quot;IdleClip&quot;)" fullname="ArgusUnity.Tests.EditMode.AnimationStateMapperTests.KnownActionsMapToConfiguredClips(&quot;idle&quot;,&quot;IdleClip&quot;)" methodname="KnownActionsMapToConfiguredClips" classname="ArgusUnity.Tests.EditMode.AnimationStateMapperTests" runstate="Runnable" seed="1854775865" result="Passed" start-time="2026-05-06 08:11:24Z" end-time="2026-05-06 08:11:24Z" duration="0.000371" asserts="0">
+                  <properties />
+                </test-case>
+                <test-case id="1101" name="KnownActionsMapToConfiguredClips(&quot;walk&quot;,&quot;WalkClip&quot;)" fullname="ArgusUnity.Tests.EditMode.AnimationStateMapperTests.KnownActionsMapToConfiguredClips(&quot;walk&quot;,&quot;WalkClip&quot;)" methodname="KnownActionsMapToConfiguredClips" classname="ArgusUnity.Tests.EditMode.AnimationStateMapperTests" runstate="Runnable" seed="1260565903" result="Passed" start-time="2026-05-06 08:11:24Z" end-time="2026-05-06 08:11:24Z" duration="0.000072" asserts="0">
+                  <properties />
+                </test-case>
+                <test-case id="1102" name="KnownActionsMapToConfiguredClips(&quot;run&quot;,&quot;RunClip&quot;)" fullname="ArgusUnity.Tests.EditMode.AnimationStateMapperTests.KnownActionsMapToConfiguredClips(&quot;run&quot;,&quot;RunClip&quot;)" methodname="KnownActionsMapToConfiguredClips" classname="ArgusUnity.Tests.EditMode.AnimationStateMapperTests" runstate="Runnable" seed="187154114" result="Passed" start-time="2026-05-06 08:11:24Z" end-time="2026-05-06 08:11:24Z" duration="0.000063" asserts="0">
+                  <properties />
+                </test-case>
+                <test-case id="1103" name="KnownActionsMapToConfiguredClips(&quot;speak&quot;,&quot;SpeakClip&quot;)" fullname="ArgusUnity.Tests.EditMode.AnimationStateMapperTests.KnownActionsMapToConfiguredClips(&quot;speak&quot;,&quot;SpeakClip&quot;)" methodname="KnownActionsMapToConfiguredClips" classname="ArgusUnity.Tests.EditMode.AnimationStateMapperTests" runstate="Runnable" seed="788026280" result="Passed" start-time="2026-05-06 08:11:24Z" end-time="2026-05-06 08:11:24Z" duration="0.000056" asserts="0">
+                  <properties />
+                </test-case>
+                <test-case id="1104" name="KnownActionsMapToConfiguredClips(&quot;argue&quot;,&quot;ArgueClip&quot;)" fullname="ArgusUnity.Tests.EditMode.AnimationStateMapperTests.KnownActionsMapToConfiguredClips(&quot;argue&quot;,&quot;ArgueClip&quot;)" methodname="KnownActionsMapToConfiguredClips" classname="ArgusUnity.Tests.EditMode.AnimationStateMapperTests" runstate="Runnable" seed="362582189" result="Passed" start-time="2026-05-06 08:11:24Z" end-time="2026-05-06 08:11:24Z" duration="0.000058" asserts="0">
+                  <properties />
+                </test-case>
+                <test-case id="1105" name="KnownActionsMapToConfiguredClips(&quot;push&quot;,&quot;PushClip&quot;)" fullname="ArgusUnity.Tests.EditMode.AnimationStateMapperTests.KnownActionsMapToConfiguredClips(&quot;push&quot;,&quot;PushClip&quot;)" methodname="KnownActionsMapToConfiguredClips" classname="ArgusUnity.Tests.EditMode.AnimationStateMapperTests" runstate="Runnable" seed="301633566" result="Passed" start-time="2026-05-06 08:11:24Z" end-time="2026-05-06 08:11:24Z" duration="0.000056" asserts="0">
+                  <properties />
+                </test-case>
+                <test-case id="1106" name="KnownActionsMapToConfiguredClips(&quot;block&quot;,&quot;BlockClip&quot;)" fullname="ArgusUnity.Tests.EditMode.AnimationStateMapperTests.KnownActionsMapToConfiguredClips(&quot;block&quot;,&quot;BlockClip&quot;)" methodname="KnownActionsMapToConfiguredClips" classname="ArgusUnity.Tests.EditMode.AnimationStateMapperTests" runstate="Runnable" seed="76560660" result="Passed" start-time="2026-05-06 08:11:24Z" end-time="2026-05-06 08:11:24Z" duration="0.000056" asserts="0">
+                  <properties />
+                </test-case>
+                <test-case id="1107" name="KnownActionsMapToConfiguredClips(&quot;stumble&quot;,&quot;StumbleClip&quot;)" fullname="ArgusUnity.Tests.EditMode.AnimationStateMapperTests.KnownActionsMapToConfiguredClips(&quot;stumble&quot;,&quot;StumbleClip&quot;)" methodname="KnownActionsMapToConfiguredClips" classname="ArgusUnity.Tests.EditMode.AnimationStateMapperTests" runstate="Runnable" seed="1926223647" result="Passed" start-time="2026-05-06 08:11:24Z" end-time="2026-05-06 08:11:24Z" duration="0.000055" asserts="0">
+                  <properties />
+                </test-case>
+                <test-case id="1108" name="KnownActionsMapToConfiguredClips(&quot;fall&quot;,&quot;FallClip&quot;)" fullname="ArgusUnity.Tests.EditMode.AnimationStateMapperTests.KnownActionsMapToConfiguredClips(&quot;fall&quot;,&quot;FallClip&quot;)" methodname="KnownActionsMapToConfiguredClips" classname="ArgusUnity.Tests.EditMode.AnimationStateMapperTests" runstate="Runnable" seed="125867115" result="Passed" start-time="2026-05-06 08:11:24Z" end-time="2026-05-06 08:11:24Z" duration="0.000054" asserts="0">
+                  <properties />
+                </test-case>
+                <test-case id="1109" name="KnownActionsMapToConfiguredClips(&quot;recover&quot;,&quot;RecoverClip&quot;)" fullname="ArgusUnity.Tests.EditMode.AnimationStateMapperTests.KnownActionsMapToConfiguredClips(&quot;recover&quot;,&quot;RecoverClip&quot;)" methodname="KnownActionsMapToConfiguredClips" classname="ArgusUnity.Tests.EditMode.AnimationStateMapperTests" runstate="Runnable" seed="1157832703" result="Passed" start-time="2026-05-06 08:11:24Z" end-time="2026-05-06 08:11:24Z" duration="0.000058" asserts="0">
+                  <properties />
+                </test-case>
+              </test-suite>
+              <test-case id="1111" name="UnknownActionFallsBackToIdleWarning" fullname="ArgusUnity.Tests.EditMode.AnimationStateMapperTests.UnknownActionFallsBackToIdleWarning" methodname="UnknownActionFallsBackToIdleWarning" classname="ArgusUnity.Tests.EditMode.AnimationStateMapperTests" runstate="Runnable" seed="1598546523" result="Passed" start-time="2026-05-06 08:11:24Z" end-time="2026-05-06 08:11:24Z" duration="0.000121" asserts="0">
+                <properties />
+              </test-case>
+            </test-suite>
+            <test-suite type="TestFixture" id="1113" name="BridgeEnvelopeTests" fullname="ArgusUnity.Tests.EditMode.BridgeEnvelopeTests" classname="ArgusUnity.Tests.EditMode.BridgeEnvelopeTests" runstate="Runnable" testcasecount="4" result="Passed" start-time="2026-05-06 08:11:24Z" end-time="2026-05-06 08:11:24Z" duration="0.076668" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1115" name="MalformedJsonReturnsStructuredError" fullname="ArgusUnity.Tests.EditMode.BridgeEnvelopeTests.MalformedJsonReturnsStructuredError" methodname="MalformedJsonReturnsStructuredError" classname="ArgusUnity.Tests.EditMode.BridgeEnvelopeTests" runstate="Runnable" seed="593363724" result="Passed" start-time="2026-05-06 08:11:24Z" end-time="2026-05-06 08:11:24Z" duration="0.041225" asserts="0">
+                <properties />
+              </test-case>
+              <test-case id="1114" name="ParseValidEnvelopePreservesPayload" fullname="ArgusUnity.Tests.EditMode.BridgeEnvelopeTests.ParseValidEnvelopePreservesPayload" methodname="ParseValidEnvelopePreservesPayload" classname="ArgusUnity.Tests.EditMode.BridgeEnvelopeTests" runstate="Runnable" seed="1526345668" result="Passed" start-time="2026-05-06 08:11:24Z" end-time="2026-05-06 08:11:24Z" duration="0.021418" asserts="0">
+                <properties />
+              </test-case>
+              <test-case id="1117" name="UnityAckUsesExpectedPayloadShape" fullname="ArgusUnity.Tests.EditMode.BridgeEnvelopeTests.UnityAckUsesExpectedPayloadShape" methodname="UnityAckUsesExpectedPayloadShape" classname="ArgusUnity.Tests.EditMode.BridgeEnvelopeTests" runstate="Runnable" seed="1786296253" result="Passed" start-time="2026-05-06 08:11:24Z" end-time="2026-05-06 08:11:24Z" duration="0.011601" asserts="0">
+                <properties />
+              </test-case>
+              <test-case id="1116" name="UnknownMessageTypeIsPreservedForCallerHandling" fullname="ArgusUnity.Tests.EditMode.BridgeEnvelopeTests.UnknownMessageTypeIsPreservedForCallerHandling" methodname="UnknownMessageTypeIsPreservedForCallerHandling" classname="ArgusUnity.Tests.EditMode.BridgeEnvelopeTests" runstate="Runnable" seed="1557344149" result="Passed" start-time="2026-05-06 08:11:24Z" end-time="2026-05-06 08:11:24Z" duration="0.000518" asserts="0">
+                <properties />
+              </test-case>
+            </test-suite>
+            <test-suite type="TestFixture" id="1118" name="BridgePresentationParsingTests" fullname="ArgusUnity.Tests.EditMode.BridgePresentationParsingTests" classname="ArgusUnity.Tests.EditMode.BridgePresentationParsingTests" runstate="Runnable" testcasecount="5" result="Passed" start-time="2026-05-06 08:11:24Z" end-time="2026-05-06 08:11:24Z" duration="0.006637" total="5" passed="5" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1123" name="ConflictUpdateNormalizesStageCase" fullname="ArgusUnity.Tests.EditMode.BridgePresentationParsingTests.ConflictUpdateNormalizesStageCase" methodname="ConflictUpdateNormalizesStageCase" classname="ArgusUnity.Tests.EditMode.BridgePresentationParsingTests" runstate="Runnable" seed="923802122" result="Passed" start-time="2026-05-06 08:11:24Z" end-time="2026-05-06 08:11:24Z" duration="0.001889" asserts="0">
+                <properties />
+              </test-case>
+              <test-case id="1119" name="DialogueParsingExtractsSpeakerTextAndDuration" fullname="ArgusUnity.Tests.EditMode.BridgePresentationParsingTests.DialogueParsingExtractsSpeakerTextAndDuration" methodname="DialogueParsingExtractsSpeakerTextAndDuration" classname="ArgusUnity.Tests.EditMode.BridgePresentationParsingTests" runstate="Runnable" seed="275583623" result="Passed" start-time="2026-05-06 08:11:24Z" end-time="2026-05-06 08:11:24Z" duration="0.001055" asserts="0">
+                <properties />
+              </test-case>
+              <test-case id="1121" name="DialogueTruncationAppendsEllipsis" fullname="ArgusUnity.Tests.EditMode.BridgePresentationParsingTests.DialogueTruncationAppendsEllipsis" methodname="DialogueTruncationAppendsEllipsis" classname="ArgusUnity.Tests.EditMode.BridgePresentationParsingTests" runstate="Runnable" seed="1785725205" result="Passed" start-time="2026-05-06 08:11:24Z" end-time="2026-05-06 08:11:24Z" duration="0.000616" asserts="0">
+                <properties />
+              </test-case>
+              <test-case id="1120" name="EmotionParsingExtractsIntensity" fullname="ArgusUnity.Tests.EditMode.BridgePresentationParsingTests.EmotionParsingExtractsIntensity" methodname="EmotionParsingExtractsIntensity" classname="ArgusUnity.Tests.EditMode.BridgePresentationParsingTests" runstate="Runnable" seed="2132582009" result="Passed" start-time="2026-05-06 08:11:24Z" end-time="2026-05-06 08:11:24Z" duration="0.000463" asserts="0">
+                <properties />
+              </test-case>
+              <test-case id="1122" name="GroupUpdateParsingReadsMembers" fullname="ArgusUnity.Tests.EditMode.BridgePresentationParsingTests.GroupUpdateParsingReadsMembers" methodname="GroupUpdateParsingReadsMembers" classname="ArgusUnity.Tests.EditMode.BridgePresentationParsingTests" runstate="Runnable" seed="1583342918" result="Passed" start-time="2026-05-06 08:11:24Z" end-time="2026-05-06 08:11:24Z" duration="0.000370" asserts="0">
+                <properties />
+              </test-case>
+            </test-suite>
+            <test-suite type="TestFixture" id="1124" name="SceneOrchestratorTests" fullname="ArgusUnity.Tests.EditMode.SceneOrchestratorTests" classname="ArgusUnity.Tests.EditMode.SceneOrchestratorTests" runstate="Runnable" testcasecount="4" result="Passed" start-time="2026-05-06 08:11:24Z" end-time="2026-05-06 08:11:24Z" duration="0.002734" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1128" name="HandlerExceptionReturnsStructuredError" fullname="ArgusUnity.Tests.EditMode.SceneOrchestratorTests.HandlerExceptionReturnsStructuredError" methodname="HandlerExceptionReturnsStructuredError" classname="ArgusUnity.Tests.EditMode.SceneOrchestratorTests" runstate="Runnable" seed="831835847" result="Passed" start-time="2026-05-06 08:11:24Z" end-time="2026-05-06 08:11:24Z" duration="0.000940" asserts="0">
+                <properties />
+              </test-case>
+              <test-case id="1126" name="KnownButUnroutedTypeReturnsWarning" fullname="ArgusUnity.Tests.EditMode.SceneOrchestratorTests.KnownButUnroutedTypeReturnsWarning" methodname="KnownButUnroutedTypeReturnsWarning" classname="ArgusUnity.Tests.EditMode.SceneOrchestratorTests" runstate="Runnable" seed="1722835358" result="Passed" start-time="2026-05-06 08:11:24Z" end-time="2026-05-06 08:11:24Z" duration="0.000215" asserts="0">
+                <properties />
+              </test-case>
+              <test-case id="1125" name="RoutesRequiredBridgeMessageTypes" fullname="ArgusUnity.Tests.EditMode.SceneOrchestratorTests.RoutesRequiredBridgeMessageTypes" methodname="RoutesRequiredBridgeMessageTypes" classname="ArgusUnity.Tests.EditMode.SceneOrchestratorTests" runstate="Runnable" seed="607424585" result="Passed" start-time="2026-05-06 08:11:24Z" end-time="2026-05-06 08:11:24Z" duration="0.000634" asserts="0">
+                <properties />
+              </test-case>
+              <test-case id="1127" name="UnknownTypeReturnsErrorWithoutThrowing" fullname="ArgusUnity.Tests.EditMode.SceneOrchestratorTests.UnknownTypeReturnsErrorWithoutThrowing" methodname="UnknownTypeReturnsErrorWithoutThrowing" classname="ArgusUnity.Tests.EditMode.SceneOrchestratorTests" runstate="Runnable" seed="885699985" result="Passed" start-time="2026-05-06 08:11:24Z" end-time="2026-05-06 08:11:24Z" duration="0.000213" asserts="0">
+                <properties />
+              </test-case>
+            </test-suite>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+    <test-suite type="Assembly" id="1138" name="ArgusUnity.Tests.PlayMode.dll" fullname="/Users/guribbong/code/Argus/unity/EmbodiedDebate/Library/ScriptAssemblies/ArgusUnity.Tests.PlayMode.dll" runstate="Runnable" testcasecount="4" result="Passed" start-time="2026-05-06 08:11:24Z" end-time="2026-05-06 08:11:24Z" duration="0.018881" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="8407" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="EditMode" />
+      </properties>
+      <test-suite type="TestSuite" id="1139" name="ArgusUnity" fullname="ArgusUnity" runstate="Runnable" testcasecount="4" result="Passed" start-time="2026-05-06 08:11:24Z" end-time="2026-05-06 08:11:24Z" duration="0.017482" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1140" name="Tests" fullname="ArgusUnity.Tests" runstate="Runnable" testcasecount="4" result="Passed" start-time="2026-05-06 08:11:24Z" end-time="2026-05-06 08:11:24Z" duration="0.013911" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestSuite" id="1141" name="PlayMode" fullname="ArgusUnity.Tests.PlayMode" runstate="Runnable" testcasecount="4" result="Passed" start-time="2026-05-06 08:11:24Z" end-time="2026-05-06 08:11:24Z" duration="0.010271" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-suite type="TestFixture" id="1133" name="RobotAvatarManagerPlayModeTests" fullname="ArgusUnity.Tests.PlayMode.RobotAvatarManagerPlayModeTests" classname="ArgusUnity.Tests.PlayMode.RobotAvatarManagerPlayModeTests" runstate="Runnable" testcasecount="4" result="Passed" start-time="2026-05-06 08:11:24Z" end-time="2026-05-06 08:11:24Z" duration="0.006627" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1135" name="DuplicateSpawnUpdatesExistingAvatar" fullname="ArgusUnity.Tests.PlayMode.RobotAvatarManagerPlayModeTests.DuplicateSpawnUpdatesExistingAvatar" methodname="DuplicateSpawnUpdatesExistingAvatar" classname="ArgusUnity.Tests.PlayMode.RobotAvatarManagerPlayModeTests" runstate="Runnable" seed="1915345253" result="Passed" start-time="2026-05-06 08:11:24Z" end-time="2026-05-06 08:11:24Z" duration="0.001872" asserts="0">
+                <properties />
+              </test-case>
+              <test-case id="1134" name="FirstSpawnCreatesOneAvatar" fullname="ArgusUnity.Tests.PlayMode.RobotAvatarManagerPlayModeTests.FirstSpawnCreatesOneAvatar" methodname="FirstSpawnCreatesOneAvatar" classname="ArgusUnity.Tests.PlayMode.RobotAvatarManagerPlayModeTests" runstate="Runnable" seed="1808153666" result="Passed" start-time="2026-05-06 08:11:24Z" end-time="2026-05-06 08:11:24Z" duration="0.000206" asserts="0">
+                <properties />
+              </test-case>
+              <test-case id="1137" name="GroupPresentationIsApplied" fullname="ArgusUnity.Tests.PlayMode.RobotAvatarManagerPlayModeTests.GroupPresentationIsApplied" methodname="GroupPresentationIsApplied" classname="ArgusUnity.Tests.PlayMode.RobotAvatarManagerPlayModeTests" runstate="Runnable" seed="1631432550" result="Passed" start-time="2026-05-06 08:11:24Z" end-time="2026-05-06 08:11:24Z" duration="0.000295" asserts="0">
+                <properties />
+              </test-case>
+              <test-case id="1136" name="MissingPrefabUsesFallbackAndRecordsWarning" fullname="ArgusUnity.Tests.PlayMode.RobotAvatarManagerPlayModeTests.MissingPrefabUsesFallbackAndRecordsWarning" methodname="MissingPrefabUsesFallbackAndRecordsWarning" classname="ArgusUnity.Tests.PlayMode.RobotAvatarManagerPlayModeTests" runstate="Runnable" seed="998603042" result="Passed" start-time="2026-05-06 08:11:24Z" end-time="2026-05-06 08:11:24Z" duration="0.000174" asserts="0">
+                <properties />
+              </test-case>
+            </test-suite>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+    <test-suite type="Assembly" id="1162" name="glTFast.Editor.Tests.dll" fullname="/Users/guribbong/code/Argus/unity/EmbodiedDebate/Library/ScriptAssemblies/glTFast.Editor.Tests.dll" runstate="Runnable" testcasecount="15" result="Passed" start-time="2026-05-06 08:11:24Z" end-time="2026-05-06 08:11:24Z" duration="0.059809" total="15" passed="15" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="8407" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="EditMode" />
+      </properties>
+      <test-suite type="TestSuite" id="1163" name="GLTFast" fullname="GLTFast" runstate="Runnable" testcasecount="15" result="Passed" start-time="2026-05-06 08:11:24Z" end-time="2026-05-06 08:11:24Z" duration="0.059605" total="15" passed="15" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1164" name="Tests" fullname="GLTFast.Tests" runstate="Runnable" testcasecount="15" result="Passed" start-time="2026-05-06 08:11:24Z" end-time="2026-05-06 08:11:24Z" duration="0.056307" total="15" passed="15" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestFixture" id="1142" name="JsonParsingTests" fullname="GLTFast.Tests.JsonParsingTests" classname="GLTFast.Tests.JsonParsingTests" runstate="Runnable" testcasecount="6" result="Passed" start-time="2026-05-06 08:11:24Z" end-time="2026-05-06 08:11:24Z" duration="0.011641" total="6" passed="6" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1143" name="MaterialExtensions" fullname="GLTFast.Tests.JsonParsingTests.MaterialExtensions" methodname="MaterialExtensions" classname="GLTFast.Tests.JsonParsingTests" runstate="Runnable" seed="657137734" result="Passed" start-time="2026-05-06 08:11:24Z" end-time="2026-05-06 08:11:24Z" duration="0.003698" asserts="0">
+              <properties />
+            </test-case>
+            <test-case id="1145" name="MeshTargetNames" fullname="GLTFast.Tests.JsonParsingTests.MeshTargetNames" methodname="MeshTargetNames" classname="GLTFast.Tests.JsonParsingTests" runstate="Runnable" seed="1417795680" result="Passed" start-time="2026-05-06 08:11:24Z" end-time="2026-05-06 08:11:24Z" duration="0.000330" asserts="0">
+              <properties />
+            </test-case>
+            <test-case id="1146" name="MinMagFilter" fullname="GLTFast.Tests.JsonParsingTests.MinMagFilter" methodname="MinMagFilter" classname="GLTFast.Tests.JsonParsingTests" runstate="Runnable" seed="958362295" result="Passed" start-time="2026-05-06 08:11:24Z" end-time="2026-05-06 08:11:24Z" duration="0.001011" asserts="0">
+              <properties />
+            </test-case>
+            <test-case id="1148" name="ParseGarbage" fullname="GLTFast.Tests.JsonParsingTests.ParseGarbage" methodname="ParseGarbage" classname="GLTFast.Tests.JsonParsingTests" runstate="Runnable" seed="1721643984" result="Passed" start-time="2026-05-06 08:11:24Z" end-time="2026-05-06 08:11:24Z" duration="0.000113" asserts="0">
+              <properties />
+            </test-case>
+            <test-case id="1144" name="SparseAccessors" fullname="GLTFast.Tests.JsonParsingTests.SparseAccessors" methodname="SparseAccessors" classname="GLTFast.Tests.JsonParsingTests" runstate="Runnable" seed="344939048" result="Passed" start-time="2026-05-06 08:11:24Z" end-time="2026-05-06 08:11:24Z" duration="0.001750" asserts="0">
+              <properties />
+              <output><![CDATA[Invalid Sparse Accessors will break glTFast
+]]></output>
+            </test-case>
+            <test-case id="1147" name="UnknownNodeExtension" fullname="GLTFast.Tests.JsonParsingTests.UnknownNodeExtension" methodname="UnknownNodeExtension" classname="GLTFast.Tests.JsonParsingTests" runstate="Runnable" seed="532347659" result="Passed" start-time="2026-05-06 08:11:24Z" end-time="2026-05-06 08:11:24Z" duration="0.000591" asserts="0">
+              <properties />
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1149" name="LoggerTest" fullname="GLTFast.Tests.LoggerTest" classname="GLTFast.Tests.LoggerTest" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-05-06 08:11:24Z" end-time="2026-05-06 08:11:24Z" duration="0.004145" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1150" name="CollectingLoggerTest" fullname="GLTFast.Tests.LoggerTest.CollectingLoggerTest" methodname="CollectingLoggerTest" classname="GLTFast.Tests.LoggerTest" runstate="Runnable" seed="657167574" result="Passed" start-time="2026-05-06 08:11:24Z" end-time="2026-05-06 08:11:24Z" duration="0.002425" asserts="0">
+              <properties />
+            </test-case>
+            <test-case id="1151" name="ConsoleLoggerTest" fullname="GLTFast.Tests.LoggerTest.ConsoleLoggerTest" methodname="ConsoleLoggerTest" classname="GLTFast.Tests.LoggerTest" runstate="Runnable" seed="1092008304" result="Passed" start-time="2026-05-06 08:11:24Z" end-time="2026-05-06 08:11:24Z" duration="0.001267" asserts="0">
+              <properties />
+              <output><![CDATA[Download URL https://something.com/nowherfound.glb failed: 404
+]]></output>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1152" name="MatrixExtensionTest" fullname="GLTFast.Tests.MatrixExtensionTest" classname="GLTFast.Tests.MatrixExtensionTest" runstate="Runnable" testcasecount="1" result="Passed" start-time="2026-05-06 08:11:24Z" end-time="2026-05-06 08:11:24Z" duration="0.004816" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1153" name="MatrixDecomposeTest" fullname="GLTFast.Tests.MatrixExtensionTest.MatrixDecomposeTest" methodname="MatrixDecomposeTest" classname="GLTFast.Tests.MatrixExtensionTest" runstate="Runnable" seed="1178220974" result="Passed" start-time="2026-05-06 08:11:24Z" end-time="2026-05-06 08:11:24Z" duration="0.004306" asserts="0">
+              <properties />
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1154" name="MeshPrimitiveTest" fullname="GLTFast.Tests.MeshPrimitiveTest" classname="GLTFast.Tests.MeshPrimitiveTest" runstate="Runnable" testcasecount="1" result="Passed" start-time="2026-05-06 08:11:24Z" end-time="2026-05-06 08:11:24Z" duration="0.000966" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1155" name="MeshPrimitiveEqualTest" fullname="GLTFast.Tests.MeshPrimitiveTest.MeshPrimitiveEqualTest" methodname="MeshPrimitiveEqualTest" classname="GLTFast.Tests.MeshPrimitiveTest" runstate="Runnable" seed="1025748035" result="Passed" start-time="2026-05-06 08:11:24Z" end-time="2026-05-06 08:11:24Z" duration="0.000584" asserts="0">
+              <properties />
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1156" name="UriHelperTest" fullname="GLTFast.Tests.UriHelperTest" classname="GLTFast.Tests.UriHelperTest" runstate="Runnable" testcasecount="5" result="Passed" start-time="2026-05-06 08:11:24Z" end-time="2026-05-06 08:11:24Z" duration="0.030858" total="5" passed="5" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1157" name="GetBaseUriTest" fullname="GLTFast.Tests.UriHelperTest.GetBaseUriTest" methodname="GetBaseUriTest" classname="GLTFast.Tests.UriHelperTest" runstate="Runnable" seed="2142742458" result="Passed" start-time="2026-05-06 08:11:24Z" end-time="2026-05-06 08:11:24Z" duration="0.006013" asserts="0">
+              <properties />
+            </test-case>
+            <test-case id="1161" name="GetImageFormatFromUriTest" fullname="GLTFast.Tests.UriHelperTest.GetImageFormatFromUriTest" methodname="GetImageFormatFromUriTest" classname="GLTFast.Tests.UriHelperTest" runstate="Runnable" seed="1236599204" result="Passed" start-time="2026-05-06 08:11:24Z" end-time="2026-05-06 08:11:24Z" duration="0.000584" asserts="0">
+              <properties />
+            </test-case>
+            <test-case id="1158" name="GetUriStringTest" fullname="GLTFast.Tests.UriHelperTest.GetUriStringTest" methodname="GetUriStringTest" classname="GLTFast.Tests.UriHelperTest" runstate="Runnable" seed="1902860017" result="Passed" start-time="2026-05-06 08:11:24Z" end-time="2026-05-06 08:11:24Z" duration="0.001166" asserts="0">
+              <properties />
+            </test-case>
+            <test-case id="1160" name="IsGltfBinaryTest" fullname="GLTFast.Tests.UriHelperTest.IsGltfBinaryTest" methodname="IsGltfBinaryTest" classname="GLTFast.Tests.UriHelperTest" runstate="Runnable" seed="1500457313" result="Passed" start-time="2026-05-06 08:11:24Z" end-time="2026-05-06 08:11:24Z" duration="0.019407" asserts="0">
+              <properties />
+            </test-case>
+            <test-case id="1159" name="RemoveDotSegments" fullname="GLTFast.Tests.UriHelperTest.RemoveDotSegments" methodname="RemoveDotSegments" classname="GLTFast.Tests.UriHelperTest" runstate="Runnable" seed="1131072530" result="Passed" start-time="2026-05-06 08:11:24Z" end-time="2026-05-06 08:11:24Z" duration="0.000328" asserts="0">
+              <properties />
+            </test-case>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

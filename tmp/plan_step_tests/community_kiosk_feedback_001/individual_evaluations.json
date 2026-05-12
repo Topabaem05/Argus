@@ -1,0 +1,58 @@
+[
+  {
+    "agent_id": "agent-p-001",
+    "confidence": 0.75,
+    "rationale": "30대 직장인 responds to an and appointment basic button center certificate check class clear community compare from synthetic background and stated behavior rules.",
+    "stance": "supports",
+    "uncertainty": "Dry-run output; not a real-world prediction."
+  },
+  {
+    "agent_id": "agent-p-004",
+    "confidence": 0.75,
+    "rationale": "50대 공무원 responds to an and appointment basic button center certificate check class clear community compare from synthetic background and stated behavior rules.",
+    "stance": "opposes",
+    "uncertainty": "Dry-run output; not a real-world prediction."
+  },
+  {
+    "agent_id": "agent-p-006",
+    "confidence": 0.75,
+    "rationale": "60대 은퇴자 responds to an and appointment basic button center certificate check class clear community compare from synthetic background and stated behavior rules.",
+    "stance": "mixed",
+    "uncertainty": "Dry-run output; not a real-world prediction."
+  },
+  {
+    "agent_id": "agent-p-007",
+    "confidence": 0.75,
+    "rationale": "20대 신입 개발자 responds to an and appointment basic button center certificate check class clear community compare from synthetic background and stated behavior rules.",
+    "stance": "opposes",
+    "uncertainty": "Dry-run output; not a real-world prediction."
+  },
+  {
+    "agent_id": "agent-p-011",
+    "confidence": 0.75,
+    "rationale": "50대 교사 responds to an and appointment basic button center certificate check class clear community compare from synthetic background and stated behavior rules.",
+    "stance": "mixed",
+    "uncertainty": "Dry-run output; not a real-world prediction."
+  },
+  {
+    "agent_id": "agent-p-013",
+    "confidence": 0.75,
+    "rationale": "20대 간호사 responds to an and appointment basic button center certificate check class clear community compare from synthetic background and stated behavior rules.",
+    "stance": "uncertain",
+    "uncertainty": "Dry-run output; not a real-world prediction."
+  },
+  {
+    "agent_id": "agent-p-014",
+    "confidence": 0.75,
+    "rationale": "60대 주부 responds to an and appointment basic button center certificate check class clear community compare from synthetic background and stated behavior rules.",
+    "stance": "mixed",
+    "uncertainty": "Dry-run output; not a real-world prediction."
+  },
+  {
+    "agent_id": "agent-p-015",
+    "confidence": 0.75,
+    "rationale": "40대 변호사 responds to an and appointment basic button center certificate check class clear community compare from synthetic background and stated behavior rules.",
+    "stance": "mixed",
+    "uncertainty": "Dry-run output; not a real-world prediction."
+  }
+]

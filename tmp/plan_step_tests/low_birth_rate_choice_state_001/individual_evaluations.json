@@ -1,0 +1,30 @@
+[
+  {
+    "agent_id": "agent-p-002",
+    "confidence": 0.75,
+    "rationale": "20대 대학생 responds to about and autonomy birth burden childcare choice compare equality fiscal for gender from synthetic background and stated behavior rules.",
+    "stance": "mixed",
+    "uncertainty": "Dry-run output; not a real-world prediction."
+  },
+  {
+    "agent_id": "agent-p-005",
+    "confidence": 0.75,
+    "rationale": "30대 프리랜서 디자이너 responds to about and autonomy birth burden childcare choice compare equality fiscal for gender from synthetic background and stated behavior rules.",
+    "stance": "uncertain",
+    "uncertainty": "Dry-run output; not a real-world prediction."
+  },
+  {
+    "agent_id": "agent-p-008",
+    "confidence": 0.75,
+    "rationale": "30대 마케터 responds to about and autonomy birth burden childcare choice compare equality fiscal for gender from synthetic background and stated behavior rules.",
+    "stance": "uncertain",
+    "uncertainty": "Dry-run output; not a real-world prediction."
+  },
+  {
+    "agent_id": "agent-p-013",
+    "confidence": 0.75,
+    "rationale": "20대 간호사 responds to about and autonomy birth burden childcare choice compare equality fiscal for gender from synthetic background and stated behavior rules.",
+    "stance": "mixed",
+    "uncertainty": "Dry-run output; not a real-world prediction."
+  }
+]

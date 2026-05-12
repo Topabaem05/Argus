@@ -1,0 +1,1094 @@
+Unity Editor version:    2022.3.0f1 (fb119bb0b476)
+Branch:                  2022.3/release
+Build type:              Release
+Batch mode:              YES
+macOS version:           Version 26.3.1 (a) (Build 25D771280a)
+Darwin version:          25.3.0
+Architecture:            arm64
+Running under Rosetta:   NO
+Available memory:        8192 MB
+[Licensing::Module] Trying to connect to existing licensing client channel...
+[Licensing::IpcConnector] Connection attempt to the License Client on channel: "LicenseClient-guribbong" failed because channel doesn't exist; code: "0x80000002"
+Launching external process: /Applications/Unity/Hub/Editor/2022.3.0f1/Unity.app/Contents/Frameworks/UnityLicensingClient.app/Contents/MacOS/Unity.Licensing.Client
+[Licensing::Module] Successfully launched the LicensingClient (PId: 33231)
+[Licensing::IpcConnector] Successfully connected to the License Client on channel: "LicenseClient-guribbong"
+[Licensing::Client] Handshaking with LicensingClient:
+  Version:                 1.12.1+9338cad
+  Session Id:              eb685c8ca0b643d38a4ed1681bed8980
+  Correlation Id:          92afe90a1eb7bf23315951b3d601e23a
+  External correlation Id: 1340097670351984677
+  Machine Id:              kK/taOzULwH3CoqhnK6anvJ0b88=
+[Licensing::Module] Successfully connected to LicensingClient on channel: "LicenseClient-guribbong" (connect: 6.22s, validation: 0.40s, handshake: 0.70s)
+[Licensing::IpcConnector] Successfully connected to the License Notification on channel: "LicenseClient-guribbong-notifications"
+[Licensing::Module] Connected to LicensingClient (PId: 33231, launch time: 0.01, total connection time: 7.33s)
+[Licensing::Module] Error: Access token is unavailable; failed to update
+[Licensing::Client] Error: Code 500 while processing request (status: Unable to update licenses. Errors: No ULF license found.,Token not found in cache)
+[Licensing::Client] Error: Code 500 while updating license in client (status: Unable to update licenses. Errors: No ULF license found.,Token not found in cache)
+[Licensing::Client] Successfully resolved entitlements
+[Licensing::Module] Serial number assigned to: "14568638156105-UnityPersXXXX"
+Pro License: NO
+Launching external process: /Applications/Unity/Hub/Editor/2022.3.0f1/Unity.app/Contents/Resources/PackageManager/Server/UnityPackageManager
+
+COMMAND LINE ARGUMENTS:
+/Applications/Unity/Hub/Editor/2022.3.0f1/Unity.app/Contents/MacOS/Unity
+-batchmode
+-projectPath
+unity/EmbodiedDebate
+-executeMethod
+ArgusUnity.Editor.HideAndSeekDesignBuilder.BuildScene
+-logFile
+tmp/hide-and-seek-gltf-build-2.log
+Successfully changed project path to: /Users/guribbong/code/Argus/unity/EmbodiedDebate
+/Users/guribbong/code/Argus/unity/EmbodiedDebate
+[UnityMemory] Configuration Parameters - Can be set up in boot.config
+    "memorysetup-bucket-allocator-granularity=16"
+    "memorysetup-bucket-allocator-bucket-count=8"
+    "memorysetup-bucket-allocator-block-size=33554432"
+    "memorysetup-bucket-allocator-block-count=8"
+    "memorysetup-main-allocator-block-size=16777216"
+    "memorysetup-thread-allocator-block-size=16777216"
+    "memorysetup-gfx-main-allocator-block-size=16777216"
+    "memorysetup-gfx-thread-allocator-block-size=16777216"
+    "memorysetup-cache-allocator-block-size=4194304"
+    "memorysetup-typetree-allocator-block-size=2097152"
+    "memorysetup-profiler-bucket-allocator-granularity=16"
+    "memorysetup-profiler-bucket-allocator-bucket-count=8"
+    "memorysetup-profiler-bucket-allocator-block-size=33554432"
+    "memorysetup-profiler-bucket-allocator-block-count=8"
+    "memorysetup-profiler-allocator-block-size=16777216"
+    "memorysetup-profiler-editor-allocator-block-size=1048576"
+    "memorysetup-temp-allocator-size-main=16777216"
+    "memorysetup-job-temp-allocator-block-size=2097152"
+    "memorysetup-job-temp-allocator-block-size-background=1048576"
+    "memorysetup-job-temp-allocator-reduction-small-platforms=262144"
+    "memorysetup-allocator-temp-initial-block-size-main=262144"
+    "memorysetup-allocator-temp-initial-block-size-worker=262144"
+    "memorysetup-temp-allocator-size-background-worker=32768"
+    "memorysetup-temp-allocator-size-job-worker=262144"
+    "memorysetup-temp-allocator-size-preload-manager=33554432"
+    "memorysetup-temp-allocator-size-nav-mesh-worker=65536"
+    "memorysetup-temp-allocator-size-audio-worker=65536"
+    "memorysetup-temp-allocator-size-cloud-worker=32768"
+    "memorysetup-temp-allocator-size-gi-baking-worker=262144"
+    "memorysetup-temp-allocator-size-gfx=262144"
+Player connection [8649715968] Host "[IP] 192.168.3.1 [Port] 55496 [Flags] 2 [Guid] 232860283 [EditorId] 232860283 [Version] 1048832 [Id] OSXEditor(0,topabaem.local) [Debug] 1 [PackageName] OSXEditor [ProjectName] Editor" joined multi-casting on [225.0.0.222:54997]...
+
+Player connection [8649715968] Host "[IP] 192.168.3.1 [Port] 55496 [Flags] 2 [Guid] 232860283 [EditorId] 232860283 [Version] 1048832 [Id] OSXEditor(0,topabaem.local) [Debug] 1 [PackageName] OSXEditor [ProjectName] Editor" joined alternative multi-casting on [225.0.0.222:34997]...
+
+[Package Manager] UpmClient::Connect -- Connected to IPC stream "Upm-33228" after 1.6 seconds.
+[Licensing::Client] Successfully resolved entitlements
+[Package Manager] Restoring resolved packages state from cache
+[Licensing::Client] Successfully resolved entitlement details
+[Package Manager] Registered 12 packages:
+  Packages from [https://packages.unity.com]:
+    com.unity.cloud.gltfast@6.14.1 (location: /Users/guribbong/code/Argus/unity/EmbodiedDebate/Library/PackageCache/com.unity.cloud.gltfast@6.14.1)
+    com.unity.nuget.newtonsoft-json@3.2.1 (location: /Users/guribbong/code/Argus/unity/EmbodiedDebate/Library/PackageCache/com.unity.nuget.newtonsoft-json@3.2.1)
+    com.unity.test-framework@1.1.33 (location: /Users/guribbong/code/Argus/unity/EmbodiedDebate/Library/PackageCache/com.unity.test-framework@1.1.33)
+    com.unity.ext.nunit@1.0.6 (location: /Users/guribbong/code/Argus/unity/EmbodiedDebate/Library/PackageCache/com.unity.ext.nunit@1.0.6)
+    com.unity.burst@1.8.24 (location: /Users/guribbong/code/Argus/unity/EmbodiedDebate/Library/PackageCache/com.unity.burst@1.8.24)
+    com.unity.collections@1.2.4 (location: /Users/guribbong/code/Argus/unity/EmbodiedDebate/Library/PackageCache/com.unity.collections@1.2.4)
+    com.unity.mathematics@1.2.6 (location: /Users/guribbong/code/Argus/unity/EmbodiedDebate/Library/PackageCache/com.unity.mathematics@1.2.6)
+  Built-in packages:
+    com.unity.modules.imageconversion@1.0.0 (location: /Users/guribbong/code/Argus/unity/EmbodiedDebate/Library/PackageCache/com.unity.modules.imageconversion@1.0.0)
+    com.unity.modules.physics@1.0.0 (location: /Users/guribbong/code/Argus/unity/EmbodiedDebate/Library/PackageCache/com.unity.modules.physics@1.0.0)
+    com.unity.modules.unitywebrequest@1.0.0 (location: /Users/guribbong/code/Argus/unity/EmbodiedDebate/Library/PackageCache/com.unity.modules.unitywebrequest@1.0.0)
+    com.unity.modules.imgui@1.0.0 (location: /Users/guribbong/code/Argus/unity/EmbodiedDebate/Library/PackageCache/com.unity.modules.imgui@1.0.0)
+    com.unity.modules.jsonserialize@1.0.0 (location: /Users/guribbong/code/Argus/unity/EmbodiedDebate/Library/PackageCache/com.unity.modules.jsonserialize@1.0.0)
+[Subsystems] No new subsystems found in resolved package list.
+Package Manager log level set to [2]
+[Package Manager] Done registering packages in 2.45 seconds
+[Package Manager] Done resolving packages in 28.76 seconds
+[Package Manager] Lock file was created
+[Package Manager] Registered 11 packages:
+  Packages from [https://packages.unity.com]:
+    com.unity.nuget.newtonsoft-json@3.2.1 (location: /Users/guribbong/code/Argus/unity/EmbodiedDebate/Library/PackageCache/com.unity.nuget.newtonsoft-json@3.2.1)
+    com.unity.test-framework@1.1.33 (location: /Users/guribbong/code/Argus/unity/EmbodiedDebate/Library/PackageCache/com.unity.test-framework@1.1.33)
+    com.unity.ext.nunit@1.0.6 (location: /Users/guribbong/code/Argus/unity/EmbodiedDebate/Library/PackageCache/com.unity.ext.nunit@1.0.6)
+    com.unity.mathematics@1.2.6 (location: /Users/guribbong/code/Argus/unity/EmbodiedDebate/Library/PackageCache/com.unity.mathematics@1.2.6)
+    com.unity.burst@1.8.4 (location: /Users/guribbong/code/Argus/unity/EmbodiedDebate/Library/PackageCache/com.unity.burst@1.8.4)
+  Built-in packages:
+    com.unity.modules.imageconversion@1.0.0 (location: /Users/guribbong/code/Argus/unity/EmbodiedDebate/Library/PackageCache/com.unity.modules.imageconversion@1.0.0)
+    com.unity.modules.physics@1.0.0 (location: /Users/guribbong/code/Argus/unity/EmbodiedDebate/Library/PackageCache/com.unity.modules.physics@1.0.0)
+    com.unity.modules.unitywebrequest@1.0.0 (location: /Users/guribbong/code/Argus/unity/EmbodiedDebate/Library/PackageCache/com.unity.modules.unitywebrequest@1.0.0)
+    com.unity.modules.imgui@1.0.0 (location: /Users/guribbong/code/Argus/unity/EmbodiedDebate/Library/PackageCache/com.unity.modules.imgui@1.0.0)
+    com.unity.modules.jsonserialize@1.0.0 (location: /Users/guribbong/code/Argus/unity/EmbodiedDebate/Library/PackageCache/com.unity.modules.jsonserialize@1.0.0)
+  Embedded packages:
+    com.unity.cloud.gltfast@file:/Users/guribbong/code/Argus/unity/EmbodiedDebate/Packages/com.unity.cloud.gltfast (location: /Users/guribbong/code/Argus/unity/EmbodiedDebate/Packages/com.unity.cloud.gltfast)
+[Subsystems] No new subsystems found in resolved package list.
+[Package Manager] Done registering packages in 0.01 seconds
+Refreshing native plugins compatible for Editor in 32.63 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Initialize engine version: 2022.3.0f1 (fb119bb0b476)
+[Subsystems] Discovering subsystems at path /Applications/Unity/Hub/Editor/2022.3.0f1/Unity.app/Contents/Resources/UnitySubsystems
+[Subsystems] Discovering subsystems at path /Users/guribbong/code/Argus/unity/EmbodiedDebate/Assets
+GfxDevice: creating device client; threaded=0; jobified=0
+ preferred device: Apple M2 (high power)
+Metal devices available: 1
+0: Apple M2 (high power)
+Using device Apple M2 (high power)
+Initializing Metal device caps: Apple M2
+[Licensing::Client] Successfully resolved entitlements
+Initialize mono
+Mono path[0] = '/Applications/Unity/Hub/Editor/2022.3.0f1/Unity.app/Contents/Managed'
+Mono path[1] = '/Applications/Unity/Hub/Editor/2022.3.0f1/Unity.app/Contents/MonoBleedingEdge/lib/mono/unityjit-macos'
+Mono config path = '/Applications/Unity/Hub/Editor/2022.3.0f1/Unity.app/Contents/MonoBleedingEdge/etc'
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56228
+Using cacheserver namespaces - metadata:defaultmetadata, artifacts:defaultartifacts
+Using cacheserver namespaces - metadata:defaultmetadata, artifacts:defaultartifacts
+ImportWorker Server TCP listen port: 0
+Begin MonoManager ReloadAssembly
+Registering precompiled unity dll's ...
+Register platform support module: /Applications/Unity/Hub/Editor/2022.3.0f1/Unity.app/Contents/PlaybackEngines/MacStandaloneSupport/UnityEditor.OSXStandalone.Extensions.dll
+Registered in 0.003170 seconds.
+- Loaded All Assemblies, in  0.524 seconds
+Native extension for OSXStandalone target not found
+Mono: successfully reloaded assembly
+- Finished resetting the current domain, in  0.450 seconds
+Domain Reload Profiling: 976ms
+	BeginReloadAssembly (182ms)
+		ExecutionOrderSort (0ms)
+		DisableScriptedObjects (0ms)
+		BackupInstance (0ms)
+		ReleaseScriptingObjects (0ms)
+		CreateAndSetChildDomain (6ms)
+	RebuildCommonClasses (64ms)
+	RebuildNativeTypeToScriptingClass (13ms)
+	initialDomainReloadingComplete (77ms)
+	LoadAllAssembliesAndSetupDomain (189ms)
+		LoadAssemblies (175ms)
+		RebuildTransferFunctionScriptingTraits (0ms)
+		AnalyzeDomain (181ms)
+			TypeCache.Refresh (180ms)
+				TypeCache.ScanAssembly (151ms)
+			ScanForSourceGeneratedMonoScriptInfo (0ms)
+			ResolveRequiredComponents (1ms)
+	FinalizeReload (451ms)
+		ReleaseScriptCaches (0ms)
+		RebuildScriptCaches (0ms)
+		SetupLoadedEditorAssemblies (335ms)
+			LogAssemblyErrors (0ms)
+			InitializePlatformSupportModulesInManaged (13ms)
+			SetLoadedEditorAssemblies (12ms)
+			RefreshPlugins (0ms)
+			BeforeProcessingInitializeOnLoad (5ms)
+			ProcessInitializeOnLoadAttributes (203ms)
+			ProcessInitializeOnLoadMethodAttributes (101ms)
+			AfterProcessingInitializeOnLoad (0ms)
+			EditorAssembliesLoaded (0ms)
+		ExecutionOrderSort2 (0ms)
+		AwakeInstancesAfterBackupRestoration (0ms)
+[Licensing::Client] Successfully resolved entitlements
+Application.AssetDatabase Initial Refresh Start
+[ScriptCompilation] Requested script compilation because: Assembly Definition File(s) changed
+[ScriptCompilation] Requested script compilation because: Assetdatabase observed changes in script compilation related files
+[40m[32minfo[39m[22m[49m: Microsoft.Hosting.Lifetime[14]
+      Now listening on: http://unix:/tmp/ilpp.sock-8e16111b622e4d5ea6b5ecc926298bfd
+[40m[32minfo[39m[22m[49m: Microsoft.Hosting.Lifetime[0]
+      Application started. Press Ctrl+C to shut down.
+[40m[32minfo[39m[22m[49m: Microsoft.Hosting.Lifetime[0]
+      Hosting environment: Production
+[40m[32minfo[39m[22m[49m: Microsoft.Hosting.Lifetime[0]
+      Content root path: /Users/guribbong/code/Argus/unity/EmbodiedDebate/
+[40m[32minfo[39m[22m[49m: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/2 POST http://ilpp/UnityILPP.PostProcessing/Ping application/grpc -
+[40m[32minfo[39m[22m[49m: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'gRPC - /UnityILPP.PostProcessing/Ping'
+[40m[32minfo[39m[22m[49m: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'gRPC - /UnityILPP.PostProcessing/Ping'
+[40m[32minfo[39m[22m[49m: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished HTTP/2 POST http://ilpp/UnityILPP.PostProcessing/Ping application/grpc - - 200 - application/grpc 295.1995ms
+Starting: /Applications/Unity/Hub/Editor/2022.3.0f1/Unity.app/Contents/bee_backend --dont-print-to-structured-log --ipc --defer-dag-verification --dagfile="Library/Bee/200b0aE.dag" --continue-on-failure --profile="Library/Bee/backend1.traceevents" ScriptAssemblies
+WorkingDir: /Users/guribbong/code/Argus/unity/EmbodiedDebate
+DisplayProgressbar: Compiling Scripts
+ExitCode: 4 Duration: 0s287ms
+Rebuilding DAG because FileSignature timestamp changed: Library/Bee/200b0aE-inputdata.json
+*** Tundra requires additional run (0.20 seconds), 0 items updated, 0 evaluated
+Starting: /Applications/Unity/Hub/Editor/2022.3.0f1/Unity.app/Contents/Tools/netcorerun/netcorerun "/Applications/Unity/Hub/Editor/2022.3.0f1/Unity.app/Contents/Tools/BuildPipeline/ScriptCompilationBuildProgram.exe" "Library/Bee/200b0aE.dag.json" "Library/Bee/200b0aE-inputdata.json" "Library/Bee/buildprogram0.traceevents"
+WorkingDir: /Users/guribbong/code/Argus/unity/EmbodiedDebate
+ExitCode: 0 Duration: 5s113ms
+Starting: /Applications/Unity/Hub/Editor/2022.3.0f1/Unity.app/Contents/bee_backend --dont-print-to-structured-log --ipc --defer-dag-verification --dagfile="Library/Bee/200b0aE.dag" --continue-on-failure --dagfilejson="Library/Bee/200b0aE.dag.json" --profile="Library/Bee/backend2.traceevents" ScriptAssemblies
+WorkingDir: /Users/guribbong/code/Argus/unity/EmbodiedDebate
+[40m[32minfo[39m[22m[49m: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/2 POST http://ilpp/UnityILPP.PostProcessing/ConfigurePostProcessors application/grpc -
+[40m[32minfo[39m[22m[49m: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'gRPC - /UnityILPP.PostProcessing/ConfigurePostProcessors'
+[40m[1m[33mwarn[39m[22m[49m: Unity.ILPP.Runner.PostProcessingAssemblyLoadContext[0]
+      Assembly system.runtime.interopservices.windowsruntime has duplicate hint path. Ignoring "/Applications/Unity/Hub/Editor/2022.3.0f1/Unity.app/Contents/UnityReferenceAssemblies/unity-4.8-api/Facades/System.Runtime.InteropServices.WindowsRuntime.dll" in favor of "/Applications/Unity/Hub/Editor/2022.3.0f1/Unity.app/Contents/NetStandard/Extensions/2.0.0/System.Runtime.InteropServices.WindowsRuntime.dll"
+[40m[1m[33mwarn[39m[22m[49m: Unity.ILPP.Runner.PostProcessingAssemblyLoadContext[0]
+      Assembly system.componentmodel.composition has duplicate hint path. Ignoring "/Applications/Unity/Hub/Editor/2022.3.0f1/Unity.app/Contents/UnityReferenceAssemblies/unity-4.8-api/System.ComponentModel.Composition.dll" in favor of "/Applications/Unity/Hub/Editor/2022.3.0f1/Unity.app/Contents/NetStandard/compat/2.1.0/shims/netfx/System.ComponentModel.Composition.dll"
+[40m[32minfo[39m[22m[49m: Unity.ILPP.Runner.PostProcessingAssemblyLoadContext[0]
+      Resolved Unity.Burst.Cecil, Version=0.11.4.0, Culture=neutral, PublicKeyToken=50cebf1cceb9d05e with Library/PackageCache/com.unity.burst@1.8.4/Unity.Burst.CodeGen/Unity.Burst.Cecil.dll
+[40m[32minfo[39m[22m[49m: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'gRPC - /UnityILPP.PostProcessing/ConfigurePostProcessors'
+[40m[32minfo[39m[22m[49m: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished HTTP/2 POST http://ilpp/UnityILPP.PostProcessing/ConfigurePostProcessors application/grpc - - 200 - application/grpc 121.7398ms
+[40m[32minfo[39m[22m[49m: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/2 POST http://ilpp/UnityILPP.PostProcessing/PostProcessAssembly application/grpc -
+[40m[32minfo[39m[22m[49m: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'gRPC - /UnityILPP.PostProcessing/PostProcessAssembly'
+[40m[32minfo[39m[22m[49m: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/2 POST http://ilpp/UnityILPP.PostProcessing/PostProcessAssembly application/grpc -
+[40m[32minfo[39m[22m[49m: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'gRPC - /UnityILPP.PostProcessing/PostProcessAssembly'
+[40m[32minfo[39m[22m[49m: Unity.ILPP.Runner.PostProcessingPipeline[0]
+      Processing assembly Library/Bee/artifacts/200b0aE.dag/ArgusUnity.dll, with 119 defines and 181 references
+[40m[32minfo[39m[22m[49m: Unity.ILPP.Runner.PostProcessingPipeline[0]
+      processors: zzzUnity.Burst.CodeGen.BurstILPostProcessor
+[40m[32minfo[39m[22m[49m: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/2 POST http://ilpp/UnityILPP.PostProcessing/PostProcessAssembly application/grpc -
+[40m[32minfo[39m[22m[49m: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/2 POST http://ilpp/UnityILPP.PostProcessing/PostProcessAssembly application/grpc -
+[40m[32minfo[39m[22m[49m: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'gRPC - /UnityILPP.PostProcessing/PostProcessAssembly'
+[40m[32minfo[39m[22m[49m: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'gRPC - /UnityILPP.PostProcessing/PostProcessAssembly'
+[40m[32minfo[39m[22m[49m: Unity.ILPP.Runner.PostProcessingPipeline[0]
+      Processing assembly Library/Bee/artifacts/200b0aE.dag/Unity.Mathematics.dll, with 119 defines and 181 references
+[40m[32minfo[39m[22m[49m: Unity.ILPP.Runner.PostProcessingPipeline[0]
+      Processing assembly Library/Bee/artifacts/200b0aE.dag/Unity.Burst.dll, with 119 defines and 181 references
+[40m[32minfo[39m[22m[49m: Unity.ILPP.Runner.PostProcessingPipeline[0]
+      processors: zzzUnity.Burst.CodeGen.BurstILPostProcessor
+[40m[32minfo[39m[22m[49m: Unity.ILPP.Runner.PostProcessingPipeline[0]
+      processors: zzzUnity.Burst.CodeGen.BurstILPostProcessor
+[40m[32minfo[39m[22m[49m: Unity.ILPP.Runner.PostProcessingPipeline[0]
+      Processing assembly Library/Bee/artifacts/200b0aE.dag/glTFast.dll, with 121 defines and 183 references
+[40m[32minfo[39m[22m[49m: Unity.ILPP.Runner.PostProcessingPipeline[0]
+      processors: zzzUnity.Burst.CodeGen.BurstILPostProcessor
+[40m[32minfo[39m[22m[49m: Unity.ILPP.Runner.PostProcessingPipeline[0]
+      running zzzUnity.Burst.CodeGen.BurstILPostProcessor
+[40m[32minfo[39m[22m[49m: Unity.ILPP.Runner.PostProcessingPipeline[0]
+      running zzzUnity.Burst.CodeGen.BurstILPostProcessor
+[40m[32minfo[39m[22m[49m: Unity.ILPP.Runner.PostProcessingPipeline[0]
+      running zzzUnity.Burst.CodeGen.BurstILPostProcessor
+[40m[32minfo[39m[22m[49m: Unity.ILPP.Runner.PostProcessingPipeline[0]
+      running zzzUnity.Burst.CodeGen.BurstILPostProcessor
+[40m[32minfo[39m[22m[49m: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'gRPC - /UnityILPP.PostProcessing/PostProcessAssembly'
+[40m[32minfo[39m[22m[49m: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'gRPC - /UnityILPP.PostProcessing/PostProcessAssembly'
+[40m[32minfo[39m[22m[49m: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'gRPC - /UnityILPP.PostProcessing/PostProcessAssembly'
+[40m[32minfo[39m[22m[49m: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished HTTP/2 POST http://ilpp/UnityILPP.PostProcessing/PostProcessAssembly application/grpc - - 200 - application/grpc 75.8582ms
+[40m[32minfo[39m[22m[49m: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished HTTP/2 POST http://ilpp/UnityILPP.PostProcessing/PostProcessAssembly application/grpc - - 200 - application/grpc 37.9353ms
+[40m[32minfo[39m[22m[49m: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished HTTP/2 POST http://ilpp/UnityILPP.PostProcessing/PostProcessAssembly application/grpc - - 200 - application/grpc 34.0820ms
+[40m[32minfo[39m[22m[49m: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/2 POST http://ilpp/UnityILPP.PostProcessing/PostProcessAssembly application/grpc -
+[40m[32minfo[39m[22m[49m: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'gRPC - /UnityILPP.PostProcessing/PostProcessAssembly'
+[40m[32minfo[39m[22m[49m: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/2 POST http://ilpp/UnityILPP.PostProcessing/PostProcessAssembly application/grpc -
+[40m[32minfo[39m[22m[49m: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'gRPC - /UnityILPP.PostProcessing/PostProcessAssembly'
+[40m[32minfo[39m[22m[49m: Unity.ILPP.Runner.PostProcessingPipeline[0]
+      Processing assembly Library/Bee/artifacts/200b0aE.dag/ArgusUnity.Tests.PlayMode.dll, with 117 defines and 215 references
+[40m[32minfo[39m[22m[49m: Unity.ILPP.Runner.PostProcessingPipeline[0]
+      processors: zzzUnity.Burst.CodeGen.BurstILPostProcessor
+[40m[32minfo[39m[22m[49m: Unity.ILPP.Runner.PostProcessingPipeline[0]
+      Processing assembly Library/Bee/artifacts/200b0aE.dag/Unity.Mathematics.Editor.dll, with 117 defines and 216 references
+[40m[32minfo[39m[22m[49m: Unity.ILPP.Runner.PostProcessingPipeline[0]
+      processors: zzzUnity.Burst.CodeGen.BurstILPostProcessor
+[40m[32minfo[39m[22m[49m: Unity.ILPP.Runner.PostProcessingPipeline[0]
+      running zzzUnity.Burst.CodeGen.BurstILPostProcessor
+[40m[32minfo[39m[22m[49m: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'gRPC - /UnityILPP.PostProcessing/PostProcessAssembly'
+[40m[32minfo[39m[22m[49m: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished HTTP/2 POST http://ilpp/UnityILPP.PostProcessing/PostProcessAssembly application/grpc - - 200 - application/grpc 50.9870ms
+[40m[32minfo[39m[22m[49m: Unity.ILPP.Runner.PostProcessingPipeline[0]
+      running zzzUnity.Burst.CodeGen.BurstILPostProcessor
+[40m[32minfo[39m[22m[49m: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'gRPC - /UnityILPP.PostProcessing/PostProcessAssembly'
+[40m[32minfo[39m[22m[49m: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished HTTP/2 POST http://ilpp/UnityILPP.PostProcessing/PostProcessAssembly application/grpc - - 200 - application/grpc 46.7617ms
+[40m[32minfo[39m[22m[49m: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/2 POST http://ilpp/UnityILPP.PostProcessing/PostProcessAssembly application/grpc -
+[40m[32minfo[39m[22m[49m: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'gRPC - /UnityILPP.PostProcessing/PostProcessAssembly'
+[40m[32minfo[39m[22m[49m: Unity.ILPP.Runner.PostProcessingPipeline[0]
+      Processing assembly Library/Bee/artifacts/200b0aE.dag/ArgusUnity.Editor.dll, with 117 defines and 216 references
+[40m[32minfo[39m[22m[49m: Unity.ILPP.Runner.PostProcessingPipeline[0]
+      processors: zzzUnity.Burst.CodeGen.BurstILPostProcessor
+[40m[32minfo[39m[22m[49m: Unity.ILPP.Runner.PostProcessingPipeline[0]
+      running zzzUnity.Burst.CodeGen.BurstILPostProcessor
+[40m[32minfo[39m[22m[49m: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'gRPC - /UnityILPP.PostProcessing/PostProcessAssembly'
+[40m[32minfo[39m[22m[49m: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished HTTP/2 POST http://ilpp/UnityILPP.PostProcessing/PostProcessAssembly application/grpc - - 200 - application/grpc 40.6527ms
+[40m[32minfo[39m[22m[49m: Unity.ILPP.Runner.PostProcessingAssemblyLoadContext[0]
+      Resolved Unity.Burst.Cecil.Rocks, Version=0.11.4.0, Culture=neutral, PublicKeyToken=50cebf1cceb9d05e with Library/PackageCache/com.unity.burst@1.8.4/Unity.Burst.CodeGen/Unity.Burst.Cecil.Rocks.dll
+[40m[32minfo[39m[22m[49m: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/2 POST http://ilpp/UnityILPP.PostProcessing/PostProcessAssembly application/grpc -
+[40m[32minfo[39m[22m[49m: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'gRPC - /UnityILPP.PostProcessing/PostProcessAssembly'
+[40m[32minfo[39m[22m[49m: Unity.ILPP.Runner.PostProcessingPipeline[0]
+      Processing assembly Library/Bee/artifacts/200b0aE.dag/ArgusUnity.Tests.EditMode.dll, with 117 defines and 216 references
+[40m[32minfo[39m[22m[49m: Unity.ILPP.Runner.PostProcessingPipeline[0]
+      processors: zzzUnity.Burst.CodeGen.BurstILPostProcessor
+[40m[32minfo[39m[22m[49m: Unity.ILPP.Runner.PostProcessingPipeline[0]
+      running zzzUnity.Burst.CodeGen.BurstILPostProcessor
+[40m[32minfo[39m[22m[49m: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'gRPC - /UnityILPP.PostProcessing/PostProcessAssembly'
+[40m[32minfo[39m[22m[49m: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished HTTP/2 POST http://ilpp/UnityILPP.PostProcessing/PostProcessAssembly application/grpc - - 200 - application/grpc 46.6198ms
+[40m[32minfo[39m[22m[49m: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/2 POST http://ilpp/UnityILPP.PostProcessing/PostProcessAssembly application/grpc -
+[40m[32minfo[39m[22m[49m: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'gRPC - /UnityILPP.PostProcessing/PostProcessAssembly'
+[40m[32minfo[39m[22m[49m: Unity.ILPP.Runner.PostProcessingPipeline[0]
+      Processing assembly Library/Bee/artifacts/200b0aE.dag/glTFast.dots.dll, with 119 defines and 184 references
+[40m[32minfo[39m[22m[49m: Unity.ILPP.Runner.PostProcessingPipeline[0]
+      processors: zzzUnity.Burst.CodeGen.BurstILPostProcessor
+[40m[32minfo[39m[22m[49m: Unity.ILPP.Runner.PostProcessingPipeline[0]
+      running zzzUnity.Burst.CodeGen.BurstILPostProcessor
+[40m[32minfo[39m[22m[49m: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'gRPC - /UnityILPP.PostProcessing/PostProcessAssembly'
+[40m[32minfo[39m[22m[49m: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished HTTP/2 POST http://ilpp/UnityILPP.PostProcessing/PostProcessAssembly application/grpc - - 200 - application/grpc 63.5900ms
+[40m[32minfo[39m[22m[49m: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/2 POST http://ilpp/UnityILPP.PostProcessing/PostProcessAssembly application/grpc -
+[40m[32minfo[39m[22m[49m: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'gRPC - /UnityILPP.PostProcessing/PostProcessAssembly'
+[40m[32minfo[39m[22m[49m: Unity.ILPP.Runner.PostProcessingPipeline[0]
+      Processing assembly Library/Bee/artifacts/200b0aE.dag/glTFast.Editor.Tests.dll, with 117 defines and 216 references
+[40m[32minfo[39m[22m[49m: Unity.ILPP.Runner.PostProcessingPipeline[0]
+      processors: zzzUnity.Burst.CodeGen.BurstILPostProcessor
+[40m[32minfo[39m[22m[49m: Unity.ILPP.Runner.PostProcessingPipeline[0]
+      running zzzUnity.Burst.CodeGen.BurstILPostProcessor
+[40m[32minfo[39m[22m[49m: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'gRPC - /UnityILPP.PostProcessing/PostProcessAssembly'
+[40m[32minfo[39m[22m[49m: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished HTTP/2 POST http://ilpp/UnityILPP.PostProcessing/PostProcessAssembly application/grpc - - 200 - application/grpc 4.5567ms
+[40m[32minfo[39m[22m[49m: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'gRPC - /UnityILPP.PostProcessing/PostProcessAssembly'
+[40m[32minfo[39m[22m[49m: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished HTTP/2 POST http://ilpp/UnityILPP.PostProcessing/PostProcessAssembly application/grpc - - 200 - application/grpc 1600.5979ms
+[40m[32minfo[39m[22m[49m: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/2 POST http://ilpp/UnityILPP.PostProcessing/PostProcessAssembly application/grpc -
+[40m[32minfo[39m[22m[49m: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'gRPC - /UnityILPP.PostProcessing/PostProcessAssembly'
+[40m[32minfo[39m[22m[49m: Unity.ILPP.Runner.PostProcessingPipeline[0]
+      Processing assembly Library/Bee/artifacts/200b0aE.dag/glTFast.Export.dll, with 120 defines and 184 references
+[40m[32minfo[39m[22m[49m: Unity.ILPP.Runner.PostProcessingPipeline[0]
+      processors: zzzUnity.Burst.CodeGen.BurstILPostProcessor
+[40m[32minfo[39m[22m[49m: Unity.ILPP.Runner.PostProcessingPipeline[0]
+      running zzzUnity.Burst.CodeGen.BurstILPostProcessor
+[40m[32minfo[39m[22m[49m: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'gRPC - /UnityILPP.PostProcessing/PostProcessAssembly'
+[40m[32minfo[39m[22m[49m: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished HTTP/2 POST http://ilpp/UnityILPP.PostProcessing/PostProcessAssembly application/grpc - - 200 - application/grpc 42.4330ms
+[40m[32minfo[39m[22m[49m: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/2 POST http://ilpp/UnityILPP.PostProcessing/PostProcessAssembly application/grpc -
+[40m[32minfo[39m[22m[49m: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'gRPC - /UnityILPP.PostProcessing/PostProcessAssembly'
+[40m[32minfo[39m[22m[49m: Unity.ILPP.Runner.PostProcessingPipeline[0]
+      Processing assembly Library/Bee/artifacts/200b0aE.dag/glTFast.Editor.dll, with 117 defines and 218 references
+[40m[32minfo[39m[22m[49m: Unity.ILPP.Runner.PostProcessingPipeline[0]
+      processors: zzzUnity.Burst.CodeGen.BurstILPostProcessor
+[40m[32minfo[39m[22m[49m: Unity.ILPP.Runner.PostProcessingPipeline[0]
+      running zzzUnity.Burst.CodeGen.BurstILPostProcessor
+[40m[32minfo[39m[22m[49m: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'gRPC - /UnityILPP.PostProcessing/PostProcessAssembly'
+[40m[32minfo[39m[22m[49m: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished HTTP/2 POST http://ilpp/UnityILPP.PostProcessing/PostProcessAssembly application/grpc - - 200 - application/grpc 2.8958ms
+[40m[32minfo[39m[22m[49m: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/2 POST http://ilpp/UnityILPP.PostProcessing/PostProcessAssembly application/grpc -
+[40m[32minfo[39m[22m[49m: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'gRPC - /UnityILPP.PostProcessing/PostProcessAssembly'
+[40m[32minfo[39m[22m[49m: Unity.ILPP.Runner.PostProcessingPipeline[0]
+      Processing assembly Library/Bee/artifacts/200b0aE.dag/Unity.Burst.Editor.dll, with 117 defines and 216 references
+[40m[32minfo[39m[22m[49m: Unity.ILPP.Runner.PostProcessingPipeline[0]
+      processors: zzzUnity.Burst.CodeGen.BurstILPostProcessor
+[40m[32minfo[39m[22m[49m: Unity.ILPP.Runner.PostProcessingPipeline[0]
+      running zzzUnity.Burst.CodeGen.BurstILPostProcessor
+[40m[32minfo[39m[22m[49m: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'gRPC - /UnityILPP.PostProcessing/PostProcessAssembly'
+[40m[32minfo[39m[22m[49m: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished HTTP/2 POST http://ilpp/UnityILPP.PostProcessing/PostProcessAssembly application/grpc - - 200 - application/grpc 69.9141ms
+ExitCode: 0 Duration: 23s
+Finished compiling graph: 242 nodes, 2038 flattened edges (1818 ToBuild, 32 ToUse), maximum node priority 92
+[           0s] Delete 64 artifact files that are no longer in use. (like Library/Bee/artifacts/200b0aE.dag/Unity.Collections.BurstCompatibilityGen.UnityAdditionalFile.txt)
+[ 73/239    0s] WriteText Library/Bee/artifacts/200b0aE.dag/Unity.Burst.dll.mvfrm.rsp
+[ 74/239    0s] WriteText Library/Bee/artifacts/200b0aE.dag/Unity.Burst.rsp
+[102/239    0s] WriteText Library/Bee/artifacts/200b0aE.dag/Unity.Mathematics.dll.mvfrm.rsp
+[104/239    0s] WriteText Library/Bee/artifacts/200b0aE.dag/Unity.Mathematics.rsp
+[105/239    0s] WriteText Library/Bee/artifacts/200b0aE.dag/Unity.Burst.CodeGen.dll.mvfrm.rsp
+[111/239    0s] WriteText Library/Bee/artifacts/200b0aE.dag/Unity.Burst.CodeGen.rsp
+[117/239    0s] WriteText Library/Bee/artifacts/200b0aE.dag/glTFast.dll.mvfrm.rsp
+[118/239    0s] WriteText Library/Bee/artifacts/200b0aE.dag/ArgusUnity.dll.mvfrm.rsp
+[119/239    0s] WriteText Library/Bee/artifacts/200b0aE.dag/glTFast.rsp
+[121/239    0s] WriteText Library/Bee/artifacts/200b0aE.dag/ArgusUnity.rsp
+[124/239    0s] WriteText Library/Bee/artifacts/200b0aE.dag/glTFast.Export.dll.mvfrm.rsp
+[125/239    0s] WriteText Library/Bee/artifacts/200b0aE.dag/glTFast.Export.rsp
+[126/239    0s] WriteText Library/Bee/artifacts/200b0aE.dag/glTFast.dots.dll.mvfrm.rsp
+[127/239    0s] WriteText Library/Bee/artifacts/200b0aE.dag/Unity.Mathematics.Editor.dll.mvfrm.rsp
+[128/239    0s] WriteText Library/Bee/artifacts/200b0aE.dag/glTFast.Editor.Tests.dll.mvfrm.rsp
+[129/239    0s] WriteText Library/Bee/artifacts/200b0aE.dag/ArgusUnity.Tests.EditMode.dll.mvfrm.rsp
+[130/239    0s] WriteText Library/Bee/artifacts/200b0aE.dag/Unity.Burst.Editor.dll.mvfrm.rsp
+[131/239    0s] WriteText Library/Bee/artifacts/200b0aE.dag/ArgusUnity.Tests.PlayMode.dll.mvfrm.rsp
+[133/239    0s] WriteText Library/Bee/artifacts/200b0aE.dag/ArgusUnity.Editor.dll.mvfrm.rsp
+[134/239    0s] WriteText Library/Bee/artifacts/200b0aE.dag/glTFast.Editor.dll.mvfrm.rsp
+[136/239    0s] WriteText Library/Bee/artifacts/200b0aE.dag/glTFast.dots.rsp
+[145/239    0s] WriteText Library/Bee/artifacts/200b0aE.dag/glTFast.Editor.Tests.UnityAdditionalFile.txt
+[146/239    0s] WriteText Library/Bee/artifacts/200b0aE.dag/glTFast.Editor.Tests.rsp2
+[151/239    1s] MovedFromExtractorCombine Library/Bee/artifacts/200b0aE.dag/ArgusUnity.dll.mvfrm
+[152/239    1s] MovedFromExtractorCombine Library/Bee/artifacts/200b0aE.dag/ArgusUnity.Editor.dll.mvfrm
+[153/239    2s] MovedFromExtractorCombine Library/Bee/artifacts/200b0aE.dag/Unity.Mathematics.dll.mvfrm
+[154/239    2s] MovedFromExtractor Library/Bee/artifacts/mvdfrm/Unity.Burst.Cecil.Rocks.dll_8F33A0A3C2DA75FD.mvfrm
+[155/239    2s] MovedFromExtractor Library/Bee/artifacts/mvdfrm/Unity.Burst.Cecil.Pdb.dll_9EC5AF40191E5C3D.mvfrm
+[156/239    0s] WriteText Library/Bee/artifacts/200b0aE.dag/ArgusUnity.Editor.rsp
+[157/239    0s] WriteText Library/Bee/artifacts/200b0aE.dag/glTFast.Editor.rsp
+[158/239    0s] WriteText Library/Bee/artifacts/200b0aE.dag/ArgusUnity.Tests.PlayMode.rsp
+[159/239    0s] WriteText Library/Bee/artifacts/200b0aE.dag/Unity.Burst.Editor.rsp
+[160/239    0s] WriteText Library/Bee/artifacts/200b0aE.dag/Unity.Mathematics.Editor.rsp
+[161/239    0s] WriteText Library/Bee/artifacts/200b0aE.dag/glTFast.Editor.Tests.rsp
+[162/239    0s] WriteText Library/Bee/artifacts/200b0aE.dag/ArgusUnity.Tests.EditMode.rsp
+[167/239    2s] MovedFromExtractor Library/Bee/artifacts/mvdfrm/Unity.Burst.Cecil.Mdb.dll_877336D09A695ABA.mvfrm
+[168/239    2s] MovedFromExtractor Library/Bee/artifacts/mvdfrm/Unity.Burst.Unsafe.dll_5F0C64F48B946446.mvfrm
+[169/239    2s] MovedFromExtractor Library/Bee/artifacts/mvdfrm/Unity.Burst.Cecil.dll_2D1C614B3080703D.mvfrm
+[170/239    1s] MovedFromExtractorCombine Library/Bee/artifacts/200b0aE.dag/ArgusUnity.Tests.PlayMode.dll.mvfrm
+[171/239    1s] MovedFromExtractorCombine Library/Bee/artifacts/200b0aE.dag/ArgusUnity.Tests.EditMode.dll.mvfrm
+[172/239    1s] MovedFromExtractorCombine Library/Bee/artifacts/200b0aE.dag/Unity.Burst.dll.mvfrm
+[173/239    5s] Csc Library/Bee/artifacts/200b0aE.dag/ArgusUnity.dll (+2 others)
+[BUSY      10s] Csc Library/Bee/artifacts/200b0aE.dag/Unity.Mathematics.dll (+2 others)
+[174/239   10s] Csc Library/Bee/artifacts/200b0aE.dag/Unity.Mathematics.dll (+2 others)
+[           0s] Csc Library/Bee/artifacts/200b0aE.dag/Unity.Mathematics.dll (+2 others) [CacheWrite ]
+[176/239    0s] MovedFromExtractorCombine Library/Bee/artifacts/200b0aE.dag/Unity.Mathematics.Editor.dll.mvfrm
+[177/239    1s] MovedFromExtractorCombine Library/Bee/artifacts/200b0aE.dag/glTFast.Editor.dll.mvfrm
+[178/239    1s] MovedFromExtractorCombine Library/Bee/artifacts/200b0aE.dag/glTFast.Editor.Tests.dll.mvfrm
+[179/239    8s] Csc Library/Bee/artifacts/200b0aE.dag/ArgusUnity.Tests.PlayMode.dll (+2 others)
+[180/239    8s] Csc Library/Bee/artifacts/200b0aE.dag/ArgusUnity.Tests.EditMode.dll (+2 others)
+[181/239    8s] Csc Library/Bee/artifacts/200b0aE.dag/ArgusUnity.Editor.dll (+2 others)
+[182/239    1s] Csc Library/Bee/artifacts/200b0aE.dag/Unity.Mathematics.Editor.dll (+2 others)
+[           0s] Csc Library/Bee/artifacts/200b0aE.dag/Unity.Mathematics.Editor.dll (+2 others) [CacheWrite ]
+[183/239   11s] Csc Library/Bee/artifacts/200b0aE.dag/Unity.Burst.dll (+2 others)
+[           0s] Csc Library/Bee/artifacts/200b0aE.dag/Unity.Burst.dll (+2 others) [CacheWrite ]
+[184/239    0s] MovedFromExtractor Library/Bee/artifacts/mvdfrm/Unity.Burst.ref.dll_A43E80D48102A6F4.mvfrm
+[185/239    0s] MovedFromExtractorCombine Library/Bee/artifacts/200b0aE.dag/glTFast.Export.dll.mvfrm
+[186/239    0s] MovedFromExtractorCombine Library/Bee/artifacts/200b0aE.dag/glTFast.dll.mvfrm
+[187/239    0s] MovedFromExtractorCombine Library/Bee/artifacts/200b0aE.dag/Unity.Burst.CodeGen.dll.mvfrm
+[188/239    0s] MovedFromExtractorCombine Library/Bee/artifacts/200b0aE.dag/Unity.Burst.Editor.dll.mvfrm
+[189/239    0s] MovedFromExtractorCombine Library/Bee/artifacts/200b0aE.dag/glTFast.dots.dll.mvfrm
+[190/239    1s] Csc Library/Bee/artifacts/200b0aE.dag/Unity.Burst.CodeGen.dll (+2 others)
+[           0s] Csc Library/Bee/artifacts/200b0aE.dag/Unity.Burst.CodeGen.dll (+2 others) [CacheWrite ]
+[191/239    0s] CopyFiles Library/ScriptAssemblies/Unity.Burst.CodeGen.dll
+[192/239    0s] CopyFiles Library/ScriptAssemblies/Unity.Burst.CodeGen.pdb
+[193/239    2s] Csc Library/Bee/artifacts/200b0aE.dag/glTFast.dll (+2 others)
+[           0s] Csc Library/Bee/artifacts/200b0aE.dag/glTFast.dll (+2 others) [CacheWrite ]
+[194/239    0s] ILPP-Configuration Library/ilpp-configuration.nevergeneratedoutput
+[195/239    0s] ILPostProcess Library/Bee/artifacts/200b0aE.dag/post-processed/ArgusUnity.dll (+pdb)
+Processing assembly Library/Bee/artifacts/200b0aE.dag/ArgusUnity.dll, with 119 defines and 181 references
+processors: zzzUnity.Burst.CodeGen.BurstILPostProcessor
+running zzzUnity.Burst.CodeGen.BurstILPostProcessor
+[196/239    0s] ILPostProcess Library/Bee/artifacts/200b0aE.dag/post-processed/Unity.Burst.dll (+pdb)
+Processing assembly Library/Bee/artifacts/200b0aE.dag/Unity.Burst.dll, with 119 defines and 181 references
+processors: zzzUnity.Burst.CodeGen.BurstILPostProcessor
+running zzzUnity.Burst.CodeGen.BurstILPostProcessor
+[197/239    0s] ILPostProcess Library/Bee/artifacts/200b0aE.dag/post-processed/Unity.Mathematics.dll (+pdb)
+Processing assembly Library/Bee/artifacts/200b0aE.dag/Unity.Mathematics.dll, with 119 defines and 181 references
+processors: zzzUnity.Burst.CodeGen.BurstILPostProcessor
+running zzzUnity.Burst.CodeGen.BurstILPostProcessor
+[198/239    0s] ILPostProcess Library/Bee/artifacts/200b0aE.dag/post-processed/ArgusUnity.Tests.PlayMode.dll (+pdb)
+Processing assembly Library/Bee/artifacts/200b0aE.dag/ArgusUnity.Tests.PlayMode.dll, with 117 defines and 215 references
+processors: zzzUnity.Burst.CodeGen.BurstILPostProcessor
+running zzzUnity.Burst.CodeGen.BurstILPostProcessor
+[199/239    0s] ILPostProcess Library/Bee/artifacts/200b0aE.dag/post-processed/Unity.Mathematics.Editor.dll (+pdb)
+Processing assembly Library/Bee/artifacts/200b0aE.dag/Unity.Mathematics.Editor.dll, with 117 defines and 216 references
+processors: zzzUnity.Burst.CodeGen.BurstILPostProcessor
+running zzzUnity.Burst.CodeGen.BurstILPostProcessor
+[200/239    0s] ILPostProcess Library/Bee/artifacts/200b0aE.dag/post-processed/ArgusUnity.Editor.dll (+pdb)
+Processing assembly Library/Bee/artifacts/200b0aE.dag/ArgusUnity.Editor.dll, with 117 defines and 216 references
+processors: zzzUnity.Burst.CodeGen.BurstILPostProcessor
+running zzzUnity.Burst.CodeGen.BurstILPostProcessor
+[201/239    0s] CopyFiles Library/ScriptAssemblies/Unity.Mathematics.dll
+[202/239    0s] CopyFiles Library/ScriptAssemblies/Unity.Burst.dll
+[203/239    0s] CopyFiles Library/ScriptAssemblies/ArgusUnity.dll
+[204/239    0s] CopyFiles Library/ScriptAssemblies/Unity.Mathematics.Editor.dll
+[205/239    0s] CopyFiles Library/ScriptAssemblies/ArgusUnity.Editor.pdb
+[206/239    0s] CopyFiles Library/ScriptAssemblies/Unity.Mathematics.Editor.pdb
+[207/239    0s] CopyFiles Library/ScriptAssemblies/ArgusUnity.Tests.PlayMode.pdb
+[208/239    0s] CopyFiles Library/ScriptAssemblies/ArgusUnity.Editor.dll
+[209/239    0s] CopyFiles Library/ScriptAssemblies/ArgusUnity.Tests.PlayMode.dll
+[210/239    0s] CopyFiles Library/ScriptAssemblies/Unity.Mathematics.pdb
+[211/239    0s] CopyFiles Library/ScriptAssemblies/ArgusUnity.pdb
+[212/239    0s] CopyFiles Library/ScriptAssemblies/Unity.Burst.pdb
+[213/239    1s] Csc Library/Bee/artifacts/200b0aE.dag/glTFast.dots.dll (+2 others)
+[           0s] Csc Library/Bee/artifacts/200b0aE.dag/glTFast.dots.dll (+2 others) [CacheWrite ]
+[214/239    0s] ILPostProcess Library/Bee/artifacts/200b0aE.dag/post-processed/ArgusUnity.Tests.EditMode.dll (+pdb)
+Processing assembly Library/Bee/artifacts/200b0aE.dag/ArgusUnity.Tests.EditMode.dll, with 117 defines and 216 references
+processors: zzzUnity.Burst.CodeGen.BurstILPostProcessor
+running zzzUnity.Burst.CodeGen.BurstILPostProcessor
+[215/239    0s] CopyFiles Library/ScriptAssemblies/ArgusUnity.Tests.EditMode.pdb
+[216/239    0s] CopyFiles Library/ScriptAssemblies/ArgusUnity.Tests.EditMode.dll
+[217/239    1s] Csc Library/Bee/artifacts/200b0aE.dag/glTFast.Editor.Tests.dll (+2 others)
+[           0s] Csc Library/Bee/artifacts/200b0aE.dag/glTFast.Editor.Tests.dll (+2 others) [CacheWrite ]
+[218/239    2s] Csc Library/Bee/artifacts/200b0aE.dag/glTFast.Export.dll (+2 others)
+[           0s] Csc Library/Bee/artifacts/200b0aE.dag/glTFast.Export.dll (+2 others) [CacheWrite ]
+[219/239    0s] ILPostProcess Library/Bee/artifacts/200b0aE.dag/post-processed/glTFast.dots.dll (+pdb)
+Processing assembly Library/Bee/artifacts/200b0aE.dag/glTFast.dots.dll, with 119 defines and 184 references
+processors: zzzUnity.Burst.CodeGen.BurstILPostProcessor
+running zzzUnity.Burst.CodeGen.BurstILPostProcessor
+[220/239    0s] CopyFiles Library/ScriptAssemblies/glTFast.dots.dll
+[221/239    0s] CopyFiles Library/ScriptAssemblies/glTFast.dots.pdb
+[222/239    0s] ILPostProcess Library/Bee/artifacts/200b0aE.dag/post-processed/glTFast.Editor.Tests.dll (+pdb)
+Processing assembly Library/Bee/artifacts/200b0aE.dag/glTFast.Editor.Tests.dll, with 117 defines and 216 references
+processors: zzzUnity.Burst.CodeGen.BurstILPostProcessor
+running zzzUnity.Burst.CodeGen.BurstILPostProcessor
+[223/239    0s] CopyFiles Library/ScriptAssemblies/glTFast.Editor.Tests.pdb
+[224/239    0s] CopyFiles Library/ScriptAssemblies/glTFast.Editor.Tests.dll
+[225/239    2s] ILPostProcess Library/Bee/artifacts/200b0aE.dag/post-processed/glTFast.dll (+pdb)
+Processing assembly Library/Bee/artifacts/200b0aE.dag/glTFast.dll, with 121 defines and 183 references
+processors: zzzUnity.Burst.CodeGen.BurstILPostProcessor
+running zzzUnity.Burst.CodeGen.BurstILPostProcessor
+[226/239    0s] CopyFiles Library/ScriptAssemblies/glTFast.pdb
+[227/239    0s] CopyFiles Library/ScriptAssemblies/glTFast.dll
+[228/239    0s] ILPostProcess Library/Bee/artifacts/200b0aE.dag/post-processed/glTFast.Export.dll (+pdb)
+Processing assembly Library/Bee/artifacts/200b0aE.dag/glTFast.Export.dll, with 120 defines and 184 references
+processors: zzzUnity.Burst.CodeGen.BurstILPostProcessor
+running zzzUnity.Burst.CodeGen.BurstILPostProcessor
+[229/239    0s] CopyFiles Library/ScriptAssemblies/glTFast.Export.dll
+[230/239    0s] CopyFiles Library/ScriptAssemblies/glTFast.Export.pdb
+[231/239    0s] Csc Library/Bee/artifacts/200b0aE.dag/glTFast.Editor.dll (+2 others)
+[           0s] Csc Library/Bee/artifacts/200b0aE.dag/glTFast.Editor.dll (+2 others) [CacheWrite ]
+[232/239    0s] ILPostProcess Library/Bee/artifacts/200b0aE.dag/post-processed/glTFast.Editor.dll (+pdb)
+Processing assembly Library/Bee/artifacts/200b0aE.dag/glTFast.Editor.dll, with 117 defines and 218 references
+processors: zzzUnity.Burst.CodeGen.BurstILPostProcessor
+running zzzUnity.Burst.CodeGen.BurstILPostProcessor
+[233/239    0s] CopyFiles Library/ScriptAssemblies/glTFast.Editor.pdb
+[234/239    0s] CopyFiles Library/ScriptAssemblies/glTFast.Editor.dll
+[235/239    6s] Csc Library/Bee/artifacts/200b0aE.dag/Unity.Burst.Editor.dll (+2 others)
+[           0s] Csc Library/Bee/artifacts/200b0aE.dag/Unity.Burst.Editor.dll (+2 others) [CacheWrite ]
+[236/239    0s] ILPostProcess Library/Bee/artifacts/200b0aE.dag/post-processed/Unity.Burst.Editor.dll (+pdb)
+Processing assembly Library/Bee/artifacts/200b0aE.dag/Unity.Burst.Editor.dll, with 117 defines and 216 references
+processors: zzzUnity.Burst.CodeGen.BurstILPostProcessor
+running zzzUnity.Burst.CodeGen.BurstILPostProcessor
+[237/239    0s] CopyFiles Library/ScriptAssemblies/Unity.Burst.Editor.pdb
+[238/239    0s] CopyFiles Library/ScriptAssemblies/Unity.Burst.Editor.dll
+*** Tundra build success (23.73 seconds), 106 items updated, 239 evaluated
+Total cache size 10618192
+Total cache size after purge 10618192
+AssetDatabase: script compilation time: 31.365464s
+Begin MonoManager ReloadAssembly
+Symbol file LoadedFromMemory is not a mono symbol file
+- Loaded All Assemblies, in  0.794 seconds
+Refreshing native plugins compatible for Editor in 0.89 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Start importing Packages/com.unity.burst/Unity.Burst.CodeGen using Guid(b1f6cd0ea95735fdb5771bd62598f3e7) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '9eac1071a01e8afa00074a953b9aad40') in 0.054135 seconds
+Start importing Packages/com.unity.burst/Tests using Guid(b2fb9fa88b3a35c49be2bab7bf83ff9f) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '24b465eaef925025327dc161750ad42c') in 0.000599 seconds
+Start importing Packages/com.unity.cloud.gltfast/Tests using Guid(96addf301842e4f14b90f9e6dbf6e695) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '572d066b65ed571cadd5708203e838d6') in 0.000417 seconds
+Start importing Packages/com.unity.burst/Editor using Guid(f7a6d962a8293976b265b5823570c7d2) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '75b155d85cf2ff9545d858c81d539857') in 0.000435 seconds
+Start importing Packages/com.unity.burst/Runtime using Guid(8e56dfddf7e5373e85a57cde814593df) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '4986b5a15e792c3c6dcc79d8afa576b8') in 0.000371 seconds
+Start importing Packages/com.unity.cloud.gltfast/Tests/Editor using Guid(326a27a33f13c4d3db807cead0bbf96b) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '26357170e7c8a7daf8949463550e1894') in 0.000438 seconds
+Start importing Packages/com.unity.burst/Tests/Editor using Guid(a2b1c4300b7e37aea22a3646af54828f) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '0ba9e9631c6728a59f38159fb55ecfef') in 0.000467 seconds
+Start importing Packages/com.unity.burst/Runtime/Intrinsics using Guid(a5a3c145909a3a8293305bb95cb9886d) Importer(-1,00000000000000000000000000000000)  -> (artifact id: 'cbb64e2c18bc85d0c39aba405b537129') in 0.000458 seconds
+Start importing Packages/com.unity.burst/Runtime/Editor using Guid(bab4845fddb63480a507f162be4484b0) Importer(-1,00000000000000000000000000000000)  -> (artifact id: 'ada627678d211ac2c42543e435794d8f') in 0.000480 seconds
+Start importing Packages/com.unity.burst/Runtime/CompilerServices using Guid(6b94b18a20e83ecd86df27efd171a3ef) Importer(-1,00000000000000000000000000000000)  -> (artifact id: 'a37269745d92f117ebc599dc5e34b539') in 0.000648 seconds
+Start importing Packages/com.unity.burst/Tests/Runtime using Guid(bc9ed20d6388316e806d5f03d0ab3b25) Importer(-1,00000000000000000000000000000000)  -> (artifact id: 'eeff1b9e84f4a52af1010c4deb945c2f') in 0.000558 seconds
+Start importing Packages/com.unity.burst/Tests/OverloadedFunctionPointers using Guid(dfcfd8358b733176a9227f0cf438af69) Importer(-1,00000000000000000000000000000000)  -> (artifact id: 'a8c251c1bb31d606134b4b000b147d79') in 0.000522 seconds
+Start importing Packages/com.unity.burst/Tests/Runtime/Shared using Guid(30b8c33e57eb30adbfd9b640a4edaef8) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '5f8955199bf321b05c1654b1f9eac0d3') in 0.000563 seconds
+Start importing Packages/com.unity.burst/Runtime/Intrinsics/Arm using Guid(b38205989125393b8f9181b1664c53ac) Importer(-1,00000000000000000000000000000000)  -> (artifact id: 'd1581f7fc8a86fea730e5c4f2922b54a') in 0.000443 seconds
+Start importing Packages/com.unity.burst/Tests/Runtime/Unity.Burst.Tests using Guid(d6d6bd522263385da17020bf1da011d2) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '8af634cff35c759b0ca0edeac3de2e8b') in 0.000325 seconds
+Start importing Packages/com.unity.burst/Tests/Editor/SeparateAssembly using Guid(fa45014e48e13a5ea49fd421043ee143) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '31251eb1dacfd3d5b14a280195eba7da') in 0.000368 seconds
+Start importing Packages/com.unity.burst/Tests/Runtime/UnityBenchShared using Guid(eb2949116dd3363e95ca56d95e70e990) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '76184fdde332f554f406ea36272c2a28') in 0.000312 seconds
+Start importing Packages/com.unity.burst/Runtime/Intrinsics/x86 using Guid(fe0be3ce66f936ce9fcdf3d39ee4eb97) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '4c9d87d3c48ddc526db2757cff54fede') in 0.000406 seconds
+Start importing Packages/com.unity.burst/Tests/Runtime/Shared/Helpers using Guid(4af4309be76b3606b3e7e7bcb69e2b83) Importer(-1,00000000000000000000000000000000)  -> (artifact id: 'e66f001102d124af2bbdb5c75215f4f6') in 0.000468 seconds
+Start importing Packages/com.unity.burst/Tests/Runtime/Unity.Burst.Tests.asmdef using Guid(725d36de53dc30f9a00742ae18029bcc) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '0eceab76b00a08e945909dbb79c981d0') in 0.001181 seconds
+Start importing Packages/com.unity.cloud.gltfast/Runtime/Scripts/glTFast.asmdef using Guid(a42927d1d4a3b4cda9b076a7adecb9cc) Importer(-1,00000000000000000000000000000000)  -> (artifact id: 'b3f066236df9eb0081a93a8ebfa40d45') in 0.000934 seconds
+Start importing Packages/com.unity.burst/Tests/Editor/Unity.Burst.Editor.Tests.asmdef using Guid(15ce69d7d9d9370c9704e0797a0ab06b) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '89f2688436d7b4e742e0764f7b4c7439') in 0.000714 seconds
+Start importing Packages/com.unity.cloud.gltfast/Editor/Scripts/glTFast.Editor.asmdef using Guid(76676817d91ba4f44b4aa7df71867256) Importer(-1,00000000000000000000000000000000)  -> (artifact id: 'c18e39004e10d8587a1e9fc4341b18e0') in 0.001007 seconds
+Start importing Packages/com.unity.cloud.gltfast/Runtime/Scripts/DOTS/glTFast.dots.asmdef using Guid(d688d3cbc2c1041f68fa250ae633471b) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '869621da4af858ff328a766b6f5a69e8') in 0.000938 seconds
+Start importing Packages/com.unity.burst/Tests/Editor/SeparateAssembly/SeparateAssembly.asmdef using Guid(3ce0cf2654ad3464aa58eb2e27f77f0d) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '3b6cd2fca26887ebb889e0529f4aa2ad') in 0.000946 seconds
+Start importing Packages/com.unity.cloud.gltfast/Tests/Editor/glTFast.Editor.Tests.asmdef using Guid(6cbab5b4615bd4a41b22c7536b8e0dd7) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '91e06563d9b095b7a90040d31ce876b0') in 0.000879 seconds
+Start importing Packages/com.unity.cloud.gltfast/Runtime/Scripts/Export/glTFast.Export.asmdef using Guid(5e7ba8d6d26c84943b64dd07bd1c9510) Importer(-1,00000000000000000000000000000000)  -> (artifact id: 'f0ca700167a3a423cb2f76c4c68a8fc7') in 0.000801 seconds
+Start importing Packages/com.unity.burst/Tests/OverloadedFunctionPointers/OverloadedFunctionPointers.asmdef using Guid(ee94adce07250884391eeae8a50c225e) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '9e664e03ad7a3f5ac17726737b227cd4') in 0.000930 seconds
+Start importing Packages/com.unity.burst/Runtime/Editor/Unity.Burst.ForEditor.asmref using Guid(268a64be2367b3248a24f317d458861a) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '3cac276e2cce39017455aea99c8bd555') in 0.001074 seconds
+Start importing Packages/com.unity.cloud.gltfast/Runtime/Scripts/Material/glTFast.Material.asmref using Guid(f695d81b6b47d4969b6343e0b1c11df9) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '76374d765a9db3136e24588b36adba29') in 0.000870 seconds
+Start importing Packages/com.unity.cloud.gltfast/Runtime/Scripts/Schema/FakeSchema/MeshPrimitive.cs using Guid(00472b2144fe64d769c3626c4cb7a7ec) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '46ce241cbc121a7ab42c3233c7193e0a') in 0.001286 seconds
+Start importing Packages/com.unity.burst/Tests/Runtime/Shared/050-TestStructsLayout.Generated.cs using Guid(10c2b0100e723deab40f35dc43e40cd5) Importer(-1,00000000000000000000000000000000)  -> (artifact id: 'ce843de9090b215853bf168e61e2c221') in 0.000820 seconds
+Start importing Packages/com.unity.burst/Editor/BurstMenu.cs using Guid(10cda29925873fe1b9148e7e00e4d297) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '703d294b128788d80df1d6ef4cc8dc72') in 0.000504 seconds
+Start importing Packages/com.unity.cloud.gltfast/Runtime/Scripts/Export/IGltfWritable.cs using Guid(3023c5f428f814fa882cdf62151c871e) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '86c60a8953a7f9075504679b98047f69') in 0.000678 seconds
+Start importing Packages/com.unity.burst/Tests/Runtime/Shared/032-Patterns.cs using Guid(50c3d62ace6136cb9c85f8e2a44b7aec) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '7bb02aa793cb2c1536c8a2fc81c820ee') in 0.000631 seconds
+Start importing Packages/com.unity.burst/Editor/BurstStringSearch.cs using Guid(502c484521bc39a9950d91fdf34fd285) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '2061b73aaa00a741cd24533b9824c866') in 0.000544 seconds
+Start importing Packages/com.unity.cloud.gltfast/Runtime/Scripts/Schema/Accessor.cs using Guid(506d97faec79b45fa8ac3bdcf14a6e9c) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '3a4d4f9c00905e2ea562c7309a8247ce') in 0.000670 seconds
+Start importing Packages/com.unity.burst/Editor/BurstDisassembler.Core.Wasm.cs using Guid(60718cfd7019357fa8f224817c4f4e31) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '0af8bbe7e9015c8b6276bc7f40b15a4f') in 0.000511 seconds
+Start importing Packages/com.unity.burst/Tests/Runtime/Shared/TestSystemGuid.cs using Guid(60c9ed34f1cb3f3894ba98a65ef47c9e) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '262cc438b4424c6d2a6fc859bd8a8056') in 0.000893 seconds
+Start importing Packages/com.unity.cloud.gltfast/Runtime/Scripts/VertexBufferConfigBase.cs using Guid(70f60c91be5174d3b947fac977de43ac) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '8c69fc7c435e9332d6d6cff361a21511') in 0.000816 seconds
+Start importing Packages/com.unity.burst/Tests/Runtime/Shared/041-ControlFlowsTryCatchFinally.cs using Guid(701a30a4d0f73d51a92f908b568cea9d) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '8ae9b15c2cf5296e6d520c6ac0b3a158') in 0.001125 seconds
+Start importing Packages/com.unity.burst/Runtime/CompilerServices/AssumeRangeAttribute.cs using Guid(904f1e1473953b2a8945d0919a952652) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '00008c510542f0e5c2fd3cb5c874aef6') in 0.000689 seconds
+Start importing Packages/com.unity.burst/Runtime/Intrinsics/x86/F16C.cs using Guid(a0112ee3119d3bf18f1ca366dcf7fb72) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '39ba6e4121f6153eac8cdf5cf8e63e0c') in 0.000631 seconds
+Start importing Packages/com.unity.burst/Tests/Runtime/Shared/020-Types.cs using Guid(a0499a50a9b63d9a90fc428e1f5c89e9) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '2f6755390855cbf9a02322b59ba44f0e') in 0.000684 seconds
+Start importing Packages/com.unity.burst/Runtime/Intrinsics/x86/Sse4_1.cs using Guid(a08f6270da013403b91927d6331c706b) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '9294aa2f82bd0a374a487824614d5b58') in 0.000678 seconds
+Start importing Packages/com.unity.cloud.gltfast/Runtime/Scripts/Schema/Scene.cs using Guid(b0bdde4ff07164139bff05c561321ac2) Importer(-1,00000000000000000000000000000000)  -> (artifact id: 'c5ef7e0f29d225b4ccb07e818d5a2357') in 0.000638 seconds
+Start importing Packages/com.unity.burst/Unity.Burst.CodeGen/ILPostProcessing.cs using Guid(c04193df773f3e3880ade12aec05259c) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '8da4ef9428f1362e057e0d753d2c7cdc') in 0.000659 seconds
+Start importing Packages/com.unity.burst/Tests/Runtime/FunctionPointerTests.cs using Guid(c02f830887253c6eaf1f7780c59c5432) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '864f17b4443288b09e3e7b13ffaac14a') in 0.000995 seconds
+Start importing Packages/com.unity.cloud.gltfast/Runtime/Scripts/JsonParser.cs using Guid(d09535fb1279746b1b1416c2d3f7945d) Importer(-1,00000000000000000000000000000000)  -> (artifact id: 'bbde2cdffd6138d8e98950871add8d41') in 0.000703 seconds
+Start importing Packages/com.unity.burst/Runtime/Editor/BurstReflection.cs using Guid(d06e9230c8333159aaae83f89676809c) Importer(-1,00000000000000000000000000000000)  -> (artifact id: 'cc3caf54f1c306044650aa2bf31fd8ba') in 0.000638 seconds
+Start importing Packages/com.unity.burst/Tests/Runtime/Shared/090-Vectors-BinaryOperators-Int4.cs using Guid(e07174e0c0ba3d269ad0936f514c3409) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '573d078451b5a35977a34198c727a6bf') in 0.000985 seconds
+Start importing Packages/com.unity.burst/Tests/Runtime/UnityBenchShared/PerfNotes.cs using Guid(f0226688e0613b4f91533ad8d9d4ef99) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '97909e2726fd8c02657cbdc03aa175cf') in 0.000850 seconds
+Start importing Packages/com.unity.cloud.gltfast/Runtime/Scripts/GltfGlobals.cs using Guid(0123911964fe5450198d7ea7a89cf710) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '098c53edd82809603ac389053e391133') in 0.000666 seconds
+Start importing Packages/com.unity.cloud.gltfast/Runtime/Scripts/IGltfBuffers.cs using Guid(2127d6f76b2ef49cfafdc56c2e461d00) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '18bc2ea6252948d5d78e62937c7d7935') in 0.000620 seconds
+Start importing Packages/com.unity.cloud.gltfast/Runtime/Scripts/KtxLoadContextBase.cs using Guid(213d06a8844b84e43a4678ca03d2ab2c) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '1cca8a9eb894a4637ca54d0d5b4439c2') in 0.000608 seconds
+Start importing Packages/com.unity.cloud.gltfast/Runtime/Scripts/Logging/LogMessages.cs using Guid(4127c6088fc404bbfa293fd6116629df) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '709dd312204ba7ac4908bb707bd6cc56') in 0.000641 seconds
+Start importing Packages/com.unity.cloud.gltfast/Runtime/Scripts/Schema/GltfAnimation.cs using Guid(512cfa0fbdd41466b9f5af5c69fbdbab) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '19df86c34243c93ce49be6c24ee6193c') in 0.000687 seconds
+Start importing Packages/com.unity.burst/Tests/Runtime/Shared/055-TestStackalloc.cs using Guid(614354dff06f39c4b6ef0e21f5a45d23) Importer(-1,00000000000000000000000000000000)  -> (artifact id: 'e684cbb985724fc456faa6c3591859a6') in 0.000839 seconds
+Start importing Packages/com.unity.cloud.gltfast/Runtime/Scripts/Schema/MaterialSheen.cs using Guid(71b4ca25993964299bfded0d03b462a0) Importer(-1,00000000000000000000000000000000)  -> (artifact id: 'd6e719f945b02e25e822bbed805e9401') in 0.000703 seconds
+Start importing Packages/com.unity.cloud.gltfast/Editor/Scripts/GltfImporter.cs using Guid(715df9372183c47e389bb6e19fbc3b52) Importer(-1,00000000000000000000000000000000)  -> (artifact id: 'c53a6b197af6e5b5c2b5854bfac36568') in 0.001242 seconds
+Start importing Packages/com.unity.burst/Runtime/CompilerServices/Hint.cs using Guid(713ee8e47b6e3950914855bb4df3cedd) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '3c1942ded194a48ca7fadd0111b2f29b') in 0.000649 seconds
+Start importing Packages/com.unity.burst/Runtime/BurstExecutionEnvironment.cs using Guid(8137ef7a5bbe30cba66445c77046e7f0) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '9aeafd572fce56c0045a9192564e11a7') in 0.000624 seconds
+Start importing Packages/com.unity.burst/Tests/Runtime/Shared/070-TestAtomics.cs using Guid(a1bc4bf3e38931c9b2014cc764d03dea) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '5071f81cd565a4c78534ea740820cb24') in 0.000801 seconds
+Start importing Packages/com.unity.cloud.gltfast/Runtime/Scripts/Schema/Texture.cs using Guid(d1b02af694ac34162993448d1b88d7d2) Importer(-1,00000000000000000000000000000000)  -> (artifact id: 'e51a0464fc1df525b51e8c3ff9d7fe16') in 0.000736 seconds
+Start importing Packages/com.unity.burst/Editor/BurstDisassembler.Core.x86.info.cs using Guid(d1fde1c55cf0307abe6a38343f5c48df) Importer(-1,00000000000000000000000000000000)  -> (artifact id: 'a074cab1b1ba1768d15f1339e953c662') in 0.000565 seconds
+Start importing Packages/com.unity.cloud.gltfast/Tests/Editor/UriHelperTest.cs using Guid(e11bdc5feecc347829448c73e80e193f) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '841c74637a1fd7f698c9c6b73822ee56') in 0.000679 seconds
+Start importing Packages/com.unity.cloud.gltfast/Runtime/Scripts/Schema/GltfCamera.cs using Guid(f1c01d072916f45b491af5f6439c6d56) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '3e770c76045d9101fed16b89164a366a') in 0.000617 seconds
+Start importing Packages/com.unity.cloud.gltfast/Runtime/Scripts/GameObjectSceneInstance.cs using Guid(f12b141c17744ec9b5a3a214c9cb909b) Importer(-1,00000000000000000000000000000000)  -> (artifact id: 'fdf9270c547f1c3d037b07edf5ea195a') in 0.001289 seconds
+Start importing Packages/com.unity.cloud.gltfast/Runtime/Scripts/Schema/TextureTransform.cs using Guid(12cf83ecf915b47e1b8e3e779a054f96) Importer(-1,00000000000000000000000000000000)  -> (artifact id: 'fe21a32be430ea8e736bf4cbaca0a049') in 0.000980 seconds
+Start importing Packages/com.unity.burst/Runtime/Intrinsics/v64.cs using Guid(320f5944c24f3fa689cb4a18e4d42cab) Importer(-1,00000000000000000000000000000000)  -> (artifact id: 'e145e8fd406823864f725933f5278fd6') in 0.000615 seconds
+Start importing Packages/com.unity.burst/Runtime/Intrinsics/SimdDebugViews.cs using Guid(42a959575dd7397e960b06b5462babc5) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '91134e0a04c48c67e08e1d60d535ff19') in 0.000745 seconds
+Start importing Packages/com.unity.cloud.gltfast/Runtime/Scripts/Export/HighDefinitionMaterialExport.cs using Guid(423b8abb5d777440188ec5191c4812dd) Importer(-1,00000000000000000000000000000000)  -> (artifact id: 'b58359417a0381c828cf1b0305e352a0') in 0.000793 seconds
+Start importing Packages/com.unity.burst/Runtime/Intrinsics/f16.cs using Guid(5212e056e931310787ee119ce0d0f101) Importer(-1,00000000000000000000000000000000)  -> (artifact id: 'd9681c9fdc1f3aec070e1b23f9e4d346') in 0.000655 seconds
+Start importing Packages/com.unity.cloud.gltfast/Runtime/Scripts/Schema/Node.cs using Guid(624c3569ad7e246b4949b499637dc04a) Importer(-1,00000000000000000000000000000000)  -> (artifact id: 'fcd4193293b84420fc1e7771c1629eba') in 0.000821 seconds
+Start importing Packages/com.unity.cloud.gltfast/Runtime/Scripts/Schema/NormalTextureInfo.cs using Guid(72f35fa0e2c214807ab6c6946de57b0d) Importer(-1,00000000000000000000000000000000)  -> (artifact id: 'a7087c91d91cceb51c022ff3021fa02d') in 0.000659 seconds
+Start importing Packages/com.unity.cloud.gltfast/Runtime/Scripts/Schema/FakeSchema/Mesh.cs using Guid(7205586242249423e99cafc83ac5e583) Importer(-1,00000000000000000000000000000000)  -> (artifact id: 'df928ca1a499ee61a7623b482878a61f') in 0.000965 seconds
+Start importing Packages/com.unity.cloud.gltfast/Editor/Scripts/BuiltInShaderGUI.cs using Guid(8262fb96f3f02c3418d53dfe137bd6c2) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '4c59654e60a352d742625e82421ee1b0') in 0.000588 seconds
+Start importing Packages/com.unity.burst/Tests/Runtime/Shared/050-TestStructsLayout.cs using Guid(828266174e573a6da71055ba8f017778) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '11ed80664966245d192f0d41a28c1dfe') in 0.000596 seconds
+Start importing Packages/com.unity.burst/Runtime/Intrinsics/x86/Popcnt.cs using Guid(82e993a4bd933530928abc484cb33b7b) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '3c7e6b4f2ca59c16b025979274160518') in 0.000620 seconds
+Start importing Packages/com.unity.cloud.gltfast/Runtime/Scripts/Export/NormalImageExport.cs using Guid(e214ef13a2a44a0bbf14320f5c98bb90) Importer(-1,00000000000000000000000000000000)  -> (artifact id: 'ef79ca3c29986668546c8995bdd9a5ed') in 0.000587 seconds
+Start importing Packages/com.unity.cloud.gltfast/Runtime/Scripts/Schema/MaterialExtension.cs using Guid(f21fa7c34e6a84a56bd105b618088503) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '49128dc8e2b526c95dd2598dfc958a6c') in 0.000661 seconds
+Start importing Packages/com.unity.cloud.gltfast/Runtime/Scripts/Export/MaterialExportBase.cs using Guid(03007a034b1a64d80a0d1860738ed89f) Importer(-1,00000000000000000000000000000000)  -> (artifact id: 'c6344c1b3ff854cdd08a89e7e6efae6e') in 0.000643 seconds
+Start importing Packages/com.unity.burst/Tests/Runtime/Shared/090-Vectors-HashCodes.cs using Guid(23b96fd614e136e3bfc64d775335d0f0) Importer(-1,00000000000000000000000000000000)  -> (artifact id: 'aafcf54bde58a48d2a3775761c4affdb') in 0.000652 seconds
+Start importing Packages/com.unity.cloud.gltfast/Runtime/Scripts/DOTS/EntityInstantiator.cs using Guid(3353193499e7c42ef922dd9c367ced9f) Importer(-1,00000000000000000000000000000000)  -> (artifact id: 'a58cfd7267da2dba57181293f3c65778') in 0.000614 seconds
+Start importing Packages/com.unity.burst/Runtime/BurstCompilerOptions.cs using Guid(536c9865cfa23269b5cf15b4be9a1e98) Importer(-1,00000000000000000000000000000000)  -> (artifact id: 'e060b83f6ace42a0ccecd2af94b84346') in 0.000649 seconds
+Start importing Packages/com.unity.burst/Runtime/Intrinsics/Arm/NEON_AArch64_crypto.cs using Guid(6315ff88aee8353f8d51a214dd42ff86) Importer(-1,00000000000000000000000000000000)  -> (artifact id: 'fd8697d276ef1d32ba3e583027be3988') in 0.000808 seconds
+Start importing Packages/com.unity.burst/Tests/Runtime/Shared/080-TestSystemThreading.cs using Guid(631a9c909a1e35999f140f79ef90911a) Importer(-1,00000000000000000000000000000000)  -> (artifact id: 'd2f75eef3c579699532a30cd968777fa') in 0.000572 seconds
+Start importing Packages/com.unity.burst/Tests/Editor/StringSliceTests.cs using Guid(8361860cac3b3a12bc041994c9c1638c) Importer(-1,00000000000000000000000000000000)  -> (artifact id: 'e1c802f85f35bc7a87687e7b787b5d48') in 0.000685 seconds
+Start importing Packages/com.unity.cloud.gltfast/Runtime/Scripts/Schema/Image.cs using Guid(83fdd57ebfd5545ce857ee2e3ee48b29) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '728e31de743dbf151e7abfbd3df6a5ce') in 0.000623 seconds
+Start importing Packages/com.unity.burst/Tests/Runtime/Shared/090-Vectors-Doubles.cs using Guid(93aa22b749c8358d8368db9527996503) Importer(-1,00000000000000000000000000000000)  -> (artifact id: 'c15ee07863b2f7d24b92535afbe62c1f') in 0.000592 seconds
+Start importing Packages/com.unity.burst/Unity.Burst.CodeGen/AssemblyResolver.cs using Guid(a38dc19e981631858fa25623a48b2297) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '965d3ac95ac385929d9d71a3c2333c9e') in 0.000655 seconds
+Start importing Packages/com.unity.burst/Runtime/Intrinsics/x86/Csr.cs using Guid(c3b39e2c2132303b9a932a499f05ca2a) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '649566cf0b913147c8ef2f28509fdea9') in 0.000585 seconds
+Start importing Packages/com.unity.burst/Tests/Runtime/Shared/400-IntrinsicsManagedFallbacks.cs using Guid(c3bce261ebb438f599e761857db65167) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '72e1f40a70d32701da06d8be6999a362') in 0.000797 seconds
+Start importing Packages/com.unity.cloud.gltfast/Runtime/Scripts/Schema/TextureExtension.cs using Guid(d346bcfb85b064278ac07f92c1471db2) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '78f53f224ad71b952d0bcd73e56efdd0') in 0.000910 seconds
+Start importing Packages/com.unity.burst/Runtime/BurstString.Float.cs using Guid(f33a9059f8153da189d23db06745747f) Importer(-1,00000000000000000000000000000000)  -> (artifact id: 'a40facb6cac15b347b5b30665d902cf7') in 0.000650 seconds
+Start importing Packages/com.unity.burst/Runtime/CompilerServices/SPMD.cs using Guid(04d86fa586573a5d8abd45e426c51efc) Importer(-1,00000000000000000000000000000000)  -> (artifact id: 'fd773e1de3d460b3182ea8a1c1fa853b') in 0.000609 seconds
+Start importing Packages/com.unity.cloud.gltfast/Runtime/Scripts/Export/StandardMaterialExport.cs using Guid(145ccf8370f9e47348bba3fc099214f5) Importer(-1,00000000000000000000000000000000)  -> (artifact id: 'd928c1feb36d3ceb02e8ec8fba8d714b') in 0.000586 seconds
+Start importing Packages/com.unity.cloud.gltfast/Runtime/Scripts/Export/OrmImageExport.cs using Guid(44d960d5c7954a1da497e8e12c053d9f) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '4f67c0ed8eb86e88ec79a3cb58e8bee7') in 0.000845 seconds
+Start importing Packages/com.unity.cloud.gltfast/Runtime/Scripts/Logging/ICodeLogger.cs using Guid(540be0e46388f4a238e8fa19da3d41be) Importer(-1,00000000000000000000000000000000)  -> (artifact id: 'ac6d0dc4a3d1ccaba1f32c00551aba22') in 0.000598 seconds
+Start importing Packages/com.unity.cloud.gltfast/Runtime/Scripts/Schema/MaterialClearCoat.cs using Guid(64ae5acdde3874645955ddbd84c6309d) Importer(-1,00000000000000000000000000000000)  -> (artifact id: 'facf22d875898077db21771cb08d0d6a') in 0.000569 seconds
+Start importing Packages/com.unity.burst/Tests/Runtime/Shared/040-ControlFlows.cs using Guid(945f727e6eb43c81ae49f4e92e3d98c2) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '9b500e20b1f2e87bf3f24339ca072af0') in 0.000639 seconds
+Start importing Packages/com.unity.cloud.gltfast/Runtime/Scripts/RenderPipelineUtils.cs using Guid(b49113e2bcc184fa69bacdb82f652c6b) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '59e65eda2b2961f5608cc4d2edd99ad6') in 0.000614 seconds
+Start importing Packages/com.unity.cloud.gltfast/Runtime/Scripts/Schema/PbrSpecularGlossiness.cs using Guid(b4c3dec14586f4f558448c4364576258) Importer(-1,00000000000000000000000000000000)  -> (artifact id: 'b4b31ba1ff3303d8edae41592f18a540') in 0.000619 seconds
+Start importing Packages/com.unity.burst/Tests/Runtime/UnityBenchShared/IArgumentProvider.cs using Guid(b45c1accd4ac367d8bf6578a9f4bfc3b) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '1e5db3e03a25494d2f3b02b3b31dc539') in 0.000816 seconds
+Start importing Packages/com.unity.cloud.gltfast/Runtime/Scripts/UriHelper.cs using Guid(c41299d66445c46dbb53f58117870e5f) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '8f10184a58f7301ccfe1c599b38f1e6b') in 0.000807 seconds
+Start importing Packages/com.unity.cloud.gltfast/Runtime/Scripts/Export/GameObjectExport.cs using Guid(c45eecded6f2d47c4a6f6162481119df) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '229a52d6e357749ea3aab176a01566f6') in 0.000580 seconds
+Start importing Packages/com.unity.burst/Runtime/Editor/BurstLoader.cs using Guid(e4c3a83d3c3e39de9fa75b9ce1f18db4) Importer(-1,00000000000000000000000000000000)  -> (artifact id: 'c10b31ab021add7bbd9363da32665b0d') in 0.000598 seconds
+Start importing Packages/com.unity.cloud.gltfast/Editor/Scripts/ImportSettingsEditor.cs using Guid(e4a416fc96fd6453bbac68253cdb9743) Importer(-1,00000000000000000000000000000000)  -> (artifact id: 'd225169dd841a4de10aaf752aa564e91') in 0.000566 seconds
+Start importing Packages/com.unity.burst/Editor/LongTextArea.cs using Guid(f429ab8bba2f39c58d3dba8352f74349) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '57f399f406c38017e4a0a1528ad98930') in 0.000592 seconds
+Start importing Packages/com.unity.burst/Runtime/Intrinsics/x86/Bmi1.cs using Guid(054be21815c23848b61718e200c6d082) Importer(-1,00000000000000000000000000000000)  -> (artifact id: 'bf24ca836d0f678c14a375dae081dac0') in 0.000614 seconds
+Start importing Packages/com.unity.burst/Tests/Runtime/Shared/090-Vectors-SizeOfs.cs using Guid(257dc8421dd93ea8aab4f62cab776ccc) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '748bcc5fe853925cadc8fd37832cd3e8') in 0.000687 seconds
+Start importing Packages/com.unity.burst/Tests/Editor/BurstDisassemblerTests.cs using Guid(35ff2f449e6f335cb4f69ebb36ecf3e5) Importer(-1,00000000000000000000000000000000)  -> (artifact id: 'b25654ffe78fdb2160451cefca4f528b') in 0.001098 seconds
+Start importing Packages/com.unity.burst/Unity.Burst.CodeGen/GenericContext.cs using Guid(45454aca72363d42981094a27b23c606) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '99795066e705c43468ed875fcd5ef3ee') in 0.000994 seconds
+Start importing Packages/com.unity.cloud.gltfast/Runtime/Scripts/Primitive.cs using Guid(659f9b3bb4a774553a9cde3f2978340c) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '1364957d5a692c8db86847482c65dc53') in 0.000653 seconds
+Start importing Packages/com.unity.burst/Runtime/CompilerServices/Constant.cs using Guid(759df694340c36bd94e6a50677818fd6) Importer(-1,00000000000000000000000000000000)  -> (artifact id: 'bbfa289279f5711c1039b8ff24e919b7') in 0.000621 seconds
+Start importing Packages/com.unity.burst/Tests/Runtime/Shared/030-Expressions.cs using Guid(953d1f4d7d69334fbc9657d7d82a855b) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '25178dcc891aa187b5c719af1b546e13') in 0.000642 seconds
+Start importing Packages/com.unity.burst/Runtime/Intrinsics/x86/Ssse3.cs using Guid(a53ce03b79b73507a0be3717e24125b2) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '8e36498046c0ff7a4444c678f08c0f30') in 0.000719 seconds
+Start importing Packages/com.unity.cloud.gltfast/Runtime/Scripts/Schema/AccessorSparse.cs using Guid(d5107deefbab54514a92dda67b7134f1) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '907b7b15f5351f4a7e5586921fd8ef9f') in 0.000658 seconds
+Start importing Packages/com.unity.burst/Runtime/Intrinsics/x86/Avx2.cs using Guid(d5414a49e6d9351382096a939e996781) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '1ce827c7f333c8b063df7e47c9369264') in 0.000853 seconds
+Start importing Packages/com.unity.burst/Tests/Runtime/Shared/Helpers/NativeArrayRaw.cs using Guid(d517bbd8c0dd383c966641281f1af857) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '795bd10228849c6768c1ca8ec0efcf4d') in 0.000751 seconds
+Start importing Packages/com.unity.burst/Tests/Runtime/ManagedExceptionsBurstJobs.cs using Guid(d54dbb53d4313cc8b7d8289a75202585) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '4aa134e8a48cb89a6944ab508d179d33') in 0.000947 seconds
+Start importing Packages/com.unity.burst/Runtime/Intrinsics/x86/Fma.cs using Guid(f5102c84dd4534c5b5d42601e5a4e801) Importer(-1,00000000000000000000000000000000)  -> (artifact id: 'e3b0781460b1db8208ca8ebe589da8b7') in 0.000679 seconds
+Start importing Packages/com.unity.cloud.gltfast/Runtime/Scripts/AccessorData.cs using Guid(06080d8f74e694868be3567452bb8dd0) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '1718386dee51eeb8aa7f030ce188e705') in 0.000708 seconds
+Start importing Packages/com.unity.burst/Tests/Runtime/Shared/050-TestStructs.cs using Guid(06cc7660b5c739eca022daad2ed2e0a4) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '72eabaf3b22c8076ef8a4e2914cefa57') in 0.001083 seconds
+Start importing Packages/com.unity.burst/Tests/Runtime/Shared/Helpers/AssertHelper.cs using Guid(36b40077ff04349b8ab8ac0144483e68) Importer(-1,00000000000000000000000000000000)  -> (artifact id: 'e20a2d035faf44251ae9bcd29398880f') in 0.000710 seconds
+Start importing Packages/com.unity.burst/Tests/Runtime/Shared/052-TestFixed.cs using Guid(36990957b5d73a9681ce7dd9f4d5a7b0) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '87bdd508247d52a7dda166c02148cce7') in 0.001091 seconds
+Start importing Packages/com.unity.burst/Runtime/Editor/BurstCompileTarget.cs using Guid(462fa7ccda313583afef988dd88dd956) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '61974958ff56a973eeda4593446c778a') in 0.000633 seconds
+Start importing Packages/com.unity.cloud.gltfast/Runtime/Scripts/Export/ExportJobs.cs using Guid(6674c1f674c774250b3ff7a9abb099d5) Importer(-1,00000000000000000000000000000000)  -> (artifact id: 'b8da87d0194688eb14470369f7275f53') in 0.000693 seconds
+Start importing Packages/com.unity.burst/Tests/Runtime/Shared/082-PartialManaged.cs using Guid(66f82e3041613b77861041e9b0479554) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '73e8c6d476d40a09863819d0a22fc162') in 0.000941 seconds
+Start importing Packages/com.unity.burst/Tests/OverloadedFunctionPointers/OverloadedFunctionPointers.cs using Guid(66ab7ac009493f37ae82d74f0f5f952e) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '17acf41ecfd7ac2b789aec713a2bc22e') in 0.001405 seconds
+Start importing Packages/com.unity.burst/Tests/Runtime/Unity.Burst.Tests/TestCompilerAttribute.cs using Guid(76419b2c6a653f1f8e71ad18931e9bcf) Importer(-1,00000000000000000000000000000000)  -> (artifact id: 'f194f53353fb0a7491b989a9635ba155') in 0.001345 seconds
+Start importing Packages/com.unity.burst/Editor/BurstDisassembler.Core.ARM64.cs using Guid(86710f5f973f3eb6ac4556540734abe2) Importer(-1,00000000000000000000000000000000)  -> (artifact id: 'efb9fa37ce66ca581c07b2a1585180aa') in 0.000530 seconds
+Start importing Packages/com.unity.burst/Runtime/Intrinsics/x86/Bmi2.cs using Guid(96e95a3d0dc13a13a60131a728f21b6a) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '4ab7a3a0a83e58e6fd8cefa675bec428') in 0.000642 seconds
+Start importing Packages/com.unity.burst/Runtime/Intrinsics/Arm/NEON_AArch64_dotprod.cs using Guid(a612739d869d34a8adde619f75545fd1) Importer(-1,00000000000000000000000000000000)  -> (artifact id: 'ab4c01b2f60f5ead26d5097e8f6ba654') in 0.000791 seconds
+Start importing Packages/com.unity.burst/Runtime/DiagnosticId.cs using Guid(a61990ea737b35738cd05acc22f769ff) Importer(-1,00000000000000000000000000000000)  -> (artifact id: 'f962017cb5cc553304777fb79e514c32') in 0.000842 seconds
+Start importing Packages/com.unity.burst/Tests/Runtime/Shared/035-Functions.cs using Guid(c6f9aa18fd4b3d1d9ef249e3c61af783) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '8210bb142f63784b46efae65beccaa05') in 0.000632 seconds
+Start importing Packages/com.unity.burst/Tests/Editor/BurstDisassemberCoreInstructionTests.cs using Guid(c68d1e883c8136a89133cc095391d26b) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '53e9f78b7d07223ea5fd982a53e0a5b4') in 0.000879 seconds
+Start importing Packages/com.unity.burst/Runtime/Intrinsics/v128.cs using Guid(f6ff43038fbb38e6b8dc0ba8fc1ebe63) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '304ce5db132cdea4e12725b1f92588c6') in 0.000692 seconds
+Start importing Packages/com.unity.cloud.gltfast/Runtime/Scripts/Schema/MeshGpuInstancing.cs using Guid(0717469a78ddd47b88fc4d71b9f07e95) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '1ece68e21ef9127d9199a5c007abcf55') in 0.000593 seconds
+Start importing Packages/com.unity.burst/Runtime/BurstString.cs using Guid(2767f488542a342ebbeb038da59d959d) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '3b3c2dea1572fa33de5dcd59bdd4ca69') in 0.000613 seconds
+Start importing Packages/com.unity.burst/Tests/Runtime/Shared/StaticDelegateRegistry.generated.cs using Guid(371f3550e3953e8daa4ae263e3249b0b) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '3a1be8fa059875354a376fae7cca64f7') in 0.000727 seconds
+Start importing Packages/com.unity.burst/Tests/Runtime/Shared/080-TestSystemMath.cs using Guid(47108b7d7a79385f98626b40f17ef46d) Importer(-1,00000000000000000000000000000000)  -> (artifact id: 'cad25aaa599f395eb7dabcab275788b5') in 0.000828 seconds
+Start importing Packages/com.unity.burst/Editor/BurstMath.cs using Guid(4783a0e50db93e7bafe8dae157848042) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '4e04ede91e5038f1b7aa4ed3172a023a') in 0.000508 seconds
+Start importing Packages/com.unity.burst/Tests/Runtime/Shared/090-Vectors-BinaryOperators-Float3.cs using Guid(4784d45bc93937ca93dc6578b3e58fc2) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '415eba72d5756f404eaf51be72bb5faf') in 0.000804 seconds
+Start importing Packages/com.unity.burst/Runtime/Intrinsics/x86/Common.cs using Guid(474caba0be7230b18912d1cf57308e06) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '09211978cad5faf4263e4620aabb2188') in 0.000574 seconds
+Start importing Packages/com.unity.cloud.gltfast/Runtime/Scripts/Schema/BufferView.cs using Guid(5702646506dff47cdb2db09a4826449c) Importer(-1,00000000000000000000000000000000)  -> (artifact id: 'c60896e472509221f0c803d345824886') in 0.000975 seconds
+Start importing Packages/com.unity.burst/Runtime/Intrinsics/Arm/NEON_AArch64_rdma.cs using Guid(57b7a7a4f3ad393ea50be45cb1a59734) Importer(-1,00000000000000000000000000000000)  -> (artifact id: 'd8568608d5c8c829a77a60188410f67a') in 0.000728 seconds
+Start importing Packages/com.unity.cloud.gltfast/Runtime/Scripts/Schema/TextureInfo.cs using Guid(572a904f8474e4747b6d2f1cd6924704) Importer(-1,00000000000000000000000000000000)  -> (artifact id: 'def06f07bba293d99b4942e1f82e2dd4') in 0.000610 seconds
+Start importing Packages/com.unity.burst/Editor/BurstAotSettings.cs using Guid(571b2a6719883c029655e07bdf47aea0) Importer(-1,00000000000000000000000000000000)  -> (artifact id: 'ad3d9174b96ba1332f118086c681777e') in 0.000608 seconds
+Start importing Packages/com.unity.burst/Tests/Runtime/Shared/060-TestEnums.cs using Guid(7771e50c9f91376ca0db91c33bfccfda) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '47aae32e2033dc8161179b685f33a346') in 0.000630 seconds
+Start importing Packages/com.unity.cloud.gltfast/Editor/Scripts/MenuEntries.cs using Guid(97759b33473f943e5a24b78714284966) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '0270ffc793d75a9a7b49ba3f83a80d3a') in 0.000586 seconds
+Start importing Packages/com.unity.cloud.gltfast/Runtime/Scripts/GltfAsset.cs using Guid(b781fe673a5534e91b1e802df4b9362e) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '5442f2641cfb990cb91aadb695121524') in 0.000967 seconds
+Start importing Packages/com.unity.cloud.gltfast/Runtime/Scripts/Schema/LightsPunctual.cs using Guid(b765f9e02011a4b179f65edd75f6a211) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '8795f04bb0854be1b6b7581df858c97a') in 0.000589 seconds
+Start importing Packages/com.unity.cloud.gltfast/Runtime/Scripts/PrimitiveCreateContext.cs using Guid(b7961021efef94307ab4b56591af0235) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '62f3b01b009b9da0d68522bdd6a26c45') in 0.000657 seconds
+Start importing Packages/com.unity.cloud.gltfast/Tests/Editor/MeshPrimitiveTest.cs using Guid(e7c5d72bb83414b388d12a0b39342d0d) Importer(-1,00000000000000000000000000000000)  -> (artifact id: 'eace18de066c23fba9df2ecebf236651') in 0.000819 seconds
+Start importing Packages/com.unity.burst/Unity.Burst.CodeGen/FunctionPointerInvokeTransform.cs using Guid(f75f3f6b9bdd391e8a1ba4f47603a59c) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '908d3066e5cbca6673cbfbe5f15f6c73') in 0.000579 seconds
+Start importing Packages/com.unity.cloud.gltfast/Runtime/Scripts/Material/IMaterialGenerator.cs using Guid(18f79a702cf3643cfbaf70b50adb3271) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '4489c6fda1ad38efe28be735131b757b') in 0.000620 seconds
+Start importing Packages/com.unity.burst/Tests/Runtime/Shared/StaticDelegateRegistry.cs using Guid(18096755742e35fcb3689baab7116ac1) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '048207a37a8cc6bf669b09e2243594e3') in 0.000640 seconds
+Start importing Packages/com.unity.burst/Runtime/NoAliasAttribute.cs using Guid(28a3e3d7404f3ec8be735f11e8faa469) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '730a06adf666336beb5f1760316870d8') in 0.000704 seconds
+Start importing Packages/com.unity.cloud.gltfast/Runtime/Scripts/Schema/Root.cs using Guid(28050f3203e034145b8c2139e518c2e6) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '010ac01e5f2508812a7c329c81747162') in 0.000579 seconds
+Start importing Packages/com.unity.burst/Tests/Editor/EditmodeTest.cs using Guid(581193df6bcc393285dee7fedd436195) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '7fa1be8f898850b352d6688e65e09dd0') in 0.001042 seconds
+Start importing Packages/com.unity.burst/Runtime/CompilerServices/IgnoreWarningAttribute.cs using Guid(5811281c797332b08347cf19ea35bdd9) Importer(-1,00000000000000000000000000000000)  -> (artifact id: 'b44ee79ffc5c743460cc1c308281fe74') in 0.000752 seconds
+Start importing Packages/com.unity.burst/Tests/Editor/SeparateAssembly/TypeHashWrapper.cs using Guid(581a69eadade3f4985faa44d7b02aa3d) Importer(-1,00000000000000000000000000000000)  -> (artifact id: 'da636db961c9ccdeac5d7a7e4e565e3e') in 0.000941 seconds
+Start importing Packages/com.unity.burst/Tests/Runtime/Shared/090-Vectors-BinaryOperators-Float2.cs using Guid(8826f823d5c0312faae224801c9e8bd3) Importer(-1,00000000000000000000000000000000)  -> (artifact id: 'cebcafc72821090b01d80594ce7de73f') in 0.000892 seconds
+Start importing Packages/com.unity.burst/Runtime/Intrinsics/x86/Avx.cs using Guid(8878187b12193eaa9224a82850835431) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '4231def211900e32a32e5bbc8b66f2a1') in 0.000712 seconds
+Start importing Packages/com.unity.burst/Runtime/Editor/BurstEditorOptions.cs using Guid(a899f0bd225d36cabc792b47f8892eb6) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '50416ae764f7a823e0f9a6f6787dec44') in 0.000649 seconds
+Start importing Packages/com.unity.burst/Tests/Editor/LongTextAreaTests.cs using Guid(b866f2ae2314368d97e916270883416e) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '448d501392476ecde15d183efc4fcc20') in 0.000652 seconds
+Start importing Packages/com.unity.cloud.gltfast/Runtime/Scripts/Schema/MeshPrimitive.cs using Guid(c81372fa8e5d942dbac4a9d5157d5f04) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '2578b8670bd8dfbb69ec9af6741314df') in 0.000623 seconds
+Start importing Packages/com.unity.cloud.gltfast/Runtime/Scripts/LightPunctualExtension.cs using Guid(d838728b45eb4d13b24ba9d3ecf6010d) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '3a5ebb83d05287d90822a735272de4d9') in 0.000628 seconds
+Start importing Packages/com.unity.cloud.gltfast/Runtime/Scripts/Schema/TextureInfoExtension.cs using Guid(f8f0c6330404c41d995fb935d2646524) Importer(-1,00000000000000000000000000000000)  -> (artifact id: 'c9cc551067621f337fe2d043e55b3a74') in 0.000647 seconds
+Start importing Packages/com.unity.burst/Runtime/CompilerServices/Loop.cs using Guid(f86325df462c3b77931388857d23e9f8) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '79cc9d7aecadd19c4ff5a3a7f6f5dd11') in 0.000603 seconds
+Start importing Packages/com.unity.cloud.gltfast/Runtime/Scripts/IInstantiator.cs using Guid(f84df6462ecfc478cb319ac3008c9368) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '7be5614bb9c6d0f0fbd6e55b6e7b3258') in 0.000601 seconds
+Start importing Packages/com.unity.burst/Editor/BurstLoader.cs using Guid(196062cbef3533e384a45a204b6b9b64) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '0bee8d334219adfbd2f3af10eb0063a2') in 0.000457 seconds
+Start importing Packages/com.unity.cloud.gltfast/Runtime/Scripts/Schema/NamedObject.cs using Guid(2915082f14e58430eb7133121f11bab3) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '00b0dafc1f5902e0e6cea8be61a2456d') in 0.000637 seconds
+Start importing Packages/com.unity.cloud.gltfast/Runtime/Scripts/Export/MaskMapImageExport.cs using Guid(297d9583216f44773a87563851d965d7) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '730b25a75aefa682765f5b8edd1b38e4') in 0.000799 seconds
+Start importing Packages/com.unity.burst/Runtime/Intrinsics/v256.cs using Guid(59219fb374ee3218ab6a9a04683c6106) Importer(-1,00000000000000000000000000000000)  -> (artifact id: 'decdb75593c48c06d3ba8957f569c75e') in 0.000554 seconds
+Start importing Packages/com.unity.burst/Editor/BurstDisassembler.Core.Wasm.info.cs using Guid(59dd88516199395585b8d7d3fcb486f4) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '82f8015924e2cfce0442f92dc1fb410b') in 0.000521 seconds
+Start importing Packages/com.unity.burst/Tests/Runtime/Shared/090-Vectors-Quaternions.cs using Guid(59be97c3fedf35d09af9a16655bb01e6) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '373fa40b84b4b6d1b13348fb31c1a4eb') in 0.000670 seconds
+Start importing Packages/com.unity.burst/Runtime/CompilerServices/SkipLocalsInitAttribute.cs using Guid(697f8ec7025a380eaf1544086dd11dae) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '6fa1d00b77ceafdcd2895528aa2076a6') in 0.000974 seconds
+Start importing Packages/com.unity.burst/Tests/Runtime/Shared/090-Vectors-Equals.cs using Guid(b9361007b00e3342b54a1eae06c8e797) Importer(-1,00000000000000000000000000000000)  -> (artifact id: 'da48e355dd32556851fbbf8ee10fc7fc') in 0.000707 seconds
+Start importing Packages/com.unity.cloud.gltfast/Runtime/Scripts/Schema/Skin.cs using Guid(e9b5aedbe038c409f93f9f05441d2743) Importer(-1,00000000000000000000000000000000)  -> (artifact id: 'e55f5d61791600a9dda0f65d1bb2c17a') in 0.000672 seconds
+Start importing Packages/com.unity.cloud.gltfast/Runtime/Scripts/Schema/Sampler.cs using Guid(e9f648f0401f148f68174d6e4cc536c7) Importer(-1,00000000000000000000000000000000)  -> (artifact id: 'de263a6f054601ac54d4f7638d70de7f') in 0.000623 seconds
+Start importing Packages/com.unity.cloud.gltfast/Tests/Editor/LoggerTest.cs using Guid(0ab3dbf07b61644dda45dc1525d2cf61) Importer(-1,00000000000000000000000000000000)  -> (artifact id: 'd1d8cb629189d68302998f9ee9e44864') in 0.000832 seconds
+Start importing Packages/com.unity.burst/Runtime/CompilerServices/Aliasing.cs using Guid(1a6bf5755d5d34d6a86b5a10546d50de) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '1d0b1a7701f55f40d2006618988572c7') in 0.000598 seconds
+Start importing Packages/com.unity.burst/Unity.Burst.CodeGen/ILPostProcessingLegacy.cs using Guid(1a6d6fee7f7539579c22d41e9b0b656b) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '34ece1a14d54475905f7d1a8e9de6203') in 0.000592 seconds
+Start importing Packages/com.unity.burst/Tests/Editor/BurstMathTests.cs using Guid(6a647d1cecc83c4eaf9750af7ae6a1d0) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '16e22db3178726d3a777675796a1488b') in 0.001346 seconds
+Start importing Packages/com.unity.burst/Tests/Runtime/Shared/090-Vectors-Constructors.cs using Guid(6a2963e730253fb7bc1f496becab35d1) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '3beaaa0442966ac55db5b06adf71337c') in 0.001305 seconds
+Start importing Packages/com.unity.burst/Tests/Runtime/Shared/036-CSharpFunctionPointers.cs using Guid(7a3d2b4e287138d6b5a68635fcda35ae) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '928a34a4316aec55a373f98f6bf65882') in 0.000710 seconds
+Start importing Packages/com.unity.burst/Runtime/Intrinsics/Arm/NEON_ctor.cs using Guid(7a5e298ca7783a798339f04daef71615) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '2e9fceac85dc58aa9eb5a8a04a4a832a') in 0.000836 seconds
+Start importing Packages/com.unity.cloud.gltfast/Runtime/Scripts/Schema/Mesh.cs using Guid(8a677036397de4b0792544bd4717511f) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '543b04fe0bb233ff118cd4f21fdc8062') in 0.000625 seconds
+Start importing Packages/com.unity.cloud.gltfast/Runtime/Scripts/Export/MaterialExport.cs using Guid(8a2a80c8f57224e7b82ca8ffbbeaee18) Importer(-1,00000000000000000000000000000000)  -> (artifact id: 'dcb4bcfcab840d9848a366f86a3b4400') in 0.001474 seconds
+Start importing Packages/com.unity.burst/Tests/Runtime/Shared/090-Vectors-Swizzles.cs using Guid(8afc3bf230893de19f58b80ab754c48b) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '117884c0ff10c3df814ba4eb99b8a3c8') in 0.000929 seconds
+Start importing Packages/com.unity.cloud.gltfast/Runtime/Scripts/Jobs.cs using Guid(8ade371a2b78941b283ba5b358164e7b) Importer(-1,00000000000000000000000000000000)  -> (artifact id: 'e75e1360952de5ba42afa321449d2357') in 0.000815 seconds
+Start importing Packages/com.unity.burst/Runtime/Intrinsics/x86/Sse3.cs using Guid(8aefdd7e7bff3d4da4543b12f26116d7) Importer(-1,00000000000000000000000000000000)  -> (artifact id: 'd335484db9abacd0b00637582875ca2b') in 0.002105 seconds
+Start importing Packages/com.unity.burst/Tests/Runtime/Shared/TestCompilerAttributeBase.cs using Guid(aaa227b30594378da6c3e68ba28f4005) Importer(-1,00000000000000000000000000000000)  -> (artifact id: 'e5fe9f5f65c13e168ba365061174df60') in 0.000871 seconds
+Start importing Packages/com.unity.cloud.gltfast/Runtime/Scripts/Schema/RootExtension.cs using Guid(aa25e3b50dc1d4f349d18b6100c61115) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '314f1f84473f00213e11dd06cfc1e496') in 0.000628 seconds
+Start importing Packages/com.unity.burst/Tests/Runtime/Shared/091-Matrices.cs using Guid(ba554cff9753381d9ca014768e8cb38f) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '4162cf9d908f9000f48dc5c0b84bf06f') in 0.000611 seconds
+Start importing Packages/com.unity.cloud.gltfast/Runtime/Scripts/Schema/JsonWriter.cs using Guid(baf6df9cf1a2e4f6da292612bb67b11b) Importer(-1,00000000000000000000000000000000)  -> (artifact id: 'f581da8daa1c6afc2dcd5b478cd536d0') in 0.001389 seconds
+Start importing Packages/com.unity.cloud.gltfast/Runtime/Scripts/Material/BuiltInMaterialGenerator.cs using Guid(ba383126acdb34b7a85eaa41a0c57fb0) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '50194c8cde7af489405152b0d855872d') in 0.000831 seconds
+Start importing Packages/com.unity.burst/Editor/BurstDisassembler.Core.ARM64.info.cs using Guid(baf945884d1937c2a53bce1dfcac594c) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '59b7ee6fdc1eaf1ce0c2eacf834dbda7') in 0.000734 seconds
+Start importing Packages/com.unity.burst/Editor/BurstDisassembler.Core.LLVMIR.cs using Guid(caa879909c953e51b623b5371e13b0dc) Importer(-1,00000000000000000000000000000000)  -> (artifact id: 'b3be3a8b886d9d4d65addb4a0b37181b') in 0.000543 seconds
+Start importing Packages/com.unity.cloud.gltfast/Runtime/Scripts/Loading/IDownload.cs using Guid(ca8fad46342644d9285e7eff4f90eed8) Importer(-1,00000000000000000000000000000000)  -> (artifact id: 'a8e9ceeb20f467ac3915e16e6f12f2d1') in 0.000626 seconds
+Start importing Packages/com.unity.burst/Runtime/Intrinsics/x86/Sse.cs using Guid(da29c8b15d083d699d436bebf024049f) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '053d31577c4d0c26b5d34bc479772fb7') in 0.000668 seconds
+Start importing Packages/com.unity.cloud.gltfast/Runtime/Scripts/Material/HighDefinitionRPMaterialGenerator.cs using Guid(fa897cd9fdcb4434d815caffb5c851f4) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '90c3308a5426cb5ea6db9e4737707696') in 0.001152 seconds
+Start importing Packages/com.unity.burst/Tests/Runtime/Shared/084-Hint.cs using Guid(fa0dd524a0c332f7948fb2cc410034b1) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '62a17e937a1dd90c299272902d3f3b56') in 0.000614 seconds
+Start importing Packages/com.unity.cloud.gltfast/Runtime/Scripts/Schema/Buffer.cs using Guid(0be31691c59154292aab0e10e7917d88) Importer(-1,00000000000000000000000000000000)  -> (artifact id: 'd66bc77e5cb1fbdf0f51bd29fb8ded42') in 0.000544 seconds
+Start importing Packages/com.unity.cloud.gltfast/Editor/Scripts/GltfImporterEditor.cs using Guid(0b04a08654076497abec2857c0edb835) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '897c3a76cad2503e2dd7c730919ce076') in 0.000580 seconds
+Start importing Packages/com.unity.cloud.gltfast/Runtime/Scripts/KtxLoadNativeContext.cs using Guid(0b64438dddabd44ad95294127de88411) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '1588c5757375e43ada5689262ea13e3c') in 0.000605 seconds
+Start importing Packages/com.unity.burst/Tests/Runtime/Shared/011-ReadOnlySpan.cs using Guid(0bed5c1e3949386481f894d4b987c939) Importer(-1,00000000000000000000000000000000)  -> (artifact id: 'f1efc8037a22e65ead4757d2414e5414') in 0.001326 seconds
+Start importing Packages/com.unity.burst/Tests/Runtime/Shared/053-TestConstArrays.cs using Guid(1b192164f6d13e9aaf88fbb6833566c4) Importer(-1,00000000000000000000000000000000)  -> (artifact id: 'a18279d22b30601d8362e2f5f533e901') in 0.001191 seconds
+Start importing Packages/com.unity.burst/Editor/BurstDisassembler.Core.LLVMIR.info.cs using Guid(3b07e41fd0073a288687109ac0c6250f) Importer(-1,00000000000000000000000000000000)  -> (artifact id: 'a195fab054269cf643bd05a2ad553aa0') in 0.000565 seconds
+Start importing Packages/com.unity.cloud.gltfast/Runtime/Scripts/Logging/ConsoleLogger.cs using Guid(5b8c2d4cf581e4c7c8d25f31ca0d1931) Importer(-1,00000000000000000000000000000000)  -> (artifact id: 'f2b630d353f76b15dcb67a2a77e4a91d') in 0.000729 seconds
+Start importing Packages/com.unity.cloud.gltfast/Runtime/Scripts/Schema/FakeSchema/Material.cs using Guid(5b9e8b6535df04a59b20b85c0636fb5e) Importer(-1,00000000000000000000000000000000)  -> (artifact id: 'a905ca31f7f4ad8e195ab91799f32e0f') in 0.000565 seconds
+Start importing Packages/com.unity.cloud.gltfast/Editor/Scripts/EditorDownloadProvider.cs using Guid(6b8297485b6f14c10a7eb6af4a19c5fc) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '7e5ef3f23540d785b74b407d16e63f40') in 0.000558 seconds
+Start importing Packages/com.unity.cloud.gltfast/Runtime/Scripts/RootExtension.cs using Guid(6b658ce9dfc8144c981930ca25adaa26) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '80f444e798f3202670769cadecb5aaa6') in 0.000557 seconds
+Start importing Packages/com.unity.burst/Runtime/SafeStringArrayHelper.cs using Guid(6b785039a175396ca0c0b2a987d719d8) Importer(-1,00000000000000000000000000000000)  -> (artifact id: 'e55515472e588b4523751870797c053f') in 0.000662 seconds
+Start importing Packages/com.unity.cloud.gltfast/Runtime/Scripts/UninterruptedDeferAgent.cs using Guid(6bcccec8f6f3d49fe8b95bdf14d3936a) Importer(-1,00000000000000000000000000000000)  -> (artifact id: 'b7b246a1b210369ef29e103e0199e756') in 0.000688 seconds
+Start importing Packages/com.unity.cloud.gltfast/Runtime/Scripts/PrimitiveCreateContextBase.cs using Guid(7be117ded6f0c4bdd9c2ae155a065fd0) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '08e3b6287604ac85c7a8ccfccd9910fb') in 0.001404 seconds
+Start importing Packages/com.unity.cloud.gltfast/Runtime/Scripts/ImportSettings.cs using Guid(7b8df3b198c8b4133b57d32359c5b721) Importer(-1,00000000000000000000000000000000)  -> (artifact id: 'ecb02976ba51a54e996356d640b9ad64') in 0.000995 seconds
+Start importing Packages/com.unity.cloud.gltfast/Runtime/Scripts/VertexBufferConfig.cs using Guid(8b60579f6b59542c39228b0ad2af3007) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '4532a4ce8b9c5089f8f9d5a6ab147bc9') in 0.000875 seconds
+Start importing Packages/com.unity.burst/Editor/LabeledPopup.cs using Guid(8b3ffde4c8da32a99eafffb5ca0c453d) Importer(-1,00000000000000000000000000000000)  -> (artifact id: 'aad0ba730655aea58f997587bb457935') in 0.000864 seconds
+Start importing Packages/com.unity.cloud.gltfast/Runtime/Scripts/Schema/Constants.cs using Guid(9bc735a73730843b7a877cadf120268f) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '9bfaadfa72d5fa3840986f9ca4e1e731') in 0.000612 seconds
+Start importing Packages/com.unity.burst/Runtime/BurstCompileAttribute.cs using Guid(ab5103b641533a9f83e5ad2023463a41) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '455be78aa480936cfbd2aa81f9fb1315') in 0.000575 seconds
+Start importing Packages/com.unity.burst/Tests/Runtime/Shared/037-DllImportAndroid.cs using Guid(bb0c92e22ce4395fae3821dcc85a3113) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '97863298a25ea8eb3fcb6ee7258d2df5') in 0.000705 seconds
+Start importing Packages/com.unity.cloud.gltfast/Runtime/Scripts/KtxLoadContext.cs using Guid(cb8181d50969b4e10aed18da4afd1364) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '4bd76b03c62d589bf1c0a2c9804e5519') in 0.000570 seconds
+Start importing Packages/com.unity.burst/Tests/Runtime/Shared/083-Aliasing.cs using Guid(cb91adf0b099390483bffed46bc16fb1) Importer(-1,00000000000000000000000000000000)  -> (artifact id: 'c032241d5060a207a30441d9153c7456') in 0.000556 seconds
+Start importing Packages/com.unity.cloud.gltfast/Tests/Editor/MatrixExtensionTest.cs using Guid(cbc406fdf3ce84b68b529bb3e3eeeefe) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '55c6b958a89fbdd676d97c861b031dc2') in 0.000607 seconds
+Start importing Packages/com.unity.burst/Tests/Runtime/Shared/090-Vectors-BinaryOperators-Float4.cs using Guid(dbb95f4d93ed32938db073fd04c6e1fd) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '9cb5243c0e4c6feb7c16b16d8183c787') in 0.000621 seconds
+Start importing Packages/com.unity.burst/Tests/Runtime/PlaymodeTest.cs using Guid(eb7078968c7e3322a80bb099e19fb2e8) Importer(-1,00000000000000000000000000000000)  -> (artifact id: 'c06c83eae55501db30f3765c7a966ec0') in 0.000635 seconds
+Start importing Packages/com.unity.burst/Tests/Runtime/Shared/Helpers/DelegateHelper.cs using Guid(ebf5c81612053b2c824c08502d93c9a1) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '431fd0855f5e2910513a0ca284c8da4e') in 0.001288 seconds
+Start importing Packages/com.unity.burst/Runtime/Intrinsics/Arm/NEON_AArch64.cs using Guid(fb551fea221a3832b0102868fb87540a) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '5a2337858b24eeb5f582485136576871') in 0.001101 seconds
+Start importing Packages/com.unity.cloud.gltfast/Runtime/Scripts/Export/Constants.cs using Guid(0cbddf2c39bbb4469b0eed7673800b76) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '2b21a20ad0092f8779918e0f5e8f2425') in 0.000775 seconds
+Start importing Packages/com.unity.cloud.gltfast/Runtime/Scripts/Material/UniveralRPMaterialGenerator.cs using Guid(1c38917456edc4ab2a860db31fe05f67) Importer(-1,00000000000000000000000000000000)  -> (artifact id: 'b2dd688399ca66c1b49d39158f39cc61') in 0.001074 seconds
+Start importing Packages/com.unity.burst/Tests/Runtime/Shared/MonoOnlyAttribute.cs using Guid(1cc9902339e433b68fd1d459e798c49f) Importer(-1,00000000000000000000000000000000)  -> (artifact id: 'ccf92ff272cb378397f707ee6447c562') in 0.001083 seconds
+Start importing Packages/com.unity.burst/Runtime/BurstCompiler.cs using Guid(1cff789aba933db49f39bca009167be6) Importer(-1,00000000000000000000000000000000)  -> (artifact id: 'c6c2165e88330ebc537b95a21373dd0b') in 0.000755 seconds
+Start importing Packages/com.unity.cloud.gltfast/Runtime/Scripts/Material/BuiltInShaderGraphMaterialGenerator.cs using Guid(2c68d7176808e44c2b897face69cc63a) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '464b665cc3ec8d2631f819b2f6e43e84') in 0.001018 seconds
+Start importing Packages/com.unity.burst/Tests/Runtime/Shared/Helpers/Vectors.cs using Guid(3cc5badcc5af3e609f1d307c13f81573) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '557bf3cfdcc1b1270220da341377e6a6') in 0.000958 seconds
+Start importing Packages/com.unity.cloud.gltfast/Tests/Editor/JsonParsingTests.cs using Guid(5cf4628c1428f4767916bca03100c7c2) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '93177eac60a050469c0dbc28ea70714e') in 0.000674 seconds
+Start importing Packages/com.unity.cloud.gltfast/Runtime/Scripts/NodeExtension.cs using Guid(5c8679070ba9d46b6b373d276fac545d) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '0c8f62134fa804080b9190ef5356b51d') in 0.001666 seconds
+Start importing Packages/com.unity.burst/Tests/Editor/BurstInspectorGUITests.cs using Guid(5c2988be6da139988b149bb3b60dc9ca) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '47122891713791ded7ea06abfe0d4670') in 0.001320 seconds
+Start importing Packages/com.unity.cloud.gltfast/Runtime/Scripts/Schema/FakeSchema/Accessor.cs using Guid(5c9e5462940e44ebf8ff81a6b4113a07) Importer(-1,00000000000000000000000000000000)  -> (artifact id: 'ad8bca1ae0e022bfa9e96510f742eddc') in 0.000852 seconds
+Start importing Packages/com.unity.cloud.gltfast/Runtime/Scripts/GltfBoundsAsset.cs using Guid(6c353ea9e5f7a496394d3f234f117021) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '3646c68eb37153215c9cc6e7a56b72cb') in 0.000739 seconds
+Start importing Packages/com.unity.cloud.gltfast/Runtime/Scripts/Export/ExportSettings.cs using Guid(6c28d37ec26924a698bafba3e3fe631f) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '8bb58bed32ce5b6a198f85b97b47db1c') in 0.000642 seconds
+Start importing Packages/com.unity.cloud.gltfast/Runtime/Scripts/Schema/FakeSchema/AccessorSparse.cs using Guid(8c12437b7df46422284639b911c6f4a7) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '83e2e542d1a67beb753f148e05868a84') in 0.000658 seconds
+Start importing Packages/com.unity.burst/Tests/Editor/SeparateAssembly/BurstReflectionTestsSeparateAssembly.cs using Guid(9c07004be90d3814b9a09f7d08b26eb1) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '2dacd35b4bac79cd2714f4059e185b3d') in 0.001567 seconds
+Start importing Packages/com.unity.burst/Tests/Runtime/NativeTriggeredManagedExceptionsBurstJobs.cs using Guid(ac74b11ef46b35938b5d3ca8a4109efa) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '7ecb88bc4e3111bdcffbac9b1f6f90eb') in 0.001298 seconds
+Start importing Packages/com.unity.cloud.gltfast/Runtime/Scripts/Material/ShaderGraphMaterialGenerator.cs using Guid(ac48aecff2ff7454fa7a084279310327) Importer(-1,00000000000000000000000000000000)  -> (artifact id: 'ebba0c16e3f8c1faf37b3876bf8982df') in 0.000713 seconds
+Start importing Packages/com.unity.cloud.gltfast/Runtime/Scripts/Extensions.cs using Guid(ac793cf1802844281bf470f4e5ccbaf0) Importer(-1,00000000000000000000000000000000)  -> (artifact id: 'bac8d7d71db1e0eb3e9ee10a00b3550c') in 0.000613 seconds
+Start importing Packages/com.unity.burst/Unity.Burst.CodeGen/BurstILPostProcessor.cs using Guid(dc110500b91a36bc9ed6654965107aed) Importer(-1,00000000000000000000000000000000)  -> (artifact id: 'ff5b5f72179b6214fbd52e758c73e03d') in 0.000736 seconds
+Start importing Packages/com.unity.cloud.gltfast/Runtime/Scripts/Mathematics.cs using Guid(dc62ead7533d04d64b0151d2d21933c4) Importer(-1,00000000000000000000000000000000)  -> (artifact id: 'cdadf92b4274d05ec6947ed16ce6588b') in 0.000591 seconds
+Start importing Packages/com.unity.cloud.gltfast/Runtime/Scripts/VertexBufferBones.cs using Guid(ecc0609ec6ff546e587a11c857a0e818) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '3d30979d18acf92ad4ab1dee0cfdb627') in 0.000876 seconds
+Start importing Packages/com.unity.burst/Tests/Runtime/Shared/054-Peephole.cs using Guid(1d15bef20cb43dc49f6156cde028d37a) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '94627e1f162e75f1305b5c92427c5080') in 0.000845 seconds
+Start importing Packages/com.unity.burst/Tests/Runtime/Shared/084-Loops.cs using Guid(1d871bf5a85e3baaa304966c127e87a7) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '5b4137ac536c4c881105bc61097d5dc4') in 0.000600 seconds
+Start importing Packages/com.unity.burst/Runtime/Intrinsics/x86/Sse4_2.cs using Guid(1d5fc7fded0f316e809b64bcf0e59a17) Importer(-1,00000000000000000000000000000000)  -> (artifact id: 'ace5b43203e8ca95ceb983e8543f0bae') in 0.001333 seconds
+Start importing Packages/com.unity.burst/Tests/Editor/BurstStringSearchTests.cs using Guid(2d306d2ea7783099abe61e86c377ca92) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '71718153d4962dca51f916ff6365e1bf') in 0.000634 seconds
+Start importing Packages/com.unity.burst/Tests/Runtime/Shared/031-Pointers.cs using Guid(3d218d6a948d3d8c98c40cca55189572) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '0b9a67e8920009b6e3c1c137d798ff00') in 0.000962 seconds
+Start importing Packages/com.unity.burst/Tests/Runtime/Shared/081-UnityMath.cs using Guid(3d355504e32f39b89ef31f85cad154a5) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '71cbdbf0b3a64e4cdc51b6e7a32f3392') in 0.001726 seconds
+Start importing Packages/com.unity.burst/Tests/Runtime/BurstJobTester.cs using Guid(3decc8d6366d3d668648f9b79f2a980f) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '6bb4cf49a530b9c9cbd45afd8659b395') in 0.001278 seconds
+Start importing Packages/com.unity.cloud.gltfast/Runtime/Scripts/Export/GltfWriter.cs using Guid(4d9076bab5d8c46be9d03094dca7c95b) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '2553a0ed72bf3f03d4a66047172a9014') in 0.002178 seconds
+Start importing Packages/com.unity.burst/Tests/Runtime/Shared/090-Vectors-Maths.cs using Guid(5db67d0b9e503a5c9ac1a4f14ee7b4a5) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '70bf23ca5f12669a5a3d1639f1a09ac6') in 0.001072 seconds
+Start importing Packages/com.unity.cloud.gltfast/Runtime/Scripts/VertexBufferTexCoords.cs using Guid(5d6dbafdcf6b24d39a114247ec3b8cc6) Importer(-1,00000000000000000000000000000000)  -> (artifact id: 'f2abeb640d7fbae28ee927b0bb51bcef') in 0.001815 seconds
+Start importing Packages/com.unity.cloud.gltfast/Runtime/Scripts/DontDestroyOnLoad.cs using Guid(6d84adc1622094a29b4ac495436769e6) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '25742455662dd620dc64d48dff9eada0') in 0.000654 seconds
+Start importing Packages/com.unity.burst/Tests/Runtime/Shared/090-Vectors-LoadStore.cs using Guid(7dd1c3c5e7f830fe9ce867cdb38d9108) Importer(-1,00000000000000000000000000000000)  -> (artifact id: 'bbab9274f8809309892cbd75cd8a76bd') in 0.001115 seconds
+Start importing Packages/com.unity.cloud.gltfast/Runtime/Scripts/Schema/Asset.cs using Guid(bd77f2d23b4294a5f9955abdfdd41d1e) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '48357e57b3f8a5adddbb22366369f15f') in 0.001020 seconds
+Start importing Packages/com.unity.cloud.gltfast/Runtime/Scripts/Loading/DefaultDownloadProvider.cs using Guid(cde7502e4d0bc40bbb8690ab2067a5b3) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '4b116d5070e1ce70fe16836cb74f2cb6') in 0.001021 seconds
+Start importing Packages/com.unity.cloud.gltfast/Runtime/Scripts/IGltfReadable.cs using Guid(cd5d527a7dbd74af4895c4aadcf5f16b) Importer(-1,00000000000000000000000000000000)  -> (artifact id: 'fbe6a258a00e657a00bbe10dfb1ceea2') in 0.001342 seconds
+Start importing Packages/com.unity.cloud.gltfast/Runtime/Scripts/Schema/AccessorSparseIndices.cs using Guid(ddd2d0a1e225f422eb8745214b3c8631) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '8f2d2a70ebd5bb633df628f1d495b604') in 0.002098 seconds
+Start importing Packages/com.unity.cloud.gltfast/Runtime/Scripts/MorphTargetContext.cs using Guid(ddf8b3729d07f424fbb711e82633c09f) Importer(-1,00000000000000000000000000000000)  -> (artifact id: 'bb6341cb0fc2c3a27bbce85b2c605b09') in 0.000806 seconds
+Start importing Packages/com.unity.cloud.gltfast/Runtime/Scripts/DOTS/GltfEntityAsset.cs using Guid(ed63b69d2d259417e81f22bdec47df80) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '054f015fb53466259d2a1a60c1d2cc9a') in 0.000664 seconds
+Start importing Packages/com.unity.burst/Tests/Runtime/UnityBenchShared/SphereCulling.cs using Guid(ed29326fcba3397394b33a09e46df489) Importer(-1,00000000000000000000000000000000)  -> (artifact id: 'ee0224ce4111db217b068cafa6aeeab5') in 0.000853 seconds
+Start importing Packages/com.unity.burst/Tests/Editor/BurstReflectionTests.cs using Guid(fde1edfe51dc3deaa53f0952dddf2b02) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '9dbec4844e0457ca0db03c93d9561904') in 0.000680 seconds
+Start importing Packages/com.unity.cloud.gltfast/Runtime/Scripts/Export/DracoExportSettings.cs using Guid(fd92d7ccd0d2a4e0c931cc9e9baacc64) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '08c912ef93e6b0bfb398b5863dd20f6d') in 0.001450 seconds
+Start importing Packages/com.unity.cloud.gltfast/Runtime/Scripts/VertexBufferColors.cs using Guid(fd1f368dcd13847be84297465036659f) Importer(-1,00000000000000000000000000000000)  -> (artifact id: 'f46fbbfd91f327e43d66745e817d6843') in 0.001249 seconds
+Start importing Packages/com.unity.burst/Editor/BurstDisassembler.Core.x86.cs using Guid(0e74c9ce3b3038e298ae140ed24be9a6) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '2862a8a172523ce62dc392fa7e841e82') in 0.001021 seconds
+Start importing Packages/com.unity.cloud.gltfast/Runtime/Scripts/GameObjectBoundsInstantiator.cs using Guid(0e7600ca5b99344b5815a37360cfc553) Importer(-1,00000000000000000000000000000000)  -> (artifact id: 'aad6986fb78aec76b9a45a28c9b9a22c') in 0.001371 seconds
+Start importing Packages/com.unity.burst/Runtime/BurstRuntime.cs using Guid(0ee882fdf20e36709b6c8add6925b416) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '6f36f45ae7c56f79e9cba630efb8febd') in 0.000894 seconds
+Start importing Packages/com.unity.cloud.gltfast/Runtime/Scripts/Material/Constants.cs using Guid(2ec0d38a2880d4e2886228f3008e670d) Importer(-1,00000000000000000000000000000000)  -> (artifact id: 'cbf2eef7dbc96ef12e3f55ebcb43e21c') in 0.000640 seconds
+Start importing Packages/com.unity.cloud.gltfast/Runtime/Scripts/Logging/CollectingLogger.cs using Guid(2e1487baffe934aa7897713f4f05e631) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '5333ffbebe07716b3beca1096b1bf187') in 0.000588 seconds
+Start importing Packages/com.unity.cloud.gltfast/Runtime/Scripts/Schema/MaterialPbrMetallicRoughness.cs using Guid(2ea761ba8a88949f9853e3701abc486a) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '3f1a5c4d8b18280360e5423c982ab9df') in 0.000610 seconds
+Start importing Packages/com.unity.burst/Runtime/Intrinsics/Arm/NEON.cs using Guid(2efbfcf826a93d09a0cca436df6f6ba7) Importer(-1,00000000000000000000000000000000)  -> (artifact id: 'f627469ea4a19c44cb95d5e6e4ea5cec') in 0.000970 seconds
+Start importing Packages/com.unity.cloud.gltfast/Runtime/Scripts/GltfImport.cs using Guid(2ecdf4a01fc4b428e8d8571876a43f78) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '08fd44c3ef2262bb76c1592f6b2c4657') in 0.000765 seconds
+Start importing Packages/com.unity.cloud.gltfast/Runtime/Scripts/Export/ImageExportBase.cs using Guid(4e1122b5a7344378b5239f2ea982226e) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '41fe553454a15ac34e6462d7eb82ebae') in 0.001747 seconds
+Start importing Packages/com.unity.burst/Tests/Runtime/UnityBenchShared/SumNumberJob.cs using Guid(4e813577ac9c3de8947a14eb8c3ce7ea) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '9ccfb668df4b27c1189ea5049cfb72e9') in 0.001538 seconds
+Start importing Packages/com.unity.burst/Tests/Runtime/Shared/010-NotSupported.cs using Guid(5eb12402c8b53dbaa40d67a6ccd1b4f6) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '76fa9682ac6009b81bd5759953815a5b') in 0.001298 seconds
+Start importing Packages/com.unity.burst/Tests/Runtime/Shared/090-Vectors-Exceptions.cs using Guid(5e33ae893f1732ff836c7724c3cd2c53) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '80325e2aee46dd0eee6cb63458f557c5') in 0.000730 seconds
+Start importing Packages/com.unity.burst/Tests/Runtime/Shared/051-TestGenerics.cs using Guid(5eb3e1cf0e2a3614927c245069c69baf) Importer(-1,00000000000000000000000000000000)  -> (artifact id: 'fdecd03c1ed77f04d52aea9871c5e5aa') in 0.000718 seconds
+Start importing Packages/com.unity.cloud.gltfast/Editor/Scripts/ShaderGraphGUI.cs using Guid(5e2f126a1146d494cb1f1664639f3205) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '2bdaf3b6e4c5ff0b51ccdec5c497f7b8') in 0.000667 seconds
+Start importing Packages/com.unity.burst/Runtime/Intrinsics/Common.cs using Guid(7e66be22bd0535ebb995d14ab6276f52) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '0f3aacc409dadf3945749e1e11906960') in 0.000620 seconds
+Start importing Packages/com.unity.cloud.gltfast/Runtime/Scripts/Export/ImageExport.cs using Guid(8e134528d7aa047e9837cf28e8cd5609) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '64e334150dd913f43f96ad3790b64dd7') in 0.000963 seconds
+Start importing Packages/com.unity.burst/Editor/BurstDisassembler.Core.cs using Guid(8e9be092790937a59d4e735174d7a0cf) Importer(-1,00000000000000000000000000000000)  -> (artifact id: 'f1d14880e616201e6f15627228f518ec') in 0.000647 seconds
+Start importing Packages/com.unity.burst/Unity.Burst.CodeGen/CecilExtensions.cs using Guid(be182fc13265343bb6d9f9de1ffac38c) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '8c4e5c911bafbb70be413afe2fb54c4b') in 0.002278 seconds
+Start importing Packages/com.unity.burst/Tests/Runtime/Shared/090-Vectors-Statics.cs using Guid(ce3376cccf543af995a4c64973bdbdf1) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '1dfa6e68fded7672b81c1ab84f0c12c2') in 0.001299 seconds
+Start importing Packages/com.unity.cloud.gltfast/Runtime/Scripts/Export/StreamExtension.cs using Guid(ce842f523046d45de9f138cb1ad861ed) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '0c88cd4245ba472f23336a56f00adede') in 0.000970 seconds
+Start importing Packages/com.unity.burst/Tests/Runtime/Shared/Helpers/DataRange.cs using Guid(cea7ccbebd713e1ea3ff378c516002b2) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '43f77ebd19a329af197397a44dd73169') in 0.000891 seconds
+Start importing Packages/com.unity.burst/Tests/Editor/BurstMethodTreeViewTests.cs using Guid(dec061e3cbd730ce8117c465ee02452c) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '769f019e20c1683b41509e7f8d818534') in 0.001227 seconds
+Start importing Packages/com.unity.cloud.gltfast/Runtime/Scripts/Schema/MaterialTransmission.cs using Guid(de3f0ad1a340b4da5a675c20b2eb036d) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '34ab475e9df1d353a96e96ce069754d9') in 0.000588 seconds
+Start importing Packages/com.unity.burst/Tests/Runtime/Shared/090-Vectors-Indexers.cs using Guid(de7fc0987ef63c28b1f8500b817fd444) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '991e0accc8bb8bc0aae225f4cb0a4d73') in 0.001147 seconds
+Start importing Packages/com.unity.burst/Tests/Runtime/Shared/011-Span.cs using Guid(fec1bb67579b3feda3e2fddd7ecbc304) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '7c4855239466615e8513f1f516d1798c') in 0.001657 seconds
+Start importing Packages/com.unity.burst/Runtime/FunctionPointer.cs using Guid(feefc16250a136e3b1866eebaf448839) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '1acf56af944c332b4aa45c443b4142c1') in 0.001472 seconds
+Start importing Packages/com.unity.cloud.gltfast/Runtime/Scripts/Schema/FakeSchema/Root.cs using Guid(0ff53205b504b47bbb7d5fcad1c6ce0f) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '49f0a426c757ae28fba04d1d41a6a106') in 0.001179 seconds
+Start importing Packages/com.unity.cloud.gltfast/Runtime/Scripts/Schema/AccessorSparseValues.cs using Guid(1fbe6b4db971c4ca0b34466fc32ce5c0) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '3cb2f2831468e3b069a0ef64ae784fb5') in 0.000830 seconds
+Start importing Packages/com.unity.cloud.gltfast/Editor/Scripts/ShaderGUIBase.cs using Guid(3fc2baf04d5f44c57812b8e8a0d5dc4b) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '3a3cfd200f7e2312ad22a645e97ec8ef') in 0.001362 seconds
+Start importing Packages/com.unity.burst/Editor/BurstDisassembler.cs using Guid(3f95fb45824f373fad673bef04ad4f0b) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '2feb3d370ce2b8f8f3497a1837f00673') in 0.000620 seconds
+Start importing Packages/com.unity.cloud.gltfast/Runtime/Scripts/Schema/FakeSchema/MaterialExtension.cs using Guid(3fbb61750909c47b8985966c487e74ee) Importer(-1,00000000000000000000000000000000)  -> (artifact id: 'ba98469024e767c3c203224dbe1bdc19') in 0.001245 seconds
+Start importing Packages/com.unity.cloud.gltfast/Runtime/Scripts/Schema/Material.cs using Guid(6fc5461f38ba347c9af28d46af9eb719) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '810a2ec0a751b7d27f7e5c0d5f93cadf') in 0.000705 seconds
+Start importing Packages/com.unity.cloud.gltfast/Runtime/Scripts/PrimitiveDracoCreateContext.cs using Guid(6f2f7f10cdb5644bbb2760421003ad61) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '9b01039d6efdf23fa132e1d51c6dec29') in 0.000723 seconds
+Start importing Packages/com.unity.burst/Runtime/Intrinsics/Arm/NEON_AArch64_fp16.cs using Guid(7f5ea3568248320dbf5925ec3ffeed96) Importer(-1,00000000000000000000000000000000)  -> (artifact id: 'ba476d919e41f0602b49d9a00b008fdd') in 0.001009 seconds
+Start importing Packages/com.unity.cloud.gltfast/Runtime/Scripts/GameObjectInstantiator.cs using Guid(8f09d36b46b0842a3bcfbec880ccba9a) Importer(-1,00000000000000000000000000000000)  -> (artifact id: 'b873c8e9c85a6c999c2880b7250fcdd1') in 0.001742 seconds
+Start importing Packages/com.unity.burst/Runtime/Intrinsics/x86/Sse2.cs using Guid(8fccf3b017733dfdaaf541d38d83d2d7) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '44926fec250a2482feb46715a96c4dc4') in 0.002488 seconds
+Start importing Packages/com.unity.cloud.gltfast/Runtime/Scripts/Schema/OcclusionTextureInfo.cs using Guid(9f4155f4f154d46368565048b3b9a02f) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '83ac94e5eec5c73d9731d4a32855760a') in 0.001763 seconds
+Start importing Packages/com.unity.burst/Tests/Runtime/Shared/090-Vectors-Bools.cs using Guid(afa4d597c8db399ab071dfe6a3096516) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '55928c8e04f0429a32af0088d2b5dd49') in 0.001070 seconds
+Start importing Packages/com.unity.cloud.gltfast/Runtime/Scripts/Material/MaterialGenerator.cs using Guid(afe9cec957cbc4e2d8d686c12da3b676) Importer(-1,00000000000000000000000000000000)  -> (artifact id: 'ffb744454fa13dcb06bc95a4fe91ee20') in 0.000634 seconds
+Start importing Packages/com.unity.cloud.gltfast/Runtime/Scripts/AnimationMethod.cs using Guid(afdc0c08b0ba4248a2a7cd1a610f3d5a) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '5d56eb247a25fbe7c78d894be71eb7c5') in 0.000600 seconds
+Start importing Packages/com.unity.burst/Runtime/SharedStatic.cs using Guid(bfdd257358273f4bbe12f55beaad8af1) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '43b1644ca0877696c10657cdc1111313') in 0.000649 seconds
+Start importing Packages/com.unity.burst/Editor/BurstAotCompiler.cs using Guid(cf87faa2d38c376e8e9adb8eb79abd10) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '6463f30d8314d7a80aa4f832d7b2f159') in 0.000535 seconds
+Start importing Packages/com.unity.burst/Tests/Runtime/Shared/084-IntrinsicsCommon.cs using Guid(df58129e92123044b15b889624e8868c) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '2fcc83a6fc77291187baa400f60b9c74') in 0.000882 seconds
+Start importing Packages/com.unity.cloud.gltfast/Runtime/Scripts/AnimationUtils.cs using Guid(ef505ff2a2ed74b1c8c346a506e2c93e) Importer(-1,00000000000000000000000000000000)  -> (artifact id: 'b6203b5eda64f87db1980d552078f4e6') in 0.001705 seconds
+Start importing Packages/com.unity.burst/Editor/BurstInspectorGUI.cs using Guid(ffabd1fbe2ab3d59a50128c0669b5791) Importer(-1,00000000000000000000000000000000)  -> (artifact id: 'f71261a0cb00a05c897ea55b7d8661d6') in 0.000853 seconds
+Refreshing native plugins compatible for Editor in 0.74 ms, found 0 plugins.
+Native extension for OSXStandalone target not found
+Mono: successfully reloaded assembly
+- Finished resetting the current domain, in  6.334 seconds
+Domain Reload Profiling: 7131ms
+	BeginReloadAssembly (385ms)
+		ExecutionOrderSort (2ms)
+		DisableScriptedObjects (14ms)
+		BackupInstance (0ms)
+		ReleaseScriptingObjects (1ms)
+		CreateAndSetChildDomain (90ms)
+	RebuildCommonClasses (35ms)
+	RebuildNativeTypeToScriptingClass (12ms)
+	initialDomainReloadingComplete (36ms)
+	LoadAllAssembliesAndSetupDomain (327ms)
+		LoadAssemblies (302ms)
+		RebuildTransferFunctionScriptingTraits (0ms)
+		AnalyzeDomain (172ms)
+			TypeCache.Refresh (167ms)
+				TypeCache.ScanAssembly (142ms)
+			ScanForSourceGeneratedMonoScriptInfo (4ms)
+			ResolveRequiredComponents (1ms)
+	FinalizeReload (6336ms)
+		ReleaseScriptCaches (0ms)
+		RebuildScriptCaches (0ms)
+		SetupLoadedEditorAssemblies (6202ms)
+			LogAssemblyErrors (0ms)
+			InitializePlatformSupportModulesInManaged (3ms)
+			SetLoadedEditorAssemblies (4ms)
+			RefreshPlugins (0ms)
+			BeforeProcessingInitializeOnLoad (12ms)
+			ProcessInitializeOnLoadAttributes (6126ms)
+			ProcessInitializeOnLoadMethodAttributes (55ms)
+			AfterProcessingInitializeOnLoad (1ms)
+			EditorAssembliesLoaded (1ms)
+		ExecutionOrderSort2 (0ms)
+		AwakeInstancesAfterBackupRestoration (3ms)
+Start importing Packages/com.unity.cloud.gltfast/Runtime/Shader/glTF-pbrMetallicRoughness.shadergraph using Guid(b9d29dfa1474148e792ac720cbd45122) Importer(-1,00000000000000000000000000000000)  -> (artifact id: 'c646ea1122d0b6dfa0482cab89057782') in 0.233261 seconds
+Start importing Packages/com.unity.cloud.gltfast/Runtime/Shader/SubGraphs/PBR_metallic_roughness.shadersubgraph using Guid(0011ac3bd216c4242baafcf7d0ee237b) Importer(-1,00000000000000000000000000000000)  -> (artifact id: 'd1a4fa9e4c0e12f9068203e6a575912e') in 0.031837 seconds
+Start importing Packages/com.unity.cloud.gltfast/Runtime/Shader/SubGraphs/BaseColor.shadersubgraph using Guid(8128dba25d89b4e0e99b91d27f058f07) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '6615a9a07bef6e0786273ae8bd9b1d4d') in 0.002303 seconds
+Start importing Packages/com.unity.cloud.gltfast/Runtime/Shader/SubGraphs/Emission.shadersubgraph using Guid(c65a0769f13ae46a28263a75eed49ecc) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '5ddb67ef795929302c0912e74cde3b95') in 0.001335 seconds
+Start importing Packages/com.unity.cloud.gltfast/Runtime/Shader/SubGraphs/Normal.shadersubgraph using Guid(3d23f3f9d39dc4621898db0a20884fcd) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '3ea722952050fa0854fcd456d15a0a28') in 0.000783 seconds
+Start importing Packages/com.unity.cloud.gltfast/Runtime/Shader/Includes/Emission.cginc using Guid(b07ab7368cb744626bd2239241a24105) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '69019215986f4b9df3f9eabf7fbdbb3b') in 0.002099 seconds
+Start importing Packages/com.unity.cloud.gltfast/Runtime/Shader/Built-In/glTFIncludes/glTFUnityStandardInput.cginc using Guid(22fcb7fc782bb4f8eaf2525eb63660b6) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '1145485ae2b67f5fa88afcb92748ffeb') in 0.001756 seconds
+Start importing Packages/com.unity.cloud.gltfast/Runtime/Shader/Built-In/glTFIncludes/glTFUnityStandardMeta.cginc using Guid(23e02a8538d6f478793725d6e1194956) Importer(-1,00000000000000000000000000000000)  -> (artifact id: 'bb36a835ae0c4fd87ce73c2cc8ae656c') in 0.002107 seconds
+Start importing Packages/com.unity.cloud.gltfast/Runtime/Shader/Built-In/glTFIncludes/glTFUnityStandardCoreForwardSimple.cginc using Guid(c57490bb2a74e4ed89522038739cc471) Importer(-1,00000000000000000000000000000000)  -> (artifact id: 'fa5d5e7c0bb9c3cf7c9b03671af68093') in 0.001991 seconds
+Start importing Packages/com.unity.cloud.gltfast/Runtime/Shader/Built-In/glTFIncludes/glTF.cginc using Guid(db55034c1cd3e48e6a5964befa1f0f0b) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '78f5e19f88b0f5607d27162ba67f25b4') in 0.001689 seconds
+Start importing Packages/com.unity.cloud.gltfast/Runtime/Shader/Built-In/glTFIncludes/glTFUnityStandardCore.cginc using Guid(6c21434ebcc3b45d19826a76a50323b1) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '6af78721318993e67fb37ac24fe9883e') in 0.001581 seconds
+Start importing Packages/com.unity.cloud.gltfast/Runtime/Shader/Export/glTFExportNormal.shader using Guid(223792947f6cb461c93ef4d8df7b859c) Importer(-1,00000000000000000000000000000000) Launching external process: /Applications/Unity/Hub/Editor/2022.3.0f1/Unity.app/Contents/Tools/UnityShaderCompiler
+Launched and connected shader compiler UnityShaderCompiler after 0.41 seconds
+ -> (artifact id: 'a0bc7140e66d61e05f4b0c919c6be2e3') in 0.464138 seconds
+Start importing Packages/com.unity.cloud.gltfast/Runtime/Shader/Export/glTFExportMetalGloss.shader using Guid(b2339366be04e4cf197c6cf4bd5a84dc) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '43da8084bdae706a8b9b8ee25c0827dd') in 0.002679 seconds
+Start importing Packages/com.unity.cloud.gltfast/Runtime/Shader/Built-In/glTFUnlit.shader using Guid(4340a3cf1cde6416d957808a6ac79eed) Importer(-1,00000000000000000000000000000000)  -> (artifact id: 'b63215307fe7e6f573e0e335c1a02f1a') in 0.008229 seconds
+Start importing Packages/com.unity.cloud.gltfast/Runtime/Shader/Export/glTFExportSmoothness.shader using Guid(b325a765e406c458f88111b5ba9b2ce1) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '91e3e85960e063d27a8dbbf40912c4f2') in 0.002609 seconds
+Start importing Packages/com.unity.cloud.gltfast/Runtime/Shader/Export/glTFExportOcclusion.shader using Guid(5415cfa8493204ba5ae288a245ca7616) Importer(-1,00000000000000000000000000000000)  -> (artifact id: 'd247ec7b8d7940342ceed2805cc259f6') in 0.002186 seconds
+Start importing Packages/com.unity.cloud.gltfast/Runtime/Shader/Built-In/glTFPbrSpecularGlossiness.shader using Guid(f853aafa0bc764a138f572608a37a73c) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '6cd08ebfef5c24a489ee5320bf16ed3d') in 0.022504 seconds
+Start importing Packages/com.unity.cloud.gltfast/Runtime/Shader/Built-In/glTFPbrMetallicRoughness.shader using Guid(99fa998bbbed3408aafa652b466d261d) Importer(-1,00000000000000000000000000000000)  -> (artifact id: 'cba1827b1ff46522673ec83616ef2525') in 0.020556 seconds
+Start importing Packages/com.unity.cloud.gltfast/Runtime/Shader/Export/glTFExportColor.shader using Guid(8b605e834d6d2408a9e781775006555e) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '393ed6a8551fe935dfebff336146a0f0') in 0.003747 seconds
+Start importing Packages/com.unity.cloud.gltfast/Runtime/Shader/Export/glTFExportMaskMap.shader using Guid(4eb7e251dc88045e9b33e3f643084108) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '5a24d1020558d2ccec3443f6c2bc2ece') in 0.002466 seconds
+Start importing Packages/com.unity.cloud.gltfast/CODE_OF_CONDUCT.md using Guid(315b3ac82fac241e09252eb593f4ddb7) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '431b4d4bc00fd4df654f1f230a359731') in 0.001764 seconds
+Start importing Packages/com.unity.burst/Third Party Notices.md using Guid(73b432af27133f55a35c890c3bdf64c3) Importer(-1,00000000000000000000000000000000)  -> (artifact id: 'ca26120b87a31ce0199009650cf55ad0') in 0.000859 seconds
+Start importing Packages/com.unity.burst/CHANGELOG.md using Guid(345fbf1c69e936e180653ef894fe94fa) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '5b546fb9bedc773a8fc389961e36db4b') in 0.001961 seconds
+Start importing Packages/com.unity.cloud.gltfast/README.md using Guid(e56ab7110179f4e6a8c5562d60b8e514) Importer(-1,00000000000000000000000000000000)  -> (artifact id: 'a80702272c3d4055619a771ad04b8a96') in 0.000784 seconds
+Start importing Packages/com.unity.cloud.gltfast/CONTRIBUTING.md using Guid(465ae02a69d65445fb2f3bd88e85e756) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '1774299043aed0f49fe99f26765ebc21') in 0.000742 seconds
+Start importing Packages/com.unity.cloud.gltfast/LICENSE.md using Guid(a6f1c11b2fcea4ea69d44fea7045741c) Importer(-1,00000000000000000000000000000000)  -> (artifact id: 'afe2960d4933807bd87afa86c98c3140') in 0.000885 seconds
+Start importing Packages/com.unity.cloud.gltfast/CHANGELOG.md using Guid(1907d48165c914f65909bac3ebdeb857) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '1de48624e75271bf208d02262d6b1f33') in 0.001210 seconds
+Start importing Packages/com.unity.burst/Tests/Editor/burstTestTarget.txt using Guid(e98313e850883648a977ddbceaaca946) Importer(-1,00000000000000000000000000000000)  -> (artifact id: 'd9e8c2474ec043b898e1e998d3fe74f5') in 0.000906 seconds
+Start importing Packages/com.unity.cloud.gltfast/package.json using Guid(f9b381701ee454bcdb792099f6b4e4a4) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '443bc5cc5bb9285a22414691376dcf78') in 0.001695 seconds
+Start importing Packages/com.unity.burst/LICENSE.md using Guid(0f8d496d402837948694e70f29a6c3af) Importer(-1,00000000000000000000000000000000)  -> (artifact id: 'a0e775411e525eccba9a8ea3b57af77a') in 0.000736 seconds
+Start importing Packages/com.unity.burst/package.json using Guid(5fb28db57db3325b95957fcfe1a0108b) Importer(-1,00000000000000000000000000000000)  -> (artifact id: 'fff6779357a31d8eaf19f01aa5a31c5b') in 0.000845 seconds
+Start importing Packages/com.unity.cloud.gltfast/Editor/UI/ReportItem-style.uss using Guid(f09b0781de4034af894fbb72266cf498) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '4d52a55d517550fe3b7d39b571d1e138') in 0.051826 seconds
+Start importing Packages/com.unity.cloud.gltfast/Editor/UI/Dependency-style.uss using Guid(8b07415b3b6e441cfa55e9187248229c) Importer(-1,00000000000000000000000000000000)  -> (artifact id: 'e326dad79e936f4fc1d8e341a4377e36') in 0.005195 seconds
+Start importing Packages/com.unity.cloud.gltfast/Editor/UI/GltfImporter-style.uss using Guid(3f6f1f186c9e446d880d267adc629f1b) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '4782be47bd9cd0b7a0e499159b79d1ef') in 0.010821 seconds
+Start importing Packages/com.unity.cloud.gltfast/Editor/UI/ReportItem.uxml using Guid(727aa1886d86e4b3faa4ca8f263a6ee4) Importer(-1,00000000000000000000000000000000)  -> (artifact id: 'be349dd0613b04f67eb86f6d14e612ff') in 0.046746 seconds
+Start importing Packages/com.unity.cloud.gltfast/Editor/UI/GltfImporter.uxml using Guid(d72633e56500240858af54bf878c907d) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '8ed24df5da42e6a8995afa3de3e15097') in 0.034634 seconds
+Start importing Packages/com.unity.cloud.gltfast/Editor/UI/Dependency.uxml using Guid(4df82ef208e584428bdb29715790cd6f) Importer(-1,00000000000000000000000000000000)  -> (artifact id: 'd7a3131337a753c896c204e8e4db3ac6') in 0.004465 seconds
+Launching external process: /Applications/Unity/Hub/Editor/2022.3.0f1/Unity.app/Contents/Tools/UnityShaderCompiler
+Launched and connected shader compiler UnityShaderCompiler after 0.06 seconds
+Launching external process: /Applications/Unity/Hub/Editor/2022.3.0f1/Unity.app/Contents/Tools/UnityShaderCompiler
+Launched and connected shader compiler UnityShaderCompiler after 0.05 seconds
+Launching external process: /Applications/Unity/Hub/Editor/2022.3.0f1/Unity.app/Contents/Tools/UnityShaderCompiler
+Launched and connected shader compiler UnityShaderCompiler after 0.05 seconds
+Launching external process: /Applications/Unity/Hub/Editor/2022.3.0f1/Unity.app/Contents/Tools/UnityShaderCompiler
+Launched and connected shader compiler UnityShaderCompiler after 0.06 seconds
+Launching external process: /Applications/Unity/Hub/Editor/2022.3.0f1/Unity.app/Contents/Tools/UnityShaderCompiler
+Launched and connected shader compiler UnityShaderCompiler after 0.08 seconds
+Launching external process: /Applications/Unity/Hub/Editor/2022.3.0f1/Unity.app/Contents/Tools/UnityShaderCompiler
+Launched and connected shader compiler UnityShaderCompiler after 0.07 seconds
+Launching external process: /Applications/Unity/Hub/Editor/2022.3.0f1/Unity.app/Contents/Tools/UnityShaderCompiler
+Launched and connected shader compiler UnityShaderCompiler after 0.07 seconds
+Refreshing native plugins compatible for Editor in 0.82 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=a5fa6109c5fb541dc83ffd3f3a067d55): Total: 42.149 seconds - Initiated by InitialRefreshV2(ForceSynchronousImport)
+	Summary:
+		Imports: total=359 (actual=355, local cache=4, cache server=0)
+		Asset DB Process Time: managed=13 ms, native=2757 ms
+		Asset DB Callback time: managed=143 ms, native=658 ms
+		Scripting: domain reloads=1, domain reload time=7182 ms, compile time=31369 ms, other=23 ms
+		Project Asset Count: scripts=1017, non-scripts=608
+		Asset File Changes: new=199, changed=350, moved=12, deleted=380
+		Scan Filter Count: 1
+	InvokeBeforeRefreshCallbacks: 0.459ms
+	ApplyChangesToAssetFolders: 0.121ms
+	Scan: 604.743ms
+	OnSourceAssetsModified: 33.957ms
+	UnregisterDeletedAssets: 2.905ms
+	GetAllGuidsForCategorization: 0.265ms
+	CategorizeAssets: 48.794ms
+	ImportOutOfDateAssets: 7957.142ms (-25025.639ms without children)
+		ImportManagerImport: 1574.581ms (198.547ms without children)
+			ImportInProcess: 1375.332ms
+			UpdateCategorizedAssets: 0.702ms
+		CompileScripts: 31369.083ms
+		ReloadNativeAssets: 0.000ms
+		UnloadImportedAssets: 25.701ms
+		ReloadImportedAssets: 9.301ms
+		EnsureUptoDateAssetsAreRegisteredWithGuidPM: 0.365ms
+		InitializingProgressBar: 0.372ms
+		PostProcessAllAssetNotificationsAddChangedAssets: 0.000ms
+		OnDemandSchedulerStart: 3.378ms
+	PostProcessAllAssets: 318.778ms
+	Hotreload: 450.383ms
+	GatherAllCurrentPrimaryArtifactRevisions: 0.049ms
+	UnloadStreamsBegin: 2.432ms
+	PersistCurrentRevisions: 1.069ms
+	UnloadStreamsEnd: 0.005ms
+	GenerateScriptTypeHashes: 0.282ms
+	Untracked: 32727.548ms
+Application.AssetDatabase Initial Refresh End
+Scanning for USB devices : 0.249ms
+Initializing Unity extensions:
+[Licensing::Client] Successfully resolved entitlements
+[MODES] ModeService[none].Initialize
+[MODES] ModeService[none].LoadModes
+[MODES] Loading mode Default (0) for mode-current-id-EmbodiedDebate
+ProgressiveSceneManager::Cancel()
+Unloading 10 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 45 unused Assets / (380.6 KB). Loaded Objects now: 1337.
+Memory consumption went from 105.5 MB to 105.1 MB.
+Total: 8.997459 ms (FindLiveObjects: 0.067583 ms CreateObjectMapping: 0.018792 ms MarkObjects: 8.250417 ms  DeleteObjects: 0.659833 ms)
+
+Asset Pipeline Refresh (id=3b6a860d067aa494eb4ae860454e56d7): Total: 0.146 seconds - Initiated by RefreshV2(NoUpdateAssetOptions)
+HideAndSeekDesignBuilder: mini-bot import animationType=Generic, importAnimation=True, avatarValid=False, avatarHuman=False, walkingBones leftFoot=True, rightFoot=True, leftLeg=True, rightLeg=True.
+UnityEngine.StackTraceUtility:ExtractStackTrace () (at /Users/bokken/build/output/unity/unity/Runtime/Export/Scripting/StackTrace.cs:37)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+ArgusUnity.Editor.HideAndSeekDesignBuilder:LogMiniBotRigInfo () (at Assets/Editor/HideAndSeekDesignBuilder.cs:344)
+ArgusUnity.Editor.HideAndSeekDesignBuilder:BuildScene () (at Assets/Editor/HideAndSeekDesignBuilder.cs:24)
+
+(Filename: Assets/Editor/HideAndSeekDesignBuilder.cs Line: 344)
+
+Unloading 1 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 63 unused Assets / (109.8 KB). Loaded Objects now: 1337.
+Memory consumption went from 105.2 MB to 105.1 MB.
+Total: 3.577958 ms (FindLiveObjects: 0.058500 ms CreateObjectMapping: 0.018000 ms MarkObjects: 3.411666 ms  DeleteObjects: 0.089250 ms)
+
+Start importing Assets/Project/Materials/HideSeekDefenseBlue.mat using Guid(1ab91de9bb9934e9f880738d62def819) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '5393f3c5a3a094310f103cc049b5b045') in 0.004741 seconds
+Start importing Assets/Project/Materials/HideSeekAttackRed.mat using Guid(4aa4d8a01259243b6b5dba6db789b200) Importer(-1,00000000000000000000000000000000)  -> (artifact id: '2e7068000da311e85c1b16a61381ad53') in 0.000902 seconds
+Refreshing native plugins compatible for Editor in 2.52 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=69fce85e8e3fe4e218a5012ac592be22): Total: 0.092 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Start importing Assets/Project/Scenes/MiniBotHideAndSeekDesign.unity using Guid(9a4a9106e8b4148eea11b87fdf0edb7b) Importer(-1,00000000000000000000000000000000)  -> (artifact id: 'f7e5e6c560373c9302b738396e88790e') in 0.001244 seconds
+Refreshing native plugins compatible for Editor in 0.63 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=5957c9bcf46eb4c56844bb51b542e3d1): Total: 0.033 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+HideAndSeekDesignBuilder: saved Assets/Project/Scenes/MiniBotHideAndSeekDesign.unity
+UnityEngine.StackTraceUtility:ExtractStackTrace () (at /Users/bokken/build/output/unity/unity/Runtime/Export/Scripting/StackTrace.cs:37)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+ArgusUnity.Editor.HideAndSeekDesignBuilder:BuildScene () (at Assets/Editor/HideAndSeekDesignBuilder.cs:42)
+
+(Filename: Assets/Editor/HideAndSeekDesignBuilder.cs Line: 42)
+
+[Project] Loading completed in 89.607 seconds
+	Project init time: 				78.861 seconds
+		Template init time: 		0.000 seconds
+		Package Manager init time: 		1.638 seconds
+		Asset Database init time: 		31.926 seconds
+		Global illumination init time: 	0.027 seconds
+		Assemblies load time: 			0.988 seconds
+		Unity extensions init time: 	0.003 seconds
+		Asset Database refresh time: 	0.147 seconds
+	Scene opening time: 			2.467 seconds
+##utp:{"type":"ProjectInfo","version":2,"phase":"Immediate","time":1777972905920,"processId":33228,"projectLoad":89.60728420900002,"projectInit":78.861303291,"templateInit":0.0,"packageManagerInit":1.638107417,"assetDatabaseInit":31.926438,"globalIlluminationInit":0.027313333,"assembliesLoad":0.988358,"unityExtensionsInit":0.002658541,"assetDatabaseRefresh":0.146640458,"sceneOpening":2.466769875}
+##utp:{"type":"EditorInfo","version":2,"phase":"Immediate","time":1777972905920,"processId":33228,"editorVersion":"2022.3.0f1 (fb119bb0b476)","branch":"2022.3/release","buildType":"Release","platform":"OSX"}
+Subscribe to USB device events
+Scanning for USB devices : 0.283ms
+[Licensing::Client] Successfully resolved entitlement details
+[UnityConnectServicesConfig] config is NOT valid, switching to default
+Created GICache directory at /Users/guribbong/Library/Caches/com.unity3d.UnityEditor/GiCache. Took: 0.012s, timestamps: [89.675 - 89.687]
+gi::BakeBackendSwitch: switching bake backend from 3 to 2.
+[00:00:02] Builtin Sky manager started.
+[00:00:02] Finished 1 Bake Ambient Probe job (0.00s execute, 0.00s integrate, 0.05s wallclock)
+[00:00:02] Finished 1 Bake Ambient Probe job (0.00s execute, 0.00s integrate, 0.05s wallclock)
+[40m[32minfo[39m[22m[49m: Microsoft.Hosting.Lifetime[0]
+      Application is shutting down...
+[40m[32minfo[39m[22m[49m: Unity.ILPP.Runner.PostProcessingAssemblyLoadContext[0]
+      ALC ILPP context 1 is unloading

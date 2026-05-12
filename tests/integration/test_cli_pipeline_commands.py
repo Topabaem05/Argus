@@ -94,7 +94,9 @@ def test_cli_commands_write_real_artifacts(tmp_path: Path, monkeypatch) -> None:
     assert bridge_replay.exit_code == 0, bridge_replay.output
     bridge_lines = (run_dir / "bridge.jsonl").read_text(encoding="utf-8").splitlines()
     assert len(bridge_lines) == len(event_lines)
-    assert BridgeEnvelope.model_validate_json(bridge_lines[0]).type == "simulation.event"
+    bridge_types = [BridgeEnvelope.model_validate_json(line).type for line in bridge_lines]
+    assert bridge_types[0] == "environment.load"
+    assert "agent.behavior" in bridge_types
 
     rerun = RUNNER.invoke(app, ["run", "--config", config_path, "--dry-run"])
     assert rerun.exit_code == 1

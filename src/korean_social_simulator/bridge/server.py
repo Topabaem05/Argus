@@ -5,7 +5,7 @@ from contextlib import asynccontextmanager
 from pathlib import Path
 
 from fastapi import FastAPI, HTTPException, Request
-from pydantic import BaseModel, ConfigDict, Field
+from pydantic import BaseModel, ConfigDict, Field, field_validator
 
 from korean_social_simulator.bridge.agent_inspection import (
     AgentInspectionController,
@@ -13,6 +13,10 @@ from korean_social_simulator.bridge.agent_inspection import (
 )
 from korean_social_simulator.bridge.client_registry import ClientRegistry
 from korean_social_simulator.bridge.config import load_bridge_runtime_config
+from korean_social_simulator.bridge.environment_catalog import (
+    get_environment,
+    list_supported_background_ids,
+)
 from korean_social_simulator.bridge.physics_coordinator import (
     PhysicsCoordinator,
     build_physics_coordinator,
@@ -24,7 +28,7 @@ from korean_social_simulator.bridge.replay_controller import (
 from korean_social_simulator.bridge.simulation_stream import stream_dry_run_to_unity
 from korean_social_simulator.bridge.websocket_gateway import register_unity_websocket
 from korean_social_simulator.config.models import BridgeConfig
-from korean_social_simulator.errors import KoreanSocialSimulationError
+from korean_social_simulator.errors import ConfigurationError, KoreanSocialSimulationError
 from korean_social_simulator.models import AttachmentInput
 from korean_social_simulator.pipeline import bridge_prepare_dry_run_stream
 
@@ -33,8 +37,13 @@ _SUPPORTED_MESSAGE_TYPES = (
     "bridge.error",
     "simulation.snapshot",
     "simulation.event",
+    "simulation.summary",
+    "environment.load",
+    "ui.status",
     "agent.spawn",
     "agent.move",
+    "agent.behavior",
+    "agent.animation",
     "agent.dialogue",
     "agent.emotion",
     "group.update",
@@ -52,6 +61,7 @@ _SUPPORTED_MESSAGE_TYPES = (
     "observer.select_agent",
     "observer.camera_state",
 )
+_SUPPORTED_BACKGROUNDS = frozenset(list_supported_background_ids())
 
 
 class SimulationStartBody(BaseModel):
@@ -69,14 +79,43 @@ class SimulationStartBody(BaseModel):
         ge=1,
         description="Optional cap on turns for faster bridge smoke tests.",
     )
+    persona_count_override: int | None = Field(
+        default=None,
+        ge=1,
+        le=20,
+        description="Optional cap on selected personas for Unity-driven runs.",
+    )
     chat_text: str | None = Field(
         default=None,
         description="Optional user chat text to drive persona selection.",
+    )
+    scenario_text: str | None = Field(
+        default=None,
+        description="Optional Unity-authored scenario text to compile into the run.",
+    )
+    background_id: str = Field(
+        default="schoolroom",
+        min_length=1,
+        description="Unity environment identifier for the initial environment.load message.",
     )
     attachments: list[AttachmentInput] | None = Field(
         default=None,
         description="Optional attachment metadata; files are never executed.",
     )
+    ui_session_id: str | None = Field(
+        default=None,
+        description="Optional Unity UI session correlation identifier.",
+    )
+    dry_run: bool = Field(default=True, description="Keep baseline bridge runs offline.")
+
+    @field_validator("background_id")
+    @classmethod
+    def _validate_background_id(cls, value: str) -> str:
+        try:
+            get_environment(value)
+        except ConfigurationError as exc:
+            raise ValueError(str(exc)) from exc
+        return value
 
 
 def create_app(config: BridgeConfig) -> FastAPI:
@@ -156,6 +195,7 @@ def create_app(config: BridgeConfig) -> FastAPI:
             "schema_version": config.schema_config.version,
             "strict": config.schema_config.strict,
             "supported_message_types": list(_SUPPORTED_MESSAGE_TYPES),
+            "supported_background_ids": sorted(_SUPPORTED_BACKGROUNDS),
         }
 
     @app.post("/simulation/start")
@@ -174,16 +214,19 @@ def create_app(config: BridgeConfig) -> FastAPI:
                 detail="Unity client must be connected and have completed unity.ready handshake.",
             )
 
-        session_id = unity_snapshot.session_id or "unity-session"
+        session_id = body.ui_session_id or unity_snapshot.session_id or "unity-session"
         coordinator: PhysicsCoordinator = request.app.state.physics_coordinator
 
         try:
             events, profiles, plan, runtime_config = bridge_prepare_dry_run_stream(
                 cfg_path,
-                dry_run=True,
+                dry_run=body.dry_run,
                 max_turns_override=body.max_turns_override,
+                persona_count_override=body.persona_count_override,
                 chat_text_override=body.chat_text,
+                scenario_text_override=body.scenario_text,
                 attachments_override=body.attachments,
+                background_id=body.background_id,
             )
         except KoreanSocialSimulationError as exc:
             raise HTTPException(status_code=400, detail=str(exc)) from exc

@@ -35,19 +35,37 @@ namespace ArgusUnity.UI
         public static bool TryGetAgentEmotion(BridgeEnvelope envelope, out AgentEmotionViewModel vm)
         {
             vm = default;
-            if (envelope == null || envelope.Type != "agent.emotion" || envelope.Payload == null)
+            if (envelope == null || envelope.Payload == null)
             {
                 return false;
             }
 
-            var agentId = envelope.Payload["agent_id"]?.ToObject<string>();
-            var label = envelope.Payload["label"]?.ToObject<string>();
+            string agentId;
+            string label;
+            JToken intensityToken;
+            if (envelope.Type == "agent.emotion")
+            {
+                agentId = envelope.Payload["agent_id"]?.ToObject<string>();
+                label = envelope.Payload["label"]?.ToObject<string>();
+                intensityToken = envelope.Payload["intensity"];
+            }
+            else if (envelope.Type == "agent.behavior")
+            {
+                agentId = envelope.Payload["agent_id"]?.ToObject<string>();
+                var emotion = envelope.Payload["emotion"] as JObject;
+                label = emotion?["label"]?.ToObject<string>();
+                intensityToken = emotion?["intensity"];
+            }
+            else
+            {
+                return false;
+            }
+
             if (string.IsNullOrWhiteSpace(agentId) || string.IsNullOrWhiteSpace(label))
             {
                 return false;
             }
 
-            var intensityToken = envelope.Payload["intensity"];
             float intensity = 1f;
             if (intensityToken != null && intensityToken.Type != JTokenType.Null &&
                 intensityToken.Type != JTokenType.Undefined)

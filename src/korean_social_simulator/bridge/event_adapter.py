@@ -13,9 +13,27 @@ _EXPLICIT_BRIDGE_TYPES = frozenset(
         "agent.dialogue",
         "agent.emotion",
         "agent.move",
+        "agent.behavior",
+        "agent.animation",
+        "environment.load",
+        "ui.status",
+        "simulation.summary",
         "conflict.update",
         "group.update",
         "physics.result",
+    }
+)
+_UNITY_PRIVATE_KEYS = frozenset(
+    {
+        "persona_uuid",
+        "memory_seeds",
+        "behavior_rules",
+        "metadata",
+        "prompt",
+        "chain",
+        "credentials",
+        "api_key",
+        "secret",
     }
 )
 
@@ -125,7 +143,7 @@ class SimulationEventAdapter:
             message_type=message_type,
             payload={
                 "source_event": self._source_metadata(event),
-                "payload": event.payload,
+                "payload": _redact_unity_payload(event.payload),
             },
         )
 
@@ -249,3 +267,16 @@ def _timestamp_to_ms(timestamp: str, fallback: int) -> int:
     except ValueError:
         return fallback
     return int(parsed.timestamp() * 1000)
+
+
+def _redact_unity_payload(value: object) -> object:
+    if isinstance(value, dict):
+        redacted: dict[str, object] = {}
+        for key, item in value.items():
+            if key in _UNITY_PRIVATE_KEYS:
+                continue
+            redacted[key] = _redact_unity_payload(item)
+        return redacted
+    if isinstance(value, list):
+        return [_redact_unity_payload(item) for item in value]
+    return value

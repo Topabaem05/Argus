@@ -5,6 +5,15 @@ from typing import ClassVar
 
 from pydantic import BaseModel, ConfigDict, Field, field_validator, model_validator
 
+from korean_social_simulator.bridge_schema.behavior import (
+    AgentAnimationEvent,
+    AgentBehaviorIntentEvent,
+)
+from korean_social_simulator.bridge_schema.environment import (
+    EnvironmentLoadEvent,
+    SimulationSummaryEvent,
+    UiStatusEvent,
+)
 from korean_social_simulator.bridge_schema.errors import StructuredError
 from korean_social_simulator.bridge_schema.events import (
     AgentDialogueEvent,
@@ -40,8 +49,13 @@ class BridgeEnvelope(BaseModel):
     _PAYLOAD_MODELS: ClassVar[dict[str, _PayloadModel]] = {
         "agent.spawn": AgentSpawnEvent,
         "agent.move": AgentMoveEvent,
+        "agent.behavior": AgentBehaviorIntentEvent,
+        "agent.animation": AgentAnimationEvent,
         "agent.dialogue": AgentDialogueEvent,
         "agent.emotion": AgentEmotionEvent,
+        "environment.load": EnvironmentLoadEvent,
+        "ui.status": UiStatusEvent,
+        "simulation.summary": SimulationSummaryEvent,
         "group.update": GroupUpdateEvent,
         "conflict.update": ConflictUpdateEvent,
         "unity.ack": UnityAck,

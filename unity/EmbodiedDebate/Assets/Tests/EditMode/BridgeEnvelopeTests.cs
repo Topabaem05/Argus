@@ -71,5 +71,26 @@ namespace ArgusUnity.Tests.EditMode
             Assert.That(envelope.Payload["acknowledged_sequence"].ToObject<long>(), Is.EqualTo(4));
             Assert.That(envelope.Payload["applied"].ToObject<bool>(), Is.True);
         }
+
+        [Test]
+        public void NewPersonaSimulationMessagesAreKnown()
+        {
+            Assert.That(Envelope("environment.load").IsKnownBridgeMessageType(), Is.True);
+            Assert.That(Envelope("agent.behavior").IsKnownBridgeMessageType(), Is.True);
+            Assert.That(Envelope("simulation.summary").IsKnownBridgeMessageType(), Is.True);
+        }
+
+        private static BridgeEnvelope Envelope(string messageType)
+        {
+            return new BridgeEnvelope
+            {
+                SchemaVersion = "1.0.0",
+                MessageId = $"msg-{messageType}",
+                SessionId = "session-1",
+                Sequence = 1,
+                SentAtMs = 1000,
+                Type = messageType
+            };
+        }
     }
 }

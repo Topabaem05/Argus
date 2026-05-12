@@ -45,6 +45,29 @@ namespace ArgusUnity.Tests.EditMode
         }
 
         [Test]
+        public void BehaviorEmotionParsingExtractsNestedEmotion()
+        {
+            var envelope = Build(
+                "agent.behavior",
+                new JObject
+                {
+                    ["agent_id"] = "robot-10",
+                    ["intent"] = "ask",
+                    ["emotion"] = new JObject
+                    {
+                        ["label"] = "confused",
+                        ["intensity"] = 0.62,
+                    },
+                    ["public_reason"] = "Persona stance=mixed, confidence=0.62.",
+                });
+
+            Assert.That(BridgePresentationParsing.TryGetAgentEmotion(envelope, out var vm), Is.True);
+            Assert.That(vm.AgentId, Is.EqualTo("robot-10"));
+            Assert.That(vm.Label, Is.EqualTo("confused"));
+            Assert.That(vm.Intensity, Is.EqualTo(0.62f).Within(0.001f));
+        }
+
+        [Test]
         public void DialogueTruncationAppendsEllipsis()
         {
             var longText = new string('x', 30);

@@ -1,0 +1,92 @@
+# Deterministic Unity mini-bot persona binding smoke scenario.
+# Used by the SDD QA flow to prove selected personas emit spawn, emotion,
+# behavior, dialogue, group, conflict, and replayable bridge events offline.
+
+runtime:
+  run_id: minibot_persona_binding_smoke_001
+  seed: 77
+  output_dir: outputs
+  dry_run: true
+  max_turns: 2
+  max_participants: 8
+  overwrite: true
+
+dataset:
+  mode: fixture
+  name: nvidia/Nemotron-Personas-Korea
+  split: train
+  fixture_path: data/samples/personas_fixture.jsonl
+
+sampling:
+  sample_size: 8
+  seed: 77
+  allow_smaller_sample: false
+  filters:
+    country: South Korea
+
+scenario:
+  id: minibot_persona_binding_smoke_v1
+  family: product_market
+  title: Community kiosk policy mini-bot smoke
+  hypothesis: Different synthetic citizens react differently to a community kiosk rollout.
+  language: ko
+  participant_count: 8
+  max_turns: 2
+  interventions:
+    - id: kiosk_privacy_notice
+      description: Explain that kiosk data is minimized and locally retained.
+    - id: kiosk_wait_time_notice
+      description: Explain that the kiosk reduces waiting time for visitors.
+  metrics:
+    - trust_score
+    - confusion_rate
+    - backlash_rate
+  safety_notes:
+    - This is a synthetic simulation. Results do not predict real user behavior.
+    - All personas are synthetic. No real individuals are profiled.
+
+llm:
+  provider: openai
+  model: gpt-4
+  temperature: 0.7
+  max_tokens: 1024
+  timeout: 60
+  retry_count: 3
+
+rag:
+  enabled: false
+  required: false
+
+input:
+  chat_text: "Community kiosk rollout with privacy and waiting-time tradeoffs."
+  attachments: []
+  attachment_policy:
+    max_attachments: 5
+    max_attachment_bytes: 10485760
+    allowed_extensions:
+      - .jpg
+      - .jpeg
+      - .png
+      - .gif
+      - .webp
+      - .mp4
+      - .mov
+      - .txt
+      - .md
+      - .csv
+      - .json
+      - .pdf
+
+persona_selection:
+  enabled: true
+  max_personas: 8
+  seed: 77
+
+persona_memory:
+  enabled: false
+  apply_confirmed: false
+  output_dir: persona_memory_updates
+
+safety:
+  policy_version: "1.0"
+  block_unsafe: true

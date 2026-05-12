@@ -2,17 +2,16 @@
   "name": "ArgusUnity.Tests.PlayMode",
   "rootNamespace": "",
   "references": [
-    "UnityEngine.TestRunner",
-    "ArgusUnity",
-    "Newtonsoft.Json"
+    "ArgusUnity"
   ],
-  "includePlatforms": [
-    "Editor"
-  ],
+  "includePlatforms": [],
   "excludePlatforms": [],
   "allowUnsafeCode": false,
   "overrideReferences": false,
   "precompiledReferences": [],
+  "optionalUnityReferences": [
+    "TestAssemblies"
+  ],
   "autoReferenced": true,
   "defineConstraints": [],
   "versionDefines": [],

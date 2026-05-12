@@ -112,6 +112,8 @@ namespace ArgusUnity.Runtime
         private bool speedSyncLogged;
         private bool turnAnimationLogged;
 
+        public float MetersPerWalkCycle => metersPerWalkCycle;
+
         private void Awake()
         {
             DisableImportedIdleAnimation();
@@ -240,6 +242,26 @@ namespace ArgusUnity.Runtime
             }
 
             ApplyBvhPose(Mathf.Repeat(sampleTime, walkClip.Duration) / Mathf.Max(0.001f, walkClip.Duration), isMoving ? 1f : 0f);
+        }
+
+        public void SampleDistanceSyncedPose(float walkedMeters, bool isMoving, float turnDegrees)
+        {
+            moving = isMoving;
+            signedTurnDegrees = turnDegrees;
+            smoothedSignedTurnDegrees = isMoving ? turnDegrees : 0f;
+            turnBlend = isMoving
+                ? Mathf.Clamp01((Mathf.Abs(turnDegrees) - turnThresholdDegrees) / 65f)
+                : 0f;
+
+            if (walkClip == null)
+            {
+                return;
+            }
+
+            var normalizedPhase = Mathf.Repeat(
+                walkedMeters / Mathf.Max(0.01f, metersPerWalkCycle),
+                1f);
+            ApplyBvhPose(normalizedPhase, isMoving ? 1f : 0f);
         }
 
         private BvhClip SelectTurnOverlayClip()

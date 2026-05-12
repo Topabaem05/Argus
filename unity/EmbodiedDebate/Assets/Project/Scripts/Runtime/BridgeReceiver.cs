@@ -25,7 +25,16 @@ namespace ArgusUnity.Runtime
         private int maxTurnsOverride;
 
         [SerializeField]
+        private int personaCountOverride;
+
+        [SerializeField]
+        private string simulationScenarioText = "";
+
+        [SerializeField]
         private string simulationChatText = "";
+
+        [SerializeField]
+        private string backgroundId = "schoolroom";
 
         [SerializeField]
         private string attachmentMetadataJson = "[]";
@@ -71,6 +80,15 @@ namespace ArgusUnity.Runtime
             attachmentMetadataJson = string.IsNullOrWhiteSpace(attachmentsJson)
                 ? "[]"
                 : attachmentsJson.Trim();
+        }
+
+        public void SetSimulationScenario(string scenarioText, string requestedBackgroundId)
+        {
+            simulationScenarioText = scenarioText ?? "";
+            if (!string.IsNullOrWhiteSpace(requestedBackgroundId))
+            {
+                backgroundId = requestedBackgroundId.Trim();
+            }
         }
 
         /// <summary>Send a validated envelope toward the bridge (typically <c>observer.*</c>).</summary>
@@ -183,9 +201,21 @@ namespace ArgusUnity.Runtime
             {
                 payload["max_turns_override"] = maxTurnsOverride;
             }
+            if (personaCountOverride > 0)
+            {
+                payload["persona_count_override"] = personaCountOverride;
+            }
+            if (!string.IsNullOrWhiteSpace(simulationScenarioText))
+            {
+                payload["scenario_text"] = simulationScenarioText.Trim();
+            }
             if (!string.IsNullOrWhiteSpace(simulationChatText))
             {
                 payload["chat_text"] = simulationChatText.Trim();
+            }
+            if (!string.IsNullOrWhiteSpace(backgroundId))
+            {
+                payload["background_id"] = backgroundId.Trim();
             }
             if (!string.IsNullOrWhiteSpace(attachmentMetadataJson))
             {

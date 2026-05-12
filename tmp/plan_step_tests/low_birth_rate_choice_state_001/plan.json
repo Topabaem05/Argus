@@ -1,0 +1,39 @@
+{
+  "agent_count": 4,
+  "dry_run": true,
+  "language": "ko",
+  "max_turns": 4,
+  "plan_id": "low_birth_rate_choice_state_001-plan",
+  "run_id": "low_birth_rate_choice_state_001",
+  "scenario_spec": {
+    "allowed_objective": "",
+    "family": "policy_public_opinion",
+    "hypothesis": "People may distinguish private reproductive choice from structural barriers such as housing, work culture, childcare cost, gender inequality, and job insecurity.",
+    "interventions": [
+      {
+        "description": "Low birth rate is framed primarily as an aggregate result of individual values and life choices.",
+        "id": "individual_choice_frame"
+      },
+      {
+        "description": "Low birth rate is framed as a structural problem requiring stronger state intervention in housing, work, childcare, and gender equality.",
+        "id": "structural_intervention_frame"
+      }
+    ],
+    "max_turns": 4,
+    "metrics": [
+      "comprehension_score",
+      "acceptance_rate",
+      "rejection_reasons",
+      "fairness_perception",
+      "fiscal_concern_score",
+      "trust_score",
+      "implementation_feasibility",
+      "social_equity_score"
+    ],
+    "participant_count": 4,
+    "rag_queries": [],
+    "rag_warnings": [],
+    "scenario_id": "low_birth_rate_choice_state_v1",
+    "title": "Low birth rate: individual choice or structural state problem"
+  }
+}
