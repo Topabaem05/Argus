@@ -41,6 +41,7 @@ namespace ArgusUnity.Runtime
         private CancellationTokenSource connectCts;
         private volatile bool connectLoopRunning;
         private bool _simulationStartRequested;
+        private float _nextSimulationStartAttemptAt;
 
         public void Initialize(SimulationSceneOrchestrator orch, string url, string sessionId)
         {
@@ -55,6 +56,14 @@ namespace ArgusUnity.Runtime
         public string SessionId => bridgeSessionId;
 
         public bool IsBridgeSocketConnected => client != null && client.IsConnected;
+
+        public void SetSimulationConfigPath(string configPath)
+        {
+            if (!string.IsNullOrWhiteSpace(configPath))
+            {
+                simulationConfigPath = configPath.Trim();
+            }
+        }
 
         public void SetSimulationInput(string chatText, string attachmentsJson = "[]")
         {
@@ -93,6 +102,7 @@ namespace ArgusUnity.Runtime
         private void OnEnable()
         {
             _simulationStartRequested = false;
+            _nextSimulationStartAttemptAt = 0f;
 
             if (orchestrator == null)
             {
@@ -135,8 +145,7 @@ namespace ArgusUnity.Runtime
                     !_simulationStartRequested &&
                     string.Equals(envelope.Type, "bridge.ready", StringComparison.Ordinal))
                 {
-                    _simulationStartRequested = true;
-                    StartCoroutine(PostSimulationStartCoroutine());
+                    RequestSimulationStart();
                 }
 
                 if (!orchestrator.TryHandle(envelope, out var issue) && issue != null)
@@ -149,6 +158,20 @@ namespace ArgusUnity.Runtime
             {
                 Debug.LogWarning($"Bridge client error: {error.Message}");
             }
+
+            if (triggerSimulationAfterHandshake &&
+                !_simulationStartRequested &&
+                client.IsConnected &&
+                Time.realtimeSinceStartup >= _nextSimulationStartAttemptAt)
+            {
+                RequestSimulationStart();
+            }
+        }
+
+        private void RequestSimulationStart()
+        {
+            _simulationStartRequested = true;
+            StartCoroutine(PostSimulationStartCoroutine());
         }
 
         private IEnumerator PostSimulationStartCoroutine()
@@ -188,6 +211,11 @@ namespace ArgusUnity.Runtime
             {
                 Debug.LogWarning(
                     $"Simulation start POST failed ({url}): {request.responseCode} {request.error}");
+                if (request.responseCode == 503)
+                {
+                    _simulationStartRequested = false;
+                    _nextSimulationStartAttemptAt = Time.realtimeSinceStartup + 0.5f;
+                }
             }
 #if UNITY_EDITOR || DEVELOPMENT_BUILD
             else if (request.downloadHandler != null && request.downloadHandler.text.Length > 0)

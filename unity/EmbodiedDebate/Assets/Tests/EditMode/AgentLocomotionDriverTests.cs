@@ -76,6 +76,17 @@ namespace ArgusUnity.Tests.EditMode
         }
 
         [Test]
+        public void AnimationTurnInputUsesHeadingDeltaInsteadOfYawRateSpike()
+        {
+            Assert.That(
+                LocomotionMath.AnimationTurnDegrees(0.2f, 1154f),
+                Is.EqualTo(0.2f).Within(0.0001f));
+            Assert.That(
+                LocomotionMath.AnimationTurnDegrees(-69f, 26f),
+                Is.EqualTo(-69f).Within(0.0001f));
+        }
+
+        [Test]
         public void ResolveTurnValueUsesHysteresisToAvoidFlicker()
         {
             Assert.That(
@@ -109,6 +120,34 @@ namespace ArgusUnity.Tests.EditMode
             Assert.That(
                 LocomotionMath.ResolveTurnValue(-180f, 0f, true, 12f, 6f, 90f),
                 Is.EqualTo(-1f).Within(0.0001f));
+        }
+
+        [Test]
+        public void SmoothPlanarDirectionEasesTowardDiagonalWithoutSnapping()
+        {
+            var smoothed = LocomotionMath.SmoothPlanarDirection(
+                Vector3.forward,
+                new Vector3(1f, 0f, 1f),
+                8f,
+                0.02f);
+
+            Assert.That(smoothed.magnitude, Is.EqualTo(1f).Within(0.0001f));
+            Assert.That(Vector3.Angle(Vector3.forward, smoothed), Is.GreaterThan(1f));
+            Assert.That(Vector3.Angle(Vector3.forward, smoothed), Is.LessThan(20f));
+            Assert.That(Vector3.Angle(smoothed, new Vector3(1f, 0f, 1f)), Is.GreaterThan(20f));
+        }
+
+        [Test]
+        public void SmoothPlanarDirectionFallsBackToTargetWhenCurrentIsMissing()
+        {
+            var smoothed = LocomotionMath.SmoothPlanarDirection(
+                Vector3.zero,
+                new Vector3(-1f, 0f, 1f),
+                8f,
+                0.02f);
+
+            Assert.That(smoothed.magnitude, Is.EqualTo(1f).Within(0.0001f));
+            Assert.That(Vector3.Angle(smoothed, new Vector3(-1f, 0f, 1f)), Is.LessThan(0.001f));
         }
 
         [Test]
@@ -270,6 +309,20 @@ namespace ArgusUnity.Tests.EditMode
 
             Assert.That(velocity.z, Is.EqualTo(0.5f).Within(0.0001f));
             Assert.That(velocity.y, Is.EqualTo(0f).Within(0.0001f));
+        }
+
+        [Test]
+        public void PaceScaledSpeedCapsFastBridgeCommands()
+        {
+            Assert.That(
+                RoomNavigationMath.PaceScaledSpeed(2.5f, 0.78f, 1.45f, 0.05f),
+                Is.EqualTo(1.45f).Within(0.0001f));
+            Assert.That(
+                RoomNavigationMath.PaceScaledSpeed(1.2f, 0.78f, 1.45f, 0.05f),
+                Is.EqualTo(0.936f).Within(0.0001f));
+            Assert.That(
+                RoomNavigationMath.PaceScaledSpeed(-3f, 0.78f, 1.45f, 0.05f),
+                Is.EqualTo(0f).Within(0.0001f));
         }
 
         [Test]

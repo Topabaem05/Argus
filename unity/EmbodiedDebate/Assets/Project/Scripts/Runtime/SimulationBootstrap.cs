@@ -28,6 +28,11 @@ namespace ArgusUnity.Runtime
         [SerializeField]
         private string bridgeSessionId = "unity-session";
 
+        public void SetDemoMode(bool enabled)
+        {
+            useDemoMode = enabled;
+        }
+
         private void Awake()
         {
             var root = bridgeSceneRootOverride != null
@@ -54,6 +59,9 @@ namespace ArgusUnity.Runtime
             var moveHandler = GetComponent<AgentMoveHandler>();
             var demo = GetComponent<DemoSpawner>();
             var bridge = GetComponent<BridgeReceiver>();
+
+            demo.enabled = false;
+            bridge.enabled = false;
 
             spawnHandler.Initialize(orchestrator, prefab, root);
             moveHandler.Initialize(orchestrator, spawnHandler);

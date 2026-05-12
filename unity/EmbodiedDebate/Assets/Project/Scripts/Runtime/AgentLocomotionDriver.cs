@@ -34,10 +34,10 @@ namespace ArgusUnity.Runtime
         private float fullTurnDegrees = 90f;
 
         [SerializeField]
-        private float referenceMoveSpeed = 1.9f;
+        private float referenceMoveSpeed = 1.45f;
 
         [SerializeField]
-        private float animatorDampTime = 0.12f;
+        private float animatorDampTime = 0.18f;
 
         private Animator animator;
         private Vector3 lastPosition;
@@ -50,7 +50,7 @@ namespace ArgusUnity.Runtime
         private bool missingControllerLogged;
         private bool missingParameterLogged;
         private bool idleLogged;
-        private bool walkLogged;
+        private bool runLogged;
         private bool leftTurnLogged;
         private bool rightTurnLogged;
         private float animatorSpeed;
@@ -114,7 +114,9 @@ namespace ArgusUnity.Runtime
                 ? Mathf.Clamp01(LastPlanarSpeed / Mathf.Max(0.001f, referenceMoveSpeed))
                 : 0f;
             animatorTurn = LocomotionMath.ResolveTurnValue(
-                LastSignedTurnRateDegreesPerSecond,
+                LocomotionMath.AnimationTurnDegrees(
+                    LastSignedTurnDegrees,
+                    LastSignedTurnRateDegreesPerSecond),
                 animatorTurn,
                 isMoving,
                 turnStartThresholdDegrees,
@@ -136,7 +138,7 @@ namespace ArgusUnity.Runtime
             animatorSpeed = 0f;
             animatorTurn = 0f;
             idleLogged = false;
-            walkLogged = false;
+            runLogged = false;
             leftTurnLogged = false;
             rightTurnLogged = false;
             ApplyAnimatorParameters(Time.deltaTime > 0f ? Time.deltaTime : 0.016f);
@@ -253,13 +255,14 @@ namespace ArgusUnity.Runtime
                 return;
             }
 
-            if (!walkLogged)
+            if (!runLogged)
             {
                 Debug.Log(
-                    "AgentLocomotionDriver: walk animation active " +
-                    $"state=LocomotionBlendTree, source=Walking-2.fbx, speed={animatorSpeed:0.00}, " +
+                    "AgentLocomotionDriver: run-style animation active " +
+                    "state=LocomotionBlendTree, source=Walking-2.fbx, clip=Walk_InPlace, " +
+                    $"speed={animatorSpeed:0.00}, quarantined=Running.fbx, " +
                     $"controller={animator?.runtimeAnimatorController?.name ?? "null"}.");
-                walkLogged = true;
+                runLogged = true;
             }
         }
 
@@ -333,6 +336,42 @@ namespace ArgusUnity.Runtime
             }
 
             return Mathf.DeltaAngle(previousYawDegrees, currentYawDegrees) / deltaTime;
+        }
+
+        public static float AnimationTurnDegrees(
+            float signedHeadingDeltaDegrees,
+            float signedYawRateDegreesPerSecond)
+        {
+            _ = signedYawRateDegreesPerSecond;
+            return signedHeadingDeltaDegrees;
+        }
+
+        public static Vector3 SmoothPlanarDirection(
+            Vector3 currentDirection,
+            Vector3 targetDirection,
+            float sharpness,
+            float deltaTime)
+        {
+            currentDirection.y = 0f;
+            targetDirection.y = 0f;
+            if (targetDirection.sqrMagnitude <= 0.000001f)
+            {
+                return currentDirection.sqrMagnitude > 0.000001f
+                    ? currentDirection.normalized
+                    : Vector3.forward;
+            }
+
+            targetDirection.Normalize();
+            if (currentDirection.sqrMagnitude <= 0.000001f || deltaTime <= 0f || sharpness <= 0f)
+            {
+                return targetDirection;
+            }
+
+            currentDirection.Normalize();
+            var blend = 1f - Mathf.Exp(-sharpness * deltaTime);
+            var smoothed = Vector3.Slerp(currentDirection, targetDirection, Mathf.Clamp01(blend));
+            smoothed.y = 0f;
+            return smoothed.sqrMagnitude > 0.000001f ? smoothed.normalized : targetDirection;
         }
 
         public static float ResolveTurnValue(

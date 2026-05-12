@@ -41,7 +41,7 @@ def test_observation_maps_to_agent_spawn() -> None:
     agent = envelope.payload["agent"]
     assert isinstance(agent, dict)
     assert agent["agent_id"] == "agent-001"
-    assert agent["position"] == {"x": 0.0, "y": 0.6, "z": 0.0}
+    assert agent["position"] == {"x": 0.0, "y": 0.0, "z": 0.0}
 
 
 def test_observation_position_is_reused_for_same_agent() -> None:

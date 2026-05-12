@@ -7,19 +7,19 @@ namespace ArgusUnity.Runtime
     public sealed class MiniBotHideAndSeekScenario : MonoBehaviour
     {
         [SerializeField]
-        private float rotationSharpness = 5.8f;
+        private float rotationSharpness = 5.2f;
 
         [SerializeField]
-        private float steeringSharpness = 3.8f;
+        private float steeringSharpness = 3.4f;
 
         [SerializeField]
-        private float maxTurnDegreesPerSecond = 92f;
+        private float maxTurnDegreesPerSecond = 82f;
 
         [SerializeField]
-        private float maxPlanarAcceleration = 4.8f;
+        private float maxPlanarAcceleration = 3.8f;
 
         [SerializeField]
-        private float maxPlanarDeceleration = 7.5f;
+        private float maxPlanarDeceleration = 6.2f;
 
         [SerializeField]
         private Vector2 roomMin = new Vector2(-3.85f, -1.85f);
@@ -1038,6 +1038,22 @@ namespace ArgusUnity.Runtime
                 ? Mathf.Max(0f, maxDeceleration)
                 : Mathf.Max(0f, maxAcceleration)) * deltaTime;
             return Vector3.MoveTowards(currentPlanarVelocity, targetPlanarVelocity, maxDelta);
+        }
+
+        public static float PaceScaledSpeed(
+            float requestedSpeed,
+            float paceScale,
+            float maxSpeed,
+            float minPositiveSpeed)
+        {
+            if (requestedSpeed <= 0f)
+            {
+                return 0f;
+            }
+
+            var scaled = requestedSpeed * Mathf.Max(0f, paceScale);
+            var capped = Mathf.Min(scaled, Mathf.Max(0f, maxSpeed));
+            return Mathf.Max(Mathf.Max(0f, minPositiveSpeed), capped);
         }
 
         public static bool IsNearBoundary(Vector3 position, Vector2 min, Vector2 max, float margin)

@@ -1,0 +1,103 @@
+# Example run configuration for a neutral public-opinion simulation.
+# Topic: whether Korea's low birth rate is mainly individual choice or a structural
+# problem requiring stronger state intervention.
+# Uses fixture personas and deterministic dry-run execution. No secrets in this file.
+
+runtime:
+  run_id: low_birth_rate_choice_state_001
+  seed: 88
+  output_dir: outputs
+  dry_run: true
+  max_turns: 4
+  max_participants: 4
+  overwrite: false
+
+dataset:
+  mode: fixture
+  name: nvidia/Nemotron-Personas-Korea
+  split: train
+  fixture_path: data/samples/personas_fixture.jsonl
+
+sampling:
+  sample_size: 4
+  seed: 88
+  allow_smaller_sample: false
+  filters:
+    age_range:
+      min: 20
+      max: 65
+    country: South Korea
+
+scenario:
+  id: low_birth_rate_choice_state_v1
+  family: policy_public_opinion
+  title: "Low birth rate: individual choice or structural state problem"
+  hypothesis: "People may distinguish private reproductive choice from structural barriers such as housing, work culture, childcare cost, gender inequality, and job insecurity."
+  language: ko
+  participant_count: 4
+  max_turns: 4
+  interventions:
+    - id: individual_choice_frame
+      description: Low birth rate is framed primarily as an aggregate result of individual values and life choices.
+    - id: structural_intervention_frame
+      description: Low birth rate is framed as a structural problem requiring stronger state intervention in housing, work, childcare, and gender equality.
+  metrics:
+    - comprehension_score
+    - acceptance_rate
+    - rejection_reasons
+    - fairness_perception
+    - fiscal_concern_score
+    - trust_score
+    - implementation_feasibility
+    - social_equity_score
+  safety_notes:
+    - This is a synthetic public-opinion simulation, not political persuasion.
+    - Personas are synthetic and must not be used to infer real individual beliefs.
+    - Results should be treated as qualitative hypotheses requiring real-world validation.
+    - The simulation must not shame people for reproductive choices or target demographic groups.
+
+llm:
+  provider: openai
+  model: gpt-4
+  temperature: 0.4
+  max_tokens: 1024
+  timeout: 60
+  retry_count: 3
+
+rag:
+  enabled: false
+  required: false
+
+input:
+  chat_text: "Is Korea's low birth rate mainly a matter of individual choice, or is it a structural problem where the state should intervene strongly? Compare views about housing, work hours, childcare, gender equality, job insecurity, fiscal burden, and respect for personal autonomy."
+  attachments: []
+  attachment_policy:
+    max_attachments: 5
+    max_attachment_bytes: 10485760
+    allowed_extensions:
+      - .jpg
+      - .jpeg
+      - .png
+      - .gif
+      - .webp
+      - .mp4
+      - .mov
+      - .txt
+      - .md
+      - .csv
+      - .json
+      - .pdf
+
+persona_selection:
+  enabled: true
+  max_personas: 4
+  seed: 88
+
+persona_memory:
+  enabled: false
+  apply_confirmed: false
+  output_dir: persona_memory_updates
+
+safety:
+  policy_version: "1.0"
+  block_unsafe: true

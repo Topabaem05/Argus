@@ -72,6 +72,7 @@ namespace ArgusUnity.Tests.EditMode
 
             AssertBlendChild(blendTree, "Idle", 0f, 0f);
             AssertBlendChild(blendTree, "Walk_InPlace", 0f, 1f);
+            AssertBlendChildTimeScale(blendTree, "Walk_InPlace", 1.38f);
             AssertBlendChild(blendTree, "TurnLeft_Briefcase", -1f, 1f);
             AssertBlendChild(blendTree, "TurnRight_Briefcase", 1f, 1f);
             AssertBlendChildCount(blendTree, 4);
@@ -129,9 +130,12 @@ namespace ArgusUnity.Tests.EditMode
             StringAssert.Contains("Right Turn W_Briefcase_Mirrored.fbx", source);
             StringAssert.Contains("TurnLeft_Briefcase", source);
             StringAssert.Contains("TurnRight_Briefcase", source);
+            StringAssert.Contains("Walking-2.fbx", source);
+            StringAssert.Contains("clip=Walk_InPlace", source);
+            StringAssert.Contains("quarantined=Running.fbx", source);
+            StringAssert.Contains("Running.fbx", source);
             Assert.That(source, Does.Not.Contain("Happy Right Turn.fbx"));
             Assert.That(source, Does.Not.Contain("Happy Right Turn-2.fbx"));
-            Assert.That(source, Does.Not.Contain("Running.fbx"));
             Assert.That(source, Does.Not.Contain("Slow Run.fbx"));
         }
 
@@ -145,6 +149,7 @@ namespace ArgusUnity.Tests.EditMode
             StringAssert.Contains("QUARANTINED - Running To Turn.fbx", source);
             StringAssert.Contains("QUARANTINED - Happy Right Turn-2.fbx", source);
             StringAssert.Contains("QUARANTINED - Happy Right Turn.fbx", source);
+            StringAssert.Contains("PRODUCTION SAFE RUN STYLE - Walking-2.fbx", source);
             StringAssert.Contains("Right Turn W_Briefcase_Mirrored.fbx / TurnRight_Briefcase", source);
         }
 
@@ -206,6 +211,22 @@ namespace ArgusUnity.Tests.EditMode
             Assert.That(
                 blendTree.children.Count(child => child.motion != null),
                 Is.EqualTo(expectedCount));
+        }
+
+        private static void AssertBlendChildTimeScale(BlendTree blendTree, string motionName, float expectedTimeScale)
+        {
+            foreach (var child in blendTree.children)
+            {
+                if (child.motion == null || child.motion.name != motionName)
+                {
+                    continue;
+                }
+
+                Assert.That(child.timeScale, Is.EqualTo(expectedTimeScale).Within(PositionTolerance), motionName);
+                return;
+            }
+
+            Assert.Fail($"Missing BlendTree child motion {motionName}");
         }
 
         private static HashSet<string> ChildMotionNames(BlendTree blendTree)

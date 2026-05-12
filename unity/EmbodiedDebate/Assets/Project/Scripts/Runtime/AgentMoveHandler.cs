@@ -23,7 +23,16 @@ namespace ArgusUnity.Runtime
         private readonly List<string> completedMoves = new List<string>();
 
         [SerializeField]
-        private float maxTurnDegreesPerSecond = 420f;
+        private float movementPaceScale = 0.78f;
+
+        [SerializeField]
+        private float maxMoveSpeedMetersPerSecond = 1.45f;
+
+        [SerializeField]
+        private float maxTurnDegreesPerSecond = 260f;
+
+        [SerializeField]
+        private float turnSharpness = 7.5f;
 
         [SerializeField]
         private float arrivalDistance = 0.02f;
@@ -61,17 +70,18 @@ namespace ArgusUnity.Runtime
                 targetToken["x"]?.ToObject<float>() ?? 0f,
                 targetToken["y"]?.ToObject<float>() ?? 0f,
                 targetToken["z"]?.ToObject<float>() ?? 0f);
+            target = AgentSpawnHandler.GroundedPosition(target);
 
-            var speed = envelope.Payload["speed_mps"]?.ToObject<float>() ?? 1.5f;
-            if (speed < 0f)
-            {
-                speed = 0f;
-            }
+            var speed = RoomNavigationMath.PaceScaledSpeed(
+                envelope.Payload["speed_mps"]?.ToObject<float>() ?? 1.5f,
+                movementPaceScale,
+                maxMoveSpeedMetersPerSecond,
+                0.05f);
 
             activeMoves[agentId] = new MoveState
             {
                 Target = target,
-                SpeedMetersPerSecond = Mathf.Max(0.05f, speed),
+                SpeedMetersPerSecond = speed,
             };
         }
 
@@ -113,14 +123,21 @@ namespace ArgusUnity.Runtime
             var maxStep = speedMetersPerSecond * dt;
             if (planarDistance <= Mathf.Max(arrivalDistance, maxStep))
             {
-                tr.position = Vector3.MoveTowards(tr.position, target, maxStep);
+                tr.position = AgentSpawnHandler.GroundedPosition(Vector3.MoveTowards(tr.position, target, maxStep));
                 return true;
             }
 
             var desiredDirection = planarToTarget / planarDistance;
+            var currentForward = tr.forward;
+            currentForward.y = 0f;
+            var smoothedDirection = LocomotionMath.SmoothPlanarDirection(
+                currentForward,
+                desiredDirection,
+                turnSharpness,
+                dt);
             tr.rotation = Quaternion.RotateTowards(
                 tr.rotation,
-                Quaternion.LookRotation(desiredDirection, Vector3.up),
+                Quaternion.LookRotation(smoothedDirection, Vector3.up),
                 maxTurnDegreesPerSecond * dt);
 
             var forward = tr.forward;
@@ -136,7 +153,7 @@ namespace ArgusUnity.Runtime
             var planarNext = tr.position + forward * step;
             tr.position = new Vector3(
                 planarNext.x,
-                Mathf.MoveTowards(tr.position.y, target.y, maxStep),
+                AgentSpawnHandler.BridgeFloorY,
                 planarNext.z);
             return false;
         }

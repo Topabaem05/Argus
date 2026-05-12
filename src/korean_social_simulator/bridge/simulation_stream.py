@@ -18,9 +18,10 @@ from korean_social_simulator.models import AgentProfile, SimulationEvent, Simula
 _MOVE_FRAMES = 20
 _STEPS_PER_FRAME = 50
 _FRAME_DELAY_S = 0.15
+_UNITY_FLOOR_Y = 0.0
 
 
-def _grid_vec3(index: int, y: float = 0.6) -> Vec3:
+def _grid_vec3(index: int, y: float = _UNITY_FLOOR_Y) -> Vec3:
     return Vec3(x=float((index % 5) * 2), y=y, z=float((index // 5) * 2))
 
 
@@ -101,7 +102,7 @@ async def _run_deterministic_motion_frames(
             base_pos = _grid_vec3(idx)
             pos = Vec3(
                 x=base_pos.x + math.cos(angle) * distance,
-                y=max(0.6, base_pos.y),
+                y=_UNITY_FLOOR_Y,
                 z=base_pos.z + math.sin(angle) * distance,
             )
             seq = registry.next_sequence()

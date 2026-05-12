@@ -14,6 +14,8 @@ namespace ArgusUnity.Runtime
     {
         private const float AgentLabelSizeScale = 0.6f;
         private const string AgentLabelFontResource = "Fonts/Pretendard-Regular";
+        public const float BridgeFloorY = 0f;
+        private const float BridgeAgentTargetHeight = 0.72f;
         private SimulationSceneOrchestrator orchestrator;
         private GameObject prefab;
         private Transform spawnParent;
@@ -73,7 +75,7 @@ namespace ArgusUnity.Runtime
             }
 
             var position = avatar.Position;
-            var worldPos = new Vector3(position.X, position.Y, position.Z);
+            var worldPos = GroundedPosition(new Vector3(position.X, BridgeFloorY, position.Z));
 
             if (!transformsByAgentId.TryGetValue(agentId, out var existing))
             {
@@ -81,12 +83,19 @@ namespace ArgusUnity.Runtime
                 instance.name = $"Robot_{agentId}";
                 existing = instance.transform;
                 transformsByAgentId[agentId] = existing;
+                FitToHeight(existing, BridgeAgentTargetHeight);
                 ConfigureLocomotion(instance);
                 ApplyAgentVisual(existing, agent, avatar);
             }
 
             existing.position = worldPos;
+            GroundToFloor(existing);
             existing.gameObject.SetActive(avatar.Visible);
+        }
+
+        public static Vector3 GroundedPosition(Vector3 position)
+        {
+            return new Vector3(position.x, BridgeFloorY, position.z);
         }
 
         private static void ConfigureLocomotion(GameObject instance)
@@ -141,7 +150,7 @@ namespace ArgusUnity.Runtime
         {
             var labelGo = new GameObject("NameLabel");
             labelGo.transform.SetParent(root, false);
-            labelGo.transform.localPosition = new Vector3(0f, 1.25f, 0f);
+            labelGo.transform.localPosition = new Vector3(0f, 0.86f, 0f);
             labelGo.transform.localRotation = Quaternion.identity;
 
             var mesh = labelGo.AddComponent<TextMesh>();
@@ -162,6 +171,46 @@ namespace ArgusUnity.Runtime
                     renderer.sharedMaterial = font.material;
                 }
             }
+        }
+
+        private static void FitToHeight(Transform root, float targetHeight)
+        {
+            if (targetHeight <= 0f || !TryGetBounds(root, out var bounds) || bounds.size.y <= 0.001f)
+            {
+                return;
+            }
+
+            var multiplier = targetHeight / bounds.size.y;
+            root.localScale *= multiplier;
+        }
+
+        private static void GroundToFloor(Transform root)
+        {
+            if (!TryGetBounds(root, out var bounds))
+            {
+                return;
+            }
+
+            var delta = BridgeFloorY - bounds.min.y;
+            root.position = new Vector3(root.position.x, root.position.y + delta, root.position.z);
+        }
+
+        private static bool TryGetBounds(Transform root, out Bounds bounds)
+        {
+            bounds = default;
+            var renderers = root.GetComponentsInChildren<Renderer>();
+            if (renderers.Length == 0)
+            {
+                return false;
+            }
+
+            bounds = renderers[0].bounds;
+            for (var i = 1; i < renderers.Length; i++)
+            {
+                bounds.Encapsulate(renderers[i].bounds);
+            }
+
+            return true;
         }
     }
 }

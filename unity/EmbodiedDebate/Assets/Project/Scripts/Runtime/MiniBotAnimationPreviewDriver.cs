@@ -19,19 +19,19 @@ namespace ArgusUnity.Runtime
         private readonly LocomotionPreviewSegment[] locomotionSegments =
         {
             new LocomotionPreviewSegment("Production BlendTree / Idle", 2.0f, 0f, 0f),
-            new LocomotionPreviewSegment("Production BlendTree / Walk_InPlace", 2.4f, 1f, 0f),
+            new LocomotionPreviewSegment("Production BlendTree / Safe Run Style", 2.4f, 1f, 0f),
             new LocomotionPreviewSegment("Production BlendTree / TurnLeft_Briefcase", 2.4f, 1f, -1f),
             new LocomotionPreviewSegment("Production BlendTree / TurnRight_Briefcase", 2.4f, 1f, 1f),
-            new LocomotionPreviewSegment("Production BlendTree / Walk recovery", 1.8f, 1f, 0f),
+            new LocomotionPreviewSegment("Production BlendTree / Safe Run recovery", 1.8f, 1f, 0f),
             new LocomotionPreviewSegment("Production BlendTree / Idle recovery", 1.8f, 0f, 0f)
         };
 
         private readonly ClipPreviewSegment[] clipSegments =
         {
             new ClipPreviewSegment("Preview_Idle", "Idle.fbx / Idle", 3.2f),
-            new ClipPreviewSegment("Preview_Walk_InPlace", "Walking-2.fbx / Walk_InPlace", 2.4f),
+            new ClipPreviewSegment("Preview_Walk_InPlace", "PRODUCTION SAFE RUN STYLE - Walking-2.fbx / Walk_InPlace", 2.4f),
             new ClipPreviewSegment("Preview_SlowRun", "QUARANTINED - Slow Run.fbx / SlowRun - sways left/right", 2.0f),
-            new ClipPreviewSegment("Preview_Run", "QUARANTINED - Running.fbx / Run - full-circle/in-air", 3.2f),
+            new ClipPreviewSegment("Preview_Run", "QUARANTINED - Running.fbx / Run - rotates once/full-circle", 3.2f),
             new ClipPreviewSegment("Preview_RunToTurn", "QUARANTINED - Running To Turn.fbx / RunToTurn - candidate only", 2.6f),
             new ClipPreviewSegment("Preview_TurnLeft_Happy", "QUARANTINED - Happy Right Turn-2.fbx / TurnLeft_Happy - rotates in air", 1.6f),
             new ClipPreviewSegment("Preview_TurnRight_Happy", "QUARANTINED - Happy Right Turn.fbx / TurnRight_Happy - in-place/no turn", 1.6f),

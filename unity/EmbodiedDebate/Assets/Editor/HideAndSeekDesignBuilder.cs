@@ -45,6 +45,7 @@ namespace ArgusUnity.Editor
         private const string SpeedParameterName = "Speed";
         private const string TurnParameterName = "Turn";
         private const float ProductionLocomotionBlendSpeed = 1f;
+        private const float ProductionRunStylePlaybackSpeed = 1.38f;
         private const float LabelSizeScale = 0.6f;
         private const float ClassroomScale = 0.5f;
 
@@ -461,14 +462,14 @@ namespace ArgusUnity.Editor
             {
                 Debug.LogWarning(
                     "HideAndSeekDesignBuilder: missing mirrored briefcase right turn clip; " +
-                    "controller will keep walking without TurnRight_Briefcase.");
+                    "controller will keep running without TurnRight_Briefcase.");
             }
 
             if (leftTurnClip == null)
             {
                 Debug.LogWarning(
                     "HideAndSeekDesignBuilder: missing briefcase left turn clip; " +
-                    "controller will keep walking without TurnLeft_Briefcase.");
+                    "controller will keep running without TurnLeft_Briefcase.");
             }
 
             if (AssetDatabase.LoadAssetAtPath<AnimatorController>(LocomotionControllerPath) != null)
@@ -501,7 +502,8 @@ namespace ArgusUnity.Editor
             Debug.Log(
                 "HideAndSeekDesignBuilder: locomotion AnimatorController ready " +
                 $"path={LocomotionControllerPath}, idle={idleClip.name}, blendTree={LocomotionBlendTreeStateName}, " +
-                $"walk={walkClip.name}@turn0-speed{ProductionLocomotionBlendSpeed:0.00}, " +
+                $"runStyle={walkClip.name}@turn0-speed{ProductionLocomotionBlendSpeed:0.00}" +
+                $"x{ProductionRunStylePlaybackSpeed:0.00}, " +
                 $"leftTurn={leftTurnClip?.name ?? "missing"}@turn-1-speed{ProductionLocomotionBlendSpeed:0.00}, " +
                 $"rightTurn={rightTurnClip?.name ?? "missing"}@turn1-speed{ProductionLocomotionBlendSpeed:0.00}, " +
                 "quarantined=SlowRun,Run,TurnLeft_Happy,TurnRight_Happy.");
@@ -524,20 +526,39 @@ namespace ArgusUnity.Editor
             };
             AssetDatabase.AddObjectToAsset(blendTree, controller);
 
-            blendTree.AddChild(idleClip, new Vector2(0f, 0f));
-            blendTree.AddChild(walkClip, new Vector2(0f, ProductionLocomotionBlendSpeed));
+            AddBlendChild(blendTree, idleClip, new Vector2(0f, 0f), 1f);
+            AddBlendChild(
+                blendTree,
+                walkClip,
+                new Vector2(0f, ProductionLocomotionBlendSpeed),
+                ProductionRunStylePlaybackSpeed);
 
             if (leftTurnClip != null)
             {
-                blendTree.AddChild(leftTurnClip, new Vector2(-1f, ProductionLocomotionBlendSpeed));
+                AddBlendChild(blendTree, leftTurnClip, new Vector2(-1f, ProductionLocomotionBlendSpeed), 1f);
             }
 
             if (rightTurnClip != null)
             {
-                blendTree.AddChild(rightTurnClip, new Vector2(1f, ProductionLocomotionBlendSpeed));
+                AddBlendChild(blendTree, rightTurnClip, new Vector2(1f, ProductionLocomotionBlendSpeed), 1f);
             }
 
             return blendTree;
+        }
+
+        private static void AddBlendChild(BlendTree blendTree, Motion motion, Vector2 position, float timeScale)
+        {
+            blendTree.AddChild(motion, position);
+            var children = blendTree.children;
+            if (children.Length == 0)
+            {
+                return;
+            }
+
+            var child = children[children.Length - 1];
+            child.timeScale = timeScale;
+            children[children.Length - 1] = child;
+            blendTree.children = children;
         }
 
         private static AnimatorStateTransition AddTransition(
@@ -651,10 +672,11 @@ namespace ArgusUnity.Editor
             runtime.transform.SetParent(root);
             runtime.RegisterObstacleProbeObject(deskObstacle);
 
-            SpawnMiniBot(root, runtime, "Hider 01", P(-4.8f, 0f, -1.4f), 0.78f, 1001, defense, "Hider / blue");
-            SpawnMiniBot(root, runtime, "Hider 02", P(-0.8f, 0f, 1.2f), 0.72f, 1002, defense, "Hider / blue");
-            SpawnMiniBot(root, runtime, "Seeker 01", P(4.8f, 0f, -1.4f), 0.86f, 2001, attack, "Seeker / red");
-            SpawnMiniBot(root, runtime, "Seeker 02", P(3.0f, 0f, 1.2f), 0.82f, 2002, attack, "Seeker / red");
+            SpawnMiniBot(root, runtime, "Hider 01", P(-4.8f, 0f, -1.4f), 0.66f, 1001, defense, "Hider / blue");
+            SpawnMiniBot(root, runtime, "Hider 02", P(-0.8f, 0f, 1.2f), 0.61f, 1002, defense, "Hider / blue");
+            SpawnMiniBot(root, runtime, "Seeker 01", P(4.8f, 0f, -1.4f), 0.73f, 2001, attack, "Seeker / red");
+            SpawnMiniBot(root, runtime, "Seeker 02", P(3.0f, 0f, 1.2f), 0.70f, 2002, attack, "Seeker / red");
+            SpawnKeyboardTestMiniBot(root, attack);
         }
 
         private static void SpawnMiniBot(
@@ -692,6 +714,42 @@ namespace ArgusUnity.Editor
 
             var labelGo = AddLabel($"{name}\n{label}", startPosition + Vector3.up * 1.35f, 0.052f, marker.color);
             labelGo.transform.SetParent(bot.transform, true);
+        }
+
+        private static GameObject SpawnKeyboardTestMiniBot(Transform root, Material marker)
+        {
+            var prefab = AssetDatabase.LoadAssetAtPath<GameObject>(MiniBotPath);
+            if (prefab == null)
+            {
+                throw new InvalidOperationException($"Mini-bot model missing: {MiniBotPath}");
+            }
+
+            var startPosition = P(0f, 0f, -3.2f);
+            var bot = (GameObject)PrefabUtility.InstantiatePrefab(prefab);
+            bot.name = "Keyboard Test Mini-bot";
+            bot.transform.SetParent(root);
+            bot.transform.position = startPosition;
+            FitToHeight(bot, 0.95f);
+            ConfigureMiniBotPhysics(bot);
+            ConfigureAnimatorLocomotion(bot);
+            ApplyMaterial(bot, marker);
+
+            if (bot.GetComponent<MiniBotKeyboardController>() == null)
+            {
+                bot.AddComponent<MiniBotKeyboardController>();
+            }
+
+            var ring = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
+            ring.name = "Keyboard Test Mini-bot control marker";
+            ring.transform.SetParent(bot.transform);
+            ring.transform.localPosition = new Vector3(0f, 0.035f, 0f);
+            ring.transform.localScale = new Vector3(0.68f, 0.035f, 0.68f);
+            ApplyMaterial(ring, marker);
+            RemoveColliders(ring);
+
+            var labelGo = AddLabel("Keyboard Test\nWASD / Arrows", startPosition + Vector3.up * 1.42f, 0.046f, marker.color);
+            labelGo.transform.SetParent(bot.transform, true);
+            return bot;
         }
 
         private static void BuildLegend(Transform root, Material defense, Material attack, Material tool, Material state)
@@ -821,6 +879,7 @@ namespace ArgusUnity.Editor
             var collider = go.AddComponent<BoxCollider>();
             collider.size = size;
             collider.material = MiniBotLowFrictionContactMaterial();
+            AddVisibleColliderBox(go.transform, name, size);
         }
 
         private static bool ConfigureActiveFurniture(GameObject furniture, float mass, float drag)
@@ -830,6 +889,7 @@ namespace ArgusUnity.Editor
                 return false;
             }
 
+            SetNonStaticRecursive(furniture);
             var collider = AddFittedBoxCollider(furniture, new Vector3(0.08f, 0.06f, 0.08f));
             collider.material = FurnitureCollisionMaterial();
             var body = furniture.GetComponent<Rigidbody>();
@@ -840,6 +900,7 @@ namespace ArgusUnity.Editor
 
             body.isKinematic = false;
             body.useGravity = false;
+            body.detectCollisions = true;
             body.mass = mass;
             body.drag = drag;
             body.angularDrag = 7f;
@@ -876,6 +937,7 @@ namespace ArgusUnity.Editor
 
         private static void ConfigureMiniBotPhysics(GameObject bot)
         {
+            SetNonStaticRecursive(bot);
             var body = bot.GetComponent<Rigidbody>();
             if (body == null)
             {
@@ -884,6 +946,7 @@ namespace ArgusUnity.Editor
 
             body.isKinematic = false;
             body.useGravity = false;
+            body.detectCollisions = true;
             body.mass = 2.5f;
             body.drag = 0.65f;
             body.angularDrag = 8f;
@@ -978,11 +1041,38 @@ namespace ArgusUnity.Editor
             }
         }
 
+        private static void SetNonStaticRecursive(GameObject go)
+        {
+            go.isStatic = false;
+            foreach (Transform child in go.transform)
+            {
+                SetNonStaticRecursive(child.gameObject);
+            }
+        }
+
         private static void RemoveColliders(GameObject go)
         {
             foreach (var collider in go.GetComponents<Collider>())
             {
                 UnityEngine.Object.DestroyImmediate(collider);
+            }
+        }
+
+        private static void AddVisibleColliderBox(Transform collisionBox, string name, Vector3 size)
+        {
+            var display = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            display.name = $"Visible WallsFloor Collider {name}";
+            display.transform.SetParent(collisionBox, false);
+            display.transform.localPosition = Vector3.zero;
+            display.transform.localRotation = Quaternion.identity;
+            display.transform.localScale = size;
+            display.isStatic = true;
+            RemoveColliders(display);
+
+            var renderer = display.GetComponent<MeshRenderer>();
+            if (renderer != null)
+            {
+                renderer.sharedMaterial = WallsFloorColliderDisplayMaterial();
             }
         }
 
@@ -1085,6 +1175,25 @@ namespace ArgusUnity.Editor
                 frictionCombine = PhysicMaterialCombine.Minimum,
                 bounceCombine = PhysicMaterialCombine.Minimum
             };
+            AssetDatabase.CreateAsset(material, path);
+            return material;
+        }
+
+        private static Material WallsFloorColliderDisplayMaterial()
+        {
+            const string dir = "Assets/Project/Materials";
+            Directory.CreateDirectory(dir);
+            const string path = "Assets/Project/Materials/WallsFloorColliderDisplay.mat";
+            var color = new Color(0.1f, 0.78f, 1f, 0.22f);
+            var existing = AssetDatabase.LoadAssetAtPath<Material>(path);
+            if (existing != null)
+            {
+                UrpMaterialFactory.ApplyColor(existing, color);
+                EditorUtility.SetDirty(existing);
+                return existing;
+            }
+
+            var material = UrpMaterialFactory.CreateTransparent(color);
             AssetDatabase.CreateAsset(material, path);
             return material;
         }

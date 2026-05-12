@@ -185,7 +185,7 @@ class SimulationEventAdapter:
         index = self._agent_position_indices[agent_id]
         return {
             "x": float((index % 5) * 2),
-            "y": 0.6,
+            "y": 0.0,
             "z": float((index // 5) * 2),
         }
 
