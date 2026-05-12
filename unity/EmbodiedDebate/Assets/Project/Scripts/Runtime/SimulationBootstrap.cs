@@ -91,6 +91,10 @@ namespace ArgusUnity.Runtime
                             gameObject.AddComponent<AgentInspectorPanel>();
             inspector.Bind(bridge);
 
+            var autoDump = GetComponent<MiniBotAutoDump>() ??
+                           gameObject.AddComponent<MiniBotAutoDump>();
+            autoDump.Initialize(orchestrator, spawnHandler, moveHandler, bridge, prefab);
+
             demo.enabled = useDemoMode;
             bridge.enabled = !useDemoMode;
         }

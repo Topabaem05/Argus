@@ -37,6 +37,8 @@ namespace ArgusUnity.Runtime
         [SerializeField]
         private float arrivalDistance = 0.02f;
 
+        public int ActiveMoveCount => activeMoves.Count;
+
         public void Initialize(SimulationSceneOrchestrator orch, AgentSpawnHandler spawn)
         {
             orchestrator = orch;
@@ -96,6 +98,23 @@ namespace ArgusUnity.Runtime
                     0.05f,
                     maxMoveSpeedMetersPerSecond),
             };
+        }
+
+        public bool TryGetActiveMove(
+            string agentId,
+            out Vector3 target,
+            out float speedMetersPerSecond)
+        {
+            if (activeMoves.TryGetValue(agentId, out var state))
+            {
+                target = state.Target;
+                speedMetersPerSecond = state.SpeedMetersPerSecond;
+                return true;
+            }
+
+            target = Vector3.zero;
+            speedMetersPerSecond = 0f;
+            return false;
         }
 
         private void Update()

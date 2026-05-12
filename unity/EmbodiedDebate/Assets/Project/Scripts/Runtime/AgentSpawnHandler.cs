@@ -23,6 +23,8 @@ namespace ArgusUnity.Runtime
         private readonly Dictionary<string, Transform> transformsByAgentId = new Dictionary<string, Transform>();
         private static readonly string[] AvailablePrefabKeys = { "FallbackRobot", "UserModels/Idle" };
 
+        public int AgentCount => transformsByAgentId.Count;
+
         public void Initialize(
             SimulationSceneOrchestrator orch,
             GameObject robotPrefab,
@@ -48,6 +50,8 @@ namespace ArgusUnity.Runtime
         {
             return transformsByAgentId.TryGetValue(agentId, out t);
         }
+
+        public IEnumerable<KeyValuePair<string, Transform>> Agents => transformsByAgentId;
 
         private void OnAgentSpawn(BridgeEnvelope envelope)
         {
@@ -137,9 +141,9 @@ namespace ArgusUnity.Runtime
             var renderer = root.GetComponentInChildren<MeshRenderer>();
             if (renderer != null && UnityEngine.ColorUtility.TryParseHtmlString(hexColor, out var color))
             {
-                if (renderer.material != null)
+                if (renderer.sharedMaterial != null)
                 {
-                    renderer.material.color = color;
+                    renderer.sharedMaterial.color = color;
                 }
             }
 

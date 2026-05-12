@@ -38,6 +38,7 @@ Thumbs.db
 data/raw/
 data/cache/
 outputs/
+reports/unity_dumps/
 
 # Keep sample fixtures
 !data/samples/
