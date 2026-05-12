@@ -11,6 +11,9 @@ namespace ArgusUnity.UI
         private MiniBotRunAroundScenario scenario;
 
         private Text chatText;
+        private Text actionMappingText;
+        private Text eventTitleText;
+        private Text debugText;
         private Button pauseButton;
         private Text pauseButtonText;
         private Canvas screenCanvas;
@@ -39,7 +42,22 @@ namespace ArgusUnity.UI
             }
 
             RefreshCanvasCamera();
-            chatText.text = scenario.CurrentChatText;
+            if (eventTitleText != null)
+            {
+                eventTitleText.text = EventTitleFor(scenario.CurrentChatText);
+            }
+
+            chatText.text = EventBodyFor(scenario.CurrentChatText);
+            if (actionMappingText != null)
+            {
+                actionMappingText.text = StructuredActionFor(scenario.CurrentActionMappingText);
+            }
+
+            if (debugText != null)
+            {
+                debugText.text = scenario.CurrentActionMappingText;
+            }
+
             if (pauseButtonText != null)
             {
                 pauseButtonText.text = scenario.IsPaused ? "Play" : "Pause";
@@ -62,15 +80,24 @@ namespace ArgusUnity.UI
             canvasObject.AddComponent<GraphicRaycaster>();
 
             var font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
-            var panel = AddPanel(canvasObject.transform, "Chat Panel", new Vector2(24f, 24f), new Vector2(470f, 84f));
-            chatText = AddText(panel.transform, "Chat Text", "Mini-bots are wandering freely.", font, 15, TextAnchor.UpperLeft);
+            var panel = AddPanel(canvasObject.transform, "Event Card", new Vector2(24f, 24f), new Vector2(410f, 128f));
+            eventTitleText = AddText(panel.transform, "Event Title Text", "Mini-bot Social Simulation", font, 17, TextAnchor.UpperLeft);
+            SetOffsets(eventTitleText.rectTransform, new Vector2(14f, 72f), new Vector2(-14f, -10f));
+            chatText = AddText(panel.transform, "Chat Text", "Mini-bots are wandering freely.", font, 14, TextAnchor.UpperLeft);
+            SetOffsets(chatText.rectTransform, new Vector2(14f, 12f), new Vector2(-14f, -54f));
 
-            var buttonBar = AddPanel(canvasObject.transform, "Button Bar", new Vector2(24f, 116f), new Vector2(470f, 44f));
+            var mappingPanel = AddPanel(canvasObject.transform, "Persona Inspector", new Vector2(24f, 162f), new Vector2(410f, 116f));
+            actionMappingText = AddText(mappingPanel.transform, "Action Mapping Text", "Movement: Wander\nAnimation: Walk\nEmotion: Calm", font, 13, TextAnchor.UpperLeft);
+
+            var debugPanel = AddPanel(canvasObject.transform, "Backend Debug Panel", new Vector2(24f, 288f), new Vector2(410f, 52f));
+            debugText = AddText(debugPanel.transform, "Debug Text", "backend mapping available", font, 11, TextAnchor.UpperLeft);
+
+            var buttonBar = AddPanel(canvasObject.transform, "Button Bar", new Vector2(24f, 350f), new Vector2(410f, 44f));
             pauseButton = AddButton(buttonBar.transform, "Pause Button", "Pause", font, new Vector2(8f, 8f), OnPauseClicked);
             pauseButtonText = pauseButton.GetComponentInChildren<Text>();
-            AddButton(buttonBar.transform, "Gather Button", "Gather", font, new Vector2(122f, 8f), OnGatherClicked);
-            AddButton(buttonBar.transform, "Chat Button", "Chat", font, new Vector2(236f, 8f), OnChatClicked);
-            AddButton(buttonBar.transform, "Scatter Button", "Scatter", font, new Vector2(350f, 8f), OnScatterClicked);
+            AddButton(buttonBar.transform, "Gather Button", "Gather", font, new Vector2(106f, 8f), OnGatherClicked);
+            AddButton(buttonBar.transform, "Chat Button", "Chat", font, new Vector2(204f, 8f), OnChatClicked);
+            AddButton(buttonBar.transform, "Scatter Button", "Scatter", font, new Vector2(302f, 8f), OnScatterClicked);
         }
 
         private void EnsureBuilt()
@@ -124,7 +151,7 @@ namespace ArgusUnity.UI
             rect.sizeDelta = size;
 
             var image = panel.AddComponent<Image>();
-            image.color = new Color(0.05f, 0.07f, 0.08f, 0.78f);
+            image.color = new Color(0.08f, 0.1f, 0.12f, 0.84f);
             return panel;
         }
 
@@ -155,6 +182,12 @@ namespace ArgusUnity.UI
             return label;
         }
 
+        private static void SetOffsets(RectTransform rect, Vector2 min, Vector2 max)
+        {
+            rect.offsetMin = min;
+            rect.offsetMax = max;
+        }
+
         private static Button AddButton(
             Transform parent,
             string name,
@@ -170,7 +203,7 @@ namespace ArgusUnity.UI
             rect.anchorMax = new Vector2(0f, 1f);
             rect.pivot = new Vector2(0f, 1f);
             rect.anchoredPosition = new Vector2(anchoredPosition.x, -anchoredPosition.y);
-            rect.sizeDelta = new Vector2(104f, 28f);
+            rect.sizeDelta = new Vector2(90f, 28f);
 
             var image = buttonObject.AddComponent<Image>();
             image.color = new Color(0.88f, 0.91f, 0.95f, 0.96f);
@@ -199,6 +232,9 @@ namespace ArgusUnity.UI
         {
             screenCanvas = GetComponentInChildren<Canvas>(true);
             chatText = FindDescendant("Chat Text")?.GetComponent<Text>();
+            actionMappingText = FindDescendant("Action Mapping Text")?.GetComponent<Text>();
+            eventTitleText = FindDescendant("Event Title Text")?.GetComponent<Text>();
+            debugText = FindDescendant("Debug Text")?.GetComponent<Text>();
             pauseButton = FindDescendant("Pause Button")?.GetComponent<Button>();
             pauseButtonText = pauseButton != null ? pauseButton.GetComponentInChildren<Text>(true) : null;
             return screenCanvas != null && chatText != null && pauseButton != null;
@@ -265,6 +301,57 @@ namespace ArgusUnity.UI
 
             screenCanvas.renderMode = RenderMode.ScreenSpaceCamera;
             screenCanvas.worldCamera = mainCamera;
+        }
+
+        private static string EventTitleFor(string chat)
+        {
+            if (chat.Contains("approaches"))
+            {
+                return chat.Replace(".", string.Empty);
+            }
+
+            if (chat.Contains(" with "))
+            {
+                return chat.Replace(" with ", " talks with ").Replace(".", string.Empty);
+            }
+
+            return "Mini-bot Social Simulation";
+        }
+
+        private static string EventBodyFor(string chat)
+        {
+            if (chat.Contains("agree"))
+            {
+                return "A friendly bot agrees and responds with a visible positive gesture.";
+            }
+
+            if (chat.Contains("debate"))
+            {
+                return "A skeptical bot challenges the idea while the partner holds attention.";
+            }
+
+            if (chat.Contains("ask"))
+            {
+                return "A curious bot asks a question and the pair stays in conversation spacing.";
+            }
+
+            if (chat.Contains("approaches"))
+            {
+                return "The active bot walks toward a partner and prepares to speak.";
+            }
+
+            return chat;
+        }
+
+        private static string StructuredActionFor(string mapping)
+        {
+            return mapping
+                .Replace(": ", "\n")
+                .Replace("movement=", "Movement: ")
+                .Replace(", animation=", "\nAnimation: ")
+                .Replace(", emotion=", "\nEmotion: ")
+                .Replace(", gesture=", "\nGesture: ")
+                .Replace(", goal=", "\nGoal: ");
         }
     }
 }

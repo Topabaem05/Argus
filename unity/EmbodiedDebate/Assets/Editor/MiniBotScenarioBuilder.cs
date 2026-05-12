@@ -132,7 +132,8 @@ namespace ArgusUnity.Editor
             var scene = EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
             scene.name = "MiniBotRunAround";
 
-            BuildRoom("Mini-bot Run Around Capture Space", 18f);
+            BuildRoom("Mini-bot Social Simulation Lab", 18f);
+            AddSimulationLabProps();
             var runtime = new GameObject("Mini-bot Run Around Runtime")
                 .AddComponent<MiniBotRunAroundScenario>();
 
@@ -142,7 +143,7 @@ namespace ArgusUnity.Editor
                 new Persona("A02", "curious", "Retail worker", "asks questions", Vector3.zero, Vector3.zero, new Color(0.2f, 0.72f, 0.88f)),
                 new Persona("B01", "energetic", "Designer", "shares ideas", Vector3.zero, Vector3.zero, new Color(0.98f, 0.55f, 0.18f)),
                 new Persona("B02", "skeptical", "Engineer", "checks details", Vector3.zero, Vector3.zero, new Color(0.95f, 0.38f, 0.25f)),
-                new Persona("C01", "calm", "Teacher", "listens first", Vector3.zero, Vector3.zero, new Color(0.46f, 0.78f, 0.32f)),
+                new Persona("C01", "calm", "Teacher", "listens first", Vector3.zero, Vector3.zero, new Color(0.54f, 0.42f, 0.92f)),
                 new Persona("C02", "cautious", "Healthcare manager", "flags risks", Vector3.zero, Vector3.zero, new Color(0.62f, 0.72f, 0.28f)),
             };
 
@@ -162,8 +163,11 @@ namespace ArgusUnity.Editor
                 var waypoints = waypointSets[i];
                 var position = waypoints[0];
                 var bot = InstantiateMiniBot($"{persona.Id} running mini-bot", position, 0.95f);
+                bot.AddComponent<MinibotMovementController>();
+                bot.AddComponent<MinibotBlackboard>();
                 bot.AddComponent<MiniBotWalkAnimator>();
                 var marker = AddEmotionMarker(bot.transform, persona.Color);
+                AddMinibotEmbodiment(bot, persona, marker);
                 runtime.RegisterSocialAgent(
                     bot.transform,
                     persona.Id,
@@ -214,7 +218,8 @@ namespace ArgusUnity.Editor
                 new Vector3(5.5f, 0f, 2.8f),
                 "ask");
 
-            BuildCamera(new Vector3(10.6f, 8.2f, -10.8f), new Vector3(0f, 0.75f, 0f), 50f);
+            BuildCamera(new Vector3(7.4f, 5.2f, -7.7f), new Vector3(0f, 0.85f, 0f), 42f);
+            AddConversationCameraRig();
             AddScreenUi(runtime);
             AddVideoCapture();
 
@@ -235,20 +240,34 @@ namespace ArgusUnity.Editor
         private static void BuildRoom(string name, float size)
         {
             var root = new GameObject(name).transform;
-            var floorMaterial = Material("MiniBotFloor", new Color(0.35f, 0.38f, 0.4f));
-            var wallMaterial = Material("MiniBotWall", new Color(0.16f, 0.19f, 0.2f));
+            var floorMaterial = Material("MiniBotFloor", new Color(0.48f, 0.54f, 0.5f));
+            var wallMaterial = Material("MiniBotWall", new Color(0.2f, 0.28f, 0.31f));
 
             var floor = GameObject.CreatePrimitive(PrimitiveType.Cube);
-            floor.name = "Isolated Floor";
+            floor.name = "Soft Simulation Floor";
             floor.transform.SetParent(root);
             floor.transform.position = new Vector3(0f, -0.08f, 0f);
             floor.transform.localScale = new Vector3(size, 0.16f, size);
             ApplyMaterial(floor, floorMaterial);
 
-            CreateWall(root, "North Wall", new Vector3(0f, 1.25f, size * 0.5f), new Vector3(size, 2.5f, 0.35f), wallMaterial);
-            CreateWall(root, "South Wall", new Vector3(0f, 1.25f, -size * 0.5f), new Vector3(size, 2.5f, 0.35f), wallMaterial);
-            CreateWall(root, "West Wall", new Vector3(-size * 0.5f, 1.25f, 0f), new Vector3(0.35f, 2.5f, size), wallMaterial);
-            CreateWall(root, "East Wall", new Vector3(size * 0.5f, 1.25f, 0f), new Vector3(0.35f, 2.5f, size), wallMaterial);
+            CreateWall(root, "North Low Boundary", new Vector3(0f, 0.34f, size * 0.5f), new Vector3(size, 0.68f, 0.28f), wallMaterial);
+            CreateWall(root, "South Low Boundary", new Vector3(0f, 0.34f, -size * 0.5f), new Vector3(size, 0.68f, 0.28f), wallMaterial);
+            CreateWall(root, "West Low Boundary", new Vector3(-size * 0.5f, 0.34f, 0f), new Vector3(0.28f, 0.68f, size), wallMaterial);
+            CreateWall(root, "East Low Boundary", new Vector3(size * 0.5f, 0.34f, 0f), new Vector3(0.28f, 0.68f, size), wallMaterial);
+        }
+
+        private static void AddSimulationLabProps()
+        {
+            var board = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            board.name = "Scenario Board";
+            board.transform.position = new Vector3(0f, 1.15f, 7.9f);
+            board.transform.localScale = new Vector3(5.7f, 1.9f, 0.16f);
+            ApplyMaterial(board, Material("MiniBotScenarioBoard", new Color(0.12f, 0.16f, 0.18f)));
+            AddLabel(
+                "Scenario Board\nPersona opinions become movement, speech, and emotion.",
+                new Vector3(0f, 1.55f, 7.78f),
+                0.062f,
+                new Color(0.92f, 0.96f, 1f));
         }
 
         private static void CreateWall(Transform root, string name, Vector3 position, Vector3 scale, Material material)
@@ -341,9 +360,9 @@ namespace ArgusUnity.Editor
             var marker = GameObject.CreatePrimitive(PrimitiveType.Sphere);
             marker.name = "Social Emotion Marker";
             marker.transform.SetParent(bot);
-            marker.transform.localPosition = Vector3.up * 1.28f;
+            marker.transform.localPosition = Vector3.up * 1.76f;
             marker.transform.localRotation = Quaternion.identity;
-            marker.transform.localScale = Vector3.one * 0.24f;
+            marker.transform.localScale = Vector3.one * 0.34f;
             ApplyMaterial(marker, Material($"SocialEmotion{ColorUtility.ToHtmlStringRGB(color)}", color));
             var collider = marker.GetComponent<Collider>();
             if (collider != null)
@@ -353,6 +372,88 @@ namespace ArgusUnity.Editor
 
             marker.SetActive(false);
             return marker.transform;
+        }
+
+        private static void AddMinibotEmbodiment(GameObject bot, Persona persona, Transform marker)
+        {
+            foreach (var renderer in bot.GetComponentsInChildren<Renderer>())
+            {
+                renderer.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.On;
+                renderer.receiveShadows = true;
+            }
+
+            var uiAnchor = new GameObject("UIAnchor").transform;
+            uiAnchor.SetParent(bot.transform, false);
+            uiAnchor.localPosition = Vector3.up * 2.12f;
+            uiAnchor.gameObject.AddComponent<BillboardToCamera>();
+
+            var nameplate = AddWorldText(uiAnchor, "Nameplate", $"{persona.Id}\n{persona.AgeGroup}", new Vector3(0f, 0.32f, 0f), 0.055f, persona.Color);
+            var emotionIcon = AddWorldText(uiAnchor, "Emotion Icon", "*", new Vector3(0f, 0.09f, 0f), 0.13f, Color.white);
+            var speechBubble = AddWorldText(uiAnchor, "Speech Bubble", "Hello", new Vector3(0f, -0.2f, -0.03f), 0.044f, Color.black);
+            var bubblePanel = CreateChildPrimitive(uiAnchor, "Speech Bubble Panel", PrimitiveType.Cube, new Vector3(0f, -0.16f, 0.02f), new Vector3(0.98f, 0.24f, 0.035f), Material($"SpeechBubble{persona.Id}", new Color(0.96f, 0.97f, 0.93f)));
+            bubblePanel.SetActive(false);
+            speechBubble.gameObject.SetActive(false);
+
+            var embodiment = bot.AddComponent<MinibotEmbodimentController>();
+            embodiment.Initialize(
+                persona.Id,
+                persona.AgeGroup,
+                persona.Color,
+                marker,
+                nameplate,
+                speechBubble,
+                bubblePanel,
+                emotionIcon,
+                null,
+                null,
+                null,
+                null);
+        }
+
+        private static GameObject CreateChildPrimitive(
+            Transform parent,
+            string name,
+            PrimitiveType type,
+            Vector3 localPosition,
+            Vector3 localScale,
+            Material material)
+        {
+            var child = GameObject.CreatePrimitive(type);
+            child.name = name;
+            child.transform.SetParent(parent, false);
+            child.transform.localPosition = localPosition;
+            child.transform.localRotation = Quaternion.identity;
+            child.transform.localScale = localScale;
+            ApplyMaterial(child, material);
+            var collider = child.GetComponent<Collider>();
+            if (collider != null)
+            {
+                UnityEngine.Object.DestroyImmediate(collider);
+            }
+
+            return child;
+        }
+
+        private static TextMesh AddWorldText(
+            Transform parent,
+            string name,
+            string text,
+            Vector3 localPosition,
+            float size,
+            Color color)
+        {
+            var textObject = new GameObject(name);
+            textObject.transform.SetParent(parent, false);
+            textObject.transform.localPosition = localPosition;
+            textObject.transform.localRotation = Quaternion.identity;
+            var mesh = textObject.AddComponent<TextMesh>();
+            mesh.text = text;
+            mesh.characterSize = size;
+            mesh.fontSize = Mathf.RoundToInt(64 * LabelSizeScale);
+            mesh.anchor = TextAnchor.MiddleCenter;
+            mesh.alignment = TextAlignment.Center;
+            mesh.color = color;
+            return mesh;
         }
 
         private static GameObject AddLabel(string text, Vector3 position, float size, Color color)
@@ -408,7 +509,18 @@ namespace ArgusUnity.Editor
             light.shadowBias = 0.04f;
             light.shadowNormalBias = 0.22f;
             RenderSettings.ambientMode = UnityEngine.Rendering.AmbientMode.Flat;
-            RenderSettings.ambientLight = new Color(0.2f, 0.25f, 0.32f);
+            RenderSettings.ambientLight = new Color(0.34f, 0.38f, 0.42f);
+        }
+
+        private static void AddConversationCameraRig()
+        {
+            var mainCamera = Camera.main;
+            if (mainCamera == null)
+            {
+                return;
+            }
+
+            mainCamera.gameObject.AddComponent<MinibotConversationCameraRig>();
         }
 
         private static void AddSmoke()

@@ -63,6 +63,16 @@ namespace ArgusUnity.Runtime
                 ui.Refresh();
             }
 
+            foreach (var embodiment in FindObjectsOfType<MinibotEmbodimentController>())
+            {
+                embodiment.Refresh();
+            }
+
+            foreach (var cameraRig in FindObjectsOfType<MinibotConversationCameraRig>())
+            {
+                cameraRig.RefreshImmediate();
+            }
+
             CaptureMainCameraToPng(Path.Combine(outputDir, $"{prefix}_{frame:D04}.png"));
             frame++;
 

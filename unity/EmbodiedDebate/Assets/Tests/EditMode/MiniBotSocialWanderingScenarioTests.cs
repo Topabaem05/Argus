@@ -25,6 +25,8 @@ namespace ArgusUnity.Tests.EditMode
                 Assert.That(second.PartnerId, Is.EqualTo("A01"));
                 Assert.That(first.ActionLabel, Is.EqualTo("agree"));
                 Assert.That(fixture.Scenario.CurrentChatText, Does.Contain("agree"));
+                Assert.That(fixture.Scenario.CurrentActionMappingText, Does.Contain("talk_idle"));
+                Assert.That(fixture.First.GetComponent<MinibotBlackboard>().MappedUnityAction, Does.Contain("talk_idle"));
             }
             finally
             {
@@ -76,6 +78,10 @@ namespace ArgusUnity.Tests.EditMode
                 Assert.That(Vector3.Distance(secondStart, fixture.Second.position), Is.GreaterThan(0.35f));
                 Assert.That(fixture.Scenario.TryGetCurrentSnapshot("A01", out var first), Is.True);
                 Assert.That(first.Phase, Is.EqualTo(MiniBotSocialPhase.Approach));
+                Assert.That(fixture.First.GetComponent<MinibotMovementController>(), Is.Not.Null);
+                Assert.That(fixture.First.GetComponent<Rigidbody>().isKinematic, Is.True);
+                Assert.That((fixture.First.GetComponent<Rigidbody>().constraints & RigidbodyConstraints.FreezeRotationX) != 0, Is.True);
+                Assert.That((fixture.First.GetComponent<Rigidbody>().constraints & RigidbodyConstraints.FreezeRotationZ) != 0, Is.True);
             }
             finally
             {
@@ -140,6 +146,7 @@ namespace ArgusUnity.Tests.EditMode
                 var pause = GameObject.Find("Pause Button").GetComponent<Button>();
                 var chat = GameObject.Find("Chat Button").GetComponent<Button>();
                 var chatText = GameObject.Find("Chat Text").GetComponent<Text>();
+                var actionMappingText = GameObject.Find("Action Mapping Text").GetComponent<Text>();
 
                 pause.onClick.Invoke();
                 Assert.That(fixture.Scenario.IsPaused, Is.True);
@@ -153,11 +160,122 @@ namespace ArgusUnity.Tests.EditMode
 
                 Assert.That(fixture.Scenario.CurrentChatText, Does.Contain("chat"));
                 Assert.That(chatText.text, Does.Contain("chat"));
+                Assert.That(actionMappingText.text, Does.Contain("Movement:"));
             }
             finally
             {
                 fixture.Destroy();
                 Object.DestroyImmediate(uiRoot);
+            }
+        }
+
+        [Test]
+        public void EmbodimentShowsSpeechAndEmotionDuringChat()
+        {
+            var first = new GameObject("A01");
+            var second = new GameObject("A02");
+            try
+            {
+                second.transform.position = Vector3.right;
+                var firstBlackboard = first.AddComponent<MinibotBlackboard>();
+                second.AddComponent<MinibotBlackboard>().ApplySocialState(
+                    "A02",
+                    "curious",
+                    new MiniBotSocialSnapshot("A02", MiniBotSocialPhase.Chat, second.transform.position, Vector3.left, "A01", "ask"),
+                    new MinibotUnityAction("hold_position", "talk_idle", "curious", "question_tilt", "chat with A01"),
+                    second.transform.position,
+                    0f,
+                    0f);
+                firstBlackboard.ApplySocialState(
+                    "A01",
+                    "curious",
+                    new MiniBotSocialSnapshot("A01", MiniBotSocialPhase.Chat, first.transform.position, Vector3.right, "A02", "ask"),
+                    new MinibotUnityAction("hold_position", "talk_idle", "curious", "question_tilt", "chat with A02"),
+                    first.transform.position,
+                    0f,
+                    0f);
+
+                var expression = new GameObject("expression").transform;
+                expression.SetParent(first.transform);
+                var nameplate = new GameObject("name").AddComponent<TextMesh>();
+                var speech = new GameObject("speech").AddComponent<TextMesh>();
+                var panel = new GameObject("speech panel");
+                var icon = new GameObject("icon").AddComponent<TextMesh>();
+                var face = GameObject.CreatePrimitive(PrimitiveType.Cube);
+                var leftArm = new GameObject("left arm").transform;
+                var rightArm = new GameObject("right arm").transform;
+                var embodiment = first.AddComponent<MinibotEmbodimentController>();
+
+                embodiment.Initialize(
+                    "A01",
+                    "friendly",
+                    Color.blue,
+                    expression,
+                    nameplate,
+                    speech,
+                    panel,
+                    icon,
+                    face.GetComponent<Renderer>(),
+                    leftArm,
+                    rightArm,
+                    null);
+                embodiment.Refresh();
+
+                Assert.That(nameplate.text, Does.Contain("A01"));
+                Assert.That(speech.gameObject.activeSelf, Is.True);
+                Assert.That(panel.activeSelf, Is.True);
+                Assert.That(icon.text, Is.Not.Empty);
+            }
+            finally
+            {
+                Object.DestroyImmediate(first);
+                Object.DestroyImmediate(second);
+            }
+        }
+
+        [Test]
+        public void ConversationCameraFramesActivePair()
+        {
+            var cameraObject = new GameObject("camera");
+            var camera = cameraObject.AddComponent<Camera>();
+            cameraObject.tag = "MainCamera";
+            var first = new GameObject("A01");
+            var second = new GameObject("A02");
+            try
+            {
+                first.transform.position = new Vector3(-1f, 0f, 0f);
+                second.transform.position = new Vector3(1f, 0f, 0f);
+                first.AddComponent<MinibotBlackboard>().ApplySocialState(
+                    "A01",
+                    "friendly",
+                    new MiniBotSocialSnapshot("A01", MiniBotSocialPhase.Chat, first.transform.position, Vector3.right, "A02", "agree"),
+                    new MinibotUnityAction("hold_position", "talk_idle", "friendly", "nod", "chat with A02"),
+                    first.transform.position,
+                    0f,
+                    0f);
+                second.AddComponent<MinibotBlackboard>().ApplySocialState(
+                    "A02",
+                    "curious",
+                    new MiniBotSocialSnapshot("A02", MiniBotSocialPhase.Chat, second.transform.position, Vector3.left, "A01", "ask"),
+                    new MinibotUnityAction("hold_position", "talk_idle", "curious", "question_tilt", "chat with A01"),
+                    second.transform.position,
+                    0f,
+                    0f);
+
+                var rig = cameraObject.AddComponent<MinibotConversationCameraRig>();
+                rig.Initialize(camera);
+                rig.RefreshImmediate();
+                rig.RefreshImmediate();
+                rig.RefreshImmediate();
+
+                Assert.That(camera.fieldOfView, Is.LessThan(60f));
+                Assert.That(Vector3.Dot(cameraObject.transform.forward, (Vector3.up * 0.9f - cameraObject.transform.position).normalized), Is.GreaterThan(0.7f));
+            }
+            finally
+            {
+                Object.DestroyImmediate(cameraObject);
+                Object.DestroyImmediate(first);
+                Object.DestroyImmediate(second);
             }
         }
 

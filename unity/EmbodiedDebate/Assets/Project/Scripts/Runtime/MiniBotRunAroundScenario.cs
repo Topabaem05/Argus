@@ -69,8 +69,10 @@ namespace ArgusUnity.Runtime
         private bool paused;
         private float pausedTime;
         private string currentChatText = "Mini-bots are wandering freely.";
+        private string currentActionMappingText = "Persona state maps to wandering locomotion.";
 
         public string CurrentChatText => currentChatText;
+        public string CurrentActionMappingText => currentActionMappingText;
         public bool IsPaused => paused;
 
         public void RegisterRunner(Transform agent, Vector3 center, float radius, float speed, float phase)
@@ -152,6 +154,7 @@ namespace ArgusUnity.Runtime
 
             lastAppliedTime = sampleTime;
             currentChatText = "Mini-bots are wandering freely.";
+            currentActionMappingText = "Persona state maps to wandering locomotion.";
             latestSnapshots.Clear();
             for (var i = 0; i < agents.Count; i++)
             {
@@ -187,6 +190,7 @@ namespace ArgusUnity.Runtime
             {
                 pausedTime = lastAppliedTime;
                 currentChatText = "Paused.";
+                currentActionMappingText = "Simulation paused; movement and animation intent are held.";
                 StopAllWalkAnimations();
             }
         }
@@ -408,18 +412,23 @@ namespace ArgusUnity.Runtime
             var currentYaw = agent.Agent.rotation.eulerAngles.y;
             var turnDegrees = LocomotionMath.SignedYawDelta(currentYaw, targetYaw);
 
-            agent.Agent.position = position;
-            if (facingDirection.sqrMagnitude > 0.001f)
-            {
-                agent.Agent.rotation = Quaternion.LookRotation(facingDirection.normalized, Vector3.up);
-            }
+            var movement = EnsureMovementController(agent.Agent.gameObject);
+            movement.ApplyKinematicPose(
+                position,
+                NormalizePlanarOrForward(facingDirection),
+                sampleTime,
+                agent.WalkSpeedMetersPerSecond);
+            turnDegrees = movement.LastSignedTurnDegrees;
 
             var animator = agent.Agent.GetComponent<MiniBotWalkAnimator>();
             if (animator != null)
             {
                 var hasPreviousTime = previousSampleTimes.TryGetValue(agent.AgentId, out var previousTime);
                 var deltaTime = Mathf.Max(1f / 30f, sampleTime - previousTime);
-                var speed = Mathf.Clamp(distanceDelta / deltaTime, 0f, agent.WalkSpeedMetersPerSecond * 1.65f);
+                var speed = Mathf.Clamp(
+                    movement.LastPlanarSpeed > 0f ? movement.LastPlanarSpeed : distanceDelta / deltaTime,
+                    0f,
+                    agent.WalkSpeedMetersPerSecond * 1.65f);
                 var isMoving = allowWalkAnimation && distanceDelta > 0.006f;
                 animator.SetMotionIntent(isMoving, turnDegrees, speed, isMoving ? distanceDelta : 0f);
                 var walkedDistance = ResolveWalkedDistance(agent.AgentId, distanceDelta, isMoving, hasPreviousTime, sampleTime, previousTime);
@@ -496,6 +505,46 @@ namespace ArgusUnity.Runtime
                 facingDirection,
                 partnerId,
                 actionLabel);
+            UpdateBlackboard(agent, latestSnapshots[agent.AgentId]);
+        }
+
+        private void UpdateBlackboard(SocialAgent agent, MiniBotSocialSnapshot snapshot)
+        {
+            var blackboard = agent.Agent.GetComponent<MinibotBlackboard>();
+            if (blackboard == null)
+            {
+                blackboard = agent.Agent.gameObject.AddComponent<MinibotBlackboard>();
+            }
+
+            var decision = PersonaDecisionMapper.FromSocialSnapshot(agent.AgentId, agent.Archetype, snapshot);
+            var unityAction = PersonaDecisionMapper.Map(decision);
+            var movement = agent.Agent.GetComponent<MinibotMovementController>();
+            blackboard.ApplySocialState(
+                agent.AgentId,
+                agent.Archetype,
+                snapshot,
+                unityAction,
+                movement != null ? movement.LastMovementTarget : snapshot.Position,
+                movement != null ? movement.LastPlanarSpeed : 0f,
+                movement != null ? movement.LastSignedTurnDegrees : 0f);
+
+            if (snapshot.Phase == MiniBotSocialPhase.Chat || snapshot.Phase == MiniBotSocialPhase.React)
+            {
+                currentActionMappingText = $"{agent.AgentId}: {unityAction.DebugSummary}";
+                return;
+            }
+
+            if (snapshot.Phase == MiniBotSocialPhase.Approach &&
+                currentActionMappingText == "Persona state maps to wandering locomotion.")
+            {
+                currentActionMappingText = $"{agent.AgentId}: {unityAction.DebugSummary}";
+            }
+        }
+
+        private static MinibotMovementController EnsureMovementController(GameObject agent)
+        {
+            var movement = agent.GetComponent<MinibotMovementController>();
+            return movement != null ? movement : agent.AddComponent<MinibotMovementController>();
         }
 
         private void RefreshChatTextFromSnapshots()
