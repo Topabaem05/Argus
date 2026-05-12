@@ -40,7 +40,7 @@ namespace ArgusUnity.Runtime
         private float sideTurnPoseWeight = 1.45f;
 
         [SerializeField]
-        private float metersPerWalkCycle = 0.62f;
+        private float metersPerWalkCycle = 0.75f;
 
         [SerializeField]
         private float turnClipBlendWeight = 0.55f;

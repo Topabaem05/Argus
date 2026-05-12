@@ -22,6 +22,11 @@ namespace ArgusUnity.Runtime
         public float LastPlanarSpeed { get; private set; }
         public float LastSignedTurnDegrees { get; private set; }
         public Vector3 LastMovementTarget { get; private set; }
+        public Vector3 LastAppliedPosition { get; private set; }
+        public float LastActualStepMeters { get; private set; }
+        public float LastAllowedStepMeters { get; private set; }
+        public float LastSpeedLimitMetersPerSecond { get; private set; }
+        public bool LastSpeedLimitExceeded { get; private set; }
 
         private void Awake()
         {
@@ -46,26 +51,57 @@ namespace ArgusUnity.Runtime
 
             if (!hasPreviousPose)
             {
-                previousPosition = transform.position;
-                previousYaw = transform.eulerAngles.y;
+                LastAppliedPosition = targetPosition;
+                previousPosition = targetPosition;
+                previousYaw = targetRotation.eulerAngles.y;
                 previousSampleTime = sampleTime;
                 hasPreviousPose = true;
+                LastPlanarSpeed = 0f;
+                LastSignedTurnDegrees = 0f;
+                LastActualStepMeters = 0f;
+                LastAllowedStepMeters = 0f;
+                LastSpeedLimitMetersPerSecond = Mathf.Max(0.1f, maxSpeedMetersPerSecond);
+                LastSpeedLimitExceeded = false;
+
+                body.MovePosition(targetPosition);
+                body.MoveRotation(targetRotation);
+                transform.SetPositionAndRotation(targetPosition, targetRotation);
+                return;
             }
 
             var delta = targetPosition - previousPosition;
             delta.y = 0f;
             var dt = Mathf.Max(1f / 30f, sampleTime - previousSampleTime);
-            LastPlanarSpeed = Mathf.Clamp(delta.magnitude / dt, 0f, Mathf.Max(0.1f, maxSpeedMetersPerSecond) * 1.65f);
+            var speedLimit = Mathf.Max(0.1f, maxSpeedMetersPerSecond);
+            var allowedStep = speedLimit * dt;
+            var requestedStep = delta.magnitude;
+            var planarPosition = previousPosition;
+            if (requestedStep > 0.0001f)
+            {
+                var appliedStep = Mathf.Min(requestedStep, allowedStep);
+                planarPosition += delta.normalized * appliedStep;
+            }
+
+            var appliedPosition = new Vector3(planarPosition.x, targetPosition.y, planarPosition.z);
+            var appliedDelta = appliedPosition - previousPosition;
+            appliedDelta.y = 0f;
+
+            LastAppliedPosition = appliedPosition;
+            LastActualStepMeters = appliedDelta.magnitude;
+            LastAllowedStepMeters = allowedStep;
+            LastSpeedLimitMetersPerSecond = speedLimit;
+            LastSpeedLimitExceeded = requestedStep > allowedStep * 1.2f;
+            LastPlanarSpeed = LastActualStepMeters / dt;
             LastSignedTurnDegrees = LocomotionMath.SignedYawDelta(previousYaw, targetRotation.eulerAngles.y);
 
-            body.MovePosition(targetPosition);
+            body.MovePosition(appliedPosition);
             body.MoveRotation(targetRotation);
 
             // The capture path samples exact scenario times in LateUpdate, immediately before rendering.
-            // Keep the transform synchronized so the frame shows the sampled kinematic pose.
-            transform.SetPositionAndRotation(targetPosition, targetRotation);
+            // Keep the transform synchronized so the frame shows the speed-limited kinematic pose.
+            transform.SetPositionAndRotation(appliedPosition, targetRotation);
 
-            previousPosition = targetPosition;
+            previousPosition = appliedPosition;
             previousYaw = targetRotation.eulerAngles.y;
             previousSampleTime = sampleTime;
         }
@@ -76,6 +112,11 @@ namespace ArgusUnity.Runtime
             LastPlanarSpeed = 0f;
             LastSignedTurnDegrees = 0f;
             LastMovementTarget = transform.position;
+            LastAppliedPosition = transform.position;
+            LastActualStepMeters = 0f;
+            LastAllowedStepMeters = 0f;
+            LastSpeedLimitMetersPerSecond = 0f;
+            LastSpeedLimitExceeded = false;
         }
 
         private void ConfigureBody()

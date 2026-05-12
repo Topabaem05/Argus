@@ -112,7 +112,37 @@ Rules:
 | T-pose | Avatar/controller missing | `animator_dump.json` |
 | Sinks into floor | Bounds, pivot, or collider center issue | `prefab_dump.json`, `physics_dump.json` |
 
-## 7. Validation
+## 7. Gait Sync Diagnosis
+
+The current RunAround capture path is a gait synchronization problem, not a basic animation activation problem.
+
+```txt
+MiniBotRunAroundScenario
+-> timeline target position
+-> MinibotMovementController speed-limited kinematic pose
+-> MiniBotWalkAnimator distance-synced gait
+```
+
+Rules for the showcase path:
+
+- `maxSpeedMetersPerSecond` limits actual transform movement, not only reported speed.
+- Interaction approach/disperse phases are expanded from planar distance and natural MiniBot walk speed.
+- Normal walk should stay near `0.40-0.65 m/s`.
+- Fast walk should stay below `0.85 m/s` unless a run clip is used.
+- `MiniBotWalkAnimator.metersPerWalkCycle` starts at `0.75` so the feet do not cycle too quickly for the small model.
+
+Use `reports/unity_dumps/minibot_gait_trace.jsonl` to check:
+
+| Field | Meaning |
+| --- | --- |
+| `actual_speed_mps` | Visible transform speed after speed cap. |
+| `walk_speed_limit_mps` | Per-agent movement cap. |
+| `actual_step_meters` | Applied planar movement this frame. |
+| `allowed_step_meters` | Maximum allowed planar movement this frame. |
+| `cycle_rate_hz` | Estimated walk cycles per second from movement distance. |
+| `stride_warning` | `timeline_target_exceeded_speed_limit` or `too_fast_for_walk` when cadence is suspect. |
+
+## 8. Validation
 
 Run Unity EditMode tests:
 

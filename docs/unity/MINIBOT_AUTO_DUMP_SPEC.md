@@ -16,6 +16,9 @@ reports/unity_dumps/
   physics_dump.json
   bridge_event_dump.json
   minibot_runtime_trace.jsonl
+  gait_dump.json
+  minibot_gait_trace.jsonl
+  video_gait_review.json
 ```
 
 ## Scene Dump
@@ -142,6 +145,37 @@ Interpretation:
 | `distance_to_target` decreases and `animator_speed == 0` | Animator parameter path is broken. |
 | `distance_to_target` does not decrease | Movement target is not being applied or path is blocked. |
 | `speed > 0` but character visually slides | Clip cadence or retargeting mismatch. |
+
+## Gait Dump
+
+RunAround capture also writes gait-specific files for the showcase movement path:
+
+```json
+{
+  "gait_system": "MiniBotWalkAnimator",
+  "movement_source": "timeline_showcase_speed_limited",
+  "meters_per_walk_cycle": 0.75,
+  "normal_walk_speed_range_mps": [0.4, 0.65],
+  "fast_walk_speed_range_mps": [0.65, 0.85],
+  "run_requires_run_clip": true,
+  "warnings": []
+}
+```
+
+`minibot_gait_trace.jsonl` records the visible, speed-limited movement:
+
+```jsonl
+{"frame":120,"agent_id":"B01","actual_speed_mps":0.58,"walk_speed_limit_mps":0.59,"distance_delta":0.019,"allowed_step_meters":0.020,"actual_step_meters":0.019,"meters_per_cycle":0.75,"cycle_rate_hz":0.77,"stride_warning":""}
+```
+
+Interpretation:
+
+| Pattern | Meaning |
+| --- | --- |
+| `actual_speed_mps <= walk_speed_limit_mps` | Speed cap is controlling visible movement. |
+| `cycle_rate_hz <= 2.0` | Foot cadence is still in a walk-like range. |
+| `stride_warning == timeline_target_exceeded_speed_limit` | Timeline target is moving faster than the MiniBot can naturally walk. |
+| `stride_warning == too_fast_for_walk` | The bot is moving or cycling too quickly for a walk clip. |
 
 ## Validation
 

@@ -14,7 +14,7 @@ namespace ArgusUnity.Tests.EditMode
             var fixture = CreateFixture();
             try
             {
-                fixture.Scenario.ApplyAtTime(2.6f);
+                fixture.Scenario.ApplyAtTime(5.4f);
 
                 Assert.That(fixture.Scenario.CountAgentsInPhase(MiniBotSocialPhase.Chat), Is.EqualTo(2));
                 Assert.That(fixture.Scenario.TryGetCurrentSnapshot("A01", out var first), Is.True);
@@ -40,7 +40,7 @@ namespace ArgusUnity.Tests.EditMode
             var fixture = CreateFixture();
             try
             {
-                fixture.Scenario.ApplyAtTime(2.6f);
+                fixture.Scenario.ApplyAtTime(5.4f);
 
                 Assert.That(fixture.Scenario.TryGetCurrentSnapshot("A01", out var first), Is.True);
                 Assert.That(fixture.Scenario.TryGetCurrentSnapshot("A02", out var second), Is.True);
@@ -74,8 +74,8 @@ namespace ArgusUnity.Tests.EditMode
 
                 fixture.Scenario.ApplyAtTime(1.4f);
 
-                Assert.That(Vector3.Distance(firstStart, fixture.First.position), Is.GreaterThan(0.35f));
-                Assert.That(Vector3.Distance(secondStart, fixture.Second.position), Is.GreaterThan(0.35f));
+                Assert.That(Vector3.Distance(firstStart, fixture.First.position), Is.GreaterThan(0.08f));
+                Assert.That(Vector3.Distance(secondStart, fixture.Second.position), Is.GreaterThan(0.08f));
                 Assert.That(fixture.Scenario.TryGetCurrentSnapshot("A01", out var first), Is.True);
                 Assert.That(first.Phase, Is.EqualTo(MiniBotSocialPhase.Approach));
                 Assert.That(fixture.First.GetComponent<MinibotMovementController>(), Is.Not.Null);
@@ -95,10 +95,10 @@ namespace ArgusUnity.Tests.EditMode
             var fixture = CreateFixture();
             try
             {
-                fixture.Scenario.ApplyAtTime(2.6f);
+                fixture.Scenario.ApplyAtTime(5.4f);
                 Assert.That(fixture.Scenario.TryGetCurrentSnapshot("A01", out var firstMeeting), Is.True);
 
-                fixture.Scenario.ApplyAtTime(4.9f);
+                fixture.Scenario.ApplyAtTime(6.2f);
                 Assert.That(fixture.Scenario.TryGetCurrentSnapshot("B01", out var secondMeeting), Is.True);
 
                 Assert.That(firstMeeting.Phase, Is.EqualTo(MiniBotSocialPhase.Chat));
@@ -134,6 +134,50 @@ namespace ArgusUnity.Tests.EditMode
         }
 
         [Test]
+        public void KinematicMovementAppliesActualSpeedCap()
+        {
+            var bot = new GameObject("speed cap bot");
+            try
+            {
+                bot.AddComponent<Rigidbody>();
+                bot.AddComponent<CapsuleCollider>();
+                var movement = bot.AddComponent<MinibotMovementController>();
+
+                movement.ApplyKinematicPose(Vector3.zero, Vector3.forward, 0f, 0.55f);
+                movement.ApplyKinematicPose(new Vector3(3f, 0f, 0f), Vector3.forward, 1f, 0.55f);
+
+                Assert.That(bot.transform.position.x, Is.EqualTo(0.55f).Within(0.001f));
+                Assert.That(movement.LastPlanarSpeed, Is.EqualTo(0.55f).Within(0.001f));
+                Assert.That(movement.LastSpeedLimitExceeded, Is.True);
+                Assert.That(movement.LastActualStepMeters, Is.LessThanOrEqualTo(movement.LastAllowedStepMeters + 0.001f));
+            }
+            finally
+            {
+                Object.DestroyImmediate(bot);
+            }
+        }
+
+        [Test]
+        public void InteractionDurationsUseWalkCadence()
+        {
+            var fixture = CreateFixture();
+            try
+            {
+                fixture.Scenario.ApplyAtTime(2.6f);
+                Assert.That(fixture.Scenario.TryGetCurrentSnapshot("A01", out var approaching), Is.True);
+                Assert.That(approaching.Phase, Is.EqualTo(MiniBotSocialPhase.Approach));
+
+                fixture.Scenario.ApplyAtTime(5.4f);
+                Assert.That(fixture.Scenario.TryGetCurrentSnapshot("A01", out var chatting), Is.True);
+                Assert.That(chatting.Phase, Is.EqualTo(MiniBotSocialPhase.Chat));
+            }
+            finally
+            {
+                fixture.Destroy();
+            }
+        }
+
+        [Test]
         public void ScreenUiButtonsDriveScenarioAndChatBox()
         {
             var fixture = CreateFixture();
@@ -158,8 +202,8 @@ namespace ArgusUnity.Tests.EditMode
                 fixture.Scenario.ApplyAtTime(1.1f);
                 ui.Refresh();
 
-                Assert.That(fixture.Scenario.CurrentChatText, Does.Contain("chat"));
-                Assert.That(chatText.text, Does.Contain("chat"));
+                Assert.That(fixture.Scenario.CurrentChatText, Does.Contain("approaches"));
+                Assert.That(chatText.text, Does.Contain("walks toward"));
                 Assert.That(actionMappingText.text, Does.Contain("Movement:"));
             }
             finally
@@ -295,11 +339,11 @@ namespace ArgusUnity.Tests.EditMode
                 new[]
                 {
                     new Vector3(-4.5f, 0f, -2.2f),
-                    new Vector3(-3.6f, 0f, -3.2f),
-                    new Vector3(-2.4f, 0f, -1.2f),
-                    new Vector3(-4.2f, 0f, 0.7f),
+                    new Vector3(-3.7f, 0f, -3.0f),
+                    new Vector3(-2.8f, 0f, -1.2f),
+                    new Vector3(-4.2f, 0f, -0.7f),
                 },
-                0.9f,
+                0.58f,
                 0f,
                 firstMarker);
             scenario.RegisterSocialAgent(
@@ -313,7 +357,7 @@ namespace ArgusUnity.Tests.EditMode
                     new Vector3(-2.4f, 0f, 1.2f),
                     new Vector3(-4.5f, 0f, 0.8f),
                 },
-                0.9f,
+                0.58f,
                 0.2f,
                 secondMarker);
             scenario.RegisterSocialAgent(
@@ -322,12 +366,12 @@ namespace ArgusUnity.Tests.EditMode
                 "energetic",
                 new[]
                 {
-                    new Vector3(-1.4f, 0f, -4.0f),
-                    new Vector3(1.2f, 0f, -3.5f),
-                    new Vector3(0.0f, 0f, -1.2f),
-                    new Vector3(-1.8f, 0f, -2.4f),
+                    new Vector3(-0.9f, 0f, -1.9f),
+                    new Vector3(-2.0f, 0f, -3.6f),
+                    new Vector3(1.2f, 0f, -3.4f),
+                    new Vector3(-1.8f, 0f, -0.7f),
                 },
-                0.9f,
+                0.58f,
                 0.4f,
                 thirdMarker);
             scenario.RegisterSocialAgent(
@@ -336,40 +380,40 @@ namespace ArgusUnity.Tests.EditMode
                 "skeptical",
                 new[]
                 {
-                    new Vector3(1.5f, 0f, 4.0f),
-                    new Vector3(-1.0f, 0f, 3.4f),
-                    new Vector3(0.3f, 0f, 1.4f),
-                    new Vector3(1.9f, 0f, 2.4f),
+                    new Vector3(0.9f, 0f, 1.9f),
+                    new Vector3(2.0f, 0f, 3.6f),
+                    new Vector3(-1.2f, 0f, 3.4f),
+                    new Vector3(1.8f, 0f, 0.7f),
                 },
-                0.9f,
+                0.58f,
                 0.6f,
                 fourthMarker);
 
             scenario.RegisterInteraction(
                 "A01",
                 "A02",
-                new Vector3(-2.4f, 0f, 0f),
+                new Vector3(-4.5f, 0f, 0f),
                 Vector3.right,
                 0.7f,
                 1.35f,
                 1.75f,
                 0.8f,
                 1.2f,
+                new Vector3(-4.2f, 0f, -0.8f),
                 new Vector3(-4.1f, 0f, 0.8f),
-                new Vector3(-3.5f, 0f, 2.8f),
                 "agree");
             scenario.RegisterInteraction(
                 "B01",
                 "B02",
-                new Vector3(0.1f, 0f, 0f),
+                new Vector3(0f, 0f, 0f),
                 Vector3.forward,
-                3.05f,
+                1.65f,
                 1.35f,
                 1.6f,
                 0.75f,
                 1.2f,
-                new Vector3(-1.8f, 0f, -3.0f),
-                new Vector3(1.8f, 0f, 3.0f),
+                new Vector3(-1.6f, 0f, -0.8f),
+                new Vector3(1.6f, 0f, 0.8f),
                 "debate");
 
             return new Fixture(root, scenario, first, second, third, firstMarker.gameObject, secondMarker.gameObject);

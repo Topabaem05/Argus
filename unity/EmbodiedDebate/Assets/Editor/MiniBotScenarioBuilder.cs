@@ -149,12 +149,12 @@ namespace ArgusUnity.Editor
 
             var waypointSets = new[]
             {
-                new[] { new Vector3(-6.3f, 0f, -3.6f), new Vector3(-4.5f, 0f, -4.7f), new Vector3(-2.8f, 0f, -2.0f), new Vector3(-5.8f, 0f, 0.9f) },
-                new[] { new Vector3(-6.4f, 0f, 3.7f), new Vector3(-4.1f, 0f, 4.4f), new Vector3(-2.5f, 0f, 1.6f), new Vector3(-5.9f, 0f, 1.4f) },
-                new[] { new Vector3(-1.6f, 0f, -5.0f), new Vector3(1.4f, 0f, -4.4f), new Vector3(0.0f, 0f, -1.6f), new Vector3(-2.1f, 0f, -2.7f) },
-                new[] { new Vector3(1.9f, 0f, 5.0f), new Vector3(-0.9f, 0f, 4.4f), new Vector3(0.4f, 0f, 1.7f), new Vector3(2.5f, 0f, 2.7f) },
-                new[] { new Vector3(5.9f, 0f, -3.8f), new Vector3(4.1f, 0f, -4.8f), new Vector3(2.7f, 0f, -1.5f), new Vector3(5.6f, 0f, 0.8f) },
-                new[] { new Vector3(6.1f, 0f, 3.9f), new Vector3(4.0f, 0f, 4.6f), new Vector3(2.4f, 0f, 1.4f), new Vector3(5.8f, 0f, 1.2f) },
+                new[] { new Vector3(-4.9f, 0f, -1.8f), new Vector3(-6.2f, 0f, -3.9f), new Vector3(-3.6f, 0f, -4.1f), new Vector3(-5.8f, 0f, -0.5f) },
+                new[] { new Vector3(-4.9f, 0f, 1.8f), new Vector3(-6.1f, 0f, 3.9f), new Vector3(-3.4f, 0f, 4.0f), new Vector3(-5.7f, 0f, 0.6f) },
+                new[] { new Vector3(-0.8f, 0f, -1.9f), new Vector3(-2.3f, 0f, -4.5f), new Vector3(1.5f, 0f, -4.2f), new Vector3(-1.8f, 0f, -0.7f) },
+                new[] { new Vector3(0.8f, 0f, 1.9f), new Vector3(2.4f, 0f, 4.5f), new Vector3(-1.2f, 0f, 4.1f), new Vector3(1.9f, 0f, 0.7f) },
+                new[] { new Vector3(4.9f, 0f, -1.8f), new Vector3(6.2f, 0f, -3.8f), new Vector3(3.6f, 0f, -4.0f), new Vector3(5.8f, 0f, -0.5f) },
+                new[] { new Vector3(4.9f, 0f, 1.8f), new Vector3(6.1f, 0f, 3.8f), new Vector3(3.5f, 0f, 4.0f), new Vector3(5.7f, 0f, 0.6f) },
             };
 
             for (var i = 0; i < personas.Length; i++)
@@ -166,14 +166,14 @@ namespace ArgusUnity.Editor
                 bot.AddComponent<MinibotMovementController>();
                 bot.AddComponent<MinibotBlackboard>();
                 bot.AddComponent<MiniBotWalkAnimator>();
-                var marker = AddEmotionMarker(bot.transform, persona.Color);
+                var marker = AddEmotionMarker(bot.transform);
                 AddMinibotEmbodiment(bot, persona, marker);
                 runtime.RegisterSocialAgent(
                     bot.transform,
                     persona.Id,
                     persona.AgeGroup,
                     waypoints,
-                    0.85f + i * 0.04f,
+                    0.56f + i * 0.015f,
                     i * 0.38f,
                     marker);
             }
@@ -181,41 +181,41 @@ namespace ArgusUnity.Editor
             runtime.RegisterInteraction(
                 "A01",
                 "A02",
-                new Vector3(-3.05f, 0f, -0.25f),
+                new Vector3(-4.9f, 0f, 0f),
                 Vector3.right,
-                0.7f,
+                0.2f,
                 1.35f,
                 1.75f,
                 0.8f,
                 1.2f,
-                new Vector3(-5.7f, 0f, 1.1f),
-                new Vector3(-4.0f, 0f, 4.15f),
+                new Vector3(-5.9f, 0f, -0.7f),
+                new Vector3(-5.8f, 0f, 0.8f),
                 "agree");
             runtime.RegisterInteraction(
                 "B01",
                 "B02",
-                new Vector3(0.15f, 0f, 0.05f),
+                new Vector3(0f, 0f, 0f),
                 Vector3.forward,
-                3.05f,
+                1.65f,
                 1.35f,
                 1.6f,
                 0.75f,
                 1.2f,
-                new Vector3(-1.9f, 0f, -3.8f),
-                new Vector3(2.1f, 0f, 3.8f),
+                new Vector3(-1.8f, 0f, -0.8f),
+                new Vector3(1.8f, 0f, 0.8f),
                 "debate");
             runtime.RegisterInteraction(
                 "C01",
                 "C02",
-                new Vector3(3.0f, 0f, -0.15f),
+                new Vector3(4.9f, 0f, 0f),
                 Vector3.right,
-                5.2f,
+                3.2f,
                 1.25f,
                 1.25f,
                 0.75f,
                 1.1f,
-                new Vector3(5.3f, 0f, -3.4f),
-                new Vector3(5.5f, 0f, 2.8f),
+                new Vector3(5.8f, 0f, -0.8f),
+                new Vector3(5.7f, 0f, 0.8f),
                 "ask");
 
             BuildCamera(new Vector3(7.4f, 5.2f, -7.7f), new Vector3(0f, 0.85f, 0f), 42f);
@@ -355,20 +355,14 @@ namespace ArgusUnity.Editor
             AddLabel(label, Vector3.Lerp(from, to, 0.5f) + Vector3.up * 1.35f, 0.055f, color);
         }
 
-        private static Transform AddEmotionMarker(Transform bot, Color color)
+        private static Transform AddEmotionMarker(Transform bot)
         {
-            var marker = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+            var marker = new GameObject("Social Emotion Marker");
             marker.name = "Social Emotion Marker";
             marker.transform.SetParent(bot);
             marker.transform.localPosition = Vector3.up * 1.76f;
             marker.transform.localRotation = Quaternion.identity;
-            marker.transform.localScale = Vector3.one * 0.34f;
-            ApplyMaterial(marker, Material($"SocialEmotion{ColorUtility.ToHtmlStringRGB(color)}", color));
-            var collider = marker.GetComponent<Collider>();
-            if (collider != null)
-            {
-                UnityEngine.Object.DestroyImmediate(collider);
-            }
+            marker.transform.localScale = Vector3.one;
 
             marker.SetActive(false);
             return marker.transform;

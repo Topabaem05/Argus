@@ -1,5 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using UnityEngine;
 
 namespace ArgusUnity.Runtime
@@ -42,6 +45,13 @@ namespace ArgusUnity.Runtime
 
     public sealed class MiniBotRunAroundScenario : MonoBehaviour
     {
+        private const float NaturalWalkSpeedMetersPerSecond = 0.55f;
+        private const float FastWalkSpeedMetersPerSecond = 0.75f;
+        private const float MinimumApproachSeconds = 2.5f;
+        private const float MinimumDisperseSeconds = 1.8f;
+        private const string ReportDirectory = "reports/unity_dumps";
+        private const string GaitTraceFileName = "minibot_gait_trace.jsonl";
+
         [SerializeField]
         private Vector2 roomMin = new Vector2(-8.1f, -8.1f);
 
@@ -70,10 +80,17 @@ namespace ArgusUnity.Runtime
         private float pausedTime;
         private string currentChatText = "Mini-bots are wandering freely.";
         private string currentActionMappingText = "Persona state maps to wandering locomotion.";
+        private string gaitOutputDirectory;
+        private bool gaitDumpInitialized;
 
         public string CurrentChatText => currentChatText;
         public string CurrentActionMappingText => currentActionMappingText;
         public bool IsPaused => paused;
+
+        private void Awake()
+        {
+            InitializeGaitDump();
+        }
 
         public void RegisterRunner(Transform agent, Vector3 center, float radius, float speed, float phase)
         {
@@ -125,16 +142,34 @@ namespace ArgusUnity.Runtime
             Vector3 secondDisperseTarget,
             string actionLabel)
         {
+            var meetingAxisPlanar = NormalizePlanarOrRight(meetingAxis);
+            var meetingCenterPlanar = RoomNavigationMath.ClampPlanarWithInset(meetingCenter, roomMin, roomMax, wallMargin);
+            var firstMeetingPosition = meetingCenterPlanar - meetingAxisPlanar * 0.52f;
+            var secondMeetingPosition = meetingCenterPlanar + meetingAxisPlanar * 0.52f;
+            var resolvedApproachSeconds = ResolveApproachSeconds(
+                firstAgentId,
+                secondAgentId,
+                startSeconds,
+                firstMeetingPosition,
+                secondMeetingPosition,
+                approachSeconds);
+            var resolvedDisperseSeconds = ResolveDisperseSeconds(
+                firstMeetingPosition,
+                secondMeetingPosition,
+                firstDisperseTarget,
+                secondDisperseTarget,
+                disperseSeconds);
+
             interactions.Add(new SocialInteraction(
                 firstAgentId,
                 secondAgentId,
-                RoomNavigationMath.ClampPlanarWithInset(meetingCenter, roomMin, roomMax, wallMargin),
-                NormalizePlanarOrRight(meetingAxis),
+                meetingCenterPlanar,
+                meetingAxisPlanar,
                 Mathf.Max(0f, startSeconds),
-                Mathf.Max(0.1f, approachSeconds),
+                resolvedApproachSeconds,
                 Mathf.Max(0.1f, chatSeconds),
                 Mathf.Max(0.1f, reactSeconds),
-                Mathf.Max(0.1f, disperseSeconds),
+                resolvedDisperseSeconds,
                 RoomNavigationMath.ClampPlanarWithInset(firstDisperseTarget, roomMin, roomMax, wallMargin),
                 RoomNavigationMath.ClampPlanarWithInset(secondDisperseTarget, roomMin, roomMax, wallMargin),
                 string.IsNullOrWhiteSpace(actionLabel) ? "chat" : actionLabel.Trim()));
@@ -142,6 +177,11 @@ namespace ArgusUnity.Runtime
 
         private void Update()
         {
+            if (Environment.GetEnvironmentVariable("ARGUS_UNITY_VIDEO_CAPTURE") == "1")
+            {
+                return;
+            }
+
             ApplyAtTime(Time.time);
         }
 
@@ -197,6 +237,7 @@ namespace ArgusUnity.Runtime
 
         public void TriggerGatherNow()
         {
+            interactions.Clear();
             RegisterInteraction(
                 "A01",
                 "C01",
@@ -215,6 +256,7 @@ namespace ArgusUnity.Runtime
 
         public void TriggerChatNow()
         {
+            interactions.Clear();
             RegisterInteraction(
                 "A02",
                 "B02",
@@ -418,6 +460,10 @@ namespace ArgusUnity.Runtime
                 NormalizePlanarOrForward(facingDirection),
                 sampleTime,
                 agent.WalkSpeedMetersPerSecond);
+            var appliedPosition = movement.LastAppliedPosition;
+            var appliedDelta = appliedPosition - previousPosition;
+            appliedDelta.y = 0f;
+            distanceDelta = appliedDelta.magnitude;
             turnDegrees = movement.LastSignedTurnDegrees;
 
             var animator = agent.Agent.GetComponent<MiniBotWalkAnimator>();
@@ -435,7 +481,9 @@ namespace ArgusUnity.Runtime
                 animator.SampleDistanceSyncedPose(walkedDistance, isMoving, turnDegrees);
             }
 
-            previousPositions[agent.AgentId] = position;
+            AppendGaitTrace(agent, animator, movement, distanceDelta, sampleTime);
+
+            previousPositions[agent.AgentId] = appliedPosition;
             previousSampleTimes[agent.AgentId] = sampleTime;
 
             if (agent.EmotionMarker != null)
@@ -545,6 +593,185 @@ namespace ArgusUnity.Runtime
         {
             var movement = agent.GetComponent<MinibotMovementController>();
             return movement != null ? movement : agent.AddComponent<MinibotMovementController>();
+        }
+
+        private float ResolveApproachSeconds(
+            string firstAgentId,
+            string secondAgentId,
+            float startSeconds,
+            Vector3 firstMeetingPosition,
+            Vector3 secondMeetingPosition,
+            float fallbackSeconds)
+        {
+            var firstDistance = ResolveAgentDistanceAt(firstAgentId, startSeconds, firstMeetingPosition);
+            var secondDistance = ResolveAgentDistanceAt(secondAgentId, startSeconds, secondMeetingPosition);
+            var longestDistance = Mathf.Max(firstDistance, secondDistance);
+            return Mathf.Max(
+                MinimumApproachSeconds,
+                longestDistance / NaturalWalkSpeedMetersPerSecond,
+                fallbackSeconds);
+        }
+
+        private float ResolveDisperseSeconds(
+            Vector3 firstMeetingPosition,
+            Vector3 secondMeetingPosition,
+            Vector3 firstDisperseTarget,
+            Vector3 secondDisperseTarget,
+            float fallbackSeconds)
+        {
+            var firstDistance = PlanarDistance(
+                firstMeetingPosition,
+                RoomNavigationMath.ClampPlanarWithInset(firstDisperseTarget, roomMin, roomMax, wallMargin));
+            var secondDistance = PlanarDistance(
+                secondMeetingPosition,
+                RoomNavigationMath.ClampPlanarWithInset(secondDisperseTarget, roomMin, roomMax, wallMargin));
+            var longestDistance = Mathf.Max(firstDistance, secondDistance);
+            return Mathf.Max(
+                MinimumDisperseSeconds,
+                longestDistance / FastWalkSpeedMetersPerSecond,
+                fallbackSeconds);
+        }
+
+        private float ResolveAgentDistanceAt(string agentId, float sampleTime, Vector3 targetPosition)
+        {
+            var agent = FindAgent(agentId);
+            if (agent == null)
+            {
+                return 0f;
+            }
+
+            return PlanarDistance(WanderPosition(agent, sampleTime, out _), targetPosition);
+        }
+
+        private static float PlanarDistance(Vector3 first, Vector3 second)
+        {
+            first.y = 0f;
+            second.y = 0f;
+            return Vector3.Distance(first, second);
+        }
+
+        private void InitializeGaitDump()
+        {
+            if (gaitDumpInitialized)
+            {
+                return;
+            }
+
+            gaitDumpInitialized = true;
+            var outputDirectory = EnsureGaitOutputDirectory();
+            File.WriteAllText(Path.Combine(outputDirectory, GaitTraceFileName), string.Empty);
+            WriteGaitJson("gait_dump.json", BuildGaitDump());
+            WriteGaitJson("video_gait_review.json", BuildVideoGaitReview());
+        }
+
+        private JObject BuildGaitDump()
+        {
+            return new JObject
+            {
+                ["gait_system"] = "MiniBotWalkAnimator",
+                ["movement_source"] = "timeline_showcase_speed_limited",
+                ["meters_per_walk_cycle"] = 0.75f,
+                ["normal_walk_speed_range_mps"] = new JArray(0.4f, 0.65f),
+                ["fast_walk_speed_range_mps"] = new JArray(0.65f, 0.85f),
+                ["run_requires_run_clip"] = true,
+                ["warnings"] = new JArray(
+                    "MiniBotRunAroundScenario samples timeline targets, then MinibotMovementController speed-limits actual movement.",
+                    "Interaction approach and disperse durations are distance-based for natural walk cadence.",
+                    "Stride warnings in minibot_gait_trace.jsonl indicate speed or cycle rates outside walk range.")
+            };
+        }
+
+        private static JObject BuildVideoGaitReview()
+        {
+            return new JObject
+            {
+                ["video"] = "tmp/mini_bot_run_working.mp4",
+                ["duration_seconds"] = 8.0f,
+                ["fps"] = 30,
+                ["observed_issue"] = "feet can cycle independently from floor cadence if timeline targets exceed natural walk speed",
+                ["diagnosis"] = "timeline speed and gait cycle mismatch",
+                ["primary_fix"] = "speed-limit actual transform movement and increase interaction durations",
+                ["secondary_fix"] = "calibrate metersPerWalkCycle from 0.62 to 0.75"
+            };
+        }
+
+        private void AppendGaitTrace(
+            SocialAgent agent,
+            MiniBotWalkAnimator animator,
+            MinibotMovementController movement,
+            float distanceDelta,
+            float sampleTime)
+        {
+            if (!gaitDumpInitialized || movement == null)
+            {
+                return;
+            }
+
+            var cycleMeters = animator != null ? animator.MetersPerWalkCycle : 0.75f;
+            var speed = movement.LastPlanarSpeed;
+            var cycleRate = speed / Mathf.Max(0.01f, cycleMeters);
+            var warning = string.Empty;
+            if (movement.LastSpeedLimitExceeded)
+            {
+                warning = "timeline_target_exceeded_speed_limit";
+            }
+            else if (speed > 0.85f || cycleRate > 2.0f)
+            {
+                warning = "too_fast_for_walk";
+            }
+
+            var row = new JObject
+            {
+                ["frame"] = Time.frameCount,
+                ["sample_time"] = sampleTime,
+                ["agent_id"] = agent.AgentId,
+                ["actual_speed_mps"] = speed,
+                ["walk_speed_limit_mps"] = movement.LastSpeedLimitMetersPerSecond,
+                ["distance_delta"] = distanceDelta,
+                ["allowed_step_meters"] = movement.LastAllowedStepMeters,
+                ["actual_step_meters"] = movement.LastActualStepMeters,
+                ["meters_per_cycle"] = cycleMeters,
+                ["cycle_rate_hz"] = cycleRate,
+                ["stride_warning"] = warning
+            };
+            File.AppendAllText(
+                Path.Combine(EnsureGaitOutputDirectory(), GaitTraceFileName),
+                row.ToString(Formatting.None) + Environment.NewLine);
+        }
+
+        private void WriteGaitJson(string fileName, JObject data)
+        {
+            File.WriteAllText(
+                Path.Combine(EnsureGaitOutputDirectory(), fileName),
+                data.ToString(Formatting.Indented));
+        }
+
+        private string EnsureGaitOutputDirectory()
+        {
+            if (!string.IsNullOrEmpty(gaitOutputDirectory))
+            {
+                return gaitOutputDirectory;
+            }
+
+            gaitOutputDirectory = Path.Combine(FindRepositoryRoot(), ReportDirectory);
+            Directory.CreateDirectory(gaitOutputDirectory);
+            return gaitOutputDirectory;
+        }
+
+        private static string FindRepositoryRoot()
+        {
+            var current = new DirectoryInfo(Application.dataPath);
+            while (current != null)
+            {
+                if (Directory.Exists(Path.Combine(current.FullName, ".git")))
+                {
+                    return current.FullName;
+                }
+
+                current = current.Parent;
+            }
+
+            return Path.GetFullPath(Path.Combine(Application.dataPath, "..", "..", ".."));
         }
 
         private void RefreshChatTextFromSnapshots()
