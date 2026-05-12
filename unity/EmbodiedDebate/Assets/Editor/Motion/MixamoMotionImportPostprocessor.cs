@@ -17,7 +17,6 @@ namespace ArgusUnity.Editor
             "Sad Idle",
             "Thinking-2",
             "Walking-3",
-            "Step Walking",
             "Running-2",
             "Charge",
             "Walking Backward",
@@ -62,7 +61,7 @@ namespace ArgusUnity.Editor
 
             for (var i = 0; i < clips.Length; i++)
             {
-                clips[i].name = string.IsNullOrWhiteSpace(clips[i].name) ? fileName : clips[i].name;
+                clips[i].name = fileName;
                 clips[i].loopTime = ShouldLoop(fileName);
                 clips[i].loopPose = ShouldLoop(fileName);
                 clips[i].keepOriginalOrientation = false;

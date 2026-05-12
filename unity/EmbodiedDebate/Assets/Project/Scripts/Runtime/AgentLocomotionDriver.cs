@@ -8,6 +8,7 @@ namespace ArgusUnity.Runtime
     public sealed class AgentLocomotionDriver : MonoBehaviour
     {
         private const string DefaultControllerResource = "Animations/Controllers/MiniBotLocomotion";
+        private const string DiverseMixamoControllerResource = "Animations/Mixamo/Generated/MiniBotDiverseMixamo";
 
         [SerializeField]
         private string controllerResource = DefaultControllerResource;
@@ -155,9 +156,14 @@ namespace ArgusUnity.Runtime
             animator.enabled = true;
             animator.applyRootMotion = false;
 
-            if (animator.runtimeAnimatorController == null && !string.IsNullOrWhiteSpace(controllerResource))
+            if (animator.runtimeAnimatorController == null)
             {
-                var controller = Resources.Load<RuntimeAnimatorController>(controllerResource);
+                var controller = Resources.Load<RuntimeAnimatorController>(DiverseMixamoControllerResource);
+                if (controller == null && !string.IsNullOrWhiteSpace(controllerResource))
+                {
+                    controller = Resources.Load<RuntimeAnimatorController>(controllerResource);
+                }
+
                 if (controller != null)
                 {
                     animator.runtimeAnimatorController = controller;

@@ -16,8 +16,31 @@ That directory is intentionally ignored by Git. Do not commit raw Mixamo files u
 
 - Rig: Humanoid, animation import enabled, no cameras/lights.
 - Root motion for navigation-critical clips: baked into pose so code/physics drive position.
-- Loop enabled for idle and continuous locomotion clips such as `Standing Idle`, `Breathing Idle`, `Walking-3`, `Step Walking`, `Running-2`, strafe, backward, and arc-backward walk clips.
+- Loop enabled for idle and continuous locomotion clips such as `Standing Idle`, `Breathing Idle`, `Walking-3`, `Running-2`, strafe, backward, and arc-backward walk clips.
 - One-shot actions such as `Push`, `Picking Up`, `Falling Flat Impact`, `Getting Up`, and `Zombie Reaction Hit` stay non-looping.
+
+## Local Controller Generation
+
+The diverse Mixamo controller is generated locally from real FBX clips. It is not committed because it references ignored Mixamo assets.
+
+Run this after placing the FBX files in `/Users/guribbong/Downloads/motion` or setting `ARGUS_MIXAMO_SOURCE_DIR`:
+
+```bash
+/Applications/Unity/Hub/Editor/2022.3.0f1/Unity.app/Contents/MacOS/Unity \
+  -batchmode \
+  -projectPath /Users/guribbong/code/Argus/unity/EmbodiedDebate \
+  -executeMethod ArgusUnity.Editor.MixamoMotionControllerBuilder.BuildLocalDiverseMixamoSetup
+```
+
+This creates:
+
+```txt
+Assets/Project/Resources/Animations/Mixamo/Generated/
+  MiniBotDiverseMixamo.controller
+  MiniBotUpperBody.mask
+```
+
+`AgentLocomotionDriver` and `MinibotAnimatorDriver` prefer the generated controller resource when it exists, then fall back to the committed `MiniBotLocomotion.controller`. The generated controller contains named states for every `MotionCatalog` clip on Base, Upper Body Overlay, and Emotion Overlay layers, plus a `LocomotionBlendTree` using `MoveX` and `MoveZ`. The current local asset set has `Stop Walking.fbx`, not `Step Walking.fbx`, so the catalog uses the real stop clip instead of pretending a missing step-walk clip exists.
 
 ## Runtime Data Flow
 
@@ -47,7 +70,6 @@ Base Layer
   Idle / Idle Blend
   Locomotion 2D Blend Tree
     Walking-3
-    Step Walking
     Running-2
     Walking Backward
     Left Strafe Walking
@@ -96,14 +118,14 @@ InteractionTrigger, TalkTrigger, EmotionTrigger, RecoveryTrigger,
 DodgeTrigger, FallTrigger, GetUpTrigger, ImpactTrigger, StepBackTrigger
 ```
 
-If states are named exactly like the Mixamo clip names, `MinibotAnimatorDriver` can crossfade into them. If a state is absent, the selected clip remains visible as a selected/debug value but is not reported as the currently applied clip. Locomotion still falls back to parameter-driven blend trees/triggers.
+If states are named exactly like the Mixamo clip names, `MinibotAnimatorDriver` crossfades into them and raises overlay layer weights for talk/emotion clips. If a state is absent, the selected clip remains visible as a selected/debug value but is not reported as the currently applied clip. Locomotion still falls back to parameter-driven blend trees/triggers.
 
 ## Motion Intent Table
 
 | Intent | Primary clips |
 | --- | --- |
 | `Idle` | `Standing Idle`, `Breathing Idle`, `Idle-2`, `Sad Idle`, `Thinking-2`, `Look Around` |
-| `WalkForward` | `Walking-3`, `Step Walking` |
+| `WalkForward` | `Walking-3` |
 | `WalkBackward` | `Walking Backward`, `Walk Backward Arc Left`, `Walk Backward Arc Right` |
 | `StrafeLeft` / `StrafeRight` | `Left Strafe Walking`, `Right Strafe Walking` |
 | `Run` / `Charge` | `Running-2`, `Charge` |
@@ -157,7 +179,7 @@ The runtime dump also writes selected clip names into `reports/unity_dumps/physi
 1. Add the FBX to the local ignored Mixamo raw folder.
 2. Add a `MotionClipId` enum value.
 3. Add a `MotionCatalog` entry with clip name, category, loop flag, overlay preference, weight, and supported intents.
-4. Add or update Animator states using the exact clip name if you want direct crossfade.
+4. Run `MixamoMotionControllerBuilder.BuildLocalDiverseMixamoSetup` to regenerate local Animator states using the exact clip name.
 5. Add a deterministic EditMode test when the clip changes selection behavior.
 
 ## Debugging Checklist
@@ -174,6 +196,7 @@ The runtime dump also writes selected clip names into `reports/unity_dumps/physi
 | Problem | Fix |
 | --- | --- |
 | Animator state missing | Add a state with the exact clip name or rely on blend parameters/triggers. |
+| Generated controller missing | Run `MixamoMotionControllerBuilder.BuildLocalDiverseMixamoSetup`; inspect `reports/unity_dumps/mixamo_controller_build.json`. |
 | Raw FBX appears in Git | Keep `Mixamo/Raw/` ignored; commit only code/docs/controller metadata allowed by license. |
 | Stuck bot keeps walking in place | Confirm `StuckDetector` thresholds and `MinibotStuckRecovery.LastRecoveryTime`. |
 | Same gesture repeats | Inspect `LastFiveUsedClips`; alternatives may be missing from the relevant intent pool. |

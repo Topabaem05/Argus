@@ -17,7 +17,6 @@ namespace ArgusUnity.Motion
             Clip(MotionClipId.HardHeadNod, "Hard Head Nod", MotionCategory.Talk, false, true, 0.70f, MotionIntentType.Agree, MotionIntentType.Talk),
 
             Clip(MotionClipId.Walking3, "Walking-3", MotionCategory.Locomotion, true, false, 1.15f, MotionIntentType.WalkForward),
-            Clip(MotionClipId.StepWalking, "Step Walking", MotionCategory.Locomotion, true, false, 0.90f, MotionIntentType.WalkForward),
             Clip(MotionClipId.Running2, "Running-2", MotionCategory.Locomotion, true, false, 1.00f, MotionIntentType.Run),
             Clip(MotionClipId.Charge, "Charge", MotionCategory.Locomotion, true, false, 0.80f, MotionIntentType.Charge, MotionIntentType.Run),
             Clip(MotionClipId.WalkingBackward, "Walking Backward", MotionCategory.Locomotion, true, false, 1.00f, MotionIntentType.WalkBackward),

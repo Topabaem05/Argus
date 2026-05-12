@@ -8,6 +8,9 @@ namespace ArgusUnity.Motion
     /// </summary>
     public sealed class MinibotAnimatorDriver : MonoBehaviour
     {
+        private const string DiverseMixamoControllerResource = "Animations/Mixamo/Generated/MiniBotDiverseMixamo";
+        private const string FallbackLocomotionControllerResource = "Animations/Controllers/MiniBotLocomotion";
+
         [SerializeField]
         private Animator animator;
 
@@ -22,6 +25,9 @@ namespace ArgusUnity.Motion
 
         [SerializeField]
         private float gestureFadeSpeed = 5f;
+
+        [SerializeField]
+        private float emotionFadeSpeed = 4f;
 
         [SerializeField]
         private bool crossFadeNamedStates = true;
@@ -41,7 +47,9 @@ namespace ArgusUnity.Motion
         private MotionIntent transientOverlayIntent;
         private MotionSelection transientOverlaySelection;
         private MinibotMotionDebugState debugState;
+        private RuntimeAnimatorController cachedController;
         private float gestureWeight;
+        private float emotionWeight;
         private float transientOverlaySecondsRemaining;
         private MotionClipId lastBaseClip;
         private MotionClipId lastOverlayClip;
@@ -112,6 +120,14 @@ namespace ArgusUnity.Motion
                 gestureWeight,
                 targetGestureWeight,
                 Mathf.Max(0f, gestureFadeSpeed) * deltaTime);
+            var targetEmotionWeight = effectiveSelection.EmotionClip != MotionClipId.None ||
+                                      effectiveIntent.Emotion != MotionEmotion.Neutral
+                ? 0.75f
+                : 0f;
+            emotionWeight = Mathf.MoveTowards(
+                emotionWeight,
+                targetEmotionWeight,
+                Mathf.Max(0f, emotionFadeSpeed) * deltaTime);
 
             SetFloat("MoveX", LastMoveX, deltaTime);
             SetFloat("MoveZ", LastMoveZ, deltaTime);
@@ -132,6 +148,8 @@ namespace ArgusUnity.Motion
             SetInteger("Action", (int)effectiveIntent.Action);
             SetInteger("MotionIntent", (int)effectiveIntent.Type);
             SetInteger("RecoveryState", IsRecovery(effectiveIntent.Action) ? (int)effectiveIntent.Action : 0);
+            SetLayerWeight(overlayLayerIndex, gestureWeight);
+            SetLayerWeight(emotionLayerIndex, emotionWeight);
 
             TriggerChangedEvents(effectiveIntent);
             appliedSelection = CrossFadeSelection(effectiveSelection);
@@ -213,6 +231,11 @@ namespace ArgusUnity.Motion
             if (animator != null)
             {
                 animator.applyRootMotion = false;
+                if (animator.runtimeAnimatorController == null)
+                {
+                    animator.runtimeAnimatorController = Resources.Load<RuntimeAnimatorController>(DiverseMixamoControllerResource) ??
+                                                         Resources.Load<RuntimeAnimatorController>(FallbackLocomotionControllerResource);
+                }
             }
 
             if (motor == null)
@@ -223,15 +246,30 @@ namespace ArgusUnity.Motion
 
         private void CacheParameters()
         {
-            if (animator == null || animator.runtimeAnimatorController == null || parameters.Count == animator.parameters.Length)
+            if (animator == null || animator.runtimeAnimatorController == null)
             {
                 return;
             }
 
+            if (cachedController == animator.runtimeAnimatorController &&
+                parameters.Count == animator.parameters.Length)
+            {
+                return;
+            }
+
+            cachedController = animator.runtimeAnimatorController;
             parameters.Clear();
             foreach (var parameter in animator.parameters)
             {
                 parameters[parameter.name] = parameter.type;
+            }
+        }
+
+        private void SetLayerWeight(int layerIndex, float weight)
+        {
+            if (layerIndex >= 0 && layerIndex < animator.layerCount)
+            {
+                animator.SetLayerWeight(layerIndex, Mathf.Clamp01(weight));
             }
         }
 
