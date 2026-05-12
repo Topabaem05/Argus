@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using ArgusUnity.Bridge;
+using ArgusUnity.Motion;
 using ArgusUnity.Scene;
 using Newtonsoft.Json.Linq;
 using UnityEngine;
@@ -90,6 +91,12 @@ namespace ArgusUnity.Runtime
                 return;
             }
 
+            if (TryQueueMotionIntent(agentId, target, speedMetersPerSecond))
+            {
+                activeMoves.Remove(agentId);
+                return;
+            }
+
             activeMoves[agentId] = new MoveState
             {
                 Target = AgentSpawnHandler.GroundedPosition(target),
@@ -98,6 +105,33 @@ namespace ArgusUnity.Runtime
                     0.05f,
                     maxMoveSpeedMetersPerSecond),
             };
+        }
+
+        private bool TryQueueMotionIntent(string agentId, Vector3 target, float speedMetersPerSecond)
+        {
+            if (spawnHandler == null || !spawnHandler.TryGetAgentTransform(agentId, out var tr) || tr == null)
+            {
+                return false;
+            }
+
+            var controller = tr.GetComponent<MinibotMotionController>();
+            if (controller == null)
+            {
+                return false;
+            }
+
+            controller.ApplyIntent(new MotionIntent(
+                true,
+                AgentSpawnHandler.GroundedPosition(target),
+                null,
+                Mathf.Clamp(speedMetersPerSecond, 0.05f, maxMoveSpeedMetersPerSecond),
+                Mathf.Max(0.05f, arrivalDistance),
+                MotionEmotion.Neutral,
+                MotionGesture.None,
+                MotionAction.None,
+                true,
+                Mathf.Clamp01(speedMetersPerSecond / Mathf.Max(0.001f, maxMoveSpeedMetersPerSecond))));
+            return true;
         }
 
         public bool TryGetActiveMove(

@@ -49,7 +49,9 @@ namespace ArgusUnity.Tests.EditMode
 
                 var physicsDump = JObject.Parse(File.ReadAllText(Path.Combine(dump.OutputDirectory, "physics_dump.json")));
                 Assert.That(physicsDump["agent_count"]?.ToObject<int>(), Is.EqualTo(1));
-                Assert.That(physicsDump["active_move_count"]?.ToObject<int>(), Is.EqualTo(1));
+                Assert.That(physicsDump["active_move_count"]?.ToObject<int>(), Is.Zero);
+                Assert.That(physicsDump["agents"]?[0]?["has_motion_runtime"]?.ToObject<bool>(), Is.True);
+                Assert.That(physicsDump["agents"]?[0]?["motion_state"]?.ToObject<string>(), Is.EqualTo("MovingToTarget"));
             }
             finally
             {

@@ -31,7 +31,7 @@ namespace ArgusUnity.Tests.EditMode
             Assert.That(command.Intent, Is.EqualTo("argue"));
             Assert.That(command.HasTargetPosition, Is.True);
             Assert.That(command.TargetPosition.y, Is.EqualTo(AgentSpawnHandler.BridgeFloorY));
-            Assert.That(command.SpeedMetersPerSecond, Is.EqualTo(1.45f).Within(0.0001f));
+            Assert.That(command.SpeedMetersPerSecond, Is.EqualTo(1.25f).Within(0.0001f));
         }
 
         [Test]

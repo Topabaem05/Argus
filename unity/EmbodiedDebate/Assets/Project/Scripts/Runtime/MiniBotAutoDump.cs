@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using ArgusUnity.Bridge;
+using ArgusUnity.Motion;
 using ArgusUnity.Scene;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -139,6 +140,8 @@ namespace ArgusUnity.Runtime
             var collider = target.GetComponentInChildren<Collider>();
             var animator = target.GetComponentInChildren<Animator>();
             var hasMotor = target.GetComponentInChildren<AgentLocomotionDriver>() != null ||
+                           target.GetComponentInChildren<MinibotMotionController>() != null ||
+                           target.GetComponentInChildren<SmoothRigidbodyMotor>() != null ||
                            target.GetComponentInChildren<MinibotMovementController>() != null ||
                            moveHandler != null;
             var hasBridgeAdapter = spawnHandler != null && moveHandler != null;
@@ -238,12 +241,18 @@ namespace ArgusUnity.Runtime
                     var tr = pair.Value;
                     var rb = tr != null ? tr.GetComponentInChildren<Rigidbody>() : null;
                     var collider = tr != null ? tr.GetComponentInChildren<Collider>() : null;
+                    var motion = tr != null ? tr.GetComponent<MinibotMotionController>() : null;
+                    var motor = motion != null ? motion.Motor : null;
                     agents.Add(new JObject
                     {
                         ["agent_id"] = pair.Key,
                         ["position"] = Vector3ToArray(tr != null ? tr.position : Vector3.zero),
                         ["has_rigidbody"] = rb != null,
                         ["has_collider"] = collider != null,
+                        ["has_motion_runtime"] = motion != null,
+                        ["motion_state"] = motion != null ? motion.State.ToString() : string.Empty,
+                        ["motion_speed_mps"] = motor != null ? motor.CurrentVelocity.magnitude : 0f,
+                        ["motion_target_distance"] = motor != null ? motor.DistanceToTarget : 0f,
                         ["rigidbody_is_kinematic"] = rb != null && rb.isKinematic,
                         ["rigidbody_use_gravity"] = rb != null && rb.useGravity
                     });

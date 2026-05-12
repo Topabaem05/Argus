@@ -546,7 +546,7 @@ namespace ArgusUnity.Editor
             return blendTree;
         }
 
-        private static void AddBlendChild(BlendTree blendTree, Motion motion, Vector2 position, float timeScale)
+        private static void AddBlendChild(BlendTree blendTree, UnityEngine.Motion motion, Vector2 position, float timeScale)
         {
             blendTree.AddChild(motion, position);
             var children = blendTree.children;

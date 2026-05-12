@@ -1,3 +1,4 @@
+using ArgusUnity.Motion;
 using ArgusUnity.Scene;
 using ArgusUnity.UI;
 using UnityEngine;
@@ -59,6 +60,8 @@ namespace ArgusUnity.Runtime
             var moveHandler = GetComponent<AgentMoveHandler>();
             var behaviorHandler = GetComponent<MiniBotBehaviorHandler>() ??
                                   gameObject.AddComponent<MiniBotBehaviorHandler>();
+            var motionAdapter = GetComponent<BridgeMotionAdapter>() ??
+                                gameObject.AddComponent<BridgeMotionAdapter>();
             var demo = GetComponent<DemoSpawner>();
             var bridge = GetComponent<BridgeReceiver>();
 
@@ -68,6 +71,7 @@ namespace ArgusUnity.Runtime
             spawnHandler.Initialize(orchestrator, prefab, root);
             moveHandler.Initialize(orchestrator, spawnHandler);
             behaviorHandler.Initialize(orchestrator, moveHandler);
+            motionAdapter.Initialize(orchestrator, spawnHandler);
             demo.Initialize(orchestrator);
             bridge.Initialize(orchestrator, bridgeUrl, bridgeSessionId);
 

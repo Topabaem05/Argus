@@ -117,6 +117,7 @@ namespace ArgusUnity.Tests.EditMode
                 writers,
                 Is.EquivalentTo(new[]
                 {
+                    UnityProjectPath("Assets/Project/Scripts/Motion/MinibotAnimatorDriver.cs").Replace('\\', '/'),
                     UnityProjectPath("Assets/Project/Scripts/Runtime/AgentLocomotionDriver.cs").Replace('\\', '/')
                 }));
         }

@@ -20,6 +20,10 @@ uv.lock
 .env.*
 !.env.example
 
+# Local Mixamo/Motion FBX imports are not committed unless redistribution is cleared.
+unity/EmbodiedDebate/Assets/Project/Resources/Animations/Mixamo/Raw/
+unity/EmbodiedDebate/Assets/Project/Resources/Animations/Mixamo/Raw.meta
+
 # Python dotenv
 dotenv
 

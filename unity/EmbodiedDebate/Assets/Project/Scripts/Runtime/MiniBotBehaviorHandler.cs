@@ -111,13 +111,13 @@ namespace ArgusUnity.Runtime
 
             if (mode == "run")
             {
-                return 1.45f;
+                return 1.25f;
             }
 
             var normalizedIntent = string.IsNullOrWhiteSpace(intent)
                 ? string.Empty
                 : intent.Trim().ToLowerInvariant();
-            return normalizedIntent == "avoid" || normalizedIntent == "leave" ? 1.25f : 0.95f;
+            return normalizedIntent == "avoid" || normalizedIntent == "leave" ? 0.82f : 0.58f;
         }
     }
 

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using ArgusUnity.Bridge;
+using ArgusUnity.Motion;
 using ArgusUnity.Robots;
 using ArgusUnity.Scene;
 using Newtonsoft.Json.Linq;
@@ -88,7 +89,7 @@ namespace ArgusUnity.Runtime
                 existing = instance.transform;
                 transformsByAgentId[agentId] = existing;
                 FitToHeight(existing, BridgeAgentTargetHeight);
-                ConfigureLocomotion(instance);
+                ConfigureLocomotion(instance, agentId);
                 ApplyAgentVisual(existing, agent, avatar);
             }
 
@@ -102,7 +103,7 @@ namespace ArgusUnity.Runtime
             return new Vector3(position.x, BridgeFloorY, position.z);
         }
 
-        private static void ConfigureLocomotion(GameObject instance)
+        private static void ConfigureLocomotion(GameObject instance, string agentId)
         {
             foreach (var sampler in instance.GetComponents<MiniBotWalkAnimator>())
             {
@@ -117,11 +118,27 @@ namespace ArgusUnity.Runtime
 
             animator.enabled = true;
             animator.applyRootMotion = false;
-            foreach (var body in instance.GetComponentsInChildren<Rigidbody>())
+            var bodies = instance.GetComponentsInChildren<Rigidbody>();
+            if (bodies.Length == 0)
+            {
+                bodies = new[] { instance.AddComponent<Rigidbody>() };
+            }
+
+            foreach (var body in bodies)
             {
                 body.isKinematic = true;
                 body.useGravity = false;
                 body.interpolation = RigidbodyInterpolation.Interpolate;
+                body.collisionDetectionMode = CollisionDetectionMode.ContinuousSpeculative;
+                body.constraints |= RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
+            }
+
+            if (instance.GetComponentInChildren<Collider>() == null)
+            {
+                var capsule = instance.AddComponent<CapsuleCollider>();
+                capsule.center = new Vector3(0f, 0.36f, 0f);
+                capsule.height = 0.72f;
+                capsule.radius = 0.18f;
             }
 
             var driver = instance.GetComponent<AgentLocomotionDriver>();
@@ -131,6 +148,10 @@ namespace ArgusUnity.Runtime
             }
 
             driver.ResetTracking();
+
+            var motionController = instance.GetComponent<MinibotMotionController>() ??
+                                   instance.AddComponent<MinibotMotionController>();
+            motionController.Initialize(agentId, StableHash(agentId));
         }
 
         private static void ApplyAgentVisual(Transform root, JObject agent, RobotAvatar avatar)
@@ -215,6 +236,23 @@ namespace ArgusUnity.Runtime
             }
 
             return true;
+        }
+
+        private static int StableHash(string value)
+        {
+            unchecked
+            {
+                var hash = 5381;
+                if (value != null)
+                {
+                    for (var i = 0; i < value.Length; i++)
+                    {
+                        hash = ((hash << 5) + hash) ^ value[i];
+                    }
+                }
+
+                return hash;
+            }
         }
     }
 }

@@ -40,12 +40,12 @@ namespace ArgusUnity.Tests.PlayMode
                 Assert.That(orchestrator.TryHandle(OpposedBehaviorEnvelope(), out issue), Is.True);
                 Assert.That(issue, Is.Null);
 
-                for (var i = 0; i < 90; i++)
+                for (var i = 0; i < 180; i++)
                 {
                     yield return null;
                 }
 
-                Assert.That(agent.position.z, Is.GreaterThan(start.z + 0.2f));
+                Assert.That(agent.position.z, Is.GreaterThan(start.z + 0.1f));
                 Assert.That(agent.Find("EmotionOrb_agent-p-007"), Is.Not.Null);
             }
             finally
