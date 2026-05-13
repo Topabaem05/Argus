@@ -124,6 +124,74 @@ namespace ArgusUnity.Tests.EditMode.Motion
             }
         }
 
+        [Test]
+        public void AnimatorDriverDoesNotRestartGestureBeforeClipCycleCompletes()
+        {
+            var controller = AssetDatabase.LoadAssetAtPath<AnimatorController>(MixamoMotionControllerBuilder.ControllerPath);
+            if (controller == null)
+            {
+                Assert.Ignore("Generated diverse Mixamo controller is local and ignored by git.");
+            }
+
+            var go = new GameObject("gesture-cycle-lock-driver-test");
+            try
+            {
+                var animator = go.AddComponent<Animator>();
+                animator.runtimeAnimatorController = controller;
+                go.AddComponent<SmoothRigidbodyMotor>();
+                var driver = go.AddComponent<MinibotAnimatorDriver>();
+                var debugState = new MinibotMotionDebugState();
+
+                driver.SetIntent(new MotionIntent(
+                    MotionIntentType.Talk,
+                    false,
+                    Vector3.zero,
+                    Vector3.forward,
+                    0f,
+                    0.12f,
+                    MotionEmotion.Neutral,
+                    MotionGesture.Talk,
+                    MotionAction.None,
+                    true,
+                    0.4f));
+                driver.SetSelection(
+                    new MotionSelection(
+                        MotionClipId.StandingIdle,
+                        MotionClipId.Talking,
+                        MotionClipId.None,
+                        new[] { MotionClipId.StandingIdle, MotionClipId.Talking }),
+                    debugState);
+                driver.Tick(1f / 30f);
+
+                driver.SetIntent(new MotionIntent(
+                    MotionIntentType.Disagree,
+                    false,
+                    Vector3.zero,
+                    Vector3.forward,
+                    0f,
+                    0.12f,
+                    MotionEmotion.Neutral,
+                    MotionGesture.ShakeHeadNo,
+                    MotionAction.None,
+                    true,
+                    0.4f));
+                driver.SetSelection(
+                    new MotionSelection(
+                        MotionClipId.StandingIdle,
+                        MotionClipId.ShakingHeadNo,
+                        MotionClipId.None,
+                        new[] { MotionClipId.StandingIdle, MotionClipId.ShakingHeadNo }),
+                    debugState);
+                driver.Tick(1f / 30f);
+
+                Assert.That(driver.AppliedSelection.OverlayClip, Is.EqualTo(MotionClipId.Talking));
+            }
+            finally
+            {
+                Object.DestroyImmediate(go);
+            }
+        }
+
         private static void AssertHasState(AnimatorController controller, int layerIndex, string stateName)
         {
             Assert.That(layerIndex, Is.LessThan(controller.layers.Length), stateName);

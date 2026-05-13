@@ -52,9 +52,16 @@ namespace ArgusUnity.Motion
         private float gestureWeight;
         private float emotionWeight;
         private float transientOverlaySecondsRemaining;
+        private float driverTimeSeconds;
+        private float baseCycleLockedUntilSeconds;
+        private float overlayCycleLockedUntilSeconds;
+        private float emotionCycleLockedUntilSeconds;
         private MotionClipId lastBaseClip;
         private MotionClipId lastOverlayClip;
         private MotionClipId lastEmotionClip;
+        private MotionClipId cycleLockedBaseClip;
+        private MotionClipId cycleLockedOverlayClip;
+        private MotionClipId cycleLockedEmotionClip;
         private MotionAction lastTriggeredAction = MotionAction.None;
         private MotionGesture lastTriggeredGesture = MotionGesture.None;
         private MotionEmotion lastTriggeredEmotion = MotionEmotion.Neutral;
@@ -125,13 +132,21 @@ namespace ArgusUnity.Motion
             }
 
             CacheParameters();
+            driverTimeSeconds += Mathf.Max(0f, deltaTime);
+            ExpireFinishedCycleLocks();
+
             var effectiveIntent = ResolveEffectiveIntent(deltaTime);
             var effectiveSelection = ResolveEffectiveSelection();
             var velocity = ResolveVelocity();
             if (ShouldUseMovementOnlyVisuals(effectiveIntent, velocity))
             {
+                ClearNonMovementCycleLocks();
                 effectiveIntent = StripNonMovementVisuals(effectiveIntent);
                 effectiveSelection = StripOverlayAndEmotion(effectiveSelection);
+            }
+            else
+            {
+                effectiveSelection = ApplyCycleLocks(effectiveSelection);
             }
 
             var localVelocity = transform.InverseTransformDirection(velocity);
@@ -240,9 +255,58 @@ namespace ArgusUnity.Motion
                    action == MotionAction.StopWalking;
         }
 
+        private void ExpireFinishedCycleLocks()
+        {
+            if (!IsClipCycleLocked(cycleLockedBaseClip, baseCycleLockedUntilSeconds))
+            {
+                cycleLockedBaseClip = MotionClipId.None;
+                baseCycleLockedUntilSeconds = 0f;
+            }
+
+            if (!IsClipCycleLocked(cycleLockedOverlayClip, overlayCycleLockedUntilSeconds))
+            {
+                cycleLockedOverlayClip = MotionClipId.None;
+                overlayCycleLockedUntilSeconds = 0f;
+            }
+
+            if (!IsClipCycleLocked(cycleLockedEmotionClip, emotionCycleLockedUntilSeconds))
+            {
+                cycleLockedEmotionClip = MotionClipId.None;
+                emotionCycleLockedUntilSeconds = 0f;
+            }
+        }
+
+        private void ClearNonMovementCycleLocks()
+        {
+            cycleLockedBaseClip = MotionClipId.None;
+            cycleLockedOverlayClip = MotionClipId.None;
+            cycleLockedEmotionClip = MotionClipId.None;
+            baseCycleLockedUntilSeconds = 0f;
+            overlayCycleLockedUntilSeconds = 0f;
+            emotionCycleLockedUntilSeconds = 0f;
+            lastOverlayClip = MotionClipId.None;
+            lastEmotionClip = MotionClipId.None;
+        }
+
+        private MotionSelection ApplyCycleLocks(MotionSelection selection)
+        {
+            var baseClip = IsClipCycleLocked(cycleLockedBaseClip, baseCycleLockedUntilSeconds)
+                ? cycleLockedBaseClip
+                : selection.BaseClip;
+            var overlayClip = IsClipCycleLocked(cycleLockedOverlayClip, overlayCycleLockedUntilSeconds)
+                ? cycleLockedOverlayClip
+                : selection.OverlayClip;
+            var emotionClip = IsClipCycleLocked(cycleLockedEmotionClip, emotionCycleLockedUntilSeconds)
+                ? cycleLockedEmotionClip
+                : selection.EmotionClip;
+            return new MotionSelection(baseClip, overlayClip, emotionClip, selection.RecentClips);
+        }
+
         private void TriggerChangedEvents(MotionIntent intent)
         {
-            if (intent.Action != MotionAction.None && intent.Action != lastTriggeredAction)
+            if (intent.Action != MotionAction.None &&
+                intent.Action != lastTriggeredAction &&
+                !IsClipCycleLocked(cycleLockedBaseClip, baseCycleLockedUntilSeconds))
             {
                 switch (intent.Action)
                 {
@@ -275,12 +339,16 @@ namespace ArgusUnity.Motion
                 }
             }
 
-            if (intent.Gesture != MotionGesture.None && intent.Gesture != lastTriggeredGesture)
+            if (intent.Gesture != MotionGesture.None &&
+                intent.Gesture != lastTriggeredGesture &&
+                !IsClipCycleLocked(cycleLockedOverlayClip, overlayCycleLockedUntilSeconds))
             {
                 SetTrigger("TalkTrigger");
             }
 
-            if (intent.Emotion != MotionEmotion.Neutral && intent.Emotion != lastTriggeredEmotion)
+            if (intent.Emotion != MotionEmotion.Neutral &&
+                intent.Emotion != lastTriggeredEmotion &&
+                !IsClipCycleLocked(cycleLockedEmotionClip, emotionCycleLockedUntilSeconds))
             {
                 SetTrigger("EmotionTrigger");
             }
@@ -416,19 +484,45 @@ namespace ArgusUnity.Motion
                 return default;
             }
 
-            var baseApplied = CrossFadeIfChanged(selection.BaseClip, ref lastBaseClip, 0, ResolveBaseFade(currentIntent))
+            var baseApplied = CrossFadeIfChanged(
+                    selection.BaseClip,
+                    ref lastBaseClip,
+                    0,
+                    ResolveBaseFade(currentIntent),
+                    ref cycleLockedBaseClip,
+                    ref baseCycleLockedUntilSeconds)
                 ? selection.BaseClip
                 : MotionClipId.None;
-            var overlayApplied = CrossFadeIfChanged(selection.OverlayClip, ref lastOverlayClip, overlayLayerIndex, 0.12f)
+            var overlayApplied = CrossFadeIfChanged(
+                    selection.OverlayClip,
+                    ref lastOverlayClip,
+                    overlayLayerIndex,
+                    0.12f,
+                    ref cycleLockedOverlayClip,
+                    ref overlayCycleLockedUntilSeconds)
                 ? selection.OverlayClip
                 : MotionClipId.None;
-            var emotionApplied = CrossFadeIfChanged(selection.EmotionClip, ref lastEmotionClip, emotionLayerIndex, 0.16f)
+            var emotionApplied = CrossFadeIfChanged(
+                    selection.EmotionClip,
+                    ref lastEmotionClip,
+                    emotionLayerIndex,
+                    0.16f,
+                    ref cycleLockedEmotionClip,
+                    ref emotionCycleLockedUntilSeconds)
                 ? selection.EmotionClip
                 : MotionClipId.None;
+            ResetInactiveLayerClip(selection.OverlayClip, ref lastOverlayClip, cycleLockedOverlayClip, overlayCycleLockedUntilSeconds);
+            ResetInactiveLayerClip(selection.EmotionClip, ref lastEmotionClip, cycleLockedEmotionClip, emotionCycleLockedUntilSeconds);
             return new MotionSelection(baseApplied, overlayApplied, emotionApplied, selection.RecentClips);
         }
 
-        private bool CrossFadeIfChanged(MotionClipId clipId, ref MotionClipId lastClip, int layerIndex, float fadeSeconds)
+        private bool CrossFadeIfChanged(
+            MotionClipId clipId,
+            ref MotionClipId lastClip,
+            int layerIndex,
+            float fadeSeconds,
+            ref MotionClipId cycleLockedClip,
+            ref float cycleLockedUntilSeconds)
         {
             if (clipId == MotionClipId.None || !MotionCatalog.TryGet(clipId, out var clip))
             {
@@ -454,7 +548,55 @@ namespace ArgusUnity.Motion
 
             animator.CrossFadeInFixedTime(stateHash, Mathf.Max(0.01f, fadeSeconds), layerIndex);
             lastClip = clipId;
+            if (ShouldLockCycle(clip))
+            {
+                cycleLockedClip = clipId;
+                cycleLockedUntilSeconds = driverTimeSeconds + ResolveClipCycleSeconds(clip);
+            }
+
             return true;
+        }
+
+        private void ResetInactiveLayerClip(
+            MotionClipId selectedClip,
+            ref MotionClipId lastClip,
+            MotionClipId cycleLockedClip,
+            float cycleLockedUntilSeconds)
+        {
+            if (selectedClip == MotionClipId.None && !IsClipCycleLocked(cycleLockedClip, cycleLockedUntilSeconds))
+            {
+                lastClip = MotionClipId.None;
+            }
+        }
+
+        private static bool ShouldLockCycle(MotionClipDefinition clip)
+        {
+            return !clip.LoopTime &&
+                   (clip.OverlayPreferred || clip.Category != MotionCategory.Locomotion);
+        }
+
+        private bool IsClipCycleLocked(MotionClipId clipId, float lockedUntilSeconds)
+        {
+            return clipId != MotionClipId.None && driverTimeSeconds < lockedUntilSeconds;
+        }
+
+        private float ResolveClipCycleSeconds(MotionClipDefinition clip)
+        {
+            var controller = animator != null ? animator.runtimeAnimatorController : null;
+            if (controller != null)
+            {
+                var animationClips = controller.animationClips;
+                for (var i = 0; i < animationClips.Length; i++)
+                {
+                    var animationClip = animationClips[i];
+                    if (animationClip != null && animationClip.name == clip.ClipName)
+                    {
+                        return Mathf.Max(0.05f, animationClip.length);
+                    }
+                }
+            }
+
+            return 1f;
         }
 
         private MotionIntent ResolveEffectiveIntent(float deltaTime)

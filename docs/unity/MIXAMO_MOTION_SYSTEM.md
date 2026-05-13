@@ -46,6 +46,8 @@ Assets/Project/Resources/Animations/Mixamo/Generated/
 
 While a minibot is actively translating, the visible animation path is locomotion-only. Emotion, talk, and gesture overlays are suppressed until the bot stops or enters a stationary conversation/reaction pose. This keeps walking readable and prevents upper-body persona gestures from fighting the forward movement cycle.
 
+Gesture clips are cycle-locked by `MinibotAnimatorDriver`: after an overlay/emotion/full-body non-loop clip starts, the driver reads the actual `AnimationClip.length` from the Animator controller and will not crossfade to a different gesture until that clip's full frame cycle has elapsed. This prevents a gesture from restarting halfway through its own imported FPS/frame range.
+
 ## Runtime Data Flow
 
 ```txt
