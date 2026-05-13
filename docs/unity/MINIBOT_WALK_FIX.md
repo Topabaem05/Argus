@@ -130,6 +130,8 @@ Rules for the showcase path:
 - Normal walk should stay near `0.40-0.65 m/s`.
 - Fast walk should stay below `0.85 m/s` unless a run clip is used.
 - `MiniBotWalkAnimator.metersPerWalkCycle` starts at `0.75` so the feet do not cycle too quickly for the small model.
+- `MiniBotWalkAnimator.minimumWalkCycleSeconds` starts at `1.0` so the visible walk cycle cannot restart before a 30 FPS one-second cycle completes.
+- In RunAround, `SampleDistanceSyncedPose()` is authoritative for that rendered frame; `LateUpdate()` skips its own phase advance afterward to avoid applying two gait samples in one frame.
 
 Use `reports/unity_dumps/minibot_gait_trace.jsonl` to check:
 
@@ -140,7 +142,9 @@ Use `reports/unity_dumps/minibot_gait_trace.jsonl` to check:
 | `actual_step_meters` | Applied planar movement this frame. |
 | `allowed_step_meters` | Maximum allowed planar movement this frame. |
 | `cycle_rate_hz` | Estimated walk cycles per second from movement distance. |
-| `stride_warning` | `timeline_target_exceeded_speed_limit` or `too_fast_for_walk` when cadence is suspect. |
+| `visual_cycle_rate_hz` | Visible BVH walk cycle rate after clamping. |
+| `externally_sampled_pose` | Whether the frame used the distance-synced pose as its only gait authority. |
+| `stride_warning` | `timeline_target_exceeded_speed_limit`, `visual_cycle_restarted_too_fast`, or `too_fast_for_walk` when cadence is suspect. |
 
 ## 8. Validation
 

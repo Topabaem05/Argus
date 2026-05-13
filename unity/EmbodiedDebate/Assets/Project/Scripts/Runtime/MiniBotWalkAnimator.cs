@@ -43,6 +43,9 @@ namespace ArgusUnity.Runtime
         private float metersPerWalkCycle = 0.75f;
 
         [SerializeField]
+        private float minimumWalkCycleSeconds = 1f;
+
+        [SerializeField]
         private float turnClipBlendWeight = 0.55f;
 
         [SerializeField]
@@ -104,6 +107,10 @@ namespace ArgusUnity.Runtime
         private float distanceThisFrame;
         private bool distanceSyncedThisFrame;
         private bool hasDistanceSync;
+        private float externallySampledPhase;
+        private bool externallySampledThisFrame;
+        private bool hasExternalWalkedMeters;
+        private float lastExternalWalkedMeters;
         private float turnBlend;
         private float smoothedSignedTurnDegrees;
         private bool moving;
@@ -113,6 +120,16 @@ namespace ArgusUnity.Runtime
         private bool turnAnimationLogged;
 
         public float MetersPerWalkCycle => metersPerWalkCycle;
+
+        public float MinimumWalkCycleSeconds => minimumWalkCycleSeconds;
+
+        public float LastNormalizedPhase { get; private set; }
+
+        public float LastPhaseAdvance { get; private set; }
+
+        public float LastVisualCycleRateHz { get; private set; }
+
+        public bool LastPoseWasExternallySampled { get; private set; }
 
         private void Awake()
         {
@@ -156,31 +173,54 @@ namespace ArgusUnity.Runtime
                 moving ? Mathf.Clamp01((Mathf.Abs(smoothedSignedTurnDegrees) - turnThresholdDegrees) / 65f) : 0f,
                 Time.deltaTime * blendSharpness);
 
+            if (externallySampledThisFrame)
+            {
+                distanceThisFrame = 0f;
+                distanceSyncedThisFrame = false;
+                externallySampledThisFrame = false;
+                LastPoseWasExternallySampled = true;
+                return;
+            }
+
             if (walkClip == null || motionWeight <= 0.001f)
             {
+                LastPhaseAdvance = 0f;
+                LastVisualCycleRateHz = 0f;
+                LastPoseWasExternallySampled = false;
                 RestoreRestPose();
                 return;
             }
 
             var fallbackSpeedScale = Mathf.Clamp(smoothedMovementSpeed / Mathf.Max(0.01f, referenceMoveSpeed), 0.35f, 2.8f);
             float timeAdvance;
+            float phaseAdvance;
             if (distanceSyncedThisFrame)
             {
-                timeAdvance = (distanceThisFrame / Mathf.Max(0.01f, metersPerWalkCycle)) * walkClip.Duration;
+                phaseAdvance = ClampWalkPhaseAdvance(
+                    distanceThisFrame / Mathf.Max(0.01f, metersPerWalkCycle),
+                    Time.deltaTime,
+                    minimumWalkCycleSeconds);
+                timeAdvance = phaseAdvance * walkClip.Duration;
             }
             else if (hasDistanceSync)
             {
                 timeAdvance = 0f;
+                phaseAdvance = 0f;
             }
             else
             {
                 timeAdvance = Time.deltaTime * playbackRate * fallbackSpeedScale;
+                phaseAdvance = timeAdvance / Mathf.Max(0.001f, walkClip.Duration);
             }
 
             playbackTime = Mathf.Repeat(playbackTime + timeAdvance, walkClip.Duration);
             distanceThisFrame = 0f;
             distanceSyncedThisFrame = false;
-            ApplyBvhPose(playbackTime / Mathf.Max(0.001f, walkClip.Duration), motionWeight);
+            LastPhaseAdvance = phaseAdvance;
+            LastVisualCycleRateHz = ResolveVisualCycleRate(phaseAdvance, Time.deltaTime);
+            LastPoseWasExternallySampled = false;
+            LastNormalizedPhase = playbackTime / Mathf.Max(0.001f, walkClip.Duration);
+            ApplyBvhPose(LastNormalizedPhase, motionWeight);
         }
 
         public void SetMotionIntent(bool isMoving, float turnDegrees)
@@ -258,10 +298,61 @@ namespace ArgusUnity.Runtime
                 return;
             }
 
-            var normalizedPhase = Mathf.Repeat(
-                walkedMeters / Mathf.Max(0.01f, metersPerWalkCycle),
-                1f);
-            ApplyBvhPose(normalizedPhase, isMoving ? 1f : 0f);
+            float phaseAdvance;
+            if (isMoving)
+            {
+                if (!hasExternalWalkedMeters || walkedMeters + 0.0001f < lastExternalWalkedMeters)
+                {
+                    hasExternalWalkedMeters = true;
+                    lastExternalWalkedMeters = walkedMeters;
+                    phaseAdvance = 0f;
+                }
+                else
+                {
+                    var deltaMeters = Mathf.Max(0f, walkedMeters - lastExternalWalkedMeters);
+                    phaseAdvance = ClampWalkPhaseAdvance(
+                        deltaMeters / Mathf.Max(0.01f, metersPerWalkCycle),
+                        Time.deltaTime,
+                        minimumWalkCycleSeconds);
+                    externallySampledPhase = Mathf.Repeat(externallySampledPhase + phaseAdvance, 1f);
+                    lastExternalWalkedMeters = walkedMeters;
+                }
+            }
+            else
+            {
+                phaseAdvance = 0f;
+            }
+
+            playbackTime = externallySampledPhase * walkClip.Duration;
+            LastNormalizedPhase = externallySampledPhase;
+            LastPhaseAdvance = phaseAdvance;
+            LastVisualCycleRateHz = ResolveVisualCycleRate(phaseAdvance, Time.deltaTime);
+            LastPoseWasExternallySampled = true;
+            externallySampledThisFrame = true;
+            distanceThisFrame = 0f;
+            distanceSyncedThisFrame = false;
+            ApplyBvhPose(externallySampledPhase, isMoving ? 1f : 0f);
+        }
+
+        public static float ClampWalkPhaseAdvance(float phaseAdvance, float deltaTime, float minimumCycleSeconds)
+        {
+            if (phaseAdvance <= 0f)
+            {
+                return 0f;
+            }
+
+            if (deltaTime <= 0f || minimumCycleSeconds <= 0f)
+            {
+                return phaseAdvance;
+            }
+
+            var maxPhaseAdvance = deltaTime / Mathf.Max(0.01f, minimumCycleSeconds);
+            return Mathf.Min(phaseAdvance, maxPhaseAdvance);
+        }
+
+        private static float ResolveVisualCycleRate(float phaseAdvance, float deltaTime)
+        {
+            return deltaTime > 0.0001f ? phaseAdvance / deltaTime : 0f;
         }
 
         private BvhClip SelectTurnOverlayClip()

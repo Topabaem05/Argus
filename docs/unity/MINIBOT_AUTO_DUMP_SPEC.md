@@ -155,6 +155,8 @@ RunAround capture also writes gait-specific files for the showcase movement path
   "gait_system": "MiniBotWalkAnimator",
   "movement_source": "timeline_showcase_speed_limited",
   "meters_per_walk_cycle": 0.75,
+  "minimum_walk_cycle_seconds": 1.0,
+  "max_visual_cycle_rate_hz": 1.0,
   "normal_walk_speed_range_mps": [0.4, 0.65],
   "fast_walk_speed_range_mps": [0.65, 0.85],
   "run_requires_run_clip": true,
@@ -165,7 +167,7 @@ RunAround capture also writes gait-specific files for the showcase movement path
 `minibot_gait_trace.jsonl` records the visible, speed-limited movement:
 
 ```jsonl
-{"frame":120,"agent_id":"B01","actual_speed_mps":0.58,"walk_speed_limit_mps":0.59,"distance_delta":0.019,"allowed_step_meters":0.020,"actual_step_meters":0.019,"meters_per_cycle":0.75,"cycle_rate_hz":0.77,"stride_warning":""}
+{"frame":120,"agent_id":"B01","actual_speed_mps":0.58,"walk_speed_limit_mps":0.59,"distance_delta":0.019,"allowed_step_meters":0.020,"actual_step_meters":0.019,"meters_per_cycle":0.75,"cycle_rate_hz":0.77,"visual_cycle_rate_hz":0.77,"visual_phase_advance":0.026,"visual_phase":0.42,"externally_sampled_pose":true,"stride_warning":""}
 ```
 
 Interpretation:
@@ -174,8 +176,11 @@ Interpretation:
 | --- | --- |
 | `actual_speed_mps <= walk_speed_limit_mps` | Speed cap is controlling visible movement. |
 | `cycle_rate_hz <= 2.0` | Foot cadence is still in a walk-like range. |
+| `visual_cycle_rate_hz <= 1.0` | The visible BVH walk cycle is not restarting before a 30 FPS one-second cycle completes. |
+| `externally_sampled_pose == true` | RunAround used the distance-synced pose as the only rendered gait authority for the frame. |
 | `stride_warning == timeline_target_exceeded_speed_limit` | Timeline target is moving faster than the MiniBot can naturally walk. |
 | `stride_warning == too_fast_for_walk` | The bot is moving or cycling too quickly for a walk clip. |
+| `stride_warning == visual_cycle_restarted_too_fast` | Visible gait phase advanced faster than the configured cycle limit. |
 
 ## Validation
 

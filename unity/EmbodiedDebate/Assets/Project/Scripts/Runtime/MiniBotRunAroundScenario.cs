@@ -671,12 +671,15 @@ namespace ArgusUnity.Runtime
                 ["gait_system"] = "MiniBotWalkAnimator",
                 ["movement_source"] = "timeline_showcase_speed_limited",
                 ["meters_per_walk_cycle"] = 0.75f,
+                ["minimum_walk_cycle_seconds"] = 1.0f,
+                ["max_visual_cycle_rate_hz"] = 1.0f,
                 ["normal_walk_speed_range_mps"] = new JArray(0.4f, 0.65f),
                 ["fast_walk_speed_range_mps"] = new JArray(0.65f, 0.85f),
                 ["run_requires_run_clip"] = true,
                 ["warnings"] = new JArray(
                     "MiniBotRunAroundScenario samples timeline targets, then MinibotMovementController speed-limits actual movement.",
                     "Interaction approach and disperse durations are distance-based for natural walk cadence.",
+                    "Externally sampled gait poses are authoritative for the rendered frame to avoid double-advancing the walk cycle.",
                     "Stride warnings in minibot_gait_trace.jsonl indicate speed or cycle rates outside walk range.")
             };
         }
@@ -710,10 +713,16 @@ namespace ArgusUnity.Runtime
             var cycleMeters = animator != null ? animator.MetersPerWalkCycle : 0.75f;
             var speed = movement.LastPlanarSpeed;
             var cycleRate = speed / Mathf.Max(0.01f, cycleMeters);
+            var visualCycleRate = animator != null ? animator.LastVisualCycleRateHz : cycleRate;
+            var visualPhaseAdvance = animator != null ? animator.LastPhaseAdvance : 0f;
             var warning = string.Empty;
             if (movement.LastSpeedLimitExceeded)
             {
                 warning = "timeline_target_exceeded_speed_limit";
+            }
+            else if (visualCycleRate > 1.05f)
+            {
+                warning = "visual_cycle_restarted_too_fast";
             }
             else if (speed > 0.85f || cycleRate > 2.0f)
             {
@@ -732,6 +741,10 @@ namespace ArgusUnity.Runtime
                 ["actual_step_meters"] = movement.LastActualStepMeters,
                 ["meters_per_cycle"] = cycleMeters,
                 ["cycle_rate_hz"] = cycleRate,
+                ["visual_cycle_rate_hz"] = visualCycleRate,
+                ["visual_phase_advance"] = visualPhaseAdvance,
+                ["visual_phase"] = animator != null ? animator.LastNormalizedPhase : 0f,
+                ["externally_sampled_pose"] = animator != null && animator.LastPoseWasExternallySampled,
                 ["stride_warning"] = warning
             };
             File.AppendAllText(

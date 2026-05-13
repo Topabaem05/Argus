@@ -138,6 +138,27 @@ namespace ArgusUnity.Tests.EditMode.Motion
         }
 
         [Test]
+        public void WalkPhaseAdvanceDoesNotReplayCycleBeforeThirtyFrames()
+        {
+            const float DeltaTime = 1f / 30f;
+
+            var clampedAdvance = MiniBotWalkAnimator.ClampWalkPhaseAdvance(0.5f, DeltaTime, 1f);
+            var visualCycleRate = clampedAdvance / DeltaTime;
+
+            Assert.That(clampedAdvance, Is.EqualTo(1f / 30f).Within(0.0001f));
+            Assert.That(visualCycleRate, Is.LessThanOrEqualTo(1.0001f));
+        }
+
+        [Test]
+        public void WalkPhaseAdvanceKeepsNaturalCadenceAndIgnoresNegativeDeltas()
+        {
+            const float DeltaTime = 1f / 30f;
+
+            Assert.That(MiniBotWalkAnimator.ClampWalkPhaseAdvance(-0.1f, DeltaTime, 1f), Is.EqualTo(0f));
+            Assert.That(MiniBotWalkAnimator.ClampWalkPhaseAdvance(0.01f, DeltaTime, 1f), Is.EqualTo(0.01f));
+        }
+
+        [Test]
         public void MotionSelectionIsSeededAndAvoidsImmediateRepeatWhenAlternativesExist()
         {
             var profileA = PersonaMotionProfile.FromAgentId("agent-a", 1234);
