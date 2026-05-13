@@ -310,6 +310,16 @@ namespace ArgusUnity.UI
                 return chat.Replace(".", string.Empty);
             }
 
+            if (chat.Contains(" push "))
+            {
+                return chat.Replace(" push ", " pushes ").Replace(".", string.Empty);
+            }
+
+            if (chat.Contains(" pull "))
+            {
+                return chat.Replace(" pull ", " pulls ").Replace(".", string.Empty);
+            }
+
             if (chat.Contains(" with "))
             {
                 return chat.Replace(" with ", " talks with ").Replace(".", string.Empty);
@@ -333,6 +343,16 @@ namespace ArgusUnity.UI
             if (chat.Contains("ask"))
             {
                 return "A curious bot asks a question and the pair stays in conversation spacing.";
+            }
+
+            if (chat.Contains(" push "))
+            {
+                return "The active bot holds position, plays the push motion, and moves the prop forward.";
+            }
+
+            if (chat.Contains(" pull "))
+            {
+                return "The active bot holds position, plays the pull motion, and drags the prop backward.";
             }
 
             if (chat.Contains("approaches"))

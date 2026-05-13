@@ -14,6 +14,7 @@ namespace ArgusUnity.Runtime
         private const string EnvPrefix = "ARGUS_UNITY_VIDEO_PREFIX";
         private const string EnvFrameCount = "ARGUS_UNITY_VIDEO_FRAME_COUNT";
         private const string EnvSeconds = "ARGUS_UNITY_VIDEO_SECONDS";
+        private const string EnvFormat = "ARGUS_UNITY_VIDEO_FORMAT";
         private const int Width = 1280;
         private const int Height = 720;
         private const int FrameRate = 30;
@@ -23,6 +24,8 @@ namespace ArgusUnity.Runtime
         private int frameCount;
         private string outputDir;
         private string prefix;
+        private string imageExtension = "png";
+        private bool useJpeg;
 
         private void Awake()
         {
@@ -41,8 +44,10 @@ namespace ArgusUnity.Runtime
 
             Directory.CreateDirectory(outputDir);
             frameCount = ResolveFrameCount();
+            useJpeg = ResolveUseJpeg();
+            imageExtension = useJpeg ? "jpg" : "png";
             Time.captureFramerate = FrameRate;
-            Debug.Log($"ArgusVideo: capturing {frameCount} frames at {FrameRate} FPS to {outputDir}");
+            Debug.Log($"ArgusVideo: capturing {frameCount} {imageExtension} frames at {FrameRate} FPS to {outputDir}");
         }
 
         private void LateUpdate()
@@ -73,7 +78,7 @@ namespace ArgusUnity.Runtime
                 cameraRig.RefreshImmediate();
             }
 
-            CaptureMainCameraToPng(Path.Combine(outputDir, $"{prefix}_{frame:D04}.png"));
+            CaptureMainCameraToImage(Path.Combine(outputDir, $"{prefix}_{frame:D04}.{imageExtension}"), useJpeg);
             frame++;
 
             if (frame < frameCount)
@@ -110,6 +115,14 @@ namespace ArgusUnity.Runtime
             return DefaultFrameCount;
         }
 
+        private static bool ResolveUseJpeg()
+        {
+            var format = System.Environment.GetEnvironmentVariable(EnvFormat);
+            return !string.IsNullOrWhiteSpace(format) &&
+                   (format.Trim().ToLowerInvariant() == "jpg" ||
+                    format.Trim().ToLowerInvariant() == "jpeg");
+        }
+
         private static string ResolveOutputDir(string envPath)
         {
             if (!string.IsNullOrWhiteSpace(envPath))
@@ -122,7 +135,7 @@ namespace ArgusUnity.Runtime
             return Path.Combine(repoRoot, "tmp", "mini_bot_run_frames");
         }
 
-        private static void CaptureMainCameraToPng(string path)
+        private static void CaptureMainCameraToImage(string path, bool jpeg)
         {
             var cam = Camera.main;
             if (cam == null)
@@ -143,7 +156,7 @@ namespace ArgusUnity.Runtime
                 var tex = new Texture2D(Width, Height, TextureFormat.RGB24, false);
                 tex.ReadPixels(new Rect(0, 0, Width, Height), 0, 0);
                 tex.Apply();
-                File.WriteAllBytes(path, ImageConversion.EncodeToPNG(tex));
+                File.WriteAllBytes(path, jpeg ? ImageConversion.EncodeToJPG(tex, 88) : ImageConversion.EncodeToPNG(tex));
                 Object.Destroy(tex);
             }
             finally

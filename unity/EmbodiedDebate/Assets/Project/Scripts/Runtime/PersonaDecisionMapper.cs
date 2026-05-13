@@ -90,6 +90,26 @@ namespace ArgusUnity.Runtime
                         ResolveGesture(decision),
                         $"chat with {decision.PartnerId}");
                 case MiniBotSocialPhase.React:
+                    if (decision.Intent == "push")
+                    {
+                        return new MinibotUnityAction(
+                            "hold_position",
+                            "push_object",
+                            "focused",
+                            "push",
+                            $"push {decision.PartnerId}");
+                    }
+
+                    if (decision.Intent == "pull")
+                    {
+                        return new MinibotUnityAction(
+                            "hold_position",
+                            "pull_object",
+                            "focused",
+                            "pull",
+                            $"pull {decision.PartnerId}");
+                    }
+
                     return new MinibotUnityAction(
                         "hold_position",
                         "react",

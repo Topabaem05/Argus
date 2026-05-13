@@ -45,6 +45,7 @@ data/raw/
 data/cache/
 outputs/
 reports/unity_dumps/
+tmp/mini_bot_run_frames/
 
 # Keep sample fixtures
 !data/samples/

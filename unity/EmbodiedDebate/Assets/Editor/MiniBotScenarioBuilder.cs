@@ -14,6 +14,7 @@ namespace ArgusUnity.Editor
     {
         private const string MiniBotPath = "Assets/Project/Resources/UserModels/Idle.fbx";
         private const string PretendardPath = "Assets/Project/Resources/Fonts/Pretendard-Regular.otf";
+        private const string ClassroomAssetRoot = "Assets/Project/Resources/Environment/Classroom";
         private const string FootstepScenePath = "Assets/Project/Scenes/MiniBotFootstepPreview.unity";
         private const string PersonaScenePath = "Assets/Project/Scenes/MiniBotPersonaScenario.unity";
         private const string RunAroundScenePath = "Assets/Project/Scenes/MiniBotRunAround.unity";
@@ -46,6 +47,29 @@ namespace ArgusUnity.Editor
             public Vector3 Position { get; }
             public Vector3 Target { get; }
             public Color Color { get; }
+        }
+
+        private readonly struct ClassroomMovableProps
+        {
+            public ClassroomMovableProps(
+                GameObject pushBox,
+                GameObject pullCart,
+                GameObject bookBox,
+                GameObject deskBlock,
+                GameObject markerBox)
+            {
+                PushBox = pushBox;
+                PullCart = pullCart;
+                BookBox = bookBox;
+                DeskBlock = deskBlock;
+                MarkerBox = markerBox;
+            }
+
+            public GameObject PushBox { get; }
+            public GameObject PullCart { get; }
+            public GameObject BookBox { get; }
+            public GameObject DeskBlock { get; }
+            public GameObject MarkerBox { get; }
         }
 
         public static void BuildFootstepPreview()
@@ -135,6 +159,7 @@ namespace ArgusUnity.Editor
 
             BuildRoom("Mini-bot Social Simulation Lab", 18f);
             AddSimulationLabProps();
+            var movableProps = AddClassroomObjectProps();
             var runtime = new GameObject("Mini-bot Run Around Runtime")
                 .AddComponent<MiniBotRunAroundScenario>();
 
@@ -219,6 +244,57 @@ namespace ArgusUnity.Editor
                 new Vector3(5.7f, 0f, 0.8f),
                 "ask");
 
+            runtime.RegisterObjectTask(
+                "B01",
+                movableProps.PushBox.transform,
+                new Vector3(-1.9f, 0.34f, 2.2f),
+                new Vector3(-1.1f, 0.34f, 2.2f),
+                12f,
+                3.0f,
+                4.0f,
+                2.5f,
+                "push");
+            runtime.RegisterObjectTask(
+                "C02",
+                movableProps.PullCart.transform,
+                new Vector3(3.7f, 0.48f, -2.5f),
+                new Vector3(3.0f, 0.48f, -2.5f),
+                31f,
+                3.2f,
+                4.3f,
+                2.4f,
+                "pull");
+            runtime.RegisterObjectTask(
+                "A02",
+                movableProps.BookBox.transform,
+                new Vector3(-5.7f, 0.32f, 2.8f),
+                new Vector3(-5.7f, 0.32f, 2.1f),
+                52f,
+                3.1f,
+                3.6f,
+                2.2f,
+                "push");
+            runtime.RegisterObjectTask(
+                "C01",
+                movableProps.DeskBlock.transform,
+                new Vector3(5.5f, 0.38f, 1.6f),
+                new Vector3(4.8f, 0.38f, 1.1f),
+                77f,
+                3.4f,
+                4.5f,
+                2.6f,
+                "pull");
+            runtime.RegisterObjectTask(
+                "A01",
+                movableProps.MarkerBox.transform,
+                new Vector3(-6.1f, 0.3f, -2.6f),
+                new Vector3(-5.35f, 0.3f, -2.6f),
+                101f,
+                3.0f,
+                3.8f,
+                2.2f,
+                "push");
+
             BuildCamera(new Vector3(7.4f, 5.2f, -7.7f), new Vector3(0f, 0.85f, 0f), 42f);
             AddConversationCameraRig();
             AddScreenUi(runtime);
@@ -234,6 +310,8 @@ namespace ArgusUnity.Editor
             Environment.SetEnvironmentVariable("ARGUS_UNITY_VIDEO_CAPTURE", "1");
             Environment.SetEnvironmentVariable("ARGUS_UNITY_VIDEO_DIR", ResolveVideoFrameDir());
             Environment.SetEnvironmentVariable("ARGUS_UNITY_VIDEO_PREFIX", "mini_bot_run");
+            Environment.SetEnvironmentVariable("ARGUS_UNITY_VIDEO_SECONDS", "120");
+            Environment.SetEnvironmentVariable("ARGUS_UNITY_VIDEO_FORMAT", "jpg");
             EditorSceneManager.OpenScene(RunAroundScenePath);
             EditorApplication.EnterPlaymode();
         }
@@ -269,6 +347,118 @@ namespace ArgusUnity.Editor
                 new Vector3(0f, 1.55f, 7.78f),
                 0.062f,
                 new Color(0.92f, 0.96f, 1f));
+        }
+
+        private static ClassroomMovableProps AddClassroomObjectProps()
+        {
+            var root = new GameObject("Classroom Object Interaction Props").transform;
+
+            AddClassroomAsset(root, "table.glb", "Static Table", new Vector3(-2.4f, 0f, 5.8f), Quaternion.Euler(0f, 18f, 0f), 0.62f);
+            AddClassroomAsset(root, "chair.glb", "Static Chair", new Vector3(-3.2f, 0f, 5.15f), Quaternion.Euler(0f, -26f, 0f), 0.56f);
+            AddClassroomAsset(root, "locker.glb", "Static Locker", new Vector3(6.85f, 0f, 5.9f), Quaternion.Euler(0f, -92f, 0f), 1.25f);
+            AddClassroomAsset(root, "desk.glb", "Static Desk", new Vector3(2.4f, 0f, 5.75f), Quaternion.Euler(0f, -12f, 0f), 0.74f);
+            AddClassroomAsset(root, "book.glb", "Static Book Stack", new Vector3(-2.1f, 0.72f, 5.75f), Quaternion.Euler(0f, 35f, 0f), 0.28f);
+
+            var pushBox = CreateMovableInteractionProp(
+                root,
+                "Blue Supply Box",
+                new Vector3(-1.9f, 0.34f, 2.2f),
+                new Vector3(0.64f, 0.68f, 0.64f),
+                new Color(0.22f, 0.46f, 0.9f),
+                "Push task");
+            var pullCart = CreateMovableInteractionProp(
+                root,
+                "Rolling Shelf Cart",
+                new Vector3(3.7f, 0.48f, -2.5f),
+                new Vector3(0.86f, 0.96f, 0.6f),
+                new Color(0.42f, 0.56f, 0.62f),
+                "Pull task");
+            AddClassroomAsset(pullCart.transform, "shelfwithwheels.glb", "Shelf Visual", Vector3.zero, Quaternion.identity, 0.85f);
+
+            var bookBox = CreateMovableInteractionProp(
+                root,
+                "Red Book Box",
+                new Vector3(-5.7f, 0.32f, 2.8f),
+                new Vector3(0.68f, 0.64f, 0.58f),
+                new Color(0.78f, 0.25f, 0.22f),
+                "Sort books");
+            AddClassroomAsset(bookBox.transform, "book.glb", "Book Visual", new Vector3(0f, 0.45f, 0f), Quaternion.Euler(0f, 20f, 0f), 0.22f);
+
+            var deskBlock = CreateMovableInteractionProp(
+                root,
+                "Heavy Desk Block",
+                new Vector3(5.5f, 0.38f, 1.6f),
+                new Vector3(0.95f, 0.76f, 0.68f),
+                new Color(0.58f, 0.36f, 0.2f),
+                "Pull desk");
+
+            var markerBox = CreateMovableInteractionProp(
+                root,
+                "Green Marker Box",
+                new Vector3(-6.1f, 0.3f, -2.6f),
+                new Vector3(0.62f, 0.6f, 0.62f),
+                new Color(0.22f, 0.62f, 0.36f),
+                "Push supplies");
+
+            return new ClassroomMovableProps(pushBox, pullCart, bookBox, deskBlock, markerBox);
+        }
+
+        private static GameObject CreateMovableInteractionProp(
+            Transform parent,
+            string name,
+            Vector3 position,
+            Vector3 scale,
+            Color color,
+            string label)
+        {
+            var prop = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            prop.name = name;
+            prop.transform.SetParent(parent);
+            prop.transform.position = position;
+            prop.transform.localScale = scale;
+            ApplyMaterial(prop, Material($"MiniBot{name.Replace(" ", string.Empty)}", color));
+            var rigidbody = prop.AddComponent<Rigidbody>();
+            rigidbody.isKinematic = true;
+            rigidbody.useGravity = false;
+            var collider = prop.GetComponent<BoxCollider>();
+            if (collider != null)
+            {
+                collider.size = Vector3.one;
+            }
+
+            AddLabel(label, position + Vector3.up * (scale.y + 0.35f), 0.052f, Color.white);
+            return prop;
+        }
+
+        private static GameObject AddClassroomAsset(
+            Transform parent,
+            string fileName,
+            string name,
+            Vector3 position,
+            Quaternion rotation,
+            float targetHeight)
+        {
+            var assetPath = $"{ClassroomAssetRoot}/{fileName}";
+            var prefab = AssetDatabase.LoadAssetAtPath<GameObject>(assetPath);
+            if (prefab == null)
+            {
+                Debug.LogWarning($"MiniBotScenarioBuilder: classroom asset missing or not imported: {assetPath}");
+                return null;
+            }
+
+            var instance = (GameObject)PrefabUtility.InstantiatePrefab(prefab);
+            instance.name = name;
+            instance.transform.SetParent(parent);
+            instance.transform.position = parent == null ? position : parent.TransformPoint(position);
+            instance.transform.rotation = rotation;
+            FitToHeight(instance, targetHeight);
+            foreach (var renderer in instance.GetComponentsInChildren<Renderer>())
+            {
+                renderer.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.On;
+                renderer.receiveShadows = true;
+            }
+
+            return instance;
         }
 
         private static void CreateWall(Transform root, string name, Vector3 position, Vector3 scale, Material material)

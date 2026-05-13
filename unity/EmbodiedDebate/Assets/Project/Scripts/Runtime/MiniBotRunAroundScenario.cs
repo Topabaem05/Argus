@@ -79,6 +79,8 @@ namespace ArgusUnity.Runtime
         private readonly Dictionary<string, MotionSelectionPolicy> motionPolicies = new Dictionary<string, MotionSelectionPolicy>();
         private readonly Dictionary<string, PersonaMotionProfile> motionProfiles = new Dictionary<string, PersonaMotionProfile>();
         private readonly Dictionary<string, MinibotMotionDebugState> motionDebugStates = new Dictionary<string, MinibotMotionDebugState>();
+        [SerializeField]
+        private List<SocialObjectTask> objectTasks = new List<SocialObjectTask>();
         private float lastAppliedTime;
         private bool paused;
         private float pausedTime;
@@ -179,6 +181,34 @@ namespace ArgusUnity.Runtime
                 string.IsNullOrWhiteSpace(actionLabel) ? "chat" : actionLabel.Trim()));
         }
 
+        public void RegisterObjectTask(
+            string agentId,
+            Transform movableObject,
+            Vector3 objectStartPosition,
+            Vector3 objectEndPosition,
+            float startSeconds,
+            float approachSeconds,
+            float workSeconds,
+            float leaveSeconds,
+            string actionLabel)
+        {
+            if (string.IsNullOrWhiteSpace(agentId) || movableObject == null)
+            {
+                return;
+            }
+
+            objectTasks.Add(new SocialObjectTask(
+                agentId.Trim(),
+                movableObject,
+                RoomNavigationMath.ClampPlanarWithInset(objectStartPosition, roomMin, roomMax, wallMargin),
+                RoomNavigationMath.ClampPlanarWithInset(objectEndPosition, roomMin, roomMax, wallMargin),
+                Mathf.Max(0f, startSeconds),
+                Mathf.Max(MinimumApproachSeconds, approachSeconds),
+                Mathf.Max(0.5f, workSeconds),
+                Mathf.Max(MinimumDisperseSeconds, leaveSeconds),
+                string.IsNullOrWhiteSpace(actionLabel) ? "push" : actionLabel.Trim()));
+        }
+
         private void Update()
         {
             if (Environment.GetEnvironmentVariable("ARGUS_UNITY_VIDEO_CAPTURE") == "1")
@@ -205,6 +235,12 @@ namespace ArgusUnity.Runtime
                 var agent = agents[i];
                 if (agent.Agent == null)
                 {
+                    continue;
+                }
+
+                if (TryResolveObjectTask(agent, sampleTime, out var objectTask, out var objectPhase))
+                {
+                    ApplyObjectTask(agent, objectTask, objectPhase, sampleTime);
                     continue;
                 }
 
@@ -413,6 +449,70 @@ namespace ArgusUnity.Runtime
             StoreSnapshot(agent, phase, position, appliedFacing, partner?.AgentId ?? string.Empty, interaction.ActionLabel);
         }
 
+        private void ApplyObjectTask(
+            SocialAgent agent,
+            SocialObjectTask task,
+            MiniBotSocialPhase phase,
+            float sampleTime)
+        {
+            var objectDirection = NormalizePlanarOrForward(task.ObjectEndPosition - task.ObjectStartPosition);
+            var action = Normalize(task.ActionLabel);
+            var contactOffset = action == "pull" ? objectDirection * 0.82f : -objectDirection * 0.82f;
+            var objectPosition = task.ObjectStartPosition;
+            var contactPosition = task.ObjectStartPosition + contactOffset;
+            var facing = action == "pull" ? -objectDirection : objectDirection;
+            var allowWalkAnimation = phase == MiniBotSocialPhase.Approach || phase == MiniBotSocialPhase.Disperse;
+
+            if (phase == MiniBotSocialPhase.Approach)
+            {
+                var startPosition = WanderPosition(agent, task.StartSeconds, out _);
+                var t = Mathf.InverseLerp(task.StartSeconds, task.WorkStartSeconds, sampleTime);
+                contactPosition = Vector3.Lerp(startPosition, task.ObjectStartPosition + contactOffset, Smooth01(t));
+                facing = contactPosition - startPosition;
+            }
+            else if (phase == MiniBotSocialPhase.React)
+            {
+                var workT = Mathf.InverseLerp(task.WorkStartSeconds, task.LeaveStartSeconds, sampleTime);
+                objectPosition = Vector3.Lerp(task.ObjectStartPosition, task.ObjectEndPosition, Smooth01(workT));
+                task.MovableObject.position = objectPosition;
+                contactPosition = task.ObjectStartPosition + contactOffset;
+                facing = action == "pull" ? -objectDirection : objectDirection;
+                currentChatText = $"{agent.AgentId} {task.ActionLabel} {task.MovableObject.name}.";
+                currentActionMappingText = $"{agent.AgentId}: object task -> {task.ActionLabel} clip + prop motion";
+            }
+            else if (phase == MiniBotSocialPhase.Disperse)
+            {
+                task.MovableObject.position = task.ObjectEndPosition;
+                var t = Mathf.InverseLerp(task.LeaveStartSeconds, task.EndSeconds, sampleTime);
+                var leaveTarget = task.ObjectEndPosition - contactOffset * 1.8f;
+                contactPosition = Vector3.Lerp(task.ObjectStartPosition + contactOffset, leaveTarget, Smooth01(t));
+                facing = leaveTarget - (task.ObjectStartPosition + contactOffset);
+            }
+            else
+            {
+                task.MovableObject.position = task.ObjectStartPosition;
+            }
+
+            if (phase == MiniBotSocialPhase.React)
+            {
+                EnsureMovementController(agent.Agent.gameObject).ResetTracking();
+                previousPositions[agent.AgentId] = contactPosition;
+                previousSampleTimes[agent.AgentId] = sampleTime;
+            }
+
+            var appliedFacing = ApplyPose(
+                agent,
+                contactPosition,
+                NormalizePlanarOrForward(facing),
+                phase == MiniBotSocialPhase.React,
+                sampleTime,
+                allowWalkAnimation,
+                phase,
+                task.MovableObject.name,
+                task.ActionLabel);
+            StoreSnapshot(agent, phase, contactPosition, appliedFacing, task.MovableObject.name, task.ActionLabel);
+        }
+
         private bool TryResolveInteraction(
             SocialAgent agent,
             float sampleTime,
@@ -437,6 +537,31 @@ namespace ArgusUnity.Runtime
 
             interaction = null;
             partner = null;
+            phase = MiniBotSocialPhase.Wander;
+            return false;
+        }
+
+        private bool TryResolveObjectTask(
+            SocialAgent agent,
+            float sampleTime,
+            out SocialObjectTask task,
+            out MiniBotSocialPhase phase)
+        {
+            for (var i = 0; i < objectTasks.Count; i++)
+            {
+                task = objectTasks[i];
+                if (task.AgentId != agent.AgentId ||
+                    sampleTime < task.StartSeconds ||
+                    sampleTime >= task.EndSeconds)
+                {
+                    continue;
+                }
+
+                phase = task.PhaseAt(sampleTime);
+                return true;
+            }
+
+            task = null;
             phase = MiniBotSocialPhase.Wander;
             return false;
         }
@@ -526,7 +651,7 @@ namespace ArgusUnity.Runtime
             ApplyMixamoMotion(agent, speed, turnDegrees, isMoving, markerVisible, deltaTime, sampleTime, phase, partnerId, actionLabel);
 
             var headingAlignmentDegrees = movement.LastHeadingAlignmentDegrees;
-            AppendGaitTrace(agent, movement, distanceDelta, headingAlignmentDegrees, sampleTime);
+            AppendGaitTrace(agent, movement, distanceDelta, headingAlignmentDegrees, sampleTime, phase, actionLabel);
 
             previousPositions[agent.AgentId] = appliedPosition;
             previousSampleTimes[agent.AgentId] = sampleTime;
@@ -551,7 +676,14 @@ namespace ArgusUnity.Runtime
             string partnerId,
             string actionLabel)
         {
-            var isTranslating = isMoving || speed > 0.05f;
+            var isObjectWork = phase == MiniBotSocialPhase.React && IsObjectActionLabel(actionLabel);
+            if (isObjectWork)
+            {
+                speed = 0f;
+                isMoving = false;
+            }
+
+            var isTranslating = !isObjectWork && (isMoving || speed > 0.05f);
             var driver = EnsureAnimatorDriver(agent.Agent.gameObject);
             var debugState = EnsureMotionDebugState(agent);
             var profile = EnsureMotionProfile(agent);
@@ -658,6 +790,12 @@ namespace ArgusUnity.Runtime
 
         private static MotionEmotion EmotionFor(string archetype, MiniBotSocialPhase phase, string actionLabel)
         {
+            var action = Normalize(actionLabel);
+            if (action == "push" || action == "pull" || action == "pickup" || action == "button")
+            {
+                return MotionEmotion.Neutral;
+            }
+
             if (phase == MiniBotSocialPhase.React)
             {
                 switch (Normalize(actionLabel))
@@ -689,6 +827,12 @@ namespace ArgusUnity.Runtime
 
         private static MotionGesture GestureFor(string archetype, MiniBotSocialPhase phase, string actionLabel)
         {
+            var action = Normalize(actionLabel);
+            if (action == "push" || action == "pull" || action == "pickup" || action == "button")
+            {
+                return MotionGesture.None;
+            }
+
             if (phase == MiniBotSocialPhase.Chat)
             {
                 switch (Normalize(actionLabel))
@@ -715,12 +859,40 @@ namespace ArgusUnity.Runtime
 
         private static MotionAction ActionFor(MiniBotSocialPhase phase, string actionLabel)
         {
-            if (phase == MiniBotSocialPhase.React && Normalize(actionLabel) == "debate")
+            if (phase != MiniBotSocialPhase.React)
             {
-                return MotionAction.StepBackward;
+                return MotionAction.None;
             }
 
-            return MotionAction.None;
+            switch (Normalize(actionLabel))
+            {
+                case "push":
+                    return MotionAction.Push;
+                case "pull":
+                    return MotionAction.PullHeavy;
+                case "pickup":
+                    return MotionAction.PickUp;
+                case "button":
+                    return MotionAction.ButtonPush;
+                case "debate":
+                    return MotionAction.StepBackward;
+                default:
+                    return MotionAction.None;
+            }
+        }
+
+        private static bool IsObjectActionLabel(string actionLabel)
+        {
+            switch (Normalize(actionLabel))
+            {
+                case "push":
+                case "pull":
+                case "pickup":
+                case "button":
+                    return true;
+                default:
+                    return false;
+            }
         }
 
         private static MotionIntentType IntentTypeFor(
@@ -735,6 +907,22 @@ namespace ArgusUnity.Runtime
             {
                 return speed >= 0.95f ? MotionIntentType.Run : MotionIntentType.WalkForward;
             }
+
+            if (phase == MiniBotSocialPhase.React)
+            {
+                switch (Normalize(actionLabel))
+                {
+                    case "push":
+                        return MotionIntentType.Push;
+                    case "pull":
+                        return MotionIntentType.Pull;
+                    case "pickup":
+                        return MotionIntentType.PickUp;
+                    case "button":
+                        return MotionIntentType.ButtonPush;
+                }
+            }
+
 
             if (phase == MiniBotSocialPhase.Chat)
             {
@@ -969,7 +1157,7 @@ namespace ArgusUnity.Runtime
             return new JObject
             {
                 ["video"] = "tmp/mini_bot_run_working.mp4",
-                ["duration_seconds"] = 8.0f,
+                ["duration_seconds"] = 120.0f,
                 ["fps"] = 30,
                 ["observed_issue"] = "feet can cycle independently from floor cadence if timeline targets exceed natural walk speed",
                 ["diagnosis"] = "timeline speed and gait cycle mismatch",
@@ -983,7 +1171,9 @@ namespace ArgusUnity.Runtime
             MinibotMovementController movement,
             float distanceDelta,
             float headingAlignmentDegrees,
-            float sampleTime)
+            float sampleTime,
+            MiniBotSocialPhase phase,
+            string actionLabel)
         {
             if (!gaitDumpInitialized || movement == null)
             {
@@ -1017,6 +1207,8 @@ namespace ArgusUnity.Runtime
                 ["frame"] = Time.frameCount,
                 ["sample_time"] = sampleTime,
                 ["agent_id"] = agent.AgentId,
+                ["phase"] = phase.ToString(),
+                ["action_label"] = actionLabel ?? string.Empty,
                 ["actual_speed_mps"] = speed,
                 ["walk_speed_limit_mps"] = movement.LastSpeedLimitMetersPerSecond,
                 ["distance_delta"] = distanceDelta,
@@ -1027,6 +1219,7 @@ namespace ArgusUnity.Runtime
                 ["selected_base_clip"] = debugState != null ? debugState.SelectedBaseClipName : string.Empty,
                 ["selected_overlay_clip"] = debugState != null ? debugState.SelectedOverlayClipName : string.Empty,
                 ["selected_emotion_clip"] = debugState != null ? debugState.SelectedEmotionClipName : string.Empty,
+                ["motion_intent"] = debugState != null ? debugState.CurrentIntent.ToString() : string.Empty,
                 ["applied_base_clip"] = debugState != null ? debugState.CurrentBaseClipName : string.Empty,
                 ["applied_overlay_clip"] = debugState != null ? debugState.CurrentOverlayClipName : string.Empty,
                 ["applied_emotion_clip"] = debugState != null ? debugState.CurrentEmotionClipName : string.Empty,
@@ -1285,6 +1478,85 @@ namespace ArgusUnity.Runtime
                 return sampleTime < DisperseStartSeconds
                     ? MiniBotSocialPhase.React
                     : MiniBotSocialPhase.Disperse;
+            }
+        }
+
+        [Serializable]
+        private sealed class SocialObjectTask
+        {
+            public SocialObjectTask(
+                string agentId,
+                Transform movableObject,
+                Vector3 objectStartPosition,
+                Vector3 objectEndPosition,
+                float startSeconds,
+                float approachSeconds,
+                float workSeconds,
+                float leaveSeconds,
+                string actionLabel)
+            {
+                this.agentId = agentId;
+                this.movableObject = movableObject;
+                this.objectStartPosition = objectStartPosition;
+                this.objectEndPosition = objectEndPosition;
+                this.startSeconds = startSeconds;
+                this.approachSeconds = approachSeconds;
+                this.workSeconds = workSeconds;
+                this.leaveSeconds = leaveSeconds;
+                this.actionLabel = actionLabel;
+                this.movableObject.position = objectStartPosition;
+            }
+
+            [SerializeField]
+            private string agentId;
+
+            [SerializeField]
+            private Transform movableObject;
+
+            [SerializeField]
+            private Vector3 objectStartPosition;
+
+            [SerializeField]
+            private Vector3 objectEndPosition;
+
+            [SerializeField]
+            private float startSeconds;
+
+            [SerializeField]
+            private float approachSeconds;
+
+            [SerializeField]
+            private float workSeconds;
+
+            [SerializeField]
+            private float leaveSeconds;
+
+            [SerializeField]
+            private string actionLabel;
+
+            public string AgentId => agentId;
+            public Transform MovableObject => movableObject;
+            public Vector3 ObjectStartPosition => objectStartPosition;
+            public Vector3 ObjectEndPosition => objectEndPosition;
+            public float StartSeconds => startSeconds;
+            public float WorkStartSeconds => startSeconds + approachSeconds;
+            public float LeaveStartSeconds => WorkStartSeconds + workSeconds;
+            public float EndSeconds => LeaveStartSeconds + leaveSeconds;
+            public string ActionLabel => actionLabel;
+
+            public MiniBotSocialPhase PhaseAt(float sampleTime)
+            {
+                if (sampleTime < WorkStartSeconds)
+                {
+                    return MiniBotSocialPhase.Approach;
+                }
+
+                if (sampleTime < LeaveStartSeconds)
+                {
+                    return MiniBotSocialPhase.React;
+                }
+
+                return MiniBotSocialPhase.Disperse;
             }
         }
     }

@@ -140,6 +140,44 @@ namespace ArgusUnity.Tests.EditMode
         }
 
         [Test]
+        public void ObjectTaskMovesPropAndMapsToPushAction()
+        {
+            var fixture = CreateFixture();
+            var box = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            try
+            {
+                box.name = "Test Supply Box";
+                fixture.Scenario.RegisterObjectTask(
+                    "B01",
+                    box.transform,
+                    new Vector3(-0.2f, 0.3f, 2.2f),
+                    new Vector3(0.8f, 0.3f, 2.2f),
+                    24f,
+                    3f,
+                    4f,
+                    2f,
+                    "push");
+
+                fixture.Scenario.ApplyAtTime(24f);
+                fixture.Scenario.ApplyAtTime(27.5f);
+                fixture.Scenario.ApplyAtTime(29.5f);
+
+                Assert.That(box.transform.position.x, Is.GreaterThan(-0.2f));
+                Assert.That(fixture.Scenario.TryGetCurrentSnapshot("B01", out var snapshot), Is.True);
+                Assert.That(snapshot.ActionLabel, Is.EqualTo("push"));
+                Assert.That(fixture.Scenario.TryGetMotionDebugState("B01", out var motionDebug), Is.True);
+                Assert.That(motionDebug.CurrentIntent, Is.EqualTo(MotionIntentType.Push));
+                Assert.That(motionDebug.SelectedBaseClip, Is.EqualTo(MotionClipId.Push));
+                Assert.That(fixture.Third.GetComponent<MinibotBlackboard>().MappedUnityAction, Does.Contain("push"));
+            }
+            finally
+            {
+                Object.DestroyImmediate(box);
+                fixture.Destroy();
+            }
+        }
+
+        [Test]
         public void CaptureWindowContainsMultipleSocialMeetups()
         {
             var fixture = CreateFixture();
