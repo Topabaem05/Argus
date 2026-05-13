@@ -23,7 +23,8 @@ The bridge path still receives target-position movement commands. The RunAround 
 5. `MiniBotWalkAnimator.minimumWalkCycleSeconds` starts at `1.0` so a 30 FPS walk cycle cannot visually restart before 30 rendered frames.
 6. When `MiniBotRunAroundScenario` externally samples a distance-synced pose, that sampled pose is authoritative for the frame; `LateUpdate()` must not advance and apply the walk cycle a second time.
 7. During approach/disperse, body facing follows locomotion direction. Partner gaze is applied when the bot reaches chat/react state.
-8. Gait evidence is written to `reports/unity_dumps/minibot_gait_trace.jsonl`.
+8. `MinibotMovementController` treats actual applied movement as authoritative for body heading, so an accidental `look_at_partner` facing command cannot force a visible moving bot into a crab-walk pose.
+9. Gait evidence is written to `reports/unity_dumps/minibot_gait_trace.jsonl`.
 
 ## Acceptance Criteria
 

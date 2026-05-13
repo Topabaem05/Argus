@@ -12,6 +12,12 @@ namespace ArgusUnity.Runtime
         [SerializeField]
         private float colliderRadius = 0.22f;
 
+        [SerializeField]
+        private bool alignFacingToMovement = true;
+
+        [SerializeField]
+        private float movementFacingThresholdMeters = 0.002f;
+
         private Rigidbody body;
         private CapsuleCollider capsule;
         private bool hasPreviousPose;
@@ -27,6 +33,10 @@ namespace ArgusUnity.Runtime
         public float LastAllowedStepMeters { get; private set; }
         public float LastSpeedLimitMetersPerSecond { get; private set; }
         public bool LastSpeedLimitExceeded { get; private set; }
+        public Vector3 LastRequestedFacingDirection { get; private set; }
+        public Vector3 LastAppliedFacingDirection { get; private set; }
+        public float LastHeadingAlignmentDegrees { get; private set; }
+        public bool LastFacingAlignedToMovement { get; private set; }
 
         private void Awake()
         {
@@ -42,18 +52,18 @@ namespace ArgusUnity.Runtime
             ConfigureBody();
             LastMovementTarget = targetPosition;
 
-            var targetRotation = transform.rotation;
-            facingDirection.y = 0f;
-            if (facingDirection.sqrMagnitude > 0.001f)
-            {
-                targetRotation = Quaternion.LookRotation(facingDirection.normalized, Vector3.up);
-            }
+            var requestedFacing = ResolvePlanarDirection(facingDirection, transform.forward);
+            LastRequestedFacingDirection = requestedFacing;
+            LastAppliedFacingDirection = requestedFacing;
+            LastFacingAlignedToMovement = false;
+            LastHeadingAlignmentDegrees = 0f;
 
             if (!hasPreviousPose)
             {
+                var initialRotation = Quaternion.LookRotation(requestedFacing, Vector3.up);
                 LastAppliedPosition = targetPosition;
                 previousPosition = targetPosition;
-                previousYaw = targetRotation.eulerAngles.y;
+                previousYaw = initialRotation.eulerAngles.y;
                 previousSampleTime = sampleTime;
                 hasPreviousPose = true;
                 LastPlanarSpeed = 0f;
@@ -64,8 +74,8 @@ namespace ArgusUnity.Runtime
                 LastSpeedLimitExceeded = false;
 
                 body.MovePosition(targetPosition);
-                body.MoveRotation(targetRotation);
-                transform.SetPositionAndRotation(targetPosition, targetRotation);
+                body.MoveRotation(initialRotation);
+                transform.SetPositionAndRotation(targetPosition, initialRotation);
                 return;
             }
 
@@ -85,6 +95,16 @@ namespace ArgusUnity.Runtime
             var appliedPosition = new Vector3(planarPosition.x, targetPosition.y, planarPosition.z);
             var appliedDelta = appliedPosition - previousPosition;
             appliedDelta.y = 0f;
+            var appliedFacing = requestedFacing;
+            if (alignFacingToMovement && appliedDelta.magnitude > Mathf.Max(0.0001f, movementFacingThresholdMeters))
+            {
+                appliedFacing = appliedDelta.normalized;
+                LastFacingAlignedToMovement = true;
+            }
+
+            var targetRotation = Quaternion.LookRotation(appliedFacing, Vector3.up);
+            LastAppliedFacingDirection = appliedFacing;
+            LastHeadingAlignmentDegrees = ResolveHeadingAlignmentDegrees(appliedDelta, appliedFacing);
 
             LastAppliedPosition = appliedPosition;
             LastActualStepMeters = appliedDelta.magnitude;
@@ -117,6 +137,10 @@ namespace ArgusUnity.Runtime
             LastAllowedStepMeters = 0f;
             LastSpeedLimitMetersPerSecond = 0f;
             LastSpeedLimitExceeded = false;
+            LastRequestedFacingDirection = transform.forward;
+            LastAppliedFacingDirection = transform.forward;
+            LastHeadingAlignmentDegrees = 0f;
+            LastFacingAlignedToMovement = false;
         }
 
         private void ConfigureBody()
@@ -139,6 +163,30 @@ namespace ArgusUnity.Runtime
             capsule.height = Mathf.Max(0.2f, colliderHeight);
             capsule.radius = Mathf.Max(0.05f, colliderRadius);
             capsule.center = Vector3.up * (capsule.height * 0.5f);
+        }
+
+        private static Vector3 ResolvePlanarDirection(Vector3 direction, Vector3 fallback)
+        {
+            direction.y = 0f;
+            if (direction.sqrMagnitude > 0.001f)
+            {
+                return direction.normalized;
+            }
+
+            fallback.y = 0f;
+            return fallback.sqrMagnitude > 0.001f ? fallback.normalized : Vector3.forward;
+        }
+
+        private static float ResolveHeadingAlignmentDegrees(Vector3 planarDelta, Vector3 facingDirection)
+        {
+            planarDelta.y = 0f;
+            facingDirection.y = 0f;
+            if (planarDelta.sqrMagnitude <= 0.000001f || facingDirection.sqrMagnitude <= 0.000001f)
+            {
+                return 0f;
+            }
+
+            return Vector3.Angle(planarDelta.normalized, facingDirection.normalized);
         }
     }
 }

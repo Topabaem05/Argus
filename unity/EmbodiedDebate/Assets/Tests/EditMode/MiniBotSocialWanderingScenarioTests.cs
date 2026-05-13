@@ -183,6 +183,31 @@ namespace ArgusUnity.Tests.EditMode
         }
 
         [Test]
+        public void KinematicMovementFacesActualTravelDirectionWhenRequestedFacingIsSideways()
+        {
+            var bot = new GameObject("heading guard bot");
+            try
+            {
+                bot.AddComponent<Rigidbody>();
+                bot.AddComponent<CapsuleCollider>();
+                var movement = bot.AddComponent<MinibotMovementController>();
+
+                movement.ApplyKinematicPose(Vector3.zero, Vector3.forward, 0f, 0.55f);
+                movement.ApplyKinematicPose(new Vector3(3f, 0f, 0f), Vector3.forward, 1f, 0.55f);
+
+                var expectedTravel = Vector3.right;
+                Assert.That(Vector3.Dot(bot.transform.forward.normalized, expectedTravel), Is.GreaterThan(0.95f));
+                Assert.That(Vector3.Dot(movement.LastAppliedFacingDirection.normalized, expectedTravel), Is.GreaterThan(0.95f));
+                Assert.That(movement.LastFacingAlignedToMovement, Is.True);
+                Assert.That(movement.LastHeadingAlignmentDegrees, Is.LessThan(5f));
+            }
+            finally
+            {
+                Object.DestroyImmediate(bot);
+            }
+        }
+
+        [Test]
         public void InteractionDurationsUseWalkCadence()
         {
             var fixture = CreateFixture();

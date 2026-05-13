@@ -133,6 +133,7 @@ Rules for the showcase path:
 - `MiniBotWalkAnimator.minimumWalkCycleSeconds` starts at `1.0` so the visible walk cycle cannot restart before a 30 FPS one-second cycle completes.
 - In RunAround, `SampleDistanceSyncedPose()` is authoritative for that rendered frame; `LateUpdate()` skips its own phase advance afterward to avoid applying two gait samples in one frame.
 - During approach/disperse, the MiniBot body faces the movement direction. It turns to face the partner only after entering chat/react, so walking does not stage as a sideways crab walk.
+- `MinibotMovementController` also guards against bad facing input: while a visible planar step is being applied, the final body rotation is derived from the actual speed-limited movement delta rather than a partner-gaze vector.
 
 Use `reports/unity_dumps/minibot_gait_trace.jsonl` to check:
 

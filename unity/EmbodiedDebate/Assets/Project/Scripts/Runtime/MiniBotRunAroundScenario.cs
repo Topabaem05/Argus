@@ -501,7 +501,7 @@ namespace ArgusUnity.Runtime
                 animator.SampleDistanceSyncedPose(walkedDistance, isMoving, turnDegrees);
             }
 
-            var headingAlignmentDegrees = ResolveHeadingAlignmentDegrees(appliedDelta, appliedFacingDirection);
+            var headingAlignmentDegrees = movement.LastHeadingAlignmentDegrees;
             AppendGaitTrace(agent, animator, movement, distanceDelta, headingAlignmentDegrees, sampleTime);
 
             previousPositions[agent.AgentId] = appliedPosition;
@@ -671,18 +671,6 @@ namespace ArgusUnity.Runtime
             first.y = 0f;
             second.y = 0f;
             return Vector3.Distance(first, second);
-        }
-
-        private static float ResolveHeadingAlignmentDegrees(Vector3 planarDelta, Vector3 facingDirection)
-        {
-            planarDelta.y = 0f;
-            facingDirection.y = 0f;
-            if (planarDelta.sqrMagnitude <= 0.000001f || facingDirection.sqrMagnitude <= 0.000001f)
-            {
-                return 0f;
-            }
-
-            return Vector3.Angle(planarDelta.normalized, facingDirection.normalized);
         }
 
         private void InitializeGaitDump()
