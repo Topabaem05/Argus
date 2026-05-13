@@ -26,6 +26,22 @@ The bridge path still receives target-position movement commands. The RunAround 
 8. `MinibotMovementController` treats actual applied movement as authoritative for body heading, so an accidental `look_at_partner` facing command cannot force a visible moving bot into a crab-walk pose.
 9. Gait evidence is written to `reports/unity_dumps/minibot_gait_trace.jsonl`.
 
+## Unity Reference Rules
+
+This runtime keeps the MiniBot root controlled by script, not animation root motion:
+
+- Use kinematic `Rigidbody.MovePosition()` and `Rigidbody.MoveRotation()` for the root object because Unity applies Rigidbody interpolation between rendered frames.
+- Use Animator parameters only as visual representation of actual movement; `Speed` and turn values must be derived from applied delta, not requested targets.
+- Keep root motion disabled for the current showcase path. Unity's Root Motion settings are useful for imported clips, but Argus currently uses distance-synced in-place animation so that backend movement remains deterministic.
+- Do not delay root yaw while a visible planar step is being applied. If rotation easing is needed, apply it to an upper/visual layer or to idle/chat turn-in-place only; delaying the root while translating creates sideways walking.
+
+Reference docs:
+
+- [Unity Rigidbody.MovePosition](https://docs.unity.cn/2021.2/Documentation/ScriptReference/Rigidbody.MovePosition.html)
+- [Unity Rigidbody.MoveRotation](https://docs.unity3d.com/ja/current/ScriptReference/Rigidbody.MoveRotation.html)
+- [Unity Animator.SetFloat](https://docs.unity.cn/ScriptReference/Animator.SetFloat.html)
+- [Unity Root Motion](https://docs.unity.cn/Manual/RootMotion.html)
+
 ## Acceptance Criteria
 
 - Walk movement stays under `0.85 m/s` unless a run clip is active.

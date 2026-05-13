@@ -134,6 +134,7 @@ Rules for the showcase path:
 - In RunAround, `SampleDistanceSyncedPose()` is authoritative for that rendered frame; `LateUpdate()` skips its own phase advance afterward to avoid applying two gait samples in one frame.
 - During approach/disperse, the MiniBot body faces the movement direction. It turns to face the partner only after entering chat/react, so walking does not stage as a sideways crab walk.
 - `MinibotMovementController` also guards against bad facing input: while a visible planar step is being applied, the final body rotation is derived from the actual speed-limited movement delta rather than a partner-gaze vector.
+- Per Unity's kinematic Rigidbody guidance, `MovePosition`/`MoveRotation` provide the root transform movement with interpolation. Rotation smoothing must not leave the translating root pointed away from its applied movement delta.
 
 Use `reports/unity_dumps/minibot_gait_trace.jsonl` to check:
 
