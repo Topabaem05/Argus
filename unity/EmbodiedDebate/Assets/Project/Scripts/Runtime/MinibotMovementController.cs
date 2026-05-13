@@ -46,6 +46,7 @@ namespace ArgusUnity.Runtime
         public Rigidbody LastPushedRigidbody { get; private set; }
         public float LastPushedDistanceMeters { get; private set; }
         public bool LastBlockedByStaticCollider { get; private set; }
+        public string LastCollisionName { get; private set; } = string.Empty;
 
         private void Awake()
         {
@@ -154,6 +155,7 @@ namespace ArgusUnity.Runtime
             LastPushedRigidbody = null;
             LastPushedDistanceMeters = 0f;
             LastBlockedByStaticCollider = false;
+            LastCollisionName = string.Empty;
         }
 
         private void ConfigureBody()
@@ -186,6 +188,7 @@ namespace ArgusUnity.Runtime
             LastPushedRigidbody = null;
             LastPushedDistanceMeters = 0f;
             LastBlockedByStaticCollider = false;
+            LastCollisionName = string.Empty;
 
             var planarDelta = to - from;
             planarDelta.y = 0f;
@@ -220,12 +223,19 @@ namespace ArgusUnity.Runtime
                     continue;
                 }
 
+                if (IsGroundSupportHit(hit.collider, from))
+                {
+                    continue;
+                }
+
                 var hitBody = hit.rigidbody;
+                LastCollisionName = hit.collider.name;
                 if (CanPush(hitBody))
                 {
                     PushBody(hitBody, direction * distance);
                     LastPushedRigidbody = hitBody;
                     LastPushedDistanceMeters = distance;
+                    LastCollisionName = hitBody.name;
                     return to;
                 }
 
@@ -235,6 +245,11 @@ namespace ArgusUnity.Runtime
             }
 
             return to;
+        }
+
+        private static bool IsGroundSupportHit(Collider hitCollider, Vector3 rootPosition)
+        {
+            return hitCollider.bounds.max.y <= rootPosition.y + 0.05f;
         }
 
         private bool CanPush(Rigidbody hitBody)

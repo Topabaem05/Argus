@@ -51,6 +51,8 @@ namespace ArgusUnity.Runtime
         private const float MinimumApproachSeconds = 2.5f;
         private const float MinimumDisperseSeconds = 1.8f;
         private const float VisibleWalkingStepMeters = 0.012f;
+        private const float MinibotObjectContactRadiusMeters = 0.24f;
+        private const float ObjectContactSkinMeters = 0.035f;
         private const string ReportDirectory = "reports/unity_dumps";
         private const string GaitTraceFileName = "minibot_gait_trace.jsonl";
 
@@ -197,13 +199,31 @@ namespace ArgusUnity.Runtime
                 return;
             }
 
+            var objectDirection = NormalizePlanarOrForward(objectEndPosition - objectStartPosition);
+            var contactDistance = ResolveObjectContactDistance(movableObject, objectDirection);
+            var action = Normalize(actionLabel);
+            var contactOffset = action == "pull" ? objectDirection * contactDistance : -objectDirection * contactDistance;
+            var resolvedAgent = FindAgent(agentId.Trim());
+            var resolvedApproachSeconds = Mathf.Max(MinimumApproachSeconds, approachSeconds);
+            if (resolvedAgent != null)
+            {
+                var startPosition = WanderPosition(resolvedAgent, startSeconds, out _);
+                var contactStartPosition = objectStartPosition + contactOffset;
+                var approachDistance = Vector3.Distance(
+                    new Vector3(startPosition.x, 0f, startPosition.z),
+                    new Vector3(contactStartPosition.x, 0f, contactStartPosition.z));
+                resolvedApproachSeconds = Mathf.Max(
+                    resolvedApproachSeconds,
+                    approachDistance / Mathf.Max(0.1f, resolvedAgent.WalkSpeedMetersPerSecond) * 1.1f);
+            }
+
             objectTasks.Add(new SocialObjectTask(
                 agentId.Trim(),
                 movableObject,
                 RoomNavigationMath.ClampPlanarWithInset(objectStartPosition, roomMin, roomMax, wallMargin),
                 RoomNavigationMath.ClampPlanarWithInset(objectEndPosition, roomMin, roomMax, wallMargin),
                 Mathf.Max(0f, startSeconds),
-                Mathf.Max(MinimumApproachSeconds, approachSeconds),
+                resolvedApproachSeconds,
                 Mathf.Max(0.5f, workSeconds),
                 Mathf.Max(MinimumDisperseSeconds, leaveSeconds),
                 string.IsNullOrWhiteSpace(actionLabel) ? "push" : actionLabel.Trim()));
@@ -457,9 +477,12 @@ namespace ArgusUnity.Runtime
         {
             var objectDirection = NormalizePlanarOrForward(task.ObjectEndPosition - task.ObjectStartPosition);
             var action = Normalize(task.ActionLabel);
-            var contactOffset = action == "pull" ? objectDirection * 0.82f : -objectDirection * 0.82f;
+            var contactDistance = ResolveObjectContactDistance(task.MovableObject, objectDirection);
+            var contactOffset = action == "pull" ? objectDirection * contactDistance : -objectDirection * contactDistance;
             var objectPosition = task.ObjectStartPosition;
-            var contactPosition = task.ObjectStartPosition + contactOffset;
+            var contactStartPosition = task.ObjectStartPosition + contactOffset;
+            var contactEndPosition = task.ObjectEndPosition + contactOffset;
+            var contactPosition = contactStartPosition;
             var facing = action == "pull" ? -objectDirection : objectDirection;
             var allowWalkAnimation = phase == MiniBotSocialPhase.Approach || phase == MiniBotSocialPhase.Disperse;
 
@@ -467,15 +490,23 @@ namespace ArgusUnity.Runtime
             {
                 var startPosition = WanderPosition(agent, task.StartSeconds, out _);
                 var t = Mathf.InverseLerp(task.StartSeconds, task.WorkStartSeconds, sampleTime);
-                contactPosition = Vector3.Lerp(startPosition, task.ObjectStartPosition + contactOffset, Smooth01(t));
+                contactPosition = Vector3.Lerp(startPosition, contactStartPosition, Smooth01(t));
                 facing = contactPosition - startPosition;
             }
             else if (phase == MiniBotSocialPhase.React)
             {
                 var workT = Mathf.InverseLerp(task.WorkStartSeconds, task.LeaveStartSeconds, sampleTime);
                 objectPosition = Vector3.Lerp(task.ObjectStartPosition, task.ObjectEndPosition, Smooth01(workT));
-                ApplyMovableObjectPosition(task.MovableObject, objectPosition);
-                contactPosition = task.ObjectStartPosition + contactOffset;
+                if (action == "push")
+                {
+                    contactPosition = Vector3.Lerp(contactStartPosition, contactEndPosition, Smooth01(workT));
+                }
+                else
+                {
+                    ApplyMovableObjectPosition(task.MovableObject, objectPosition);
+                    contactPosition = objectPosition + contactOffset;
+                }
+
                 facing = action == "pull" ? -objectDirection : objectDirection;
                 currentChatText = $"{agent.AgentId} {task.ActionLabel} {task.MovableObject.name}.";
                 currentActionMappingText = $"{agent.AgentId}: object task -> {task.ActionLabel} clip + prop motion";
@@ -484,20 +515,14 @@ namespace ArgusUnity.Runtime
             {
                 ApplyMovableObjectPosition(task.MovableObject, task.ObjectEndPosition);
                 var t = Mathf.InverseLerp(task.LeaveStartSeconds, task.EndSeconds, sampleTime);
+                var leaveStart = task.ObjectEndPosition + contactOffset;
                 var leaveTarget = task.ObjectEndPosition - contactOffset * 1.8f;
-                contactPosition = Vector3.Lerp(task.ObjectStartPosition + contactOffset, leaveTarget, Smooth01(t));
-                facing = leaveTarget - (task.ObjectStartPosition + contactOffset);
+                contactPosition = Vector3.Lerp(leaveStart, leaveTarget, Smooth01(t));
+                facing = leaveTarget - leaveStart;
             }
             else
             {
                 ApplyMovableObjectPosition(task.MovableObject, task.ObjectStartPosition);
-            }
-
-            if (phase == MiniBotSocialPhase.React)
-            {
-                EnsureMovementController(agent.Agent.gameObject).ResetTracking();
-                previousPositions[agent.AgentId] = contactPosition;
-                previousSampleTimes[agent.AgentId] = sampleTime;
             }
 
             var appliedFacing = ApplyPose(
@@ -532,6 +557,25 @@ namespace ArgusUnity.Runtime
             rigidbody.angularVelocity = Vector3.zero;
             rigidbody.MovePosition(position);
             rigidbody.position = position;
+        }
+
+        private static float ResolveObjectContactDistance(Transform movableObject, Vector3 objectDirection)
+        {
+            var objectHalfExtent = 0.5f;
+            if (movableObject != null)
+            {
+                var collider = movableObject.GetComponent<Collider>();
+                if (collider != null)
+                {
+                    var extents = collider.bounds.extents;
+                    var direction = NormalizePlanarOrForward(objectDirection);
+                    objectHalfExtent =
+                        Mathf.Abs(direction.x) * extents.x +
+                        Mathf.Abs(direction.z) * extents.z;
+                }
+            }
+
+            return Mathf.Max(0.35f, objectHalfExtent + MinibotObjectContactRadiusMeters + ObjectContactSkinMeters);
         }
 
         private bool TryResolveInteraction(
@@ -1245,6 +1289,9 @@ namespace ArgusUnity.Runtime
                 ["applied_overlay_clip"] = debugState != null ? debugState.CurrentOverlayClipName : string.Empty,
                 ["applied_emotion_clip"] = debugState != null ? debugState.CurrentEmotionClipName : string.Empty,
                 ["heading_alignment_degrees"] = headingAlignmentDegrees,
+                ["pushed_rigidbody"] = movement.LastPushedRigidbody != null ? movement.LastPushedRigidbody.name : string.Empty,
+                ["blocked_by_static_collider"] = movement.LastBlockedByStaticCollider,
+                ["collision_name"] = movement.LastCollisionName ?? string.Empty,
                 ["stride_warning"] = warning
             };
             File.AppendAllText(

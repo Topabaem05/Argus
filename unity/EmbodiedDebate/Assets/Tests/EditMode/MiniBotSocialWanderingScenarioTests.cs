@@ -148,9 +148,11 @@ namespace ArgusUnity.Tests.EditMode
             try
             {
                 box.name = "Test Supply Box";
+                box.transform.position = new Vector3(-0.2f, 0.3f, 2.2f);
+                box.transform.localScale = Vector3.one;
                 boxBody.mass = 6f;
                 boxBody.isKinematic = false;
-                boxBody.useGravity = true;
+                boxBody.useGravity = false;
                 fixture.Scenario.RegisterObjectTask(
                     "B01",
                     box.transform,
@@ -163,10 +165,25 @@ namespace ArgusUnity.Tests.EditMode
                     "push");
 
                 fixture.Scenario.ApplyAtTime(24f);
-                fixture.Scenario.ApplyAtTime(27.5f);
-                fixture.Scenario.ApplyAtTime(29.5f);
+                var beforeWorkBoxX = box.transform.position.x;
+                var pushMovement = fixture.Third.GetComponent<MinibotMovementController>();
+                var pushedDuringWork = false;
+                var blockedDuringWork = false;
+                for (var frame = 1; frame <= 360; frame++)
+                {
+                    fixture.Scenario.ApplyAtTime(24f + frame / 30f);
+                    pushedDuringWork = pushMovement.LastPushedRigidbody == boxBody;
+                    blockedDuringWork = pushMovement.LastBlockedByStaticCollider;
+                    if (pushedDuringWork)
+                    {
+                        break;
+                    }
+                }
 
-                Assert.That(box.transform.position.x, Is.GreaterThan(-0.2f));
+                Assert.That(box.transform.position.x, Is.GreaterThan(beforeWorkBoxX));
+                Assert.That(pushedDuringWork, Is.True);
+                Assert.That(blockedDuringWork, Is.False);
+                Assert.That(fixture.Third.position.x, Is.LessThan(box.transform.position.x));
                 Assert.That(boxBody.mass, Is.EqualTo(6f).Within(0.0001f));
                 Assert.That(boxBody.isKinematic, Is.False);
                 Assert.That(box.GetComponent<BoxCollider>(), Is.Not.Null);
@@ -347,6 +364,37 @@ namespace ArgusUnity.Tests.EditMode
             {
                 Object.DestroyImmediate(bot);
                 Object.DestroyImmediate(wall);
+            }
+        }
+
+        [Test]
+        public void KinematicMovementIgnoresGroundSupportColliderDuringHorizontalMovement()
+        {
+            var bot = new GameObject("ground support bot");
+            var floor = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            try
+            {
+                bot.transform.position = new Vector3(40f, 0f, 40f);
+                bot.AddComponent<Rigidbody>();
+                bot.AddComponent<CapsuleCollider>();
+                var movement = bot.AddComponent<MinibotMovementController>();
+
+                floor.name = "test support floor";
+                floor.transform.position = new Vector3(40f, -0.08f, 40f);
+                floor.transform.localScale = new Vector3(8f, 0.16f, 8f);
+
+                Physics.SyncTransforms();
+                movement.ApplyKinematicPose(bot.transform.position, Vector3.right, 0f, 0.55f);
+                movement.ApplyKinematicPose(new Vector3(41f, 0f, 40f), Vector3.right, 1f, 0.55f);
+
+                Assert.That(movement.LastBlockedByStaticCollider, Is.False);
+                Assert.That(movement.LastCollisionName, Is.Empty);
+                Assert.That(bot.transform.position.x, Is.GreaterThan(40.5f));
+            }
+            finally
+            {
+                Object.DestroyImmediate(bot);
+                Object.DestroyImmediate(floor);
             }
         }
 
