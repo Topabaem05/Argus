@@ -10,6 +10,7 @@ namespace ArgusUnity.Motion
     {
         private const string DiverseMixamoControllerResource = "Animations/Mixamo/Generated/MiniBotDiverseMixamo";
         private const string FallbackLocomotionControllerResource = "Animations/Controllers/MiniBotLocomotion";
+        private const string LocomotionBlendTreeStateName = "LocomotionBlendTree";
 
         [SerializeField]
         private Animator animator;
@@ -57,6 +58,10 @@ namespace ArgusUnity.Motion
         private MotionAction lastTriggeredAction = MotionAction.None;
         private MotionGesture lastTriggeredGesture = MotionGesture.None;
         private MotionEmotion lastTriggeredEmotion = MotionEmotion.Neutral;
+        private bool useExternalKinematicState;
+        private Vector3 externalVelocity;
+        private bool externalObstacleAhead;
+        private float externalTurn;
 
         public float LastMoveX { get; private set; }
 
@@ -87,6 +92,23 @@ namespace ArgusUnity.Motion
             debugState = nextDebugState;
         }
 
+        public void SetExternalKinematicState(Vector3 velocity, bool obstacleAhead, float turn)
+        {
+            useExternalKinematicState = true;
+            externalVelocity = velocity;
+            externalVelocity.y = 0f;
+            externalObstacleAhead = obstacleAhead;
+            externalTurn = Mathf.Clamp(turn, -1f, 1f);
+        }
+
+        public void ClearExternalKinematicState()
+        {
+            useExternalKinematicState = false;
+            externalVelocity = Vector3.zero;
+            externalObstacleAhead = false;
+            externalTurn = 0f;
+        }
+
         public void SetTransientOverlay(MotionIntent intent, MotionSelection selection, float durationSeconds)
         {
             transientOverlayIntent = intent;
@@ -97,7 +119,7 @@ namespace ArgusUnity.Motion
         public void Tick(float deltaTime)
         {
             EnsureReferences();
-            if (animator == null || motor == null || deltaTime <= 0f)
+            if (animator == null || deltaTime <= 0f)
             {
                 return;
             }
@@ -105,10 +127,11 @@ namespace ArgusUnity.Motion
             CacheParameters();
             var effectiveIntent = ResolveEffectiveIntent(deltaTime);
             var effectiveSelection = ResolveEffectiveSelection();
-            var localVelocity = transform.InverseTransformDirection(motor.CurrentVelocity);
+            var velocity = ResolveVelocity();
+            var localVelocity = transform.InverseTransformDirection(velocity);
             LastMoveX = Mathf.Clamp(localVelocity.x / Mathf.Max(0.001f, maxRunSpeed), -1f, 1f);
             LastMoveZ = Mathf.Clamp(localVelocity.z / Mathf.Max(0.001f, maxRunSpeed), -1f, 1f);
-            LastSpeed = Mathf.Clamp01(motor.CurrentVelocity.magnitude / Mathf.Max(0.001f, maxRunSpeed));
+            LastSpeed = Mathf.Clamp01(velocity.magnitude / Mathf.Max(0.001f, maxRunSpeed));
 
             var targetGestureWeight = effectiveIntent.Gesture != MotionGesture.None ? 1f : 0f;
             if (effectiveIntent.Emotion != MotionEmotion.Neutral && effectiveIntent.Gesture == MotionGesture.None)
@@ -132,7 +155,7 @@ namespace ArgusUnity.Motion
             SetFloat("MoveX", LastMoveX, deltaTime);
             SetFloat("MoveZ", LastMoveZ, deltaTime);
             SetFloat("Speed", LastSpeed, deltaTime);
-            var turn = ResolveAngularSpeed();
+            var turn = ResolveAngularSpeed(velocity);
             SetFloat("Turn", turn, deltaTime);
             SetFloat("AngularSpeed", turn, deltaTime);
             SetFloat("AngularError", Mathf.Abs(turn), deltaTime);
@@ -141,7 +164,7 @@ namespace ArgusUnity.Motion
             SetBool("Grounded", true);
             SetBool("IsGrounded", true);
             SetBool("IsMoving", LastSpeed > 0.05f);
-            SetBool("IsStuck", motor.ObstacleAhead);
+            SetBool("IsStuck", ResolveObstacleAhead());
             SetBool("IsTalking", IsTalking(effectiveIntent));
             SetInteger("Emotion", (int)effectiveIntent.Emotion);
             SetInteger("Gesture", (int)effectiveIntent.Gesture);
@@ -153,7 +176,14 @@ namespace ArgusUnity.Motion
 
             TriggerChangedEvents(effectiveIntent);
             appliedSelection = CrossFadeSelection(effectiveSelection);
-            debugState?.Apply(currentIntent, effectiveSelection, appliedSelection, motor, motor.ObstacleAhead, turn);
+            if (useExternalKinematicState)
+            {
+                debugState?.Apply(currentIntent, effectiveSelection, appliedSelection, velocity.magnitude, externalObstacleAhead, turn);
+            }
+            else
+            {
+                debugState?.Apply(currentIntent, effectiveSelection, appliedSelection, motor, ResolveObstacleAhead(), turn);
+            }
         }
 
         private void TriggerChangedEvents(MotionIntent intent)
@@ -206,9 +236,24 @@ namespace ArgusUnity.Motion
             lastTriggeredEmotion = intent.Emotion;
         }
 
-        private float ResolveAngularSpeed()
+        private Vector3 ResolveVelocity()
         {
-            var desired = motor.DesiredVelocity;
+            return useExternalKinematicState ? externalVelocity : motor != null ? motor.CurrentVelocity : Vector3.zero;
+        }
+
+        private bool ResolveObstacleAhead()
+        {
+            return useExternalKinematicState ? externalObstacleAhead : motor != null && motor.ObstacleAhead;
+        }
+
+        private float ResolveAngularSpeed(Vector3 velocity)
+        {
+            if (useExternalKinematicState)
+            {
+                return externalTurn;
+            }
+
+            var desired = motor != null ? motor.DesiredVelocity : velocity;
             desired.y = 0f;
             if (desired.sqrMagnitude <= 0.0001f)
             {
@@ -341,7 +386,8 @@ namespace ArgusUnity.Motion
                 return false;
             }
 
-            var stateHash = Animator.StringToHash(clip.ClipName);
+            var stateName = clip.Category == MotionCategory.Locomotion ? LocomotionBlendTreeStateName : clip.ClipName;
+            var stateHash = Animator.StringToHash(stateName);
             if (!animator.HasState(layerIndex, stateHash))
             {
                 return false;

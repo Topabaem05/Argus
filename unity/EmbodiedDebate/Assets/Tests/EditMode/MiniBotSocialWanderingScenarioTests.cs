@@ -1,3 +1,4 @@
+using ArgusUnity.Motion;
 using ArgusUnity.Runtime;
 using ArgusUnity.UI;
 using NUnit.Framework;
@@ -82,6 +83,32 @@ namespace ArgusUnity.Tests.EditMode
                 Assert.That(fixture.First.GetComponent<Rigidbody>().isKinematic, Is.True);
                 Assert.That((fixture.First.GetComponent<Rigidbody>().constraints & RigidbodyConstraints.FreezeRotationX) != 0, Is.True);
                 Assert.That((fixture.First.GetComponent<Rigidbody>().constraints & RigidbodyConstraints.FreezeRotationZ) != 0, Is.True);
+            }
+            finally
+            {
+                fixture.Destroy();
+            }
+        }
+
+        [Test]
+        public void RunAroundPathSelectsDiverseMixamoClipsInsteadOfLegacyWalkSampler()
+        {
+            var fixture = CreateFixture();
+            try
+            {
+                fixture.Scenario.ApplyAtTime(0f);
+                fixture.Scenario.ApplyAtTime(0.3f);
+
+                Assert.That(fixture.First.GetComponent<MiniBotWalkAnimator>(), Is.Null);
+                Assert.That(fixture.First.GetComponent<MinibotAnimatorDriver>(), Is.Not.Null);
+                Assert.That(fixture.Scenario.TryGetMotionDebugState("A01", out var walkingDebug), Is.True);
+                Assert.That(walkingDebug.SelectedBaseClip, Is.EqualTo(MotionClipId.Walking3));
+
+                fixture.Scenario.ApplyAtTime(5.4f);
+
+                Assert.That(fixture.Scenario.TryGetMotionDebugState("A01", out var chatDebug), Is.True);
+                Assert.That(chatDebug.SelectedOverlayClip, Is.Not.EqualTo(MotionClipId.None));
+                Assert.That(chatDebug.SelectedOverlayClipName, Is.Not.Empty);
             }
             finally
             {

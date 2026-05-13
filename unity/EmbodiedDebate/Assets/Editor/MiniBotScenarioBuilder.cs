@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using ArgusUnity.Motion;
 using ArgusUnity.Runtime;
 using ArgusUnity.UI;
 using UnityEditor;
@@ -165,7 +166,7 @@ namespace ArgusUnity.Editor
                 var bot = InstantiateMiniBot($"{persona.Id} running mini-bot", position, 0.95f);
                 bot.AddComponent<MinibotMovementController>();
                 bot.AddComponent<MinibotBlackboard>();
-                bot.AddComponent<MiniBotWalkAnimator>();
+                ConfigureRunAroundMixamoMotion(bot);
                 var marker = AddEmotionMarker(bot.transform);
                 AddMinibotEmbodiment(bot, persona, marker);
                 runtime.RegisterSocialAgent(
@@ -294,6 +295,29 @@ namespace ArgusUnity.Editor
             instance.transform.rotation = Quaternion.identity;
             FitToHeight(instance, targetHeight);
             return instance;
+        }
+
+        private static void ConfigureRunAroundMixamoMotion(GameObject bot)
+        {
+            var animator = bot.GetComponentInChildren<Animator>();
+            if (animator == null)
+            {
+                animator = bot.AddComponent<Animator>();
+            }
+
+            animator.applyRootMotion = false;
+            var controller = Resources.Load<RuntimeAnimatorController>("Animations/Mixamo/Generated/MiniBotDiverseMixamo") ??
+                             Resources.Load<RuntimeAnimatorController>("Animations/Controllers/MiniBotLocomotion");
+            if (controller != null)
+            {
+                animator.runtimeAnimatorController = controller;
+            }
+
+            var driver = bot.GetComponent<MinibotAnimatorDriver>();
+            if (driver == null)
+            {
+                bot.AddComponent<MinibotAnimatorDriver>();
+            }
         }
 
         private static void AddFootMarkers(Transform bot)

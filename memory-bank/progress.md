@@ -571,3 +571,51 @@ Verification:
 - Final runtime capture: 720 frames at 30 FPS (24 seconds) written to `tmp/minibot_final_hard_edge_24s_frames`.
 - Final video artifact: `tmp/minibot_final_hard_edge_24s.mp4`.
 - Final contact sheet: `tmp/minibot_final_hard_edge_24s_contact.png`.
+# 2026-05-13 Mixamo RunAround Wiring
+
+## Plan
+
+- Read `/Users/guribbong/Downloads/ARGUS_MIXAMO_SMOOTH_MOTION_PLAN.md`, `AGENTS.md`, `README.md`, Unity manifest, and bridge config.
+- Confirmed the diverse Mixamo runtime and generated local controller already exist.
+- Root cause found: RunAround video capture still uses `MiniBotWalkAnimator` directly, so real Mixamo motions are not the visible video path.
+- Added active addendum to `memory-bank/tasks.md`.
+
+## Current Build Step
+
+- Implementing only the RunAround capture wiring: keep existing kinematic root movement, add Mixamo Animator driver/selection for visible clips, and verify by tests plus video.
+
+## Implementation Notes
+
+- `MiniBotScenarioBuilder.BuildRunAroundScenario` now configures the generated `MiniBotDiverseMixamo.controller` and `MinibotAnimatorDriver` for RunAround minibots instead of adding the legacy `MiniBotWalkAnimator`.
+- `MiniBotRunAroundScenario` now maps each social phase into `MotionIntent` and selects real Mixamo clips with `MotionSelectionPolicy`.
+- `MinibotAnimatorDriver` now accepts externally driven kinematic velocity/turn data so the proven `MinibotMovementController` root movement can remain the source of truth for video capture.
+- The gait trace now records selected and applied Mixamo base/overlay/emotion clip names.
+
+## Verification Evidence
+
+- `git diff --check`: passed.
+- Temp Unity controller build:
+  - `Success: true`
+  - `CatalogClipCount: 39`
+  - `AvailableClipCount: 39`
+  - `LayerCount: 3`
+  - `ControllerStateCount: 120`
+- Temp Unity EditMode:
+  - `116` total
+  - `116` passed
+  - `0` failed
+- RunAround capture:
+  - `240` PNG frames written
+  - encoded `/Users/guribbong/code/Argus/tmp/mini_bot_run_working.mp4`
+  - `ffprobe`: `1280x720`, `30/1`, `240` frames, `8.000000` seconds
+  - sha256: `8d792cd05c825d3b368c061e9ea89b0c4f3a1ab836531a928662e48b31836870`
+- Trace review:
+  - rows: `1440`
+  - visible step rows: `1066`
+  - max visible heading alignment: `0.0`
+  - sideways warning rows: `0`
+  - selected base clips include `Walking-3`, idle variants, `Running-2`, `Charge`
+  - selected overlay clips include `Hard Head Nod`, `Shaking Head No`, `Clapping`, `Look Around`
+  - selected emotion clips include `Excited`, `Surprised`, `Clapping`
+- Visual review:
+  - sampled contact sheet at `/tmp/argus-mixamo-contact.png` shows leg pose variation and social overlay pose differences during approach/chat frames.

@@ -42,6 +42,8 @@ Assets/Project/Resources/Animations/Mixamo/Generated/
 
 `AgentLocomotionDriver` and `MinibotAnimatorDriver` prefer the generated controller resource when it exists, then fall back to the committed `MiniBotLocomotion.controller`. The generated controller contains named states for every `MotionCatalog` clip on Base, Upper Body Overlay, and Emotion Overlay layers, plus a `LocomotionBlendTree` using `MoveX` and `MoveZ`. The current local asset set has `Stop Walking.fbx`, not `Step Walking.fbx`, so the catalog uses the real stop clip instead of pretending a missing step-walk clip exists.
 
+`MiniBotRunAround` also uses this generated controller for the video capture path. The capture still keeps `MinibotMovementController` as the root movement authority because that controller has the anti-crab-walk facing guard, but the visible animation is driven through `MinibotAnimatorDriver` and deterministic `MotionSelectionPolicy` selections. The legacy `MiniBotWalkAnimator` is not added by the RunAround builder.
+
 ## Runtime Data Flow
 
 ```txt
@@ -60,6 +62,8 @@ Movement remains separate:
 SmoothRigidbodyMotor = real movement, Rigidbody.MovePosition/MoveRotation, obstacle probing
 MinibotAnimatorDriver = visual parameters, triggers, optional state crossfades
 ```
+
+For the RunAround video, movement is externally sampled and speed-limited by `MinibotMovementController` instead of `SmoothRigidbodyMotor`; `MinibotAnimatorDriver.SetExternalKinematicState()` receives the actual kinematic velocity and turn value so Mixamo clips follow the rendered root motion without owning navigation.
 
 ## Animator Structure
 

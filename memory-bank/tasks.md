@@ -1,5 +1,59 @@
 # Unity Bridge Implementation Plan
 
+## Active Addendum: Mixamo Motion Wiring for MiniBot RunAround Capture
+
+Updated: 2026-05-13T01:40:59Z
+
+### Scope and Goal
+
+Wire the existing diverse Mixamo motion runtime into the MiniBot RunAround video path so the capture no longer uses only the legacy BVH `MiniBotWalkAnimator` pose sampler. The generated RunAround scene must use real Mixamo FBX clips through `MotionIntent`, `MotionSelectionPolicy`, and `MinibotAnimatorDriver` while preserving the already-fixed kinematic movement/facing guard.
+
+### Affected Files and Systems
+
+- `unity/EmbodiedDebate/Assets/Editor/MiniBotScenarioBuilder.cs`
+- `unity/EmbodiedDebate/Assets/Project/Scripts/Runtime/MiniBotRunAroundScenario.cs`
+- `unity/EmbodiedDebate/Assets/Project/Scripts/Motion/MinibotAnimatorDriver.cs`
+- `unity/EmbodiedDebate/Assets/Project/Scripts/Motion/MinibotMotionDebugState.cs`
+- `unity/EmbodiedDebate/Assets/Tests/EditMode/MiniBotSocialWanderingScenarioTests.cs`
+- `docs/unity/MIXAMO_MOTION_SYSTEM.md` if behavior documentation needs updating
+
+### Implementation Plan
+
+1. Keep `MinibotMovementController` as the capture movement authority because it already prevents crab-walk root facing and speed-limit regressions.
+2. Remove `MiniBotWalkAnimator` from the RunAround builder path and assign the generated `MiniBotDiverseMixamo.controller` to the minibot Animator when available.
+3. Extend `MinibotAnimatorDriver` to accept externally driven kinematic velocity/turn data so it can drive Mixamo Animator parameters without taking over movement.
+4. In `MiniBotRunAroundScenario.ApplyPose`, convert social phase/archetype/action label into `MotionIntent`, run deterministic clip selection, and tick the driver for the sampled capture frame.
+5. Update gait/motion trace rows to include selected/applied Mixamo clip names and mark `gait_system` as Mixamo-driven.
+6. Add/adjust EditMode tests proving the RunAround path creates a Mixamo driver, selects locomotion/talk/emotion clips, and does not add `MiniBotWalkAnimator`.
+7. Rebuild/import local Mixamo controller, run Unity tests, capture video, inspect trace and video frames.
+
+### Success Criteria
+
+- RunAround agents have `MinibotAnimatorDriver` and an Animator using the generated Mixamo controller when local assets are present.
+- RunAround agents do not use `MiniBotWalkAnimator` for the capture path.
+- During wander/approach/disperse, selected base clips include real locomotion clips such as `Walking-3`.
+- During chat/react, selected overlay/emotion clips include real social/emotion clips such as `Talking`, `Talking-2`, `Hard Head Nod`, `Shaking Head No`, `Excited`, or `Surprised`.
+- Video capture still reports 240 frames, 1280x720, 30fps, 8 seconds.
+- Gait trace still reports no sideways walking warnings.
+- The visual video review shows visible Mixamo pose variation, not just code-level selection.
+
+### Verification Plan
+
+- Unity batch: `ArgusUnity.Editor.MixamoMotionControllerBuilder.BuildLocalDiverseMixamoSetup`
+- Unity EditMode tests for `MiniBotSocialWanderingScenarioTests`, `MiniBotMotionRuntimeTests`, and `MixamoMotionControllerBuilderTests`
+- Unity capture: `ArgusUnity.Editor.MiniBotScenarioBuilder.CaptureRunAroundVideo`
+- `ffprobe` on `/Users/guribbong/code/Argus/tmp/mini_bot_run_working.mp4`
+- Inspect `reports/unity_dumps/minibot_gait_trace.jsonl` for selected/applied clip fields and warnings.
+- Generate sampled contact sheet for video review.
+
+### Risks or Blockers
+
+- If the generated Mixamo controller is missing or cannot retarget the minibot avatar, code can select clips but the video may still not show real motion. In that case stop and present the video plus options instead of silently choosing a workaround.
+- Raw Mixamo FBX license must remain local unless redistribution is explicitly allowed.
+- Root rotation smoothing must not reintroduce crab-walk; movement root facing remains governed by `MinibotMovementController`.
+
+Creative required: no. The architecture already exists; this is a wiring and verification pass.
+
 > **Note:** MuJoCo integration has been removed. The deterministic local fallback is now the sole physics backend.
 
 ## Scope and Goal

@@ -119,6 +119,23 @@ namespace ArgusUnity.Motion
             bool stuck,
             float turn)
         {
+            Apply(
+                intent,
+                selected,
+                applied,
+                motor != null ? motor.CurrentVelocity.magnitude : 0f,
+                stuck,
+                turn);
+        }
+
+        public void Apply(
+            MotionIntent intent,
+            MotionSelection selected,
+            MotionSelection applied,
+            float speed,
+            bool stuck,
+            float turn)
+        {
             currentIntent = intent.Type;
             selectedBaseClip = selected.BaseClip;
             selectedOverlayClip = selected.OverlayClip;
@@ -132,7 +149,7 @@ namespace ArgusUnity.Motion
             currentBaseClipName = ClipName(applied.BaseClip);
             currentOverlayClipName = ClipName(applied.OverlayClip);
             currentEmotionClipName = ClipName(applied.EmotionClip);
-            currentSpeed = motor != null ? motor.CurrentVelocity.magnitude : 0f;
+            currentSpeed = Mathf.Max(0f, speed);
             currentTurn = turn;
             isStuck = stuck;
             lastFiveUsedClips = BuildRecentNames(selected.RecentClips);

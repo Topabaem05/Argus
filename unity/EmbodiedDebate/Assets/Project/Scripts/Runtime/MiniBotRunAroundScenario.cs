@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using ArgusUnity.Motion;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using UnityEngine;
@@ -75,7 +76,9 @@ namespace ArgusUnity.Runtime
             new Dictionary<string, MiniBotSocialSnapshot>();
         private readonly Dictionary<string, Vector3> previousPositions = new Dictionary<string, Vector3>();
         private readonly Dictionary<string, float> previousSampleTimes = new Dictionary<string, float>();
-        private readonly Dictionary<string, float> walkedDistances = new Dictionary<string, float>();
+        private readonly Dictionary<string, MotionSelectionPolicy> motionPolicies = new Dictionary<string, MotionSelectionPolicy>();
+        private readonly Dictionary<string, PersonaMotionProfile> motionProfiles = new Dictionary<string, PersonaMotionProfile>();
+        private readonly Dictionary<string, MinibotMotionDebugState> motionDebugStates = new Dictionary<string, MinibotMotionDebugState>();
         private float lastAppliedTime;
         private bool paused;
         private float pausedTime;
@@ -212,7 +215,16 @@ namespace ArgusUnity.Runtime
                 }
 
                 var position = WanderPosition(agent, sampleTime, out var facingDirection);
-                var appliedFacing = ApplyPose(agent, position, facingDirection, false, sampleTime, true);
+                var appliedFacing = ApplyPose(
+                    agent,
+                    position,
+                    facingDirection,
+                    false,
+                    sampleTime,
+                    true,
+                    MiniBotSocialPhase.Wander,
+                    string.Empty,
+                    "wander");
                 StoreSnapshot(agent, MiniBotSocialPhase.Wander, position, appliedFacing, string.Empty, "wander");
             }
 
@@ -289,6 +301,18 @@ namespace ArgusUnity.Runtime
             }
 
             snapshot = default;
+            return false;
+        }
+
+        public bool TryGetMotionDebugState(string agentId, out MinibotMotionDebugState debugState)
+        {
+            if (!string.IsNullOrWhiteSpace(agentId) &&
+                motionDebugStates.TryGetValue(agentId.Trim(), out debugState))
+            {
+                return true;
+            }
+
+            debugState = null;
             return false;
         }
 
@@ -377,7 +401,10 @@ namespace ArgusUnity.Runtime
                 NormalizePlanarOrForward(facing),
                 phase == MiniBotSocialPhase.Chat || phase == MiniBotSocialPhase.React,
                 sampleTime,
-                isWalkingPhase);
+                isWalkingPhase,
+                phase,
+                partner?.AgentId ?? string.Empty,
+                interaction.ActionLabel);
             if (phase == MiniBotSocialPhase.Chat || phase == MiniBotSocialPhase.React)
             {
                 currentChatText = $"{agent.AgentId} {interaction.ActionLabel} with {partner?.AgentId ?? "neighbor"}.";
@@ -451,7 +478,10 @@ namespace ArgusUnity.Runtime
             Vector3 facingDirection,
             bool markerVisible,
             float sampleTime,
-            bool allowWalkAnimation)
+            bool allowWalkAnimation,
+            MiniBotSocialPhase phase,
+            string partnerId,
+            string actionLabel)
         {
             position = RoomNavigationMath.ClampPlanarWithInset(position, roomMin, roomMax, wallMargin);
             var hasPreviousPosition = previousPositions.TryGetValue(agent.AgentId, out var previousPosition);
@@ -486,23 +516,17 @@ namespace ArgusUnity.Runtime
             distanceDelta = appliedDelta.magnitude;
             turnDegrees = movement.LastSignedTurnDegrees;
 
-            var animator = agent.Agent.GetComponent<MiniBotWalkAnimator>();
-            if (animator != null)
-            {
-                var hasPreviousTime = previousSampleTimes.TryGetValue(agent.AgentId, out var previousTime);
-                var deltaTime = Mathf.Max(1f / 30f, sampleTime - previousTime);
-                var speed = Mathf.Clamp(
-                    movement.LastPlanarSpeed > 0f ? movement.LastPlanarSpeed : distanceDelta / deltaTime,
-                    0f,
-                    agent.WalkSpeedMetersPerSecond * 1.65f);
-                var isMoving = shouldAnimateLocomotion && distanceDelta > 0.006f;
-                animator.SetMotionIntent(isMoving, turnDegrees, speed, isMoving ? distanceDelta : 0f);
-                var walkedDistance = ResolveWalkedDistance(agent.AgentId, distanceDelta, isMoving, hasPreviousTime, sampleTime, previousTime);
-                animator.SampleDistanceSyncedPose(walkedDistance, isMoving, turnDegrees);
-            }
+            var hasPreviousTime = previousSampleTimes.TryGetValue(agent.AgentId, out var previousTime);
+            var deltaTime = Mathf.Max(1f / 30f, sampleTime - previousTime);
+            var speed = Mathf.Clamp(
+                movement.LastPlanarSpeed > 0f ? movement.LastPlanarSpeed : distanceDelta / deltaTime,
+                0f,
+                agent.WalkSpeedMetersPerSecond * 1.65f);
+            var isMoving = shouldAnimateLocomotion && distanceDelta > 0.006f;
+            ApplyMixamoMotion(agent, speed, turnDegrees, isMoving, markerVisible, deltaTime, sampleTime, phase, partnerId, actionLabel);
 
             var headingAlignmentDegrees = movement.LastHeadingAlignmentDegrees;
-            AppendGaitTrace(agent, animator, movement, distanceDelta, headingAlignmentDegrees, sampleTime);
+            AppendGaitTrace(agent, movement, distanceDelta, headingAlignmentDegrees, sampleTime);
 
             previousPositions[agent.AgentId] = appliedPosition;
             previousSampleTimes[agent.AgentId] = sampleTime;
@@ -515,32 +539,263 @@ namespace ArgusUnity.Runtime
             return NormalizePlanarOrForward(agent.Agent.forward);
         }
 
-        private float ResolveWalkedDistance(
-            string agentId,
-            float distanceDelta,
+        private void ApplyMixamoMotion(
+            SocialAgent agent,
+            float speed,
+            float turnDegrees,
             bool isMoving,
-            bool hasPreviousTime,
+            bool markerVisible,
+            float deltaTime,
             float sampleTime,
-            float previousTime)
+            MiniBotSocialPhase phase,
+            string partnerId,
+            string actionLabel)
         {
-            walkedDistances.TryGetValue(agentId, out var walkedDistance);
-            if (!isMoving)
+            var driver = EnsureAnimatorDriver(agent.Agent.gameObject);
+            var debugState = EnsureMotionDebugState(agent);
+            var profile = EnsureMotionProfile(agent);
+            var policy = EnsureMotionPolicy(agent);
+            var intent = BuildMotionIntent(agent, isMoving, speed, markerVisible, phase, partnerId, actionLabel);
+            var selection = policy.Select(intent, profile, sampleTime);
+            var velocity = isMoving ? agent.Agent.forward * speed : Vector3.zero;
+            driver.SetIntent(intent);
+            driver.SetSelection(selection, debugState);
+            driver.SetExternalKinematicState(
+                velocity,
+                false,
+                Mathf.Clamp(turnDegrees / 90f, -1f, 1f));
+            driver.Tick(deltaTime);
+        }
+
+        private MotionIntent BuildMotionIntent(
+            SocialAgent agent,
+            bool isMoving,
+            float speed,
+            bool markerVisible,
+            MiniBotSocialPhase phase,
+            string partnerId,
+            string actionLabel)
+        {
+            var emotion = EmotionFor(agent.Archetype, phase, actionLabel);
+            var gesture = GestureFor(agent.Archetype, phase, actionLabel);
+            var action = ActionFor(phase, actionLabel);
+            var type = IntentTypeFor(phase, actionLabel, isMoving, speed, gesture, emotion);
+            return new MotionIntent(
+                type,
+                isMoving,
+                isMoving ? agent.Agent.position + agent.Agent.forward : agent.Agent.position,
+                markerVisible && !string.IsNullOrEmpty(partnerId) ? agent.Agent.position + agent.Agent.forward : (Vector3?)null,
+                isMoving ? speed : 0f,
+                0.12f,
+                emotion,
+                gesture,
+                action,
+                phase != MiniBotSocialPhase.Chat,
+                Mathf.Clamp01(speed / Mathf.Max(0.01f, FastWalkSpeedMetersPerSecond)),
+                MotionClipId.None,
+                "runaround_social");
+        }
+
+        private PersonaMotionProfile EnsureMotionProfile(SocialAgent agent)
+        {
+            if (motionProfiles.TryGetValue(agent.AgentId, out var profile))
             {
-                walkedDistances[agentId] = walkedDistance;
-                return walkedDistance;
+                return profile;
             }
 
-            if (hasPreviousTime && sampleTime + 0.0001f >= previousTime)
+            profile = PersonaMotionProfile.FromAgentId(agent.AgentId, 0);
+            ApplyArchetypeBias(profile, agent.Archetype);
+            motionProfiles[agent.AgentId] = profile;
+            return profile;
+        }
+
+        private MotionSelectionPolicy EnsureMotionPolicy(SocialAgent agent)
+        {
+            if (motionPolicies.TryGetValue(agent.AgentId, out var policy))
             {
-                walkedDistance += distanceDelta;
-            }
-            else
-            {
-                walkedDistance = 0f;
+                return policy;
             }
 
-            walkedDistances[agentId] = walkedDistance;
-            return walkedDistance;
+            var profile = EnsureMotionProfile(agent);
+            policy = new MotionSelectionPolicy();
+            policy.Initialize(profile.Seed);
+            motionPolicies[agent.AgentId] = policy;
+            return policy;
+        }
+
+        private MinibotMotionDebugState EnsureMotionDebugState(SocialAgent agent)
+        {
+            if (motionDebugStates.TryGetValue(agent.AgentId, out var debugState))
+            {
+                return debugState;
+            }
+
+            debugState = new MinibotMotionDebugState();
+            debugState.AttachProfile(EnsureMotionProfile(agent));
+            motionDebugStates[agent.AgentId] = debugState;
+            return debugState;
+        }
+
+        private static MinibotAnimatorDriver EnsureAnimatorDriver(GameObject agent)
+        {
+            var legacyWalk = agent.GetComponent<MiniBotWalkAnimator>();
+            if (legacyWalk != null)
+            {
+                legacyWalk.enabled = false;
+            }
+
+            var animator = agent.GetComponentInChildren<Animator>();
+            if (animator == null)
+            {
+                animator = agent.AddComponent<Animator>();
+            }
+
+            animator.applyRootMotion = false;
+            var driver = agent.GetComponent<MinibotAnimatorDriver>();
+            return driver != null ? driver : agent.AddComponent<MinibotAnimatorDriver>();
+        }
+
+        private static MotionEmotion EmotionFor(string archetype, MiniBotSocialPhase phase, string actionLabel)
+        {
+            if (phase == MiniBotSocialPhase.React)
+            {
+                switch (Normalize(actionLabel))
+                {
+                    case "agree":
+                    case "gather":
+                        return MotionEmotion.Excited;
+                    case "debate":
+                        return MotionEmotion.Angry;
+                    case "ask":
+                        return MotionEmotion.Surprised;
+                }
+            }
+
+            switch (Normalize(archetype))
+            {
+                case "curious":
+                    return MotionEmotion.Thinking;
+                case "energetic":
+                    return MotionEmotion.Excited;
+                case "skeptical":
+                    return MotionEmotion.Angry;
+                case "cautious":
+                    return MotionEmotion.Scared;
+                default:
+                    return MotionEmotion.Neutral;
+            }
+        }
+
+        private static MotionGesture GestureFor(string archetype, MiniBotSocialPhase phase, string actionLabel)
+        {
+            if (phase == MiniBotSocialPhase.Chat)
+            {
+                switch (Normalize(actionLabel))
+                {
+                    case "agree":
+                        return MotionGesture.Nod;
+                    case "debate":
+                        return MotionGesture.ShakeHeadNo;
+                    case "ask":
+                    case "gather":
+                        return MotionGesture.Talk;
+                    default:
+                        return MotionGesture.TalkAlt;
+                }
+            }
+
+            if (phase == MiniBotSocialPhase.React)
+            {
+                return Normalize(actionLabel) == "agree" ? MotionGesture.Clap : MotionGesture.LookAround;
+            }
+
+            return Normalize(archetype) == "curious" ? MotionGesture.LookAround : MotionGesture.None;
+        }
+
+        private static MotionAction ActionFor(MiniBotSocialPhase phase, string actionLabel)
+        {
+            if (phase == MiniBotSocialPhase.React && Normalize(actionLabel) == "debate")
+            {
+                return MotionAction.StepBackward;
+            }
+
+            return MotionAction.None;
+        }
+
+        private static MotionIntentType IntentTypeFor(
+            MiniBotSocialPhase phase,
+            string actionLabel,
+            bool isMoving,
+            float speed,
+            MotionGesture gesture,
+            MotionEmotion emotion)
+        {
+            if (isMoving)
+            {
+                return speed >= 0.95f ? MotionIntentType.Run : MotionIntentType.WalkForward;
+            }
+
+            if (phase == MiniBotSocialPhase.Chat)
+            {
+                return Normalize(actionLabel) == "debate" ? MotionIntentType.Disagree : MotionIntentType.Talk;
+            }
+
+            if (phase == MiniBotSocialPhase.React)
+            {
+                return MotionCatalog.TypeForGesture(gesture) != MotionIntentType.None
+                    ? MotionCatalog.TypeForGesture(gesture)
+                    : MotionIntentType.Surprised;
+            }
+
+            switch (emotion)
+            {
+                case MotionEmotion.Thinking:
+                    return MotionIntentType.Think;
+                case MotionEmotion.Excited:
+                    return MotionIntentType.Excited;
+                case MotionEmotion.Sad:
+                case MotionEmotion.Scared:
+                    return MotionIntentType.Sad;
+                default:
+                    return MotionIntentType.Idle;
+            }
+        }
+
+        private static void ApplyArchetypeBias(PersonaMotionProfile profile, string archetype)
+        {
+            switch (Normalize(archetype))
+            {
+                case "friendly":
+                    profile.Friendliness = 1f;
+                    profile.Energy = 0.55f;
+                    break;
+                case "curious":
+                    profile.Curiosity = 1f;
+                    profile.Friendliness = 0.6f;
+                    break;
+                case "energetic":
+                    profile.Energy = 1f;
+                    profile.Confidence = 0.8f;
+                    break;
+                case "skeptical":
+                    profile.Aggression = 0.75f;
+                    profile.Confidence = 0.65f;
+                    profile.Friendliness = 0.25f;
+                    break;
+                case "cautious":
+                    profile.Anxiety = 1f;
+                    profile.Confidence = 0.25f;
+                    break;
+                case "calm":
+                    profile.Confidence = 0.7f;
+                    profile.Anxiety = 0.15f;
+                    break;
+            }
+        }
+
+        private static string Normalize(string value)
+        {
+            return string.IsNullOrWhiteSpace(value) ? string.Empty : value.Trim().ToLowerInvariant();
         }
 
         private void StopAllWalkAnimations()
@@ -553,10 +808,10 @@ namespace ArgusUnity.Runtime
                     continue;
                 }
 
-                var animator = agent.Agent.GetComponent<MiniBotWalkAnimator>();
-                if (animator != null)
+                var driver = agent.Agent.GetComponent<MinibotAnimatorDriver>();
+                if (driver != null)
                 {
-                    animator.SetMotionIntent(false, 0f, 0f, 0f);
+                    driver.ClearExternalKinematicState();
                 }
             }
         }
@@ -691,8 +946,9 @@ namespace ArgusUnity.Runtime
         {
             return new JObject
             {
-                ["gait_system"] = "MiniBotWalkAnimator",
-                ["movement_source"] = "timeline_showcase_speed_limited",
+                ["gait_system"] = "DiverseMixamoAnimator",
+                ["motion_system"] = "Diverse Mixamo Animator",
+                ["movement_source"] = "timeline_showcase_speed_limited_kinematic_root",
                 ["meters_per_walk_cycle"] = 0.75f,
                 ["minimum_walk_cycle_seconds"] = 1.0f,
                 ["max_visual_cycle_rate_hz"] = 1.0f,
@@ -702,8 +958,8 @@ namespace ArgusUnity.Runtime
                 ["warnings"] = new JArray(
                     "MiniBotRunAroundScenario samples timeline targets, then MinibotMovementController speed-limits actual movement.",
                     "Interaction approach and disperse durations are distance-based for natural walk cadence.",
-                    "Externally sampled gait poses are authoritative for the rendered frame to avoid double-advancing the walk cycle.",
-                    "Stride warnings in minibot_gait_trace.jsonl indicate speed or cycle rates outside walk range.")
+                    "Mixamo Animator parameters follow the kinematic root movement; animation does not move the root.",
+                    "Stride warnings in minibot_gait_trace.jsonl indicate speed, heading, or applied-clip issues.")
             };
         }
 
@@ -723,7 +979,6 @@ namespace ArgusUnity.Runtime
 
         private void AppendGaitTrace(
             SocialAgent agent,
-            MiniBotWalkAnimator animator,
             MinibotMovementController movement,
             float distanceDelta,
             float headingAlignmentDegrees,
@@ -734,19 +989,14 @@ namespace ArgusUnity.Runtime
                 return;
             }
 
-            var cycleMeters = animator != null ? animator.MetersPerWalkCycle : 0.75f;
+            motionDebugStates.TryGetValue(agent.AgentId, out var debugState);
+            var cycleMeters = 0.75f;
             var speed = movement.LastPlanarSpeed;
             var cycleRate = speed / Mathf.Max(0.01f, cycleMeters);
-            var visualCycleRate = animator != null ? animator.LastVisualCycleRateHz : cycleRate;
-            var visualPhaseAdvance = animator != null ? animator.LastPhaseAdvance : 0f;
             var warning = string.Empty;
             if (movement.LastSpeedLimitExceeded)
             {
                 warning = "timeline_target_exceeded_speed_limit";
-            }
-            else if (visualCycleRate > 1.05f)
-            {
-                warning = "visual_cycle_restarted_too_fast";
             }
             else if (movement.LastActualStepMeters > VisibleWalkingStepMeters && headingAlignmentDegrees > 35f)
             {
@@ -755,6 +1005,10 @@ namespace ArgusUnity.Runtime
             else if (speed > 0.85f || cycleRate > 2.0f)
             {
                 warning = "too_fast_for_walk";
+            }
+            else if (debugState != null && debugState.SelectedBaseClip == MotionClipId.None)
+            {
+                warning = "mixamo_base_clip_not_selected";
             }
 
             var row = new JObject
@@ -769,10 +1023,12 @@ namespace ArgusUnity.Runtime
                 ["actual_step_meters"] = movement.LastActualStepMeters,
                 ["meters_per_cycle"] = cycleMeters,
                 ["cycle_rate_hz"] = cycleRate,
-                ["visual_cycle_rate_hz"] = visualCycleRate,
-                ["visual_phase_advance"] = visualPhaseAdvance,
-                ["visual_phase"] = animator != null ? animator.LastNormalizedPhase : 0f,
-                ["externally_sampled_pose"] = animator != null && animator.LastPoseWasExternallySampled,
+                ["selected_base_clip"] = debugState != null ? debugState.SelectedBaseClipName : string.Empty,
+                ["selected_overlay_clip"] = debugState != null ? debugState.SelectedOverlayClipName : string.Empty,
+                ["selected_emotion_clip"] = debugState != null ? debugState.SelectedEmotionClipName : string.Empty,
+                ["applied_base_clip"] = debugState != null ? debugState.CurrentBaseClipName : string.Empty,
+                ["applied_overlay_clip"] = debugState != null ? debugState.CurrentOverlayClipName : string.Empty,
+                ["applied_emotion_clip"] = debugState != null ? debugState.CurrentEmotionClipName : string.Empty,
                 ["heading_alignment_degrees"] = headingAlignmentDegrees,
                 ["stride_warning"] = warning
             };
