@@ -234,14 +234,16 @@ namespace ArgusUnity.Tests.EditMode
             var bot = new GameObject("speed cap bot");
             try
             {
+                var start = new Vector3(-20f, 0f, -20f);
+                bot.transform.position = start;
                 bot.AddComponent<Rigidbody>();
                 bot.AddComponent<CapsuleCollider>();
                 var movement = bot.AddComponent<MinibotMovementController>();
 
-                movement.ApplyKinematicPose(Vector3.zero, Vector3.forward, 0f, 0.55f);
-                movement.ApplyKinematicPose(new Vector3(3f, 0f, 0f), Vector3.forward, 1f, 0.55f);
+                movement.ApplyKinematicPose(start, Vector3.forward, 0f, 0.55f);
+                movement.ApplyKinematicPose(start + new Vector3(3f, 0f, 0f), Vector3.forward, 1f, 0.55f);
 
-                Assert.That(bot.transform.position.x, Is.EqualTo(0.55f).Within(0.001f));
+                Assert.That(bot.transform.position.x, Is.EqualTo(start.x + 0.55f).Within(0.001f));
                 Assert.That(movement.LastPlanarSpeed, Is.EqualTo(0.55f).Within(0.001f));
                 Assert.That(movement.LastSpeedLimitExceeded, Is.True);
                 Assert.That(movement.LastActualStepMeters, Is.LessThanOrEqualTo(movement.LastAllowedStepMeters + 0.001f));
@@ -258,12 +260,14 @@ namespace ArgusUnity.Tests.EditMode
             var bot = new GameObject("heading guard bot");
             try
             {
+                var start = new Vector3(-30f, 0f, -30f);
+                bot.transform.position = start;
                 bot.AddComponent<Rigidbody>();
                 bot.AddComponent<CapsuleCollider>();
                 var movement = bot.AddComponent<MinibotMovementController>();
 
-                movement.ApplyKinematicPose(Vector3.zero, Vector3.forward, 0f, 0.55f);
-                movement.ApplyKinematicPose(new Vector3(3f, 0f, 0f), Vector3.forward, 1f, 0.55f);
+                movement.ApplyKinematicPose(start, Vector3.forward, 0f, 0.55f);
+                movement.ApplyKinematicPose(start + new Vector3(3f, 0f, 0f), Vector3.forward, 1f, 0.55f);
 
                 var expectedTravel = Vector3.right;
                 Assert.That(Vector3.Dot(bot.transform.forward.normalized, expectedTravel), Is.GreaterThan(0.95f));
@@ -274,6 +278,75 @@ namespace ArgusUnity.Tests.EditMode
             finally
             {
                 Object.DestroyImmediate(bot);
+            }
+        }
+
+        [Test]
+        public void KinematicMovementPushesDynamicRigidbodiesInsteadOfPassingThrough()
+        {
+            var bot = new GameObject("push collision bot");
+            var box = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            try
+            {
+                bot.transform.position = new Vector3(20f, 0f, 20f);
+                bot.AddComponent<Rigidbody>();
+                bot.AddComponent<CapsuleCollider>();
+                var movement = bot.AddComponent<MinibotMovementController>();
+
+                box.name = "pushable box";
+                box.transform.position = new Vector3(20.55f, 0.45f, 20f);
+                box.transform.localScale = new Vector3(0.35f, 0.7f, 0.35f);
+                var boxBody = box.AddComponent<Rigidbody>();
+                boxBody.mass = 6f;
+                boxBody.useGravity = false;
+                boxBody.isKinematic = false;
+
+                Physics.SyncTransforms();
+                movement.ApplyKinematicPose(bot.transform.position, Vector3.right, 0f, 2f);
+                movement.ApplyKinematicPose(new Vector3(21f, 0f, 20f), Vector3.right, 1f, 2f);
+
+                Assert.That(movement.LastPushedRigidbody, Is.EqualTo(boxBody));
+                Assert.That(movement.LastPushedDistanceMeters, Is.GreaterThan(0.1f));
+                Assert.That(movement.LastBlockedByStaticCollider, Is.False);
+                Assert.That(box.transform.position.x, Is.GreaterThan(20.7f));
+                Assert.That(bot.transform.position.x, Is.GreaterThan(20.8f));
+            }
+            finally
+            {
+                Object.DestroyImmediate(bot);
+                Object.DestroyImmediate(box);
+            }
+        }
+
+        [Test]
+        public void KinematicMovementStopsBeforeStaticColliders()
+        {
+            var bot = new GameObject("static collision bot");
+            var wall = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            try
+            {
+                bot.transform.position = new Vector3(30f, 0f, 30f);
+                bot.AddComponent<Rigidbody>();
+                bot.AddComponent<CapsuleCollider>();
+                var movement = bot.AddComponent<MinibotMovementController>();
+
+                wall.name = "blocking wall";
+                wall.transform.position = new Vector3(30.55f, 0.45f, 30f);
+                wall.transform.localScale = new Vector3(0.35f, 0.7f, 0.35f);
+
+                Physics.SyncTransforms();
+                movement.ApplyKinematicPose(bot.transform.position, Vector3.right, 0f, 2f);
+                movement.ApplyKinematicPose(new Vector3(31f, 0f, 30f), Vector3.right, 1f, 2f);
+
+                Assert.That(movement.LastPushedRigidbody, Is.Null);
+                Assert.That(movement.LastBlockedByStaticCollider, Is.True);
+                Assert.That(bot.transform.position.x, Is.LessThan(30.4f));
+                Assert.That(bot.transform.position.x, Is.LessThan(wall.transform.position.x));
+            }
+            finally
+            {
+                Object.DestroyImmediate(bot);
+                Object.DestroyImmediate(wall);
             }
         }
 

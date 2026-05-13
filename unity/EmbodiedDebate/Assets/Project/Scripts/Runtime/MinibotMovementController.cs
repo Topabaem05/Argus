@@ -18,6 +18,12 @@ namespace ArgusUnity.Runtime
         [SerializeField]
         private float movementFacingThresholdMeters = 0.002f;
 
+        [SerializeField]
+        private float collisionSkinMeters = 0.03f;
+
+        [SerializeField]
+        private float pushableMassLimit = 80f;
+
         private Rigidbody body;
         private CapsuleCollider capsule;
         private bool hasPreviousPose;
@@ -37,6 +43,9 @@ namespace ArgusUnity.Runtime
         public Vector3 LastAppliedFacingDirection { get; private set; }
         public float LastHeadingAlignmentDegrees { get; private set; }
         public bool LastFacingAlignedToMovement { get; private set; }
+        public Rigidbody LastPushedRigidbody { get; private set; }
+        public float LastPushedDistanceMeters { get; private set; }
+        public bool LastBlockedByStaticCollider { get; private set; }
 
         private void Awake()
         {
@@ -93,6 +102,7 @@ namespace ArgusUnity.Runtime
             }
 
             var appliedPosition = new Vector3(planarPosition.x, targetPosition.y, planarPosition.z);
+            appliedPosition = ResolveCollisionAndPush(previousPosition, appliedPosition);
             var appliedDelta = appliedPosition - previousPosition;
             appliedDelta.y = 0f;
             var appliedFacing = requestedFacing;
@@ -141,6 +151,9 @@ namespace ArgusUnity.Runtime
             LastAppliedFacingDirection = transform.forward;
             LastHeadingAlignmentDegrees = 0f;
             LastFacingAlignedToMovement = false;
+            LastPushedRigidbody = null;
+            LastPushedDistanceMeters = 0f;
+            LastBlockedByStaticCollider = false;
         }
 
         private void ConfigureBody()
@@ -156,6 +169,9 @@ namespace ArgusUnity.Runtime
             }
 
             body.isKinematic = true;
+            body.mass = 2.5f;
+            body.detectCollisions = true;
+            body.useGravity = false;
             body.interpolation = RigidbodyInterpolation.Interpolate;
             body.collisionDetectionMode = CollisionDetectionMode.ContinuousSpeculative;
             body.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
@@ -163,6 +179,101 @@ namespace ArgusUnity.Runtime
             capsule.height = Mathf.Max(0.2f, colliderHeight);
             capsule.radius = Mathf.Max(0.05f, colliderRadius);
             capsule.center = Vector3.up * (capsule.height * 0.5f);
+        }
+
+        private Vector3 ResolveCollisionAndPush(Vector3 from, Vector3 to)
+        {
+            LastPushedRigidbody = null;
+            LastPushedDistanceMeters = 0f;
+            LastBlockedByStaticCollider = false;
+
+            var planarDelta = to - from;
+            planarDelta.y = 0f;
+            var distance = planarDelta.magnitude;
+            if (distance <= 0.0001f)
+            {
+                return to;
+            }
+
+            Physics.SyncTransforms();
+            var direction = planarDelta / distance;
+            GetCapsuleWorldPoints(from, out var bottom, out var top);
+            var hits = Physics.CapsuleCastAll(
+                bottom,
+                top,
+                Mathf.Max(0.01f, capsule.radius - collisionSkinMeters * 0.5f),
+                direction,
+                distance + collisionSkinMeters,
+                ~0,
+                QueryTriggerInteraction.Ignore);
+            if (hits == null || hits.Length == 0)
+            {
+                return to;
+            }
+
+            System.Array.Sort(hits, (a, b) => a.distance.CompareTo(b.distance));
+            for (var i = 0; i < hits.Length; i++)
+            {
+                var hit = hits[i];
+                if (hit.collider == null || hit.collider.transform.IsChildOf(transform))
+                {
+                    continue;
+                }
+
+                var hitBody = hit.rigidbody;
+                if (CanPush(hitBody))
+                {
+                    PushBody(hitBody, direction * distance);
+                    LastPushedRigidbody = hitBody;
+                    LastPushedDistanceMeters = distance;
+                    return to;
+                }
+
+                LastBlockedByStaticCollider = true;
+                var stopDistance = Mathf.Max(0f, hit.distance - collisionSkinMeters);
+                return from + direction * Mathf.Min(distance, stopDistance);
+            }
+
+            return to;
+        }
+
+        private bool CanPush(Rigidbody hitBody)
+        {
+            return hitBody != null &&
+                   hitBody != body &&
+                   !hitBody.isKinematic &&
+                   hitBody.mass <= Mathf.Max(0.1f, pushableMassLimit);
+        }
+
+        private static void PushBody(Rigidbody hitBody, Vector3 planarOffset)
+        {
+            planarOffset.y = 0f;
+            if (planarOffset.sqrMagnitude <= 0.000001f)
+            {
+                return;
+            }
+
+            var target = hitBody.position + planarOffset;
+            hitBody.WakeUp();
+            hitBody.velocity = Vector3.zero;
+            hitBody.angularVelocity = Vector3.zero;
+            hitBody.MovePosition(target);
+            hitBody.position = target;
+            hitBody.transform.position = target;
+            Physics.SyncTransforms();
+        }
+
+        private void GetCapsuleWorldPoints(Vector3 rootPosition, out Vector3 bottom, out Vector3 top)
+        {
+            var scale = transform.lossyScale;
+            var radiusScale = Mathf.Max(Mathf.Abs(scale.x), Mathf.Abs(scale.z), 0.001f);
+            var heightScale = Mathf.Max(Mathf.Abs(scale.y), 0.001f);
+            var radius = Mathf.Max(0.01f, capsule.radius * radiusScale);
+            var height = Mathf.Max(radius * 2f, capsule.height * heightScale);
+            var center = rootPosition + Vector3.up * (capsule.center.y * heightScale);
+            var halfSegment = Mathf.Max(0f, height * 0.5f - radius);
+            bottom = center - Vector3.up * halfSegment;
+            top = center + Vector3.up * halfSegment;
         }
 
         private static Vector3 ResolvePlanarDirection(Vector3 direction, Vector3 fallback)
