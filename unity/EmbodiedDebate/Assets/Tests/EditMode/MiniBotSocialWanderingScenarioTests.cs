@@ -90,6 +90,31 @@ namespace ArgusUnity.Tests.EditMode
         }
 
         [Test]
+        public void ApproachWalkFacesMovementDirectionBeforeConversationGaze()
+        {
+            var fixture = CreateFixture();
+            try
+            {
+                fixture.Scenario.ApplyAtTime(1.1f);
+                Assert.That(fixture.Scenario.TryGetCurrentSnapshot("A01", out var previous), Is.True);
+
+                fixture.Scenario.ApplyAtTime(1.4f);
+                Assert.That(fixture.Scenario.TryGetCurrentSnapshot("A01", out var current), Is.True);
+                Assert.That(current.Phase, Is.EqualTo(MiniBotSocialPhase.Approach));
+
+                var movement = current.Position - previous.Position;
+                movement.y = 0f;
+
+                Assert.That(movement.magnitude, Is.GreaterThan(0.01f));
+                Assert.That(Vector3.Dot(current.FacingDirection.normalized, movement.normalized), Is.GreaterThan(0.92f));
+            }
+            finally
+            {
+                fixture.Destroy();
+            }
+        }
+
+        [Test]
         public void CaptureWindowContainsMultipleSocialMeetups()
         {
             var fixture = CreateFixture();

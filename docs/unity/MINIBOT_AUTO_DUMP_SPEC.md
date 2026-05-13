@@ -167,7 +167,7 @@ RunAround capture also writes gait-specific files for the showcase movement path
 `minibot_gait_trace.jsonl` records the visible, speed-limited movement:
 
 ```jsonl
-{"frame":120,"agent_id":"B01","actual_speed_mps":0.58,"walk_speed_limit_mps":0.59,"distance_delta":0.019,"allowed_step_meters":0.020,"actual_step_meters":0.019,"meters_per_cycle":0.75,"cycle_rate_hz":0.77,"visual_cycle_rate_hz":0.77,"visual_phase_advance":0.026,"visual_phase":0.42,"externally_sampled_pose":true,"stride_warning":""}
+{"frame":120,"agent_id":"B01","actual_speed_mps":0.58,"walk_speed_limit_mps":0.59,"distance_delta":0.019,"allowed_step_meters":0.020,"actual_step_meters":0.019,"meters_per_cycle":0.75,"cycle_rate_hz":0.77,"visual_cycle_rate_hz":0.77,"visual_phase_advance":0.026,"visual_phase":0.42,"externally_sampled_pose":true,"heading_alignment_degrees":2.5,"stride_warning":""}
 ```
 
 Interpretation:
@@ -178,7 +178,9 @@ Interpretation:
 | `cycle_rate_hz <= 2.0` | Foot cadence is still in a walk-like range. |
 | `visual_cycle_rate_hz <= 1.0` | The visible BVH walk cycle is not restarting before a 30 FPS one-second cycle completes. |
 | `externally_sampled_pose == true` | RunAround used the distance-synced pose as the only rendered gait authority for the frame. |
+| `heading_alignment_degrees <= 35` for visible steps over `0.012m` | Body forward is close enough to travel direction to avoid crab-walk staging. |
 | `stride_warning == timeline_target_exceeded_speed_limit` | Timeline target is moving faster than the MiniBot can naturally walk. |
+| `stride_warning == body_facing_sideways_while_walking` | The bot is moving while its body is pointed too far away from travel direction. |
 | `stride_warning == too_fast_for_walk` | The bot is moving or cycling too quickly for a walk clip. |
 | `stride_warning == visual_cycle_restarted_too_fast` | Visible gait phase advanced faster than the configured cycle limit. |
 

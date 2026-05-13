@@ -22,7 +22,8 @@ The bridge path still receives target-position movement commands. The RunAround 
 4. `MiniBotWalkAnimator.metersPerWalkCycle` starts at `0.75` for the current small MiniBot scale.
 5. `MiniBotWalkAnimator.minimumWalkCycleSeconds` starts at `1.0` so a 30 FPS walk cycle cannot visually restart before 30 rendered frames.
 6. When `MiniBotRunAroundScenario` externally samples a distance-synced pose, that sampled pose is authoritative for the frame; `LateUpdate()` must not advance and apply the walk cycle a second time.
-7. Gait evidence is written to `reports/unity_dumps/minibot_gait_trace.jsonl`.
+7. During approach/disperse, body facing follows locomotion direction. Partner gaze is applied when the bot reaches chat/react state.
+8. Gait evidence is written to `reports/unity_dumps/minibot_gait_trace.jsonl`.
 
 ## Acceptance Criteria
 
@@ -31,4 +32,5 @@ The bridge path still receives target-position movement commands. The RunAround 
 - `cycle_rate_hz` remains below `2.0` during normal walking.
 - `visual_cycle_rate_hz` remains at or below `1.0` for the BVH walk cycle unless the configured minimum cycle duration is changed.
 - `externally_sampled_pose` is `true` for RunAround capture frames driven by `SampleDistanceSyncedPose()`, confirming the frame is not double-advanced by `LateUpdate()`.
+- `heading_alignment_degrees` stays below `35` for visible walking steps over `0.012m` so a walking bot does not face sideways relative to its travel direction.
 - Video review shows no obvious foot sliding over a five-second walking segment.

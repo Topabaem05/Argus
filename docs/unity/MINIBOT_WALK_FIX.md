@@ -132,6 +132,7 @@ Rules for the showcase path:
 - `MiniBotWalkAnimator.metersPerWalkCycle` starts at `0.75` so the feet do not cycle too quickly for the small model.
 - `MiniBotWalkAnimator.minimumWalkCycleSeconds` starts at `1.0` so the visible walk cycle cannot restart before a 30 FPS one-second cycle completes.
 - In RunAround, `SampleDistanceSyncedPose()` is authoritative for that rendered frame; `LateUpdate()` skips its own phase advance afterward to avoid applying two gait samples in one frame.
+- During approach/disperse, the MiniBot body faces the movement direction. It turns to face the partner only after entering chat/react, so walking does not stage as a sideways crab walk.
 
 Use `reports/unity_dumps/minibot_gait_trace.jsonl` to check:
 
@@ -144,7 +145,8 @@ Use `reports/unity_dumps/minibot_gait_trace.jsonl` to check:
 | `cycle_rate_hz` | Estimated walk cycles per second from movement distance. |
 | `visual_cycle_rate_hz` | Visible BVH walk cycle rate after clamping. |
 | `externally_sampled_pose` | Whether the frame used the distance-synced pose as its only gait authority. |
-| `stride_warning` | `timeline_target_exceeded_speed_limit`, `visual_cycle_restarted_too_fast`, or `too_fast_for_walk` when cadence is suspect. |
+| `heading_alignment_degrees` | Angle between travel direction and body facing for visible walking steps. |
+| `stride_warning` | `timeline_target_exceeded_speed_limit`, `visual_cycle_restarted_too_fast`, `body_facing_sideways_while_walking`, or `too_fast_for_walk` when cadence is suspect. |
 
 ## 8. Validation
 

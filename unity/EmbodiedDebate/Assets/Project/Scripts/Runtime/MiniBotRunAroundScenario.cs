@@ -49,6 +49,7 @@ namespace ArgusUnity.Runtime
         private const float FastWalkSpeedMetersPerSecond = 0.75f;
         private const float MinimumApproachSeconds = 2.5f;
         private const float MinimumDisperseSeconds = 1.8f;
+        private const float VisibleWalkingStepMeters = 0.012f;
         private const string ReportDirectory = "reports/unity_dumps";
         private const string GaitTraceFileName = "minibot_gait_trace.jsonl";
 
@@ -211,8 +212,8 @@ namespace ArgusUnity.Runtime
                 }
 
                 var position = WanderPosition(agent, sampleTime, out var facingDirection);
-                ApplyPose(agent, position, facingDirection, false, sampleTime, true);
-                StoreSnapshot(agent, MiniBotSocialPhase.Wander, position, facingDirection, string.Empty, "wander");
+                var appliedFacing = ApplyPose(agent, position, facingDirection, false, sampleTime, true);
+                StoreSnapshot(agent, MiniBotSocialPhase.Wander, position, appliedFacing, string.Empty, "wander");
             }
 
             RefreshChatTextFromSnapshots();
@@ -318,6 +319,7 @@ namespace ArgusUnity.Runtime
             var partnerMeetingPosition = interaction.MeetingCenter +
                                          interaction.MeetingAxis * (isFirst ? 0.52f : -0.52f);
             var position = meetingPosition;
+            var walkingFacing = Vector3.zero;
 
             if (phase == MiniBotSocialPhase.Approach)
             {
@@ -327,6 +329,7 @@ namespace ArgusUnity.Runtime
                     interaction.ChatStartSeconds,
                     sampleTime);
                 position = Vector3.Lerp(startPosition, meetingPosition, Smooth01(t));
+                walkingFacing = meetingPosition - startPosition;
             }
             else if (phase == MiniBotSocialPhase.React)
             {
@@ -339,28 +342,36 @@ namespace ArgusUnity.Runtime
             }
             else if (phase == MiniBotSocialPhase.Disperse)
             {
+                var disperseTarget = isFirst ? interaction.FirstDisperseTarget : interaction.SecondDisperseTarget;
                 var t = Mathf.InverseLerp(
                     interaction.DisperseStartSeconds,
                     interaction.EndSeconds,
                     sampleTime);
                 position = Vector3.Lerp(
                     meetingPosition,
-                    isFirst ? interaction.FirstDisperseTarget : interaction.SecondDisperseTarget,
+                    disperseTarget,
                     Smooth01(t));
+                walkingFacing = disperseTarget - meetingPosition;
             }
 
             var facing = partner != null && partner.Agent != null
                 ? partner.Agent.position - position
                 : partnerMeetingPosition - position;
             facing.y = 0f;
-            if (facing.sqrMagnitude <= 0.001f && phase == MiniBotSocialPhase.Disperse)
+            if ((phase == MiniBotSocialPhase.Approach || phase == MiniBotSocialPhase.Disperse) &&
+                walkingFacing.sqrMagnitude > 0.001f)
+            {
+                facing = walkingFacing;
+                facing.y = 0f;
+            }
+            else if (facing.sqrMagnitude <= 0.001f && phase == MiniBotSocialPhase.Disperse)
             {
                 facing = (isFirst ? interaction.FirstDisperseTarget : interaction.SecondDisperseTarget) - position;
                 facing.y = 0f;
             }
 
             var isWalkingPhase = phase == MiniBotSocialPhase.Approach || phase == MiniBotSocialPhase.Disperse;
-            ApplyPose(
+            var appliedFacing = ApplyPose(
                 agent,
                 position,
                 NormalizePlanarOrForward(facing),
@@ -372,7 +383,7 @@ namespace ArgusUnity.Runtime
                 currentChatText = $"{agent.AgentId} {interaction.ActionLabel} with {partner?.AgentId ?? "neighbor"}.";
             }
 
-            StoreSnapshot(agent, phase, position, NormalizePlanarOrForward(facing), partner?.AgentId ?? string.Empty, interaction.ActionLabel);
+            StoreSnapshot(agent, phase, position, appliedFacing, partner?.AgentId ?? string.Empty, interaction.ActionLabel);
         }
 
         private bool TryResolveInteraction(
@@ -434,7 +445,7 @@ namespace ArgusUnity.Runtime
             return Vector3.Lerp(from, to, t);
         }
 
-        private void ApplyPose(
+        private Vector3 ApplyPose(
             SocialAgent agent,
             Vector3 position,
             Vector3 facingDirection,
@@ -443,21 +454,30 @@ namespace ArgusUnity.Runtime
             bool allowWalkAnimation)
         {
             position = RoomNavigationMath.ClampPlanarWithInset(position, roomMin, roomMax, wallMargin);
-            if (!previousPositions.TryGetValue(agent.AgentId, out var previousPosition))
+            var hasPreviousPosition = previousPositions.TryGetValue(agent.AgentId, out var previousPosition);
+            if (!hasPreviousPosition)
             {
                 previousPosition = agent.Agent.position;
             }
             var planarDelta = position - previousPosition;
             planarDelta.y = 0f;
             var distanceDelta = planarDelta.magnitude;
-            var targetYaw = LocomotionMath.YawFromPlanarDirection(facingDirection);
+            var appliedFacingDirection = NormalizePlanarOrForward(facingDirection);
+            var hasVisibleResidualMovement = hasPreviousPosition && distanceDelta > VisibleWalkingStepMeters;
+            var shouldAnimateLocomotion = allowWalkAnimation || hasVisibleResidualMovement;
+            if (shouldAnimateLocomotion && planarDelta.sqrMagnitude > 0.000001f)
+            {
+                appliedFacingDirection = planarDelta.normalized;
+            }
+
+            var targetYaw = LocomotionMath.YawFromPlanarDirection(appliedFacingDirection);
             var currentYaw = agent.Agent.rotation.eulerAngles.y;
             var turnDegrees = LocomotionMath.SignedYawDelta(currentYaw, targetYaw);
 
             var movement = EnsureMovementController(agent.Agent.gameObject);
             movement.ApplyKinematicPose(
                 position,
-                NormalizePlanarOrForward(facingDirection),
+                appliedFacingDirection,
                 sampleTime,
                 agent.WalkSpeedMetersPerSecond);
             var appliedPosition = movement.LastAppliedPosition;
@@ -475,13 +495,14 @@ namespace ArgusUnity.Runtime
                     movement.LastPlanarSpeed > 0f ? movement.LastPlanarSpeed : distanceDelta / deltaTime,
                     0f,
                     agent.WalkSpeedMetersPerSecond * 1.65f);
-                var isMoving = allowWalkAnimation && distanceDelta > 0.006f;
+                var isMoving = shouldAnimateLocomotion && distanceDelta > 0.006f;
                 animator.SetMotionIntent(isMoving, turnDegrees, speed, isMoving ? distanceDelta : 0f);
                 var walkedDistance = ResolveWalkedDistance(agent.AgentId, distanceDelta, isMoving, hasPreviousTime, sampleTime, previousTime);
                 animator.SampleDistanceSyncedPose(walkedDistance, isMoving, turnDegrees);
             }
 
-            AppendGaitTrace(agent, animator, movement, distanceDelta, sampleTime);
+            var headingAlignmentDegrees = ResolveHeadingAlignmentDegrees(appliedDelta, appliedFacingDirection);
+            AppendGaitTrace(agent, animator, movement, distanceDelta, headingAlignmentDegrees, sampleTime);
 
             previousPositions[agent.AgentId] = appliedPosition;
             previousSampleTimes[agent.AgentId] = sampleTime;
@@ -490,6 +511,8 @@ namespace ArgusUnity.Runtime
             {
                 agent.EmotionMarker.gameObject.SetActive(markerVisible);
             }
+
+            return NormalizePlanarOrForward(agent.Agent.forward);
         }
 
         private float ResolveWalkedDistance(
@@ -650,6 +673,18 @@ namespace ArgusUnity.Runtime
             return Vector3.Distance(first, second);
         }
 
+        private static float ResolveHeadingAlignmentDegrees(Vector3 planarDelta, Vector3 facingDirection)
+        {
+            planarDelta.y = 0f;
+            facingDirection.y = 0f;
+            if (planarDelta.sqrMagnitude <= 0.000001f || facingDirection.sqrMagnitude <= 0.000001f)
+            {
+                return 0f;
+            }
+
+            return Vector3.Angle(planarDelta.normalized, facingDirection.normalized);
+        }
+
         private void InitializeGaitDump()
         {
             if (gaitDumpInitialized)
@@ -703,6 +738,7 @@ namespace ArgusUnity.Runtime
             MiniBotWalkAnimator animator,
             MinibotMovementController movement,
             float distanceDelta,
+            float headingAlignmentDegrees,
             float sampleTime)
         {
             if (!gaitDumpInitialized || movement == null)
@@ -723,6 +759,10 @@ namespace ArgusUnity.Runtime
             else if (visualCycleRate > 1.05f)
             {
                 warning = "visual_cycle_restarted_too_fast";
+            }
+            else if (movement.LastActualStepMeters > VisibleWalkingStepMeters && headingAlignmentDegrees > 35f)
+            {
+                warning = "body_facing_sideways_while_walking";
             }
             else if (speed > 0.85f || cycleRate > 2.0f)
             {
@@ -745,6 +785,7 @@ namespace ArgusUnity.Runtime
                 ["visual_phase_advance"] = visualPhaseAdvance,
                 ["visual_phase"] = animator != null ? animator.LastNormalizedPhase : 0f,
                 ["externally_sampled_pose"] = animator != null && animator.LastPoseWasExternallySampled,
+                ["heading_alignment_degrees"] = headingAlignmentDegrees,
                 ["stride_warning"] = warning
             };
             File.AppendAllText(
