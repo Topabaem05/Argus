@@ -70,6 +70,45 @@ namespace ArgusUnity.Tests.EditMode
         }
 
         [Test]
+        public void RunAroundMovableClassroomPropsHaveWeightedDynamicBodies()
+        {
+            var root = new GameObject("classroom prop root").transform;
+            GameObject prop = null;
+            try
+            {
+                prop = (GameObject)InvokePrivateMiniBotBuilder(
+                    "CreateMovableInteractionProp",
+                    root,
+                    "Weighted Test Box",
+                    new Vector3(0f, 0.5f, 0f),
+                    Vector3.one,
+                    Color.blue,
+                    "Push task",
+                    12.5f);
+
+                var rigidbody = prop.GetComponent<Rigidbody>();
+                Assert.That(rigidbody, Is.Not.Null);
+                Assert.That(rigidbody.isKinematic, Is.False);
+                Assert.That(rigidbody.useGravity, Is.True);
+                Assert.That(rigidbody.mass, Is.EqualTo(12.5f).Within(0.0001f));
+                Assert.That(rigidbody.interpolation, Is.EqualTo(RigidbodyInterpolation.Interpolate));
+                Assert.That(rigidbody.collisionDetectionMode, Is.EqualTo(CollisionDetectionMode.ContinuousDynamic));
+                Assert.That((rigidbody.constraints & RigidbodyConstraints.FreezeRotationX) != 0, Is.True);
+                Assert.That((rigidbody.constraints & RigidbodyConstraints.FreezeRotationZ) != 0, Is.True);
+                Assert.That(prop.GetComponent<BoxCollider>(), Is.Not.Null);
+            }
+            finally
+            {
+                if (prop != null)
+                {
+                    Object.DestroyImmediate(prop);
+                }
+
+                Object.DestroyImmediate(root.gameObject);
+            }
+        }
+
+        [Test]
         public void KeyboardTestMiniBotIsRedDynamicAndKeyboardControlled()
         {
             var root = new GameObject("keyboard test root");
@@ -146,6 +185,15 @@ namespace ArgusUnity.Tests.EditMode
         private static object InvokePrivate(string methodName, params object[] args)
         {
             var method = typeof(HideAndSeekDesignBuilder).GetMethod(
+                methodName,
+                BindingFlags.Static | BindingFlags.NonPublic);
+            Assert.That(method, Is.Not.Null);
+            return method.Invoke(null, args);
+        }
+
+        private static object InvokePrivateMiniBotBuilder(string methodName, params object[] args)
+        {
+            var method = typeof(MiniBotScenarioBuilder).GetMethod(
                 methodName,
                 BindingFlags.Static | BindingFlags.NonPublic);
             Assert.That(method, Is.Not.Null);

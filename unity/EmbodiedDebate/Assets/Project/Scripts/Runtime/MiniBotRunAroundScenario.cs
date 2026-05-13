@@ -474,7 +474,7 @@ namespace ArgusUnity.Runtime
             {
                 var workT = Mathf.InverseLerp(task.WorkStartSeconds, task.LeaveStartSeconds, sampleTime);
                 objectPosition = Vector3.Lerp(task.ObjectStartPosition, task.ObjectEndPosition, Smooth01(workT));
-                task.MovableObject.position = objectPosition;
+                ApplyMovableObjectPosition(task.MovableObject, objectPosition);
                 contactPosition = task.ObjectStartPosition + contactOffset;
                 facing = action == "pull" ? -objectDirection : objectDirection;
                 currentChatText = $"{agent.AgentId} {task.ActionLabel} {task.MovableObject.name}.";
@@ -482,7 +482,7 @@ namespace ArgusUnity.Runtime
             }
             else if (phase == MiniBotSocialPhase.Disperse)
             {
-                task.MovableObject.position = task.ObjectEndPosition;
+                ApplyMovableObjectPosition(task.MovableObject, task.ObjectEndPosition);
                 var t = Mathf.InverseLerp(task.LeaveStartSeconds, task.EndSeconds, sampleTime);
                 var leaveTarget = task.ObjectEndPosition - contactOffset * 1.8f;
                 contactPosition = Vector3.Lerp(task.ObjectStartPosition + contactOffset, leaveTarget, Smooth01(t));
@@ -490,7 +490,7 @@ namespace ArgusUnity.Runtime
             }
             else
             {
-                task.MovableObject.position = task.ObjectStartPosition;
+                ApplyMovableObjectPosition(task.MovableObject, task.ObjectStartPosition);
             }
 
             if (phase == MiniBotSocialPhase.React)
@@ -511,6 +511,27 @@ namespace ArgusUnity.Runtime
                 task.MovableObject.name,
                 task.ActionLabel);
             StoreSnapshot(agent, phase, contactPosition, appliedFacing, task.MovableObject.name, task.ActionLabel);
+        }
+
+        private static void ApplyMovableObjectPosition(Transform movableObject, Vector3 position)
+        {
+            if (movableObject == null)
+            {
+                return;
+            }
+
+            var rigidbody = movableObject.GetComponent<Rigidbody>();
+            if (rigidbody == null)
+            {
+                movableObject.position = position;
+                return;
+            }
+
+            rigidbody.WakeUp();
+            rigidbody.velocity = Vector3.zero;
+            rigidbody.angularVelocity = Vector3.zero;
+            rigidbody.MovePosition(position);
+            rigidbody.position = position;
         }
 
         private bool TryResolveInteraction(
@@ -1504,7 +1525,7 @@ namespace ArgusUnity.Runtime
                 this.workSeconds = workSeconds;
                 this.leaveSeconds = leaveSeconds;
                 this.actionLabel = actionLabel;
-                this.movableObject.position = objectStartPosition;
+                ApplyMovableObjectPosition(this.movableObject, objectStartPosition);
             }
 
             [SerializeField]

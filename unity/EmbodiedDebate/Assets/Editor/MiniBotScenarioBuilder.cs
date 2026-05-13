@@ -353,11 +353,11 @@ namespace ArgusUnity.Editor
         {
             var root = new GameObject("Classroom Object Interaction Props").transform;
 
-            AddClassroomAsset(root, "table.glb", "Static Table", new Vector3(-2.4f, 0f, 5.8f), Quaternion.Euler(0f, 18f, 0f), 0.62f);
-            AddClassroomAsset(root, "chair.glb", "Static Chair", new Vector3(-3.2f, 0f, 5.15f), Quaternion.Euler(0f, -26f, 0f), 0.56f);
-            AddClassroomAsset(root, "locker.glb", "Static Locker", new Vector3(6.85f, 0f, 5.9f), Quaternion.Euler(0f, -92f, 0f), 1.25f);
-            AddClassroomAsset(root, "desk.glb", "Static Desk", new Vector3(2.4f, 0f, 5.75f), Quaternion.Euler(0f, -12f, 0f), 0.74f);
-            AddClassroomAsset(root, "book.glb", "Static Book Stack", new Vector3(-2.1f, 0.72f, 5.75f), Quaternion.Euler(0f, 35f, 0f), 0.28f);
+            AddClassroomAsset(root, "table.glb", "Static Table", new Vector3(-2.4f, 0f, 5.8f), Quaternion.Euler(0f, 18f, 0f), 0.62f, 28f, true);
+            AddClassroomAsset(root, "chair.glb", "Static Chair", new Vector3(-3.2f, 0f, 5.15f), Quaternion.Euler(0f, -26f, 0f), 0.56f, 8f, true);
+            AddClassroomAsset(root, "locker.glb", "Static Locker", new Vector3(6.85f, 0f, 5.9f), Quaternion.Euler(0f, -92f, 0f), 1.25f, 42f, true);
+            AddClassroomAsset(root, "desk.glb", "Static Desk", new Vector3(2.4f, 0f, 5.75f), Quaternion.Euler(0f, -12f, 0f), 0.74f, 35f, true);
+            AddClassroomAsset(root, "book.glb", "Static Book Stack", new Vector3(-2.1f, 0.72f, 5.75f), Quaternion.Euler(0f, 35f, 0f), 0.28f, 3f, true);
 
             var pushBox = CreateMovableInteractionProp(
                 root,
@@ -365,15 +365,17 @@ namespace ArgusUnity.Editor
                 new Vector3(-1.9f, 0.34f, 2.2f),
                 new Vector3(0.64f, 0.68f, 0.64f),
                 new Color(0.22f, 0.46f, 0.9f),
-                "Push task");
+                "Push task",
+                6f);
             var pullCart = CreateMovableInteractionProp(
                 root,
                 "Rolling Shelf Cart",
                 new Vector3(3.7f, 0.48f, -2.5f),
                 new Vector3(0.86f, 0.96f, 0.6f),
                 new Color(0.42f, 0.56f, 0.62f),
-                "Pull task");
-            AddClassroomAsset(pullCart.transform, "shelfwithwheels.glb", "Shelf Visual", Vector3.zero, Quaternion.identity, 0.85f);
+                "Pull task",
+                18f);
+            AddClassroomAsset(pullCart.transform, "shelfwithwheels.glb", "Shelf Visual", Vector3.zero, Quaternion.identity, 0.85f, 0f, false);
 
             var bookBox = CreateMovableInteractionProp(
                 root,
@@ -381,8 +383,9 @@ namespace ArgusUnity.Editor
                 new Vector3(-5.7f, 0.32f, 2.8f),
                 new Vector3(0.68f, 0.64f, 0.58f),
                 new Color(0.78f, 0.25f, 0.22f),
-                "Sort books");
-            AddClassroomAsset(bookBox.transform, "book.glb", "Book Visual", new Vector3(0f, 0.45f, 0f), Quaternion.Euler(0f, 20f, 0f), 0.22f);
+                "Sort books",
+                9f);
+            AddClassroomAsset(bookBox.transform, "book.glb", "Book Visual", new Vector3(0f, 0.45f, 0f), Quaternion.Euler(0f, 20f, 0f), 0.22f, 0f, false);
 
             var deskBlock = CreateMovableInteractionProp(
                 root,
@@ -390,7 +393,8 @@ namespace ArgusUnity.Editor
                 new Vector3(5.5f, 0.38f, 1.6f),
                 new Vector3(0.95f, 0.76f, 0.68f),
                 new Color(0.58f, 0.36f, 0.2f),
-                "Pull desk");
+                "Pull desk",
+                32f);
 
             var markerBox = CreateMovableInteractionProp(
                 root,
@@ -398,7 +402,8 @@ namespace ArgusUnity.Editor
                 new Vector3(-6.1f, 0.3f, -2.6f),
                 new Vector3(0.62f, 0.6f, 0.62f),
                 new Color(0.22f, 0.62f, 0.36f),
-                "Push supplies");
+                "Push supplies",
+                5f);
 
             return new ClassroomMovableProps(pushBox, pullCart, bookBox, deskBlock, markerBox);
         }
@@ -409,7 +414,8 @@ namespace ArgusUnity.Editor
             Vector3 position,
             Vector3 scale,
             Color color,
-            string label)
+            string label,
+            float mass)
         {
             var prop = GameObject.CreatePrimitive(PrimitiveType.Cube);
             prop.name = name;
@@ -418,8 +424,7 @@ namespace ArgusUnity.Editor
             prop.transform.localScale = scale;
             ApplyMaterial(prop, Material($"MiniBot{name.Replace(" ", string.Empty)}", color));
             var rigidbody = prop.AddComponent<Rigidbody>();
-            rigidbody.isKinematic = true;
-            rigidbody.useGravity = false;
+            ConfigurePropRigidbody(rigidbody, mass, false);
             var collider = prop.GetComponent<BoxCollider>();
             if (collider != null)
             {
@@ -436,7 +441,9 @@ namespace ArgusUnity.Editor
             string name,
             Vector3 position,
             Quaternion rotation,
-            float targetHeight)
+            float targetHeight,
+            float mass,
+            bool collidable)
         {
             var assetPath = $"{ClassroomAssetRoot}/{fileName}";
             var prefab = AssetDatabase.LoadAssetAtPath<GameObject>(assetPath);
@@ -452,6 +459,11 @@ namespace ArgusUnity.Editor
             instance.transform.position = parent == null ? position : parent.TransformPoint(position);
             instance.transform.rotation = rotation;
             FitToHeight(instance, targetHeight);
+            if (collidable)
+            {
+                ConfigureStaticClassroomAssetPhysics(instance, mass);
+            }
+
             foreach (var renderer in instance.GetComponentsInChildren<Renderer>())
             {
                 renderer.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.On;
@@ -459,6 +471,70 @@ namespace ArgusUnity.Editor
             }
 
             return instance;
+        }
+
+        private static void ConfigureStaticClassroomAssetPhysics(GameObject instance, float mass)
+        {
+            var rigidbody = instance.GetComponent<Rigidbody>();
+            if (rigidbody == null)
+            {
+                rigidbody = instance.AddComponent<Rigidbody>();
+            }
+
+            ConfigurePropRigidbody(rigidbody, mass, true);
+
+            var collider = instance.GetComponent<BoxCollider>();
+            if (collider == null)
+            {
+                collider = instance.AddComponent<BoxCollider>();
+            }
+
+            var bounds = CalculateRendererBounds(instance);
+            if (!bounds.HasValue)
+            {
+                collider.center = Vector3.up * 0.5f;
+                collider.size = Vector3.one;
+                return;
+            }
+
+            var worldBounds = bounds.Value;
+            var lossyScale = instance.transform.lossyScale;
+            collider.center = instance.transform.InverseTransformPoint(worldBounds.center);
+            collider.size = new Vector3(
+                worldBounds.size.x / Mathf.Max(0.001f, Mathf.Abs(lossyScale.x)),
+                worldBounds.size.y / Mathf.Max(0.001f, Mathf.Abs(lossyScale.y)),
+                worldBounds.size.z / Mathf.Max(0.001f, Mathf.Abs(lossyScale.z)));
+        }
+
+        private static Bounds? CalculateRendererBounds(GameObject instance)
+        {
+            var renderers = instance.GetComponentsInChildren<Renderer>();
+            if (renderers.Length == 0)
+            {
+                return null;
+            }
+
+            var bounds = renderers[0].bounds;
+            for (var i = 1; i < renderers.Length; i++)
+            {
+                bounds.Encapsulate(renderers[i].bounds);
+            }
+
+            return bounds;
+        }
+
+        private static void ConfigurePropRigidbody(Rigidbody rigidbody, float mass, bool kinematic)
+        {
+            rigidbody.mass = Mathf.Max(0.1f, mass);
+            rigidbody.isKinematic = kinematic;
+            rigidbody.useGravity = !kinematic;
+            rigidbody.interpolation = RigidbodyInterpolation.Interpolate;
+            rigidbody.collisionDetectionMode = kinematic
+                ? CollisionDetectionMode.ContinuousSpeculative
+                : CollisionDetectionMode.ContinuousDynamic;
+            rigidbody.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
+            rigidbody.drag = kinematic ? 0f : 1.2f;
+            rigidbody.angularDrag = kinematic ? 0.05f : 2.4f;
         }
 
         private static void CreateWall(Transform root, string name, Vector3 position, Vector3 scale, Material material)

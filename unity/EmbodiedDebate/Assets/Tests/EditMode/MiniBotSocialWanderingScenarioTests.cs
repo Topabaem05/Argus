@@ -144,9 +144,13 @@ namespace ArgusUnity.Tests.EditMode
         {
             var fixture = CreateFixture();
             var box = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            var boxBody = box.AddComponent<Rigidbody>();
             try
             {
                 box.name = "Test Supply Box";
+                boxBody.mass = 6f;
+                boxBody.isKinematic = false;
+                boxBody.useGravity = true;
                 fixture.Scenario.RegisterObjectTask(
                     "B01",
                     box.transform,
@@ -163,6 +167,9 @@ namespace ArgusUnity.Tests.EditMode
                 fixture.Scenario.ApplyAtTime(29.5f);
 
                 Assert.That(box.transform.position.x, Is.GreaterThan(-0.2f));
+                Assert.That(boxBody.mass, Is.EqualTo(6f).Within(0.0001f));
+                Assert.That(boxBody.isKinematic, Is.False);
+                Assert.That(box.GetComponent<BoxCollider>(), Is.Not.Null);
                 Assert.That(fixture.Scenario.TryGetCurrentSnapshot("B01", out var snapshot), Is.True);
                 Assert.That(snapshot.ActionLabel, Is.EqualTo("push"));
                 Assert.That(fixture.Scenario.TryGetMotionDebugState("B01", out var motionDebug), Is.True);
