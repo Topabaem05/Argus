@@ -128,6 +128,12 @@ namespace ArgusUnity.Motion
             var effectiveIntent = ResolveEffectiveIntent(deltaTime);
             var effectiveSelection = ResolveEffectiveSelection();
             var velocity = ResolveVelocity();
+            if (ShouldUseMovementOnlyVisuals(effectiveIntent, velocity))
+            {
+                effectiveIntent = StripNonMovementVisuals(effectiveIntent);
+                effectiveSelection = StripOverlayAndEmotion(effectiveSelection);
+            }
+
             var localVelocity = transform.InverseTransformDirection(velocity);
             LastMoveX = Mathf.Clamp(localVelocity.x / Mathf.Max(0.001f, maxRunSpeed), -1f, 1f);
             LastMoveZ = Mathf.Clamp(localVelocity.z / Mathf.Max(0.001f, maxRunSpeed), -1f, 1f);
@@ -139,18 +145,26 @@ namespace ArgusUnity.Motion
                 targetGestureWeight = 0.45f;
             }
 
-            gestureWeight = Mathf.MoveTowards(
-                gestureWeight,
-                targetGestureWeight,
-                Mathf.Max(0f, gestureFadeSpeed) * deltaTime);
             var targetEmotionWeight = effectiveSelection.EmotionClip != MotionClipId.None ||
                                       effectiveIntent.Emotion != MotionEmotion.Neutral
                 ? 0.75f
                 : 0f;
-            emotionWeight = Mathf.MoveTowards(
-                emotionWeight,
-                targetEmotionWeight,
-                Mathf.Max(0f, emotionFadeSpeed) * deltaTime);
+            if (ShouldUseMovementOnlyVisuals(effectiveIntent, velocity))
+            {
+                gestureWeight = 0f;
+                emotionWeight = 0f;
+            }
+            else
+            {
+                gestureWeight = Mathf.MoveTowards(
+                    gestureWeight,
+                    targetGestureWeight,
+                    Mathf.Max(0f, gestureFadeSpeed) * deltaTime);
+                emotionWeight = Mathf.MoveTowards(
+                    emotionWeight,
+                    targetEmotionWeight,
+                    Mathf.Max(0f, emotionFadeSpeed) * deltaTime);
+            }
 
             SetFloat("MoveX", LastMoveX, deltaTime);
             SetFloat("MoveZ", LastMoveZ, deltaTime);
@@ -178,12 +192,52 @@ namespace ArgusUnity.Motion
             appliedSelection = CrossFadeSelection(effectiveSelection);
             if (useExternalKinematicState)
             {
-                debugState?.Apply(currentIntent, effectiveSelection, appliedSelection, velocity.magnitude, externalObstacleAhead, turn);
+                debugState?.Apply(effectiveIntent, effectiveSelection, appliedSelection, velocity.magnitude, externalObstacleAhead, turn);
             }
             else
             {
-                debugState?.Apply(currentIntent, effectiveSelection, appliedSelection, motor, ResolveObstacleAhead(), turn);
+                debugState?.Apply(effectiveIntent, effectiveSelection, appliedSelection, motor, ResolveObstacleAhead(), turn);
             }
+        }
+
+        private static bool ShouldUseMovementOnlyVisuals(MotionIntent intent, Vector3 velocity)
+        {
+            return intent.HasMoveTarget && velocity.sqrMagnitude > 0.0001f;
+        }
+
+        private static MotionIntent StripNonMovementVisuals(MotionIntent intent)
+        {
+            return new MotionIntent(
+                intent.Type,
+                intent.HasMoveTarget,
+                intent.MoveTarget,
+                intent.FocusTarget,
+                intent.DesiredSpeedMetersPerSecond,
+                intent.StopDistance,
+                MotionEmotion.Neutral,
+                MotionGesture.None,
+                IsMovementAction(intent.Action) ? intent.Action : MotionAction.None,
+                true,
+                intent.Urgency,
+                intent.RequestedClip,
+                intent.Source);
+        }
+
+        private static MotionSelection StripOverlayAndEmotion(MotionSelection selection)
+        {
+            return new MotionSelection(
+                selection.BaseClip,
+                MotionClipId.None,
+                MotionClipId.None,
+                selection.RecentClips);
+        }
+
+        private static bool IsMovementAction(MotionAction action)
+        {
+            return action == MotionAction.Charge ||
+                   action == MotionAction.Dodge ||
+                   action == MotionAction.StepBackward ||
+                   action == MotionAction.StopWalking;
         }
 
         private void TriggerChangedEvents(MotionIntent intent)

@@ -103,12 +103,10 @@ namespace ArgusUnity.Tests.EditMode
                 Assert.That(fixture.First.GetComponent<MinibotAnimatorDriver>(), Is.Not.Null);
                 Assert.That(fixture.Scenario.TryGetMotionDebugState("A01", out var walkingDebug), Is.True);
                 Assert.That(walkingDebug.SelectedBaseClip, Is.EqualTo(MotionClipId.Walking3));
+                Assert.That(walkingDebug.SelectedOverlayClip, Is.EqualTo(MotionClipId.None));
+                Assert.That(walkingDebug.SelectedEmotionClip, Is.EqualTo(MotionClipId.None));
+                Assert.That(walkingDebug.CurrentIntent, Is.EqualTo(MotionIntentType.WalkForward));
 
-                fixture.Scenario.ApplyAtTime(5.4f);
-
-                Assert.That(fixture.Scenario.TryGetMotionDebugState("A01", out var chatDebug), Is.True);
-                Assert.That(chatDebug.SelectedOverlayClip, Is.Not.EqualTo(MotionClipId.None));
-                Assert.That(chatDebug.SelectedOverlayClipName, Is.Not.Empty);
             }
             finally
             {

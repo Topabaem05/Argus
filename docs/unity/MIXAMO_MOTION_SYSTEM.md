@@ -44,6 +44,8 @@ Assets/Project/Resources/Animations/Mixamo/Generated/
 
 `MiniBotRunAround` also uses this generated controller for the video capture path. The capture still keeps `MinibotMovementController` as the root movement authority because that controller has the anti-crab-walk facing guard, but the visible animation is driven through `MinibotAnimatorDriver` and deterministic `MotionSelectionPolicy` selections. The legacy `MiniBotWalkAnimator` is not added by the RunAround builder.
 
+While a minibot is actively translating, the visible animation path is locomotion-only. Emotion, talk, and gesture overlays are suppressed until the bot stops or enters a stationary conversation/reaction pose. This keeps walking readable and prevents upper-body persona gestures from fighting the forward movement cycle.
+
 ## Runtime Data Flow
 
 ```txt

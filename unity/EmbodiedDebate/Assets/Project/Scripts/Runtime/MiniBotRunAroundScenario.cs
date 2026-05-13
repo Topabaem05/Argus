@@ -551,13 +551,14 @@ namespace ArgusUnity.Runtime
             string partnerId,
             string actionLabel)
         {
+            var isTranslating = isMoving || speed > 0.05f;
             var driver = EnsureAnimatorDriver(agent.Agent.gameObject);
             var debugState = EnsureMotionDebugState(agent);
             var profile = EnsureMotionProfile(agent);
             var policy = EnsureMotionPolicy(agent);
-            var intent = BuildMotionIntent(agent, isMoving, speed, markerVisible, phase, partnerId, actionLabel);
+            var intent = BuildMotionIntent(agent, isTranslating, speed, markerVisible, phase, partnerId, actionLabel);
             var selection = policy.Select(intent, profile, sampleTime);
-            var velocity = isMoving ? agent.Agent.forward * speed : Vector3.zero;
+            var velocity = isTranslating ? agent.Agent.forward * speed : Vector3.zero;
             driver.SetIntent(intent);
             driver.SetSelection(selection, debugState);
             driver.SetExternalKinematicState(
@@ -576,9 +577,9 @@ namespace ArgusUnity.Runtime
             string partnerId,
             string actionLabel)
         {
-            var emotion = EmotionFor(agent.Archetype, phase, actionLabel);
-            var gesture = GestureFor(agent.Archetype, phase, actionLabel);
-            var action = ActionFor(phase, actionLabel);
+            var emotion = isMoving ? MotionEmotion.Neutral : EmotionFor(agent.Archetype, phase, actionLabel);
+            var gesture = isMoving ? MotionGesture.None : GestureFor(agent.Archetype, phase, actionLabel);
+            var action = isMoving ? MotionAction.None : ActionFor(phase, actionLabel);
             var type = IntentTypeFor(phase, actionLabel, isMoving, speed, gesture, emotion);
             return new MotionIntent(
                 type,

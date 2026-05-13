@@ -177,6 +177,34 @@ namespace ArgusUnity.Tests.EditMode.Motion
         }
 
         [Test]
+        public void MovingMotionSelectionSuppressesGestureAndEmotionOverlays()
+        {
+            var profile = PersonaMotionProfile.FromAgentId("moving-agent", 321);
+            var policy = new MotionSelectionPolicy();
+            policy.Initialize(profile.Seed);
+
+            var selection = policy.Select(
+                new MotionIntent(
+                    MotionIntentType.Talk,
+                    true,
+                    new Vector3(2f, 0f, 0f),
+                    Vector3.zero,
+                    0.55f,
+                    0.12f,
+                    MotionEmotion.Excited,
+                    MotionGesture.Talk,
+                    MotionAction.ButtonPush,
+                    true,
+                    0.5f),
+                profile,
+                0f);
+
+            Assert.That(selection.BaseClip, Is.EqualTo(MotionClipId.Walking3));
+            Assert.That(selection.OverlayClip, Is.EqualTo(MotionClipId.None));
+            Assert.That(selection.EmotionClip, Is.EqualTo(MotionClipId.None));
+        }
+
+        [Test]
         public void PersonaProfileBiasesExpectedMotionFamilies()
         {
             var aggressive = PersonaMotionProfile.FromAgentId("aggressive", 99);

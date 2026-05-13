@@ -141,11 +141,14 @@ namespace ArgusUnity.Motion
 
         private static MotionIntentType ResolveBaseIntent(MotionIntent intent)
         {
+            var isMoving = IsMovingIntent(intent);
             var actionType = MotionCatalog.TypeForAction(intent.Action);
             switch (actionType)
             {
                 case MotionIntentType.StepBackward:
                 case MotionIntentType.Dodge:
+                case MotionIntentType.Charge:
+                    return actionType;
                 case MotionIntentType.HitReaction:
                 case MotionIntentType.Fall:
                 case MotionIntentType.GetUp:
@@ -153,7 +156,11 @@ namespace ArgusUnity.Motion
                 case MotionIntentType.PickUp:
                 case MotionIntentType.Push:
                 case MotionIntentType.Pull:
-                case MotionIntentType.Charge:
+                    if (isMoving)
+                    {
+                        break;
+                    }
+
                     return actionType;
             }
 
@@ -181,6 +188,11 @@ namespace ArgusUnity.Motion
 
         private static MotionIntentType ResolveOverlayIntent(MotionIntent intent)
         {
+            if (IsMovingIntent(intent))
+            {
+                return MotionIntentType.None;
+            }
+
             var gestureIntent = MotionCatalog.TypeForGesture(intent.Gesture);
             if (gestureIntent != MotionIntentType.None)
             {
@@ -206,6 +218,11 @@ namespace ArgusUnity.Motion
 
         private static MotionIntentType ResolveEmotionIntent(MotionIntent intent)
         {
+            if (IsMovingIntent(intent))
+            {
+                return MotionIntentType.None;
+            }
+
             switch (intent.Emotion)
             {
                 case MotionEmotion.Excited:
@@ -219,6 +236,11 @@ namespace ArgusUnity.Motion
                 default:
                     return MotionIntentType.None;
             }
+        }
+
+        private static bool IsMovingIntent(MotionIntent intent)
+        {
+            return intent.HasMoveTarget && intent.DesiredSpeedMetersPerSecond > 0.01f;
         }
 
         private bool HasAlternative(MotionClipDefinition candidate, float timeSeconds)
