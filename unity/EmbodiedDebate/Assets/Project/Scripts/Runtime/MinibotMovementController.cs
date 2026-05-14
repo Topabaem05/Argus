@@ -26,6 +26,7 @@ namespace ArgusUnity.Runtime
 
         private Rigidbody body;
         private CapsuleCollider capsule;
+        private readonly Collider[] overlapBuffer = new Collider[16];
         private bool hasPreviousPose;
         private Vector3 previousPosition;
         private float previousYaw;
@@ -200,6 +201,11 @@ namespace ArgusUnity.Runtime
 
             Physics.SyncTransforms();
             var direction = planarDelta / distance;
+            if (TryResolveInitialOverlapPush(from, direction, distance))
+            {
+                return LastBlockedByStaticCollider ? from : to;
+            }
+
             GetCapsuleWorldPoints(from, out var bottom, out var top);
             var hits = Physics.CapsuleCastAll(
                 bottom,
@@ -228,7 +234,7 @@ namespace ArgusUnity.Runtime
                     continue;
                 }
 
-                var hitBody = hit.rigidbody;
+                var hitBody = hit.collider.attachedRigidbody;
                 LastCollisionName = hit.collider.name;
                 if (CanPush(hitBody))
                 {
@@ -245,6 +251,62 @@ namespace ArgusUnity.Runtime
             }
 
             return to;
+        }
+
+        private bool TryResolveInitialOverlapPush(Vector3 from, Vector3 direction, float distance)
+        {
+            GetCapsuleWorldPoints(from, out var bottom, out var top);
+            var overlapCount = Physics.OverlapCapsuleNonAlloc(
+                bottom,
+                top,
+                Mathf.Max(0.01f, capsule.radius + collisionSkinMeters),
+                overlapBuffer,
+                ~0,
+                QueryTriggerInteraction.Ignore);
+            for (var i = 0; i < overlapCount; i++)
+            {
+                var other = overlapBuffer[i];
+                overlapBuffer[i] = null;
+                if (other == null || other.transform.IsChildOf(transform))
+                {
+                    continue;
+                }
+
+                if (IsGroundSupportHit(other, from))
+                {
+                    continue;
+                }
+
+                if (!Physics.ComputePenetration(
+                        capsule,
+                        from,
+                        transform.rotation,
+                        other,
+                        other.transform.position,
+                        other.transform.rotation,
+                        out _,
+                        out _))
+                {
+                    continue;
+                }
+
+                var hitBody = other.attachedRigidbody;
+                LastCollisionName = other.name;
+                if (CanPush(hitBody))
+                {
+                    var pushDistance = Mathf.Max(distance, collisionSkinMeters * 2f);
+                    PushBody(hitBody, direction * pushDistance);
+                    LastPushedRigidbody = hitBody;
+                    LastPushedDistanceMeters = pushDistance;
+                    LastCollisionName = hitBody.name;
+                    return true;
+                }
+
+                LastBlockedByStaticCollider = true;
+                return true;
+            }
+
+            return false;
         }
 
         private static bool IsGroundSupportHit(Collider hitCollider, Vector3 rootPosition)

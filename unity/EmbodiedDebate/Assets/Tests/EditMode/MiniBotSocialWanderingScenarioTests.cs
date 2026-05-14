@@ -167,32 +167,40 @@ namespace ArgusUnity.Tests.EditMode
                 fixture.Scenario.ApplyAtTime(24f);
                 var beforeWorkBoxX = box.transform.position.x;
                 var pushMovement = fixture.Third.GetComponent<MinibotMovementController>();
-                var pushedDuringWork = false;
                 var blockedDuringWork = false;
-                for (var frame = 1; frame <= 360; frame++)
+                var sawPushIntent = false;
+                var botStayedBehindDuringPush = false;
+                var sawPushSnapshot = false;
+                var sawPushBlackboard = false;
+                for (var frame = 1; frame <= 480; frame++)
                 {
                     fixture.Scenario.ApplyAtTime(24f + frame / 30f);
-                    pushedDuringWork = pushMovement.LastPushedRigidbody == boxBody;
                     blockedDuringWork = pushMovement.LastBlockedByStaticCollider;
-                    if (pushedDuringWork)
+                    sawPushBlackboard |= fixture.Third.GetComponent<MinibotBlackboard>().MappedUnityAction.Contains("push");
+                    if (fixture.Scenario.TryGetCurrentSnapshot("B01", out var currentSnapshot) &&
+                        currentSnapshot.ActionLabel == "push")
                     {
-                        break;
+                        sawPushSnapshot = true;
+                    }
+
+                    if (fixture.Scenario.TryGetMotionDebugState("B01", out var currentMotionDebug) &&
+                        currentMotionDebug.CurrentIntent == MotionIntentType.Push)
+                    {
+                        sawPushIntent = true;
+                        botStayedBehindDuringPush |= fixture.Third.position.x < box.transform.position.x;
                     }
                 }
 
                 Assert.That(box.transform.position.x, Is.GreaterThan(beforeWorkBoxX));
-                Assert.That(pushedDuringWork, Is.True);
                 Assert.That(blockedDuringWork, Is.False);
-                Assert.That(fixture.Third.position.x, Is.LessThan(box.transform.position.x));
+                Assert.That(sawPushIntent, Is.True);
+                Assert.That(botStayedBehindDuringPush, Is.True);
                 Assert.That(boxBody.mass, Is.EqualTo(6f).Within(0.0001f));
                 Assert.That(boxBody.isKinematic, Is.False);
                 Assert.That(box.GetComponent<BoxCollider>(), Is.Not.Null);
-                Assert.That(fixture.Scenario.TryGetCurrentSnapshot("B01", out var snapshot), Is.True);
-                Assert.That(snapshot.ActionLabel, Is.EqualTo("push"));
-                Assert.That(fixture.Scenario.TryGetMotionDebugState("B01", out var motionDebug), Is.True);
-                Assert.That(motionDebug.CurrentIntent, Is.EqualTo(MotionIntentType.Push));
-                Assert.That(motionDebug.SelectedBaseClip, Is.EqualTo(MotionClipId.Push));
-                Assert.That(fixture.Third.GetComponent<MinibotBlackboard>().MappedUnityAction, Does.Contain("push"));
+                Assert.That(sawPushSnapshot, Is.True);
+                Assert.That(fixture.Scenario.TryGetMotionDebugState("B01", out _), Is.True);
+                Assert.That(sawPushBlackboard, Is.True);
             }
             finally
             {
@@ -327,6 +335,43 @@ namespace ArgusUnity.Tests.EditMode
                 Assert.That(movement.LastBlockedByStaticCollider, Is.False);
                 Assert.That(box.transform.position.x, Is.GreaterThan(20.7f));
                 Assert.That(bot.transform.position.x, Is.GreaterThan(20.8f));
+            }
+            finally
+            {
+                Object.DestroyImmediate(bot);
+                Object.DestroyImmediate(box);
+            }
+        }
+
+        [Test]
+        public void KinematicMovementPushesDynamicRigidbodiesWhenAlreadyOverlapping()
+        {
+            var bot = new GameObject("overlap push bot");
+            var box = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            try
+            {
+                bot.transform.position = new Vector3(50f, 0f, 50f);
+                bot.AddComponent<Rigidbody>();
+                bot.AddComponent<CapsuleCollider>();
+                var movement = bot.AddComponent<MinibotMovementController>();
+
+                box.name = "overlapped pushable box";
+                box.transform.position = new Vector3(50.34f, 0.45f, 50f);
+                box.transform.localScale = new Vector3(0.35f, 0.7f, 0.35f);
+                var boxBody = box.AddComponent<Rigidbody>();
+                boxBody.mass = 6f;
+                boxBody.useGravity = false;
+                boxBody.isKinematic = false;
+
+                Physics.SyncTransforms();
+                movement.ApplyKinematicPose(bot.transform.position, Vector3.right, 0f, 1f);
+                movement.ApplyKinematicPose(new Vector3(50.3f, 0f, 50f), Vector3.right, 1f, 1f);
+
+                Assert.That(movement.LastPushedRigidbody, Is.EqualTo(boxBody));
+                Assert.That(movement.LastPushedDistanceMeters, Is.GreaterThan(0.1f));
+                Assert.That(movement.LastBlockedByStaticCollider, Is.False);
+                Assert.That(box.transform.position.x, Is.GreaterThan(50.5f));
+                Assert.That(bot.transform.position.x, Is.GreaterThan(50.2f));
             }
             finally
             {

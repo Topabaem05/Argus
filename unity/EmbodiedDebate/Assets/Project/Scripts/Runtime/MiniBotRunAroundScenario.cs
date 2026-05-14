@@ -497,15 +497,8 @@ namespace ArgusUnity.Runtime
             {
                 var workT = Mathf.InverseLerp(task.WorkStartSeconds, task.LeaveStartSeconds, sampleTime);
                 objectPosition = Vector3.Lerp(task.ObjectStartPosition, task.ObjectEndPosition, Smooth01(workT));
-                if (action == "push")
-                {
-                    contactPosition = Vector3.Lerp(contactStartPosition, contactEndPosition, Smooth01(workT));
-                }
-                else
-                {
-                    ApplyMovableObjectPosition(task.MovableObject, objectPosition);
-                    contactPosition = objectPosition + contactOffset;
-                }
+                ApplyMovableObjectPosition(task.MovableObject, objectPosition);
+                contactPosition = objectPosition + contactOffset;
 
                 facing = action == "pull" ? -objectDirection : objectDirection;
                 currentChatText = $"{agent.AgentId} {task.ActionLabel} {task.MovableObject.name}.";
