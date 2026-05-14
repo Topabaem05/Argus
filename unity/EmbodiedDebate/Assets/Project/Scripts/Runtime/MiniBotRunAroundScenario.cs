@@ -55,6 +55,7 @@ namespace ArgusUnity.Runtime
         private const float ObjectContactSkinMeters = 0.035f;
         private const string ReportDirectory = "reports/unity_dumps";
         private const string GaitTraceFileName = "minibot_gait_trace.jsonl";
+        private const string ObjectInteractionTraceFileName = "minibot_object_interaction_trace.jsonl";
 
         [SerializeField]
         private Vector2 roomMin = new Vector2(-8.1f, -8.1f);
@@ -529,6 +530,7 @@ namespace ArgusUnity.Runtime
                 task.MovableObject.name,
                 task.ActionLabel);
             StoreSnapshot(agent, phase, contactPosition, appliedFacing, task.MovableObject.name, task.ActionLabel);
+            AppendObjectInteractionTrace(agent, task, phase, sampleTime);
         }
 
         private static void ApplyMovableObjectPosition(Transform movableObject, Vector3 position)
@@ -1185,8 +1187,10 @@ namespace ArgusUnity.Runtime
             gaitDumpInitialized = true;
             var outputDirectory = EnsureGaitOutputDirectory();
             File.WriteAllText(Path.Combine(outputDirectory, GaitTraceFileName), string.Empty);
+            File.WriteAllText(Path.Combine(outputDirectory, ObjectInteractionTraceFileName), string.Empty);
             WriteGaitJson("gait_dump.json", BuildGaitDump());
             WriteGaitJson("video_gait_review.json", BuildVideoGaitReview());
+            WriteGaitJson("minibot_prop_physics_dump.json", BuildPropPhysicsDump());
         }
 
         private JObject BuildGaitDump()
@@ -1292,6 +1296,84 @@ namespace ArgusUnity.Runtime
                 row.ToString(Formatting.None) + Environment.NewLine);
         }
 
+        private void AppendObjectInteractionTrace(
+            SocialAgent agent,
+            SocialObjectTask task,
+            MiniBotSocialPhase phase,
+            float sampleTime)
+        {
+            if (!gaitDumpInitialized || task == null || task.MovableObject == null)
+            {
+                return;
+            }
+
+            var rigidbody = task.MovableObject.GetComponent<Rigidbody>();
+            var collider = task.MovableObject.GetComponent<Collider>();
+            var position = task.MovableObject.position;
+            var movedDistance = Vector3.Distance(
+                new Vector3(position.x, 0f, position.z),
+                new Vector3(task.ObjectStartPosition.x, 0f, task.ObjectStartPosition.z));
+            var remainingDistance = Vector3.Distance(
+                new Vector3(position.x, 0f, position.z),
+                new Vector3(task.ObjectEndPosition.x, 0f, task.ObjectEndPosition.z));
+            var row = new JObject
+            {
+                ["frame"] = Time.frameCount,
+                ["sample_time"] = sampleTime,
+                ["agent_id"] = agent.AgentId,
+                ["phase"] = phase.ToString(),
+                ["action_label"] = task.ActionLabel ?? string.Empty,
+                ["object_name"] = task.MovableObject.name,
+                ["object_position"] = ToJsonArray(position),
+                ["object_start_position"] = ToJsonArray(task.ObjectStartPosition),
+                ["object_end_position"] = ToJsonArray(task.ObjectEndPosition),
+                ["moved_distance_meters"] = movedDistance,
+                ["remaining_distance_meters"] = remainingDistance,
+                ["has_rigidbody"] = rigidbody != null,
+                ["has_collider"] = collider != null,
+                ["collider_is_trigger"] = collider != null && collider.isTrigger,
+                ["rigidbody_is_kinematic"] = rigidbody != null && rigidbody.isKinematic,
+                ["rigidbody_mass"] = rigidbody != null ? rigidbody.mass : 0f,
+                ["collision_detection"] = rigidbody != null ? rigidbody.collisionDetectionMode.ToString() : string.Empty
+            };
+            File.AppendAllText(
+                Path.Combine(EnsureGaitOutputDirectory(), ObjectInteractionTraceFileName),
+                row.ToString(Formatting.None) + Environment.NewLine);
+        }
+
+        private static JObject BuildPropPhysicsDump()
+        {
+            var props = new JArray();
+            var rigidbodies = FindObjectsOfType<Rigidbody>();
+            Array.Sort(rigidbodies, (a, b) => string.CompareOrdinal(a.name, b.name));
+            for (var i = 0; i < rigidbodies.Length; i++)
+            {
+                var rigidbody = rigidbodies[i];
+                var collider = rigidbody.GetComponent<Collider>();
+                props.Add(new JObject
+                {
+                    ["name"] = rigidbody.name,
+                    ["path"] = ResolveTransformPath(rigidbody.transform),
+                    ["has_rigidbody"] = true,
+                    ["has_collider"] = collider != null,
+                    ["collider_type"] = collider != null ? collider.GetType().Name : string.Empty,
+                    ["collider_is_trigger"] = collider != null && collider.isTrigger,
+                    ["rigidbody_is_kinematic"] = rigidbody.isKinematic,
+                    ["rigidbody_mass"] = rigidbody.mass,
+                    ["collision_detection"] = rigidbody.collisionDetectionMode.ToString(),
+                    ["use_gravity"] = rigidbody.useGravity,
+                    ["position"] = ToJsonArray(rigidbody.transform.position)
+                });
+            }
+
+            return new JObject
+            {
+                ["purpose"] = "Verify generated non-minibot objects expose Rigidbody and Collider settings for minibot collision checks.",
+                ["rigidbody_count"] = rigidbodies.Length,
+                ["objects"] = props
+            };
+        }
+
         private void WriteGaitJson(string fileName, JObject data)
         {
             File.WriteAllText(
@@ -1325,6 +1407,24 @@ namespace ArgusUnity.Runtime
             }
 
             return Path.GetFullPath(Path.Combine(Application.dataPath, "..", "..", ".."));
+        }
+
+        private static JArray ToJsonArray(Vector3 value)
+        {
+            return new JArray(value.x, value.y, value.z);
+        }
+
+        private static string ResolveTransformPath(Transform transform)
+        {
+            var names = new Stack<string>();
+            var current = transform;
+            while (current != null)
+            {
+                names.Push(current.name);
+                current = current.parent;
+            }
+
+            return string.Join("/", names.ToArray());
         }
 
         private void RefreshChatTextFromSnapshots()

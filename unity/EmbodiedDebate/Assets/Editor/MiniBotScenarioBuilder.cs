@@ -328,6 +328,7 @@ namespace ArgusUnity.Editor
             floor.transform.position = new Vector3(0f, -0.08f, 0f);
             floor.transform.localScale = new Vector3(size, 0.16f, size);
             ApplyMaterial(floor, floorMaterial);
+            ConfigureStaticColliderBody(floor, size * 4f);
 
             CreateWall(root, "North Low Boundary", new Vector3(0f, 0.34f, size * 0.5f), new Vector3(size, 0.68f, 0.28f), wallMaterial);
             CreateWall(root, "South Low Boundary", new Vector3(0f, 0.34f, -size * 0.5f), new Vector3(size, 0.68f, 0.28f), wallMaterial);
@@ -342,6 +343,7 @@ namespace ArgusUnity.Editor
             board.transform.position = new Vector3(0f, 1.15f, 7.9f);
             board.transform.localScale = new Vector3(5.7f, 1.9f, 0.16f);
             ApplyMaterial(board, Material("MiniBotScenarioBoard", new Color(0.12f, 0.16f, 0.18f)));
+            ConfigureStaticColliderBody(board, 45f);
             AddLabel(
                 "Scenario Board\nPersona opinions become movement, speech, and emotion.",
                 new Vector3(0f, 1.55f, 7.78f),
@@ -428,6 +430,7 @@ namespace ArgusUnity.Editor
             var collider = prop.GetComponent<BoxCollider>();
             if (collider != null)
             {
+                collider.isTrigger = false;
                 collider.size = Vector3.one;
             }
 
@@ -494,6 +497,7 @@ namespace ArgusUnity.Editor
             {
                 collider.center = Vector3.up * 0.5f;
                 collider.size = Vector3.one;
+                collider.isTrigger = false;
                 return;
             }
 
@@ -504,6 +508,7 @@ namespace ArgusUnity.Editor
                 worldBounds.size.x / Mathf.Max(0.001f, Mathf.Abs(lossyScale.x)),
                 worldBounds.size.y / Mathf.Max(0.001f, Mathf.Abs(lossyScale.y)),
                 worldBounds.size.z / Mathf.Max(0.001f, Mathf.Abs(lossyScale.z)));
+            collider.isTrigger = false;
         }
 
         private static Bounds? CalculateRendererBounds(GameObject instance)
@@ -537,6 +542,23 @@ namespace ArgusUnity.Editor
             rigidbody.angularDrag = kinematic ? 0.05f : 2.4f;
         }
 
+        private static void ConfigureStaticColliderBody(GameObject gameObject, float mass)
+        {
+            var collider = gameObject.GetComponent<Collider>();
+            if (collider != null)
+            {
+                collider.isTrigger = false;
+            }
+
+            var rigidbody = gameObject.GetComponent<Rigidbody>();
+            if (rigidbody == null)
+            {
+                rigidbody = gameObject.AddComponent<Rigidbody>();
+            }
+
+            ConfigurePropRigidbody(rigidbody, mass, true);
+        }
+
         private static void CreateWall(Transform root, string name, Vector3 position, Vector3 scale, Material material)
         {
             var wall = GameObject.CreatePrimitive(PrimitiveType.Cube);
@@ -545,6 +567,7 @@ namespace ArgusUnity.Editor
             wall.transform.position = position;
             wall.transform.localScale = scale;
             ApplyMaterial(wall, material);
+            ConfigureStaticColliderBody(wall, 36f);
         }
 
         private static GameObject InstantiateMiniBot(string name, Vector3 position, float targetHeight)

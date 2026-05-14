@@ -109,6 +109,34 @@ namespace ArgusUnity.Tests.EditMode
         }
 
         [Test]
+        public void RunAroundStaticGeneratedPropsHaveKinematicCollisionBodies()
+        {
+            var prop = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            try
+            {
+                prop.name = "Static Generated Prop";
+
+                InvokePrivateMiniBotBuilder("ConfigureStaticColliderBody", prop, 44f);
+
+                var rigidbody = prop.GetComponent<Rigidbody>();
+                var collider = prop.GetComponent<BoxCollider>();
+                Assert.That(rigidbody, Is.Not.Null);
+                Assert.That(collider, Is.Not.Null);
+                Assert.That(collider.isTrigger, Is.False);
+                Assert.That(rigidbody.isKinematic, Is.True);
+                Assert.That(rigidbody.useGravity, Is.False);
+                Assert.That(rigidbody.mass, Is.EqualTo(44f).Within(0.0001f));
+                Assert.That(rigidbody.collisionDetectionMode, Is.EqualTo(CollisionDetectionMode.ContinuousSpeculative));
+                Assert.That((rigidbody.constraints & RigidbodyConstraints.FreezeRotationX) != 0, Is.True);
+                Assert.That((rigidbody.constraints & RigidbodyConstraints.FreezeRotationZ) != 0, Is.True);
+            }
+            finally
+            {
+                Object.DestroyImmediate(prop);
+            }
+        }
+
+        [Test]
         public void KeyboardTestMiniBotIsRedDynamicAndKeyboardControlled()
         {
             var root = new GameObject("keyboard test root");
