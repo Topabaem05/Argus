@@ -81,3 +81,7 @@ unity/EmbodiedDebate/[Bb]uilds/
 unity/EmbodiedDebate/[Uu]ser[Ss]ettings/
 unity/EmbodiedDebate/MemoryCaptures/
 unity/EmbodiedDebate/Assets/AssetStoreTools*
+# Backups, evidence, and omo state
+.backups/
+evidence/
+.omo/
