@@ -17,15 +17,25 @@ namespace ArgusUnity.Editor
             "UnityEngine.Rendering.Universal.ForwardRendererData, Unity.RenderPipelines.Universal.Runtime",
         };
 
+        private static readonly string[] SsaoRendererFeatureTypeNames =
+        {
+            "UnityEngine.Rendering.Universal.ScreenSpaceAmbientOcclusion, Unity.RenderPipelines.Universal.Runtime",
+            "UnityEngine.Rendering.Universal.ScreenSpaceAmbientOcclusionSettings, Unity.RenderPipelines.Universal.Runtime",
+        };
+
+        private const string SsaoFeatureName = "ArgusSSAO";
+
         [MenuItem("Argus/Configure URP Project")]
         public static void Configure()
         {
             var pipeline = EnsurePipelineAsset();
             ConfigurePipelineAsset(pipeline);
+            EnsureSsaoRendererFeature();
+            ConfigureMatteLighting();
             GraphicsSettings.renderPipelineAsset = pipeline;
             QualitySettings.renderPipeline = pipeline;
             AssetDatabase.SaveAssets();
-            Debug.Log($"UrpProjectConfigurator: assigned {PipelineAssetPath}.");
+            Debug.Log($"UrpProjectConfigurator: assigned {PipelineAssetPath} with SSAO + matte lighting.");
         }
 
         private static RenderPipelineAsset EnsurePipelineAsset()
@@ -120,6 +130,62 @@ namespace ArgusUnity.Editor
             {
                 property.floatValue = value;
             }
+        }
+
+        private static void EnsureSsaoRendererFeature()
+        {
+            var rendererData = AssetDatabase.LoadAssetAtPath<UnityEngine.Object>(RendererAssetPath);
+            if (rendererData == null)
+            {
+                return;
+            }
+
+            var serialized = new SerializedObject(rendererData);
+            var features = serialized.FindProperty("m_RendererFeatures");
+            if (features == null || !features.isArray)
+            {
+                return;
+            }
+
+            for (var i = 0; i < features.arraySize; i++)
+            {
+                var existing = features.GetArrayElementAtIndex(i);
+                if (existing != null && existing.objectReferenceValue != null
+                    && existing.objectReferenceValue.name == SsaoFeatureName)
+                {
+                    return;
+                }
+            }
+
+            var featureType = ResolveFirstType(SsaoRendererFeatureTypeNames);
+            if (featureType == null)
+            {
+                Debug.LogWarning("UrpProjectConfigurator: SSAO renderer feature type not found. Skipping.");
+                return;
+            }
+
+            var feature = ScriptableObject.CreateInstance(featureType);
+            feature.name = SsaoFeatureName;
+
+            var featureSerialized = new SerializedObject(feature);
+            var radiusProp = featureSerialized.FindProperty("m_Settings.m_Radius");
+            if (radiusProp != null) radiusProp.floatValue = 0.35f;
+            var intensityProp = featureSerialized.FindProperty("m_Settings.m_Intensity");
+            if (intensityProp != null) intensityProp.floatValue = 0.8f;
+            featureSerialized.ApplyModifiedPropertiesWithoutUndo();
+
+            features.arraySize++;
+            features.GetArrayElementAtIndex(features.arraySize - 1).objectReferenceValue = feature;
+            AssetDatabase.AddObjectToAsset(feature, rendererData);
+            serialized.ApplyModifiedPropertiesWithoutUndo();
+            EditorUtility.SetDirty(rendererData);
+        }
+
+        private static void ConfigureMatteLighting()
+        {
+            RenderSettings.ambientMode = AmbientMode.Flat;
+            RenderSettings.ambientLight = new Color(0.82f, 0.85f, 0.9f, 1f);
+            RenderSettings.ambientIntensity = 1.2f;
         }
 
         private static void EnsureSettingsFolder()

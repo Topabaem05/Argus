@@ -24,6 +24,8 @@ namespace ArgusUnity.Motion
 
         [SerializeField]
         private MinibotMotionDebugState debugState = new MinibotMotionDebugState();
+        [SerializeField]
+        private ProceduralLegController proceduralLegController;
 
         private MotionIntent currentIntent;
         private bool hasIntent;
@@ -108,6 +110,11 @@ namespace ArgusUnity.Motion
             }
 
             animatorDriver.Tick(dt);
+            if (proceduralLegController != null)
+            {
+                proceduralLegController.SetMoveDirection(motor.CurrentVelocity);
+                proceduralLegController.SetMoveSpeed(motor.CurrentVelocity.magnitude);
+            }
             debugState.Apply(currentIntent, animatorDriver.CurrentSelection, animatorDriver.AppliedSelection, motor, stuckDetector.IsStuck, ResolveTurn());
         }
 

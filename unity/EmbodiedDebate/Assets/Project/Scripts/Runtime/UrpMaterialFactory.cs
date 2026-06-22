@@ -29,6 +29,37 @@ namespace ArgusUnity.Runtime
             return material;
         }
 
+        public static void ConfigureMatte(Material material)
+        {
+            if (material == null)
+            {
+                return;
+            }
+
+            if (material.HasProperty("_Smoothness"))
+            {
+                material.SetFloat("_Smoothness", 0f);
+            }
+
+            if (material.HasProperty("_Glossiness"))
+            {
+                material.SetFloat("_Glossiness", 0f);
+            }
+
+            if (material.HasProperty("_Metallic"))
+            {
+                material.SetFloat("_Metallic", 0f);
+            }
+
+            if (material.HasProperty("_SpecColor"))
+            {
+                material.SetColor("_SpecColor", Color.black);
+            }
+
+            material.DisableKeyword("_SPECULARHIGHLIGHTS_OFF");
+            material.EnableKeyword("_SPECULARHIGHLIGHTS_OFF");
+        }
+
         public static Material CreateTransparent(Color color)
         {
             var material = new Material(FindFirstAvailable(PreferredTransparentShaderNames));
@@ -70,6 +101,7 @@ namespace ArgusUnity.Runtime
             }
 
             ApplyColor(material, color);
+            ConfigureMatte(material);
         }
 
         private static Shader FindFirstAvailable(string[] names)
