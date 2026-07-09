@@ -216,3 +216,9 @@ Experimental optional paths: Hugging Face loading, Concordia adapter boundary, m
 ## License
 
 Apache-2.0 for project code, while respecting third-party licenses and dataset attribution requirements.
+
+---
+
+## Related Project
+
+[OpenLife Market](https://topabaem05.github.io/openlife-market/) - Autonomous AI agents that must sell their own research to survive. Live experiment based on arXiv:2606.31046.
