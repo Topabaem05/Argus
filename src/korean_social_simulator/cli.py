@@ -24,6 +24,7 @@ from korean_social_simulator.pipeline import (
     bridge_validate_config_command,
     compile_scenario_command,
     evaluate_command,
+    game_run_command,
     report_command,
     run_command,
     sample_command,
@@ -40,6 +41,11 @@ bridge_app = typer.Typer(
     no_args_is_help=True,
 )
 app.add_typer(bridge_app, name="bridge")
+game_app = typer.Typer(
+    help="AI company operation game commands.",
+    no_args_is_help=True,
+)
+app.add_typer(game_app, name="game")
 
 _ERROR_PREFIXES: tuple[tuple[type[KoreanSocialSimulationError], str], ...] = (
     (ConfigurationError, "Configuration error"),
@@ -181,6 +187,33 @@ def report(
     except KoreanSocialSimulationError as error:
         _handle_error(error)
     typer.echo(f"Report written: {output}")
+
+
+@game_app.command("run")
+def game_run(
+    players: str = typer.Option(
+        "p1:알파상사,p2:베타테크,p3:감마로직,p4:델타푸드",
+        "--players",
+        help="Comma-separated player_id:company_name pairs",
+    ),
+    rounds: int = typer.Option(5, "--rounds", help="Number of rounds"),
+) -> None:
+    """Run an AI company operation game simulation."""
+    try:
+        result = game_run_command(players, rounds)
+    except KoreanSocialSimulationError as error:
+        _handle_error(error)
+    typer.echo(f"Game complete: winner={result.get('winner')} rounds={result.get('rounds_played')}")
+
+
+@game_app.command("tutorial")
+def game_tutorial() -> None:
+    """Print the game tutorial."""
+    import sys
+
+    from korean_social_simulator.game.tutorial import TutorialSystem
+
+    TutorialSystem(out=sys.stdout).print_tutorial()
 
 
 def main() -> None:

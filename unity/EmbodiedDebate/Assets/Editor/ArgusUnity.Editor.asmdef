@@ -2,7 +2,9 @@
   "name": "ArgusUnity.Editor",
   "rootNamespace": "ArgusUnity.Editor",
   "references": [
-    "ArgusUnity"
+    "ArgusUnity",
+    "Unity.RenderPipelines.Universal.Runtime",
+    "Unity.RenderPipelines.Universal.Editor"
   ],
   "includePlatforms": ["Editor"],
   "allowUnsafeCode": false,

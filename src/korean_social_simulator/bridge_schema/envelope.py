@@ -24,6 +24,13 @@ from korean_social_simulator.bridge_schema.events import (
     GroupUpdateEvent,
     UnityAck,
 )
+from korean_social_simulator.bridge_schema.game import (
+    EconomyUpdatePayload,
+    GameStateSyncPayload,
+    PlayerCommandPayload,
+    RumorEventPayload,
+    TaskUpdatePayload,
+)
 from korean_social_simulator.bridge_schema.physics import PhysicsRequest, PhysicsResult
 
 _SEMVER_PATTERN = re.compile(
@@ -61,6 +68,11 @@ class BridgeEnvelope(BaseModel):
         "unity.ack": UnityAck,
         "physics.request": PhysicsRequest,
         "physics.result": PhysicsResult,
+        "game.player_command": PlayerCommandPayload,
+        "game.task_update": TaskUpdatePayload,
+        "game.rumor_event": RumorEventPayload,
+        "game.economy_update": EconomyUpdatePayload,
+        "game.state_sync": GameStateSyncPayload,
         "bridge.error": StructuredError,
         "unity.error": StructuredError,
         "adapter.error": StructuredError,

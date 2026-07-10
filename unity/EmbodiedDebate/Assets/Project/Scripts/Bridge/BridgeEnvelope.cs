@@ -200,6 +200,12 @@ namespace ArgusUnity.Bridge
                 case "observer.select_agent":
                 case "observer.camera_state":
                     return true;
+                case "game.player_command":
+                case "game.task_update":
+                case "game.rumor_event":
+                case "game.economy_update":
+                case "game.state_sync":
+                    return true;
                 default:
                     return false;
             }

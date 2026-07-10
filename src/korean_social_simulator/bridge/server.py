@@ -60,6 +60,11 @@ _SUPPORTED_MESSAGE_TYPES = (
     "observer.step",
     "observer.select_agent",
     "observer.camera_state",
+    "game.player_command",
+    "game.task_update",
+    "game.rumor_event",
+    "game.economy_update",
+    "game.state_sync",
 )
 _SUPPORTED_BACKGROUNDS = frozenset(list_supported_background_ids())
 

@@ -366,3 +366,27 @@ class BridgeConfig(BaseModel):
     world: BridgeWorldConfig = Field(default_factory=BridgeWorldConfig)
     safety: BridgeSafetyConfig = Field(default_factory=BridgeSafetyConfig)
     log_level: Literal["DEBUG", "INFO", "WARNING", "ERROR", "FATAL"] = "INFO"
+
+
+class GamePlayerSpec(BaseModel):
+    """A single player's initial company configuration."""
+
+    model_config = ConfigDict(extra="forbid")
+
+    player_id: str = Field(min_length=1)
+    company_name: str = Field(min_length=1)
+    initial_funds: int = Field(ge=0, default=10000)
+    employee_count: int = Field(ge=1, le=10, default=3)
+
+
+class GameConfig(BaseModel):
+    """Root configuration for the AI company operation game."""
+
+    model_config = ConfigDict(extra="forbid")
+
+    max_rounds: int = Field(ge=1, le=20, default=5)
+    players: list[GamePlayerSpec] = Field(min_length=1, max_length=4)
+    salary_per_employee: int = Field(ge=0, default=500)
+    orders_per_round: int = Field(ge=0, le=10, default=3)
+    slm_provider: Literal["ollama", "vllm", "nim", "none"] = "none"
+    slm_model: str = "qwen2.5:7b"

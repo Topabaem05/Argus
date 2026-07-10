@@ -112,3 +112,73 @@ def validate_safety(
                 )
 
     return SafetyDecision(allowed=True, reason="All safety checks passed.")
+
+
+_GAME_PROHIBITED = [
+    "협박",
+    "위협",
+    "폭행",
+    "성희롱",
+    "차별",
+    "혐오",
+    "스토킹",
+    "사기",
+    "횡령",
+    "threatharassment",
+    "assault",
+    "discrimination",
+    "hate",
+    "stalking",
+    "fraud",
+    "embezzlement",
+]
+
+_GAME_ALLOWED_ACTIONS = frozenset(
+    {
+        "assign_task",
+        "praise",
+        "scold",
+        "snack",
+        "raise",
+        "bonus",
+        "party",
+        "fire",
+        "hire",
+        "gossip",
+        "scout",
+    }
+)
+
+
+def validate_game_command(
+    action: str,
+    target_employee_id: str | None,
+    payload_text: str,
+) -> SafetyDecision:
+    if action not in _GAME_ALLOWED_ACTIONS:
+        return SafetyDecision(
+            allowed=False,
+            reason=f"Unknown game action: {action}",
+            blocked_rule="unknown_action",
+        )
+    text = payload_text.lower()
+    for pattern in _GAME_PROHIBITED:
+        if pattern in text:
+            return SafetyDecision(
+                allowed=False,
+                reason=f"Game command contains prohibited content: '{pattern}'",
+                blocked_rule="game_prohibited_content",
+            )
+    return SafetyDecision(allowed=True, reason="Game command allowed.")
+
+
+def validate_game_rumor(rumor_text: str) -> SafetyDecision:
+    text = rumor_text.lower()
+    for pattern in _GAME_PROHIBITED:
+        if pattern in text:
+            return SafetyDecision(
+                allowed=False,
+                reason=f"Rumor contains prohibited content: '{pattern}'",
+                blocked_rule="game_prohibited_rumor",
+            )
+    return SafetyDecision(allowed=True, reason="Rumor allowed.")

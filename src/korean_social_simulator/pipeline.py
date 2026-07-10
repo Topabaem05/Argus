@@ -585,3 +585,22 @@ def _string_list(value: object) -> list[str]:
     if not isinstance(value, list):
         return []
     return [item for item in value if isinstance(item, str)]
+
+
+def game_run_command(players: str, rounds: int = 5) -> dict[str, object]:
+    """Run an AI company operation game simulation."""
+    specs: list[tuple[str, str]] = []
+    for pair in players.split(","):
+        pair = pair.strip()
+        if ":" not in pair:
+            raise SimulationError(f"Invalid player spec '{pair}'. Expected player_id:company_name.")
+        pid, company = pair.split(":", 1)
+        specs.append((pid.strip(), company.strip()))
+    if len(specs) < 1 or len(specs) > 4:
+        raise SimulationError("Player count must be 1-4.")
+    from korean_social_simulator.game.runner import GameRunner
+    from korean_social_simulator.game.state import GameStateManager
+
+    mgr = GameStateManager.new_game(specs, max_rounds=rounds)
+    runner = GameRunner(manager=mgr)
+    return runner.run()

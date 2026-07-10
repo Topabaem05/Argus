@@ -284,3 +284,174 @@ class SafetyDecision(BaseModel):
     allowed: bool
     reason: str = ""
     blocked_rule: str | None = None
+
+
+# ---------------------------------------------------------------------------
+# Game models — AI company operation game (Phase 1 core loop)
+# Spec: 4 players run companies in the same city; SLM-driven AI employees
+# react based on mood, loyalty, and reputation perception.
+# ---------------------------------------------------------------------------
+
+StatKey = Literal["stamina", "intelligence", "speed", "communication"]
+MoodLevel = Literal["joyful", "content", "neutral", "upset", "angry"]
+TaskCategory = Literal["carry", "deliver", "document", "sales", "maintenance"]
+TaskStatus = Literal["pending", "assigned", "in_progress", "completed", "failed"]
+RoundPhase = Literal["morning", "work", "event", "evening"]
+CommandAction = Literal[
+    "assign_task",
+    "praise",
+    "scold",
+    "snack",
+    "raise",
+    "bonus",
+    "party",
+    "fire",
+    "hire",
+    "gossip",
+    "scout",
+]
+
+
+class EmployeeStats(BaseModel):
+    """AI employee ability scores (1-10 each)."""
+
+    model_config = ConfigDict(extra="forbid")
+
+    stamina: int = Field(ge=1, le=10, default=5)
+    intelligence: int = Field(ge=1, le=10, default=5)
+    speed: int = Field(ge=1, le=10, default=5)
+    communication: int = Field(ge=1, le=10, default=5)
+
+    def score_for(self, category: TaskCategory) -> int:
+        """Primary stat relevant to a task category."""
+        return {
+            "carry": self.stamina,
+            "deliver": self.speed,
+            "document": self.intelligence,
+            "sales": self.communication,
+            "maintenance": (self.stamina + self.intelligence) // 2,
+        }[category]
+
+
+class GameEmployee(BaseModel):
+    """An AI employee with personality, stats, mood, and per-player loyalty."""
+
+    model_config = ConfigDict(extra="forbid")
+
+    employee_id: str
+    display_name: str
+    personality_tags: list[str] = Field(default_factory=list)
+    stats: EmployeeStats = Field(default_factory=EmployeeStats)
+    mood: int = Field(ge=0, le=100, default=50)
+    # loyalty per player_id: -100 (hostile) .. +100 (devoted)
+    loyalty_map: dict[str, int] = Field(default_factory=dict)
+    # reputation perception per player_id: -100 .. +100
+    reputation_perception: dict[str, int] = Field(default_factory=dict)
+    memory: list[str] = Field(default_factory=list, max_length=20)
+    employed_by: str | None = None
+    is_active: bool = True
+
+    def mood_level(self) -> MoodLevel:
+        if self.mood >= 80:
+            return "joyful"
+        if self.mood >= 60:
+            return "content"
+        if self.mood >= 40:
+            return "neutral"
+        if self.mood >= 20:
+            return "upset"
+        return "angry"
+
+    def loyalty_to(self, player_id: str) -> int:
+        return self.loyalty_map.get(player_id, 0)
+
+
+class GameTask(BaseModel):
+    """A unit of work assignable to an employee."""
+
+    model_config = ConfigDict(extra="forbid")
+
+    task_id: str
+    category: TaskCategory
+    description: str = Field(min_length=1)
+    difficulty: int = Field(ge=1, le=10, default=5)
+    reward: int = Field(ge=0, default=100)
+    status: TaskStatus = "pending"
+    assigned_to: str | None = None
+    progress: float = Field(ge=0.0, le=1.0, default=0.0)
+    created_round: int = Field(ge=1)
+
+
+class Order(BaseModel):
+    """A customer order that generates tasks."""
+
+    model_config = ConfigDict(extra="forbid")
+
+    order_id: str
+    customer_name: str = Field(min_length=1)
+    task_category: TaskCategory
+    difficulty: int = Field(ge=1, le=10, default=5)
+    reward: int = Field(ge=0, default=100)
+    deadline_round: int = Field(ge=1)
+
+
+class Company(BaseModel):
+    """A player's company state."""
+
+    model_config = ConfigDict(extra="forbid")
+
+    player_id: str
+    company_name: str = Field(min_length=1)
+    funds: int = Field(ge=0, default=10000)
+    employees: list[GameEmployee] = Field(default_factory=list)
+    pending_orders: list[Order] = Field(default_factory=list)
+    completed_tasks: int = 0
+    failed_tasks: int = 0
+    customer_satisfaction: int = Field(ge=0, le=100, default=50)
+    is_bankrupt: bool = False
+
+    def active_employees(self) -> list[GameEmployee]:
+        return [e for e in self.employees if e.is_active and e.employed_by == self.player_id]
+
+    def value(self) -> int:
+        """Company value for victory scoring (spec 2.4)."""
+        active = self.active_employees()
+        avg_loyalty = (
+            sum(e.loyalty_to(self.player_id) for e in active) // len(active) if active else 0
+        )
+        return self.funds + (len(active) * (avg_loyalty + 100)) + self.customer_satisfaction
+
+
+class PlayerCommand(BaseModel):
+    """A command issued by a player to an employee or company."""
+
+    model_config = ConfigDict(extra="forbid")
+
+    command_id: str
+    player_id: str
+    action: CommandAction
+    target_employee_id: str | None = None
+    target_player_id: str | None = None
+    task_id: str | None = None
+    payload: dict[str, object] = Field(default_factory=dict)
+    round_number: int = Field(ge=1)
+
+
+class GameState(BaseModel):
+    """Full mutable game state across all players and rounds."""
+
+    model_config = ConfigDict(extra="forbid")
+
+    game_id: str
+    round_number: int = Field(ge=1, default=1)
+    max_rounds: int = Field(ge=1, default=5)
+    phase: RoundPhase = "morning"
+    companies: dict[str, Company] = Field(default_factory=dict)
+    task_queue: list[GameTask] = Field(default_factory=list)
+    event_log: list[SimulationEvent] = Field(default_factory=list)
+    is_finished: bool = False
+
+    def company(self, player_id: str) -> Company:
+        if player_id not in self.companies:
+            raise KeyError(f"Unknown player: {player_id}")
+        return self.companies[player_id]
