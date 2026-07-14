@@ -10,6 +10,7 @@ from __future__ import annotations
 import hashlib
 import json
 import random
+import re
 from collections.abc import Callable
 from dataclasses import dataclass, field
 from importlib import import_module
@@ -25,6 +26,8 @@ _ALLOWED_ACTIONS: frozenset[str] = frozenset(
     {"accept", "reluctant_accept", "refuse", "complain"}
 )
 _ALLOWED_SIDE_ACTIONS: frozenset[str] = frozenset({"gossip", "consider_quit"})
+_MOOD_PATTERN = re.compile(r"(?:현재\s*)?기분\s*:\s*(-?\d+)")
+_LOYALTY_PATTERN = re.compile(r"호감도\s*:\s*(-?\d+)")
 
 
 @dataclass(frozen=True)
@@ -147,9 +150,22 @@ class SLMRuntimeAdapter:
         rng = random.Random(int.from_bytes(digest[:8], byteorder="big", signed=False))
 
         prompt_lower = prompt.lower()
-        if any(marker in prompt_lower for marker in ("기분: 0", "기분: 1", "호감도: -8", "거부")):
+        mood = self._extract_metric(_MOOD_PATTERN, prompt_lower)
+        loyalty = self._extract_metric(_LOYALTY_PATTERN, prompt_lower)
+        explicit_refusal = any(
+            marker in prompt_lower for marker in ("거부 임계", "업무 거부", "명령 거부")
+        )
+        if (
+            (mood is not None and mood <= 15)
+            or (loyalty is not None and loyalty <= -80)
+            or explicit_refusal
+        ):
             action: SLMAction = "refuse"
-        elif any(marker in prompt_lower for marker in ("우울", "불만", "호감도: -")):
+        elif (
+            (mood is not None and mood <= 35)
+            or (loyalty is not None and loyalty < 0)
+            or any(marker in prompt_lower for marker in ("우울", "불만"))
+        ):
             action = "reluctant_accept" if rng.random() < 0.75 else "complain"
         else:
             action = "accept" if rng.random() < 0.82 else "reluctant_accept"
@@ -214,6 +230,16 @@ class SLMRuntimeAdapter:
             mood_change=mood_change,
             side_action=side_action,
         )
+
+    @staticmethod
+    def _extract_metric(pattern: re.Pattern[str], prompt: str) -> int | None:
+        match = pattern.search(prompt)
+        if match is None:
+            return None
+        try:
+            return int(match.group(1))
+        except ValueError:
+            return None
 
     @staticmethod
     def _decode_first_json_object(raw: str) -> dict[str, object] | None:
