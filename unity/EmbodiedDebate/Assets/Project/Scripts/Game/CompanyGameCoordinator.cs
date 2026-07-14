@@ -85,17 +85,12 @@ namespace ArgusUnity.Game
                 return false;
             }
 
-            if (action == "fire")
-            {
-                return target.CompanyId == localPlayerId;
-            }
-
-            if (action == "scout")
+            if (action is "gossip" or "scout")
             {
                 return target.CompanyId != localPlayerId;
             }
 
-            return true;
+            return target.CompanyId == localPlayerId;
         }
 
         public void SendSelectedCommand(string action)
