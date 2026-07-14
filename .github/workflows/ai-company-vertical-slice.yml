@@ -5,6 +5,7 @@ on:
     paths:
       - "src/korean_social_simulator/ai/**"
       - "src/korean_social_simulator/game/**"
+      - "src/korean_social_simulator/social/__init__.py"
       - "tests/unit/ai/**"
       - "tests/unit/game/**"
       - "unity/EmbodiedDebate/Assets/Project/Scripts/Game/**"
@@ -45,8 +46,13 @@ jobs:
         run: |
           ruff check \
             src/korean_social_simulator/ai \
+            src/korean_social_simulator/game/__init__.py \
+            src/korean_social_simulator/game/commands.py \
             src/korean_social_simulator/game/runner.py \
+            src/korean_social_simulator/social/__init__.py \
             tests/unit/ai/test_slm_adapter.py \
+            tests/unit/game/test_command_authority.py \
+            tests/unit/game/test_game_runner_slm_authority.py \
             scripts/validate_ai_company_slice.py
 
       - name: Run focused AI and game tests
