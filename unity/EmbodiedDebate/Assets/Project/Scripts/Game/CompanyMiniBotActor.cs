@@ -110,7 +110,9 @@ namespace ArgusUnity.Game
 
         private void EnsureSelectionCollider()
         {
-            if (GetComponentInChildren<Collider>() != null)
+            // OnMouseDown is delivered to scripts on the collider's GameObject. A collider that
+            // exists only on a model child is therefore not sufficient for this root actor.
+            if (GetComponent<Collider>() != null)
             {
                 return;
             }
