@@ -113,7 +113,7 @@ class SLMRuntimeAdapter:
             response = self._live_response(prompt, system_prompt)
             self.last_error = None
             return response
-        except Exception as exc:  # noqa: BLE001 - provider SDKs expose different exception types
+        except Exception as exc:
             self.last_error = f"{type(exc).__name__}: {exc}"
             if not self.fallback_on_error:
                 raise SimulationError(f"SLM generation failed: {self.last_error}") from exc
