@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from korean_social_simulator.ai.low_vram import LOW_VRAM_PLANS, select_low_vram_plan
 from korean_social_simulator.ai.model_profiles import get_model_profile
 from korean_social_simulator.ai.slm_adapter import SLMRuntimeAdapter
 
@@ -49,7 +50,23 @@ def test_high_mood_is_not_misread_as_single_digit_mood() -> None:
     assert response.efficiency > 0.0
 
 
-def test_model_profile_lookup() -> None:
+def test_model_profile_lookup_uses_low_vram_edge_default() -> None:
     profile = get_model_profile("edge")
-    assert profile.model_id == "Qwen/Qwen3.5-4B"
-    assert profile.max_parallel_decisions == 4
+    assert profile.model_id == "Qwen/Qwen3.5-2B"
+    assert profile.max_parallel_decisions == 1
+    assert get_model_profile("vram_2gb").key == "micro"
+
+
+def test_low_vram_plan_selection_boundaries() -> None:
+    assert select_low_vram_plan(None).key == "cpu"
+    assert select_low_vram_plan(2.0).key == "vram_2gb"
+    assert select_low_vram_plan(3.0).key == "vram_3gb"
+    assert select_low_vram_plan(4.0).key == "vram_4gb"
+
+
+def test_llama_command_disables_vision_and_limits_slots() -> None:
+    command = LOW_VRAM_PLANS["vram_2gb"].llama_server_args(lora_path="minibot.gguf")
+    assert "--no-mmproj" in command
+    assert command[command.index("--parallel") + 1] == "1"
+    assert command[command.index("--gpu-layers") + 1] == "auto"
+    assert command[command.index("--lora") + 1] == "minibot.gguf"
