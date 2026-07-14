@@ -43,6 +43,12 @@ def test_low_mood_fallback_can_refuse() -> None:
     assert response.efficiency == 0.0
 
 
+def test_high_mood_is_not_misread_as_single_digit_mood() -> None:
+    response = SLMRuntimeAdapter().generate("현재 기분: 100/100, 호감도: 80")
+    assert response.action != "refuse"
+    assert response.efficiency > 0.0
+
+
 def test_model_profile_lookup() -> None:
     profile = get_model_profile("edge")
     assert profile.model_id == "Qwen/Qwen3.5-4B"
