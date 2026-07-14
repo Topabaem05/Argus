@@ -58,7 +58,7 @@ _PROVIDER_DEFAULT_URLS: dict[SLMProvider, str] = {
 @dataclass
 class SLMRuntimeAdapter:
     provider: SLMProvider = "none"
-    model: str = "qwen3.5:4b"
+    model: str = "argus-minibot-2b"
     base_url: str | None = None
     api_key: str | None = None
     temperature: float = 0.35
