@@ -1,0 +1,230 @@
+name: AI Company Hardware and Unity QA
+
+on:
+  workflow_dispatch:
+    inputs:
+      llama_server:
+        description: Absolute path or command for llama-server on GPU runners
+        required: true
+        default: llama-server
+      adapter_lora:
+        description: Absolute path to the converted minibot LoRA GGUF on the 4 GB/load runner
+        required: true
+      unity_editor:
+        description: Absolute path to Unity 2022.3 Editor on the Unity runner
+        required: true
+      bridge_config:
+        description: Bridge YAML path available in the checkout
+        required: true
+      max_4gb_p95_ms:
+        description: Maximum allowed 4 GB endpoint P95 latency
+        required: true
+        default: "2500"
+      max_four_client_p95_ms:
+        description: Maximum allowed four-client SLM P95 latency
+        required: true
+        default: "3500"
+
+permissions:
+  contents: read
+
+jobs:
+  cuda-qlora-smoke:
+    runs-on: [self-hosted, linux, x64, argus-cuda-train]
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: python -m pip install --upgrade pip && python -m pip install -e ".[finetune,qa]"
+      - run: python scripts/build_minibot_sft_dataset.py --output-dir data/minibot_sft --count 500 --seed 42
+      - name: Run actual CUDA QLoRA smoke
+        continue-on-error: true
+        run: python scripts/qa/run_qlora_smoke.py --max-steps 5
+      - name: Upload QLoRA evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: qa-cuda-qlora
+          path: |
+            reports/qa/cuda_qlora_smoke.json
+            outputs/qa-qlora-smoke/training-smoke.json
+            outputs/qa-qlora-smoke/argus_training_summary.json
+          if-no-files-found: warn
+
+  vram-2gb-oom:
+    runs-on: [self-hosted, linux, x64, argus-gpu-2gb]
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: python -m pip install --upgrade pip && python -m pip install -e ".[llm,qa]"
+      - run: python scripts/build_minibot_sft_dataset.py --output-dir data/minibot_sft --count 500 --seed 42
+      - name: Probe actual 2 GB runtime
+        continue-on-error: true
+        run: |
+          python scripts/qa/probe_llama_runtime.py \
+            --gate-id vram_2gb_oom \
+            --plan vram_2gb \
+            --llama-server "${{ inputs.llama_server }}" \
+            --limit 100 \
+            --report reports/qa/vram_2gb_oom.json \
+            --log reports/qa/vram-2gb-server.log
+      - name: Upload 2 GB evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: qa-vram-2gb
+          path: reports/qa/
+          if-no-files-found: warn
+
+  vram-4gb-base-adapter:
+    runs-on: [self-hosted, linux, x64, argus-gpu-4gb]
+    timeout-minutes: 75
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: python -m pip install --upgrade pip && python -m pip install -e ".[llm,qa]"
+      - run: python scripts/build_minibot_sft_dataset.py --output-dir data/minibot_sft --count 1000 --seed 42
+      - name: Benchmark base on actual 4 GB GPU
+        continue-on-error: true
+        run: |
+          mkdir -p reports/qa/base reports/qa/adapter
+          python scripts/qa/probe_llama_runtime.py \
+            --gate-id vram_4gb_latency \
+            --plan vram_4gb \
+            --llama-server "${{ inputs.llama_server }}" \
+            --limit 200 \
+            --max-p95-ms "${{ inputs.max_4gb_p95_ms }}" \
+            --report reports/qa/base/vram_4gb_latency.json \
+            --log reports/qa/base/server.log
+          cp reports/qa/base/vram_4gb_latency.json reports/qa/vram_4gb_latency.json
+      - name: Benchmark adapter on the same 4 GB GPU
+        continue-on-error: true
+        run: |
+          python scripts/qa/probe_llama_runtime.py \
+            --gate-id vram_4gb_latency \
+            --plan vram_4gb \
+            --llama-server "${{ inputs.llama_server }}" \
+            --lora "${{ inputs.adapter_lora }}" \
+            --limit 200 \
+            --max-p95-ms "${{ inputs.max_4gb_p95_ms }}" \
+            --report reports/qa/adapter/vram_4gb_latency.json \
+            --log reports/qa/adapter/server.log
+      - name: Compare base and adapter accuracy
+        continue-on-error: true
+        run: |
+          python scripts/qa/compare_base_adapter.py \
+            --base-report reports/qa/base/vram_4gb_latency-policy-eval.json \
+            --adapter-report reports/qa/adapter/vram_4gb_latency-policy-eval.json \
+            --output reports/qa/base_adapter_accuracy.json
+      - name: Upload 4 GB and model comparison evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: qa-vram-4gb-model-comparison
+          path: reports/qa/
+          if-no-files-found: warn
+
+  unity-compile-playmode:
+    runs-on: [self-hosted, macos, argus-unity]
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: python -m pip install -e .
+      - name: Compile, rebuild scene, and run Play Mode
+        continue-on-error: true
+        run: |
+          python scripts/qa/run_unity_qa.py \
+            --unity "${{ inputs.unity_editor }}" \
+            --gate-report reports/qa/unity_compile_playmode.json
+      - name: Upload Unity evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: qa-unity
+          path: reports/qa/
+          if-no-files-found: warn
+
+  four-client-slm-load:
+    runs-on: [self-hosted, linux, x64, argus-gpu-4gb]
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: python -m pip install --upgrade pip && python -m pip install -e ".[bridge,llm,qa]"
+      - name: Start bridge and adapted SLM
+        run: |
+          kssim bridge serve --config "${{ inputs.bridge_config }}" > reports-bridge.log 2>&1 &
+          echo $! > bridge.pid
+          python scripts/launch_low_vram_slm.py \
+            --plan vram_4gb \
+            --binary "${{ inputs.llama_server }}" \
+            --lora "${{ inputs.adapter_lora }}" \
+            --execute > reports-slm.log 2>&1 &
+          echo $! > slm.pid
+          sleep 20
+      - name: Run four-client plus SLM load
+        continue-on-error: true
+        run: |
+          python scripts/qa/four_client_slm_load_test.py \
+            --max-p95-ms "${{ inputs.max_four_client_p95_ms }}" \
+            --report reports/qa/four_client_slm_load.json
+      - name: Stop services
+        if: always()
+        run: |
+          test -f bridge.pid && kill $(cat bridge.pid) || true
+          test -f slm.pid && kill $(cat slm.pid) || true
+          mkdir -p reports/qa
+          mv reports-bridge.log reports/qa/bridge.log || true
+          mv reports-slm.log reports/qa/slm.log || true
+      - name: Upload load evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: qa-four-client-load
+          path: reports/qa/
+          if-no-files-found: warn
+
+  stage-gate:
+    if: always()
+    needs:
+      - cuda-qlora-smoke
+      - vram-2gb-oom
+      - vram-4gb-base-adapter
+      - unity-compile-playmode
+      - four-client-slm-load
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: python -m pip install -e .
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: qa-*
+          path: reports/qa
+          merge-multiple: true
+      - name: Evaluate six required gates
+        run: python scripts/qa/evaluate_stage_gate.py
+      - name: Publish gate evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: qa-stage-gate
+          path: reports/qa/
+          if-no-files-found: warn
+      - name: Write next-stage summary
+        if: success()
+        run: cat reports/qa/NEXT_STAGE_UNLOCKED.md >> "$GITHUB_STEP_SUMMARY"
