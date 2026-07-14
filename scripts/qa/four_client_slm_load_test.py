@@ -13,7 +13,6 @@ import asyncio
 import json
 import statistics
 import time
-import urllib.parse
 from datetime import UTC, datetime
 from pathlib import Path
 
@@ -109,8 +108,8 @@ async def _client_worker(
                 if response.status_code != 200:
                     errors.append(f"client {index}: SLM HTTP {response.status_code}")
                 else:
-                    payload = response.json()
-                    if not payload.get("choices"):
+                    response_payload = response.json()
+                    if not response_payload.get("choices"):
                         errors.append(f"client {index}: missing choices")
             await asyncio.sleep(0.5)
             return True
