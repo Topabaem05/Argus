@@ -82,7 +82,7 @@ jobs:
             src/korean_social_simulator/game/commands.py \
             src/korean_social_simulator/game/runner.py \
             src/korean_social_simulator/social/__init__.py \
-            tests/unit/ai/test_slm_adapter.py \
+            tests/unit/ai \
             tests/unit/game/test_command_authority.py \
             tests/unit/game/test_game_runner_slm_authority.py \
             tests/unit/training \
@@ -98,7 +98,7 @@ jobs:
         run: |
           pytest -q \
             --junitxml=artifacts/ai-company-junit.xml \
-            tests/unit/ai/test_slm_adapter.py \
+            tests/unit/ai \
             tests/unit/game \
             tests/unit/training \
             tests/unit/bridge_schema
