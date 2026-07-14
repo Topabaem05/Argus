@@ -1,0 +1,56 @@
+name: AI Company Vertical Slice
+
+on:
+  pull_request:
+    paths:
+      - "src/korean_social_simulator/ai/**"
+      - "src/korean_social_simulator/game/**"
+      - "tests/unit/ai/**"
+      - "unity/EmbodiedDebate/Assets/Project/Scripts/Game/**"
+      - "unity/EmbodiedDebate/Assets/Editor/BuildGameScene.cs"
+      - "unity/EmbodiedDebate/Assets/Editor/CompanyGameVerticalSliceValidator.cs"
+      - "unity/EmbodiedDebate/Packages/manifest.json"
+      - "scripts/validate_ai_company_slice.py"
+      - ".github/workflows/ai-company-vertical-slice.yml"
+  push:
+    branches:
+      - "agent/ai-company-vertical-slice"
+
+permissions:
+  contents: read
+
+jobs:
+  python-and-static-contracts:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+
+      - name: Install package and dev tools
+        run: python -m pip install --upgrade pip && python -m pip install -e ".[dev]"
+
+      - name: Validate vertical slice structure
+        run: python scripts/validate_ai_company_slice.py
+
+      - name: Lint changed Python surfaces
+        run: |
+          ruff check \
+            src/korean_social_simulator/ai \
+            src/korean_social_simulator/game/runner.py \
+            tests/unit/ai/test_slm_adapter.py \
+            scripts/validate_ai_company_slice.py
+
+      - name: Run focused AI and game tests
+        run: |
+          pytest -q \
+            tests/unit/ai/test_slm_adapter.py \
+            tests/unit/game \
+            tests/unit/bridge_schema
