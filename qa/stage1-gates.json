@@ -1,0 +1,48 @@
+{
+  "schema_version": "1.0",
+  "stage_id": "ai-company-hardware-unity-qa",
+  "required_gates": [
+    {
+      "id": "cuda_qlora_smoke",
+      "report_file": "cuda_qlora_smoke.json",
+      "description": "Run real CUDA NF4 QLoRA steps and verify a loadable adapter plus finite validation loss."
+    },
+    {
+      "id": "base_adapter_accuracy",
+      "report_file": "base_adapter_accuracy.json",
+      "description": "Compare base and LoRA endpoints on the same held-out test set and hardware."
+    },
+    {
+      "id": "vram_2gb_oom",
+      "report_file": "vram_2gb_oom.json",
+      "description": "Start the 2 GB runtime plan and complete held-out inference without OOM."
+    },
+    {
+      "id": "vram_4gb_latency",
+      "report_file": "vram_4gb_latency.json",
+      "description": "Measure real 4 GB endpoint latency and enforce the configured P95 ceiling."
+    },
+    {
+      "id": "unity_compile_playmode",
+      "report_file": "unity_compile_playmode.json",
+      "description": "Compile the Unity project, rebuild the scene, and pass Play Mode tests in batch mode."
+    },
+    {
+      "id": "four_client_slm_load",
+      "report_file": "four_client_slm_load.json",
+      "description": "Keep four bridge clients connected while issuing concurrent SLM decisions."
+    }
+  ],
+  "next_stage": {
+    "id": "authoritative-multiplayer-polish",
+    "title": "Authoritative multiplayer and production polish",
+    "tasks": [
+      "Replace the single-WebSocket ClientRegistry with session-scoped four-client routing.",
+      "Add revisioned full-state snapshots, command idempotency, and reconnect recovery.",
+      "Bind the locally controlled CEO to the assigned multiplayer slot instead of fixed p1.",
+      "Import and retarget the P0 production animation set.",
+      "Replace the prototype IMGUI HUD with final uGUI or UI Toolkit prefabs.",
+      "Run a 20-30 minute four-player soak and balance economy, rumors, and resignation rates."
+    ]
+  }
+}
