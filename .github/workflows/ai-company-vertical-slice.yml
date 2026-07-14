@@ -6,20 +6,27 @@ on:
       - "src/korean_social_simulator/ai/**"
       - "src/korean_social_simulator/game/**"
       - "src/korean_social_simulator/training/**"
+      - "src/korean_social_simulator/qa/**"
       - "src/korean_social_simulator/social/__init__.py"
       - "tests/unit/ai/**"
       - "tests/unit/game/**"
       - "tests/unit/training/**"
+      - "tests/unit/qa/**"
       - "scripts/*minibot*"
+      - "scripts/qa/**"
       - "scripts/launch_low_vram_slm.py"
+      - "qa/**"
       - "pyproject.toml"
       - "docs/low-vram-slm-and-finetuning.md"
+      - "docs/qa-stage-gate.md"
       - "unity/EmbodiedDebate/Assets/Project/Scripts/Game/**"
+      - "unity/EmbodiedDebate/Assets/Tests/PlayMode/**"
       - "unity/EmbodiedDebate/Assets/Editor/BuildGameScene.cs"
       - "unity/EmbodiedDebate/Assets/Editor/CompanyGameVerticalSliceValidator.cs"
       - "unity/EmbodiedDebate/Packages/manifest.json"
       - "scripts/validate_ai_company_slice.py"
       - ".github/workflows/ai-company-vertical-slice.yml"
+      - ".github/workflows/ai-company-hardware-qa.yml"
   push:
     branches:
       - "agent/ai-company-vertical-slice"
@@ -71,6 +78,9 @@ jobs:
           test -s artifacts/minibot_sft/validation.jsonl
           test -s artifacts/minibot_sft/test.jsonl
 
+      - name: Compile QA scripts
+        run: python -m py_compile scripts/qa/*.py
+
       - name: Lint changed Python surfaces
         shell: bash
         run: |
@@ -78,6 +88,7 @@ jobs:
           ruff check \
             src/korean_social_simulator/ai \
             src/korean_social_simulator/training \
+            src/korean_social_simulator/qa \
             src/korean_social_simulator/game/__init__.py \
             src/korean_social_simulator/game/commands.py \
             src/korean_social_simulator/game/runner.py \
@@ -86,11 +97,13 @@ jobs:
             tests/unit/game/test_command_authority.py \
             tests/unit/game/test_game_runner_slm_authority.py \
             tests/unit/training \
+            tests/unit/qa \
             scripts/build_minibot_sft_dataset.py \
             scripts/evaluate_minibot_policy.py \
             scripts/export_minibot_lora_gguf.py \
             scripts/launch_low_vram_slm.py \
             scripts/train_minibot_qlora.py \
+            scripts/qa \
             scripts/validate_ai_company_slice.py \
             2>&1 | tee artifacts/ruff.txt
 
@@ -101,6 +114,7 @@ jobs:
             tests/unit/ai \
             tests/unit/game \
             tests/unit/training \
+            tests/unit/qa \
             tests/unit/bridge_schema
 
       - name: Upload validation diagnostics
