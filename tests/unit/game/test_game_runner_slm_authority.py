@@ -3,7 +3,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 
 from korean_social_simulator.ai.prompt_builder import GamePromptBuilder
-from korean_social_simulator.ai.slm_adapter import SLMResponse, SLMRuntimeAdapter
+from korean_social_simulator.ai.slm_adapter import SLMResponse
 from korean_social_simulator.game.commands import PlayerCommandSystem
 from korean_social_simulator.game.runner import GameRunner
 from korean_social_simulator.game.state import GameStateManager
