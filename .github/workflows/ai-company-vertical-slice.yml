@@ -5,9 +5,15 @@ on:
     paths:
       - "src/korean_social_simulator/ai/**"
       - "src/korean_social_simulator/game/**"
+      - "src/korean_social_simulator/training/**"
       - "src/korean_social_simulator/social/__init__.py"
       - "tests/unit/ai/**"
       - "tests/unit/game/**"
+      - "tests/unit/training/**"
+      - "scripts/*minibot*"
+      - "scripts/launch_low_vram_slm.py"
+      - "pyproject.toml"
+      - "docs/low-vram-slm-and-finetuning.md"
       - "unity/EmbodiedDebate/Assets/Project/Scripts/Game/**"
       - "unity/EmbodiedDebate/Assets/Editor/BuildGameScene.cs"
       - "unity/EmbodiedDebate/Assets/Editor/CompanyGameVerticalSliceValidator.cs"
@@ -45,12 +51,33 @@ jobs:
       - name: Validate vertical slice structure
         run: python scripts/validate_ai_company_slice.py
 
+      - name: Validate 2 GB llama.cpp launch plan
+        run: |
+          python scripts/launch_low_vram_slm.py \
+            --plan vram_2gb \
+            --lora artifacts/mock-minibot.gguf \
+            > artifacts/low-vram-command.txt
+          grep -- "--no-mmproj" artifacts/low-vram-command.txt
+          grep -- "--parallel 1" artifacts/low-vram-command.txt
+          grep -- "--cache-type-k q4_0" artifacts/low-vram-command.txt
+
+      - name: Build deterministic SFT fixture
+        run: |
+          python scripts/build_minibot_sft_dataset.py \
+            --output-dir artifacts/minibot_sft \
+            --count 1000 \
+            --seed 42
+          test -s artifacts/minibot_sft/train.jsonl
+          test -s artifacts/minibot_sft/validation.jsonl
+          test -s artifacts/minibot_sft/test.jsonl
+
       - name: Lint changed Python surfaces
         shell: bash
         run: |
           set -o pipefail
           ruff check \
             src/korean_social_simulator/ai \
+            src/korean_social_simulator/training \
             src/korean_social_simulator/game/__init__.py \
             src/korean_social_simulator/game/commands.py \
             src/korean_social_simulator/game/runner.py \
@@ -58,6 +85,12 @@ jobs:
             tests/unit/ai/test_slm_adapter.py \
             tests/unit/game/test_command_authority.py \
             tests/unit/game/test_game_runner_slm_authority.py \
+            tests/unit/training \
+            scripts/build_minibot_sft_dataset.py \
+            scripts/evaluate_minibot_policy.py \
+            scripts/export_minibot_lora_gguf.py \
+            scripts/launch_low_vram_slm.py \
+            scripts/train_minibot_qlora.py \
             scripts/validate_ai_company_slice.py \
             2>&1 | tee artifacts/ruff.txt
 
@@ -67,6 +100,7 @@ jobs:
             --junitxml=artifacts/ai-company-junit.xml \
             tests/unit/ai/test_slm_adapter.py \
             tests/unit/game \
+            tests/unit/training \
             tests/unit/bridge_schema
 
       - name: Upload validation diagnostics
