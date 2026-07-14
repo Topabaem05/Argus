@@ -1,14 +1,6 @@
-"""AI brain: local SLM adapter, model profiles, and game prompt builder."""
+"""AI brain public API with cycle-safe lazy exports."""
 
 from __future__ import annotations
-
-from korean_social_simulator.ai.model_profiles import (
-    MODEL_PROFILES,
-    SLMModelProfile,
-    get_model_profile,
-)
-from korean_social_simulator.ai.prompt_builder import GamePromptBuilder
-from korean_social_simulator.ai.slm_adapter import SLMResponse, SLMRuntimeAdapter
 
 __all__ = [
     "MODEL_PROFILES",
@@ -18,3 +10,21 @@ __all__ = [
     "SLMRuntimeAdapter",
     "get_model_profile",
 ]
+
+
+def __getattr__(name: str) -> object:
+    """Resolve public symbols without importing the game/social graph at package import time."""
+
+    if name == "GamePromptBuilder":
+        from korean_social_simulator.ai.prompt_builder import GamePromptBuilder
+
+        return GamePromptBuilder
+    if name in {"MODEL_PROFILES", "SLMModelProfile", "get_model_profile"}:
+        from korean_social_simulator.ai import model_profiles
+
+        return getattr(model_profiles, name)
+    if name in {"SLMResponse", "SLMRuntimeAdapter"}:
+        from korean_social_simulator.ai import slm_adapter
+
+        return getattr(slm_adapter, name)
+    raise AttributeError(f"module {__name__!r} has no attribute {name!r}")
