@@ -3,12 +3,16 @@
 from __future__ import annotations
 
 __all__ = [
+    "LOW_VRAM_PLANS",
     "MODEL_PROFILES",
     "GamePromptBuilder",
+    "LowVramRuntimePlan",
     "SLMModelProfile",
     "SLMResponse",
     "SLMRuntimeAdapter",
+    "detect_nvidia_vram_gb",
     "get_model_profile",
+    "select_low_vram_plan",
 ]
 
 
@@ -23,6 +27,15 @@ def __getattr__(name: str) -> object:
         from korean_social_simulator.ai import model_profiles
 
         return getattr(model_profiles, name)
+    if name in {
+        "LOW_VRAM_PLANS",
+        "LowVramRuntimePlan",
+        "detect_nvidia_vram_gb",
+        "select_low_vram_plan",
+    }:
+        from korean_social_simulator.ai import low_vram
+
+        return getattr(low_vram, name)
     if name in {"SLMResponse", "SLMRuntimeAdapter"}:
         from korean_social_simulator.ai import slm_adapter
 
