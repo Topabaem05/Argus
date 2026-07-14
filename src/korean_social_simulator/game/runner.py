@@ -29,7 +29,7 @@ class GameRunner:
     manager: GameStateManager
     out: TextIO = sys.stdout
     slm_provider: SLMProvider = "none"
-    slm_model: str = "qwen3.5:4b"
+    slm_model: str = "argus-minibot-2b"
     slm_base_url: str | None = None
 
     def run(self) -> dict[str, object]:
@@ -249,7 +249,7 @@ def run_demo_game() -> dict[str, object]:
     runner = GameRunner(
         manager=manager,
         slm_provider=_provider_from_environment(),
-        slm_model=os.getenv("ARGUS_SLM_MODEL", "qwen3.5:4b"),
+        slm_model=os.getenv("ARGUS_SLM_MODEL", "argus-minibot-2b"),
         slm_base_url=os.getenv("ARGUS_SLM_BASE_URL") or None,
     )
     return runner.run()
