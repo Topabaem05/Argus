@@ -2,12 +2,13 @@
 
 from __future__ import annotations
 
+import os
 import sys
 from dataclasses import dataclass
 from typing import TextIO, cast
 
 from korean_social_simulator.ai.prompt_builder import GamePromptBuilder
-from korean_social_simulator.ai.slm_adapter import SLMRuntimeAdapter
+from korean_social_simulator.ai.slm_adapter import SLMProvider, SLMRuntimeAdapter
 from korean_social_simulator.game.commands import PlayerCommandSystem
 from korean_social_simulator.game.economy import EconomicSystem
 from korean_social_simulator.game.events import GameEvent, RandomEventSystem
@@ -20,16 +21,25 @@ from korean_social_simulator.social.memory import AgentMemorySystem
 from korean_social_simulator.social.relationships import RelationshipGraph
 from korean_social_simulator.social.rumor import Rumor, RumorEngine
 
+_VALID_PROVIDERS: frozenset[str] = frozenset({"ollama", "vllm", "llamacpp", "nim", "none"})
+
 
 @dataclass
 class GameRunner:
     manager: GameStateManager
     out: TextIO = sys.stdout
+    slm_provider: SLMProvider = "none"
+    slm_model: str = "qwen3.5:4b"
+    slm_base_url: str | None = None
 
     def run(self) -> dict[str, object]:
         memory = AgentMemorySystem()
         builder = GamePromptBuilder(memory)
-        slm = SLMRuntimeAdapter(provider="none")
+        slm = SLMRuntimeAdapter(
+            provider=self.slm_provider,
+            model=self.slm_model,
+            base_url=self.slm_base_url,
+        )
         task_sys = TaskSystem(self.manager)
         economy = EconomicSystem(self.manager, task_sys)
         events = RandomEventSystem(self.manager)
@@ -114,14 +124,25 @@ class GameRunner:
                 round_number=round_num,
                 payload={"cost": 200 if action == "snack" else 500},
             )
+
+            prompt = builder.build_command_prompt(emp, pid, cmd)
+            response = slm.generate(prompt, builder.system_prompt())
+            self.manager.adjust_mood(emp.employee_id, response.mood_change)
+            memory.remember(emp.employee_id, f"직원 반응: {response.dialogue}")
+
+            if response.action == "refuse":
+                memory.remember(emp.employee_id, f"라운드{round_num}: {action} 명령을 거부함")
+                continue
+
             result = cmd_sys.execute(cmd)
             memory.remember(
                 emp.employee_id,
-                f"라운드{round_num}: {action} 받음 ({result.message})",
+                f"라운드{round_num}: {action} 수행 ({result.message}, 효율 {response.efficiency:.2f})",
             )
-            prompt = builder.build_command_prompt(emp, pid, cmd)
-            response = slm.generate(prompt, builder.system_prompt())
-            memory.remember(emp.employee_id, f"직원 반응: {response.dialogue}")
+            if response.side_action == "gossip":
+                memory.remember(emp.employee_id, "명령 수행 뒤 동료에게 불만을 이야기함")
+            elif response.side_action == "consider_quit":
+                memory.remember(emp.employee_id, "퇴사를 고민하기 시작함")
 
     def _print(self, text: str = "") -> None:
         self.out.write(text + "\n")
@@ -131,6 +152,7 @@ class GameRunner:
         self._print("=" * 60)
         self._print("  AI 회사 운영 게임 — 시뮬레이션 시작")
         self._print("=" * 60)
+        self._print(f"  SLM: {self.slm_provider} / {self.slm_model}")
         for pid, company in state.companies.items():
             self._print(
                 f"  {company.company_name} (사장: {pid}) — 자금 {company.funds}원, "
@@ -148,10 +170,10 @@ class GameRunner:
         for pid, order_list in orders.items():
             company = self.manager.company(pid)
             self._print(f"    {company.company_name}: {len(order_list)}건")
-            for o in order_list:
+            for order in order_list:
                 self._print(
-                    f"      {o.customer_name} ({o.task_category}) "
-                    f"난이도{o.difficulty} 보상{o.reward}원"
+                    f"      {order.customer_name} ({order.task_category}) "
+                    f"난이도{order.difficulty} 보상{order.reward}원"
                 )
 
     def _print_rumor(self, rumor: Rumor) -> None:
@@ -171,12 +193,12 @@ class GameRunner:
 
     def _print_settle(self, settle: dict[str, dict[str, int]]) -> None:
         self._print("  [저녁] 정산:")
-        for pid, s in settle.items():
+        for pid, values in settle.items():
             company = self.manager.company(pid)
             self._print(
-                f"    {company.company_name}: 수입 {s['income']}원 / "
-                f"지출 {s['expenses']}원 / 순이익 {s['net']:+d}원 "
-                f"(잔액 {s['funds_after']}원)"
+                f"    {company.company_name}: 수입 {values['income']}원 / "
+                f"지출 {values['expenses']}원 / 순이익 {values['net']:+d}원 "
+                f"(잔액 {values['funds_after']}원)"
             )
 
     def _print_footer(self, scoring: ScoringSystem) -> None:
@@ -199,15 +221,23 @@ class GameRunner:
             )
         winner = report.get("winner")
         if winner:
-            wcompany = self.manager.company(cast(str, winner)).company_name
+            winning_company = self.manager.company(cast(str, winner)).company_name
             self._print()
-            self._print(f"  승리: {wcompany} (사장: {winner})")
+            self._print(f"  승리: {winning_company} (사장: {winner})")
         self._print(f"  총 이벤트: {report['total_events']}개 | 라운드: {report['rounds_played']}")
         self._print("=" * 60)
 
 
+def _provider_from_environment() -> SLMProvider:
+    raw = os.getenv("ARGUS_SLM_PROVIDER", "none").strip().lower()
+    if raw not in _VALID_PROVIDERS:
+        choices = ", ".join(sorted(_VALID_PROVIDERS))
+        raise ValueError(f"ARGUS_SLM_PROVIDER must be one of: {choices}")
+    return cast(SLMProvider, raw)
+
+
 def run_demo_game() -> dict[str, object]:
-    mgr = GameStateManager.new_game(
+    manager = GameStateManager.new_game(
         player_specs=[
             ("p1", "알파상사"),
             ("p2", "베타테크"),
@@ -216,7 +246,12 @@ def run_demo_game() -> dict[str, object]:
         ],
         max_rounds=5,
     )
-    runner = GameRunner(manager=mgr)
+    runner = GameRunner(
+        manager=manager,
+        slm_provider=_provider_from_environment(),
+        slm_model=os.getenv("ARGUS_SLM_MODEL", "qwen3.5:4b"),
+        slm_base_url=os.getenv("ARGUS_SLM_BASE_URL") or None,
+    )
     return runner.run()
 
 
