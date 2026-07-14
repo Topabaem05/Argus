@@ -41,6 +41,16 @@ llm = [
     "openai>=1.0",
     "python-dotenv>=1.0",
 ]
+finetune = [
+    "torch>=2.4",
+    "transformers>=4.51",
+    "accelerate>=1.2",
+    "datasets>=3.2",
+    "peft>=0.15",
+    "trl>=0.17",
+    "bitsandbytes>=0.45",
+    "safetensors>=0.4",
+]
 polars = [
     "polars>=0.20",
 ]
