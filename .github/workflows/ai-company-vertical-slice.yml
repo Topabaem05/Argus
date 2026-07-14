@@ -6,6 +6,7 @@ on:
       - "src/korean_social_simulator/ai/**"
       - "src/korean_social_simulator/game/**"
       - "tests/unit/ai/**"
+      - "tests/unit/game/**"
       - "unity/EmbodiedDebate/Assets/Project/Scripts/Game/**"
       - "unity/EmbodiedDebate/Assets/Editor/BuildGameScene.cs"
       - "unity/EmbodiedDebate/Assets/Editor/CompanyGameVerticalSliceValidator.cs"
@@ -50,7 +51,18 @@ jobs:
 
       - name: Run focused AI and game tests
         run: |
+          mkdir -p artifacts
           pytest -q \
+            --junitxml=artifacts/ai-company-junit.xml \
             tests/unit/ai/test_slm_adapter.py \
             tests/unit/game \
             tests/unit/bridge_schema
+
+      - name: Upload test diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ai-company-test-results
+          path: artifacts/ai-company-junit.xml
+          if-no-files-found: warn
+          retention-days: 3
