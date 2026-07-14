@@ -22,7 +22,7 @@ def _run_auto_command(response: SLMResponse) -> GameStateManager:
     manager = GameStateManager.new_game([("p1", "알파상사")], max_rounds=1)
     memory = AgentMemorySystem()
     runner = GameRunner(manager=manager)
-    runner._auto_commands(  # noqa: SLF001 - verifies the command authority boundary directly
+    runner._auto_commands(
         PlayerCommandSystem(manager),
         memory,
         GamePromptBuilder(memory),
