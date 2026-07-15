@@ -1,0 +1,127 @@
+name: AI Company Vertical Slice
+
+on:
+  pull_request:
+    paths:
+      - "src/korean_social_simulator/ai/**"
+      - "src/korean_social_simulator/game/**"
+      - "src/korean_social_simulator/training/**"
+      - "src/korean_social_simulator/qa/**"
+      - "src/korean_social_simulator/social/__init__.py"
+      - "tests/unit/ai/**"
+      - "tests/unit/game/**"
+      - "tests/unit/training/**"
+      - "tests/unit/qa/**"
+      - "scripts/*minibot*"
+      - "scripts/qa/**"
+      - "scripts/launch_low_vram_slm.py"
+      - "qa/**"
+      - "pyproject.toml"
+      - "docs/low-vram-slm-and-finetuning.md"
+      - "docs/qa-stage-gate.md"
+      - "unity/EmbodiedDebate/Assets/Project/Scripts/Game/**"
+      - "unity/EmbodiedDebate/Assets/Tests/PlayMode/**"
+      - "unity/EmbodiedDebate/Assets/Editor/BuildGameScene.cs"
+      - "unity/EmbodiedDebate/Assets/Editor/CompanyGameVerticalSliceValidator.cs"
+      - "unity/EmbodiedDebate/Packages/manifest.json"
+      - "scripts/validate_ai_company_slice.py"
+      - ".github/workflows/ai-company-vertical-slice.yml"
+      - ".github/workflows/ai-company-hardware-qa.yml"
+  push:
+    branches:
+      - "agent/ai-company-vertical-slice"
+
+permissions:
+  contents: read
+
+jobs:
+  python-and-static-contracts:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+
+      - name: Install package and dev tools
+        run: python -m pip install --upgrade pip && python -m pip install -e ".[dev]"
+
+      - name: Prepare diagnostics directory
+        run: mkdir -p artifacts
+
+      - name: Validate vertical slice structure
+        run: python scripts/validate_ai_company_slice.py
+
+      - name: Validate 2 GB llama.cpp launch plan
+        run: |
+          python scripts/launch_low_vram_slm.py \
+            --plan vram_2gb \
+            --lora artifacts/mock-minibot.gguf \
+            > artifacts/low-vram-command.txt
+          grep -- "--no-mmproj" artifacts/low-vram-command.txt
+          grep -- "--parallel 1" artifacts/low-vram-command.txt
+          grep -- "--cache-type-k q4_0" artifacts/low-vram-command.txt
+
+      - name: Build deterministic SFT fixture
+        run: |
+          python scripts/build_minibot_sft_dataset.py \
+            --output-dir artifacts/minibot_sft \
+            --count 1000 \
+            --seed 42
+          test -s artifacts/minibot_sft/train.jsonl
+          test -s artifacts/minibot_sft/validation.jsonl
+          test -s artifacts/minibot_sft/test.jsonl
+
+      - name: Compile QA scripts
+        run: python -m py_compile scripts/qa/*.py
+
+      - name: Lint changed Python surfaces
+        shell: bash
+        run: |
+          set -o pipefail
+          ruff check \
+            src/korean_social_simulator/ai \
+            src/korean_social_simulator/training \
+            src/korean_social_simulator/qa \
+            src/korean_social_simulator/game/__init__.py \
+            src/korean_social_simulator/game/commands.py \
+            src/korean_social_simulator/game/runner.py \
+            src/korean_social_simulator/social/__init__.py \
+            tests/unit/ai \
+            tests/unit/game/test_command_authority.py \
+            tests/unit/game/test_game_runner_slm_authority.py \
+            tests/unit/training \
+            tests/unit/qa \
+            scripts/build_minibot_sft_dataset.py \
+            scripts/evaluate_minibot_policy.py \
+            scripts/export_minibot_lora_gguf.py \
+            scripts/launch_low_vram_slm.py \
+            scripts/train_minibot_qlora.py \
+            scripts/qa \
+            scripts/validate_ai_company_slice.py \
+            2>&1 | tee artifacts/ruff.txt
+
+      - name: Run focused AI and game tests
+        run: |
+          pytest -q \
+            --junitxml=artifacts/ai-company-junit.xml \
+            tests/unit/ai \
+            tests/unit/game \
+            tests/unit/training \
+            tests/unit/qa \
+            tests/unit/bridge_schema
+
+      - name: Upload validation diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ai-company-validation-results
+          path: artifacts/
+          if-no-files-found: warn
+          retention-days: 3

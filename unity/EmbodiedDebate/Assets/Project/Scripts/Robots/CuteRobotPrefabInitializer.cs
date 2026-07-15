@@ -24,7 +24,10 @@ namespace ArgusUnity.Robots
         {
             foreach (var col in GetComponents<Collider>())
             {
-                Destroy(col);
+                if (col is not CharacterController)
+                {
+                    Destroy(col);
+                }
             }
 
             foreach (var mf in GetComponents<MeshFilter>())

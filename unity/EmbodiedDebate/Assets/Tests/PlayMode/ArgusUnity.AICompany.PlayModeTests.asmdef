@@ -1,0 +1,19 @@
+{
+  "name": "ArgusUnity.AICompany.PlayModeTests",
+  "rootNamespace": "ArgusUnity.Tests.PlayMode",
+  "references": [
+    "ArgusUnity"
+  ],
+  "includePlatforms": [],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": false,
+  "precompiledReferences": [],
+  "autoReferenced": false,
+  "defineConstraints": [],
+  "versionDefines": [],
+  "noEngineReferences": false,
+  "optionalUnityReferences": [
+    "TestAssemblies"
+  ]
+}
