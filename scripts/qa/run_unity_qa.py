@@ -74,7 +74,6 @@ def main() -> int:
             str(results_xml.resolve()),
             "-logFile",
             "-",
-            "-quit",
         ],
         play_log,
     )

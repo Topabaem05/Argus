@@ -211,8 +211,7 @@ namespace ArgusUnity.Game
                 alignment = TextAnchor.MiddleCenter,
                 normal = { textColor = Color.white, background = cardTexture },
                 hover = { textColor = Color.white, background = accentTexture },
-                active = { textColor = Color.white, background = accentTexture },
-                disabled = { textColor = new Color(0.55f, 0.58f, 0.64f), background = cardTexture }
+                active = { textColor = Color.white, background = accentTexture }
             };
             stylesReady = true;
         }

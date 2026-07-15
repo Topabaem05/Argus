@@ -4,7 +4,6 @@ using ArgusUnity.Game;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 namespace ArgusUnity.Editor
 {
@@ -132,7 +131,8 @@ namespace ArgusUnity.Editor
             }
         }
 
-        private static List<T> CollectComponents<T>(Scene scene) where T : Component
+        private static List<T> CollectComponents<T>(UnityEngine.SceneManagement.Scene scene)
+            where T : Component
         {
             var result = new List<T>();
             foreach (var root in scene.GetRootGameObjects())
