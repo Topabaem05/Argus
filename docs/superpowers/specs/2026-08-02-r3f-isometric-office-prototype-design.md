@@ -1,6 +1,6 @@
 # React Three Fiber 고정 아이소메트릭 오피스 프로토타입 설계
 
-- 상태: 사용자 승인 설계의 저장소 명세화
+- 상태: 사용자 승인 설계의 저장소 명세화 및 자체 검토 완료
 - 작성일: 2026-08-02
 - 대상 저장소: `Topabaem05/Argus`
 - 대상 브랜치: `agent/r3f-office-prototype`
@@ -29,7 +29,7 @@
 - 플레이어가 즉시 Minibot을 이동하고 PC, 프린터, 커피 머신, 소파, NPC와 상호작용할 수 있게 한다.
 - 네 NPC가 서로 다른 역할 성향에 따라 업무, 출력, 커피, 휴식, 대화를 선택하게 한다.
 - NPC가 장애물을 통과하거나 동일 상호작용 지점을 중복 점유하지 않게 한다.
-- Minibot의 `Idle`, `Walk`, `Work`, `Talk`, `Cheer`, `Complain`, `Refuse`, `Gossip`, `Quit` 상태를 절차 애니메이션으로 표현한다.
+- Minibot의 `Idle`, `Walk`, `Work`, `Talk`, `Cheer`, `Complain`, `Refuse`, `Gossip`, `Quit` 모션을 절차 애니메이션으로 미리보기 가능하게 한다.
 - 서버가 없어도 행동이 결정적이고 재현 가능하도록 시드 기반 난수를 사용한다.
 - 테스트 가능한 프레임워크 비의존 시뮬레이션 코어를 만든다.
 
@@ -80,9 +80,10 @@ Argus의 기존 `CuteRobotPrefabInitializer`가 사용하는 캡슐 몸통, 구�
 - 초기 위치: `(13, 13, 13)`
 - 주시점: `(0, 0.8, 0)`
 - 회전, 마우스 팬, 휠 줌 비활성화
-- 화면 비율에 따라 `orthographicSize`만 자동 계산해 전체 사무실 경계를 유지
+- 화면 비율과 사무실 world bounds에 맞춰 직교 frustum과 `zoom`을 자동 계산
 - 북쪽과 서쪽 벽만 배치하는 dollhouse 구성으로 시야 가림 방지
 - 창 크기가 작아져도 플레이어와 주요 상호작용 구역은 화면 밖으로 잘리지 않아야 함
+- 입력 후 카메라 transform은 바뀌지 않으며 resize에 따른 frustum/zoom만 갱신
 
 ### 4.2 조작
 
@@ -94,7 +95,7 @@ Argus의 기존 `CuteRobotPrefabInitializer`가 사용하는 캡슐 몸통, 구�
 | 이동 입력 | 진행 중인 플레이어 상호작용 취소 |
 | `Esc` | 열린 도움말 또는 디버그 패널 닫기 |
 
-플레이어 이동 속도는 기본 `3.4 world units/s`, 달리기는 `4.93 world units/s`다. 플레이어 충돌 반경은 `0.34`, NPC 충돌 반경은 `0.31`이다.
+플레이어 이동 속도는 기본 `3.4 world units/s`, 달리기는 `4.93 world units/s`다. 플레이어 충돌 반경은 `0.34`, NPC 충돌 반경은 `0.31`이다. 키보드 입력은 `input`, `textarea`, `select`, `button` 또는 `contenteditable`에 포커스가 있을 때 게임으로 전달하지 않는다.
 
 ### 4.3 화면 UI
 
@@ -104,7 +105,7 @@ Argus의 기존 `CuteRobotPrefabInitializer`가 사용하는 캡슐 몸통, 구�
 - 우상단: NPC 네 대의 현재 상태를 보여주는 접을 수 있는 상태 패널
 - 우하단: 최근 이벤트 최대 세 개
 - 하단 가장자리: 에셋 저작자와 CC BY 4.0 표시
-- 개발 모드에서만 격자, 경로, 예약 지점, 충돌체를 표시하는 디버그 토글
+- 개발 모드에서만 격자, 경로, 예약 지점, 충돌체와 모든 Minibot 모션 미리보기를 표시하는 디버그 패널
 
 ## 5. 사무실 월드
 
@@ -149,7 +150,7 @@ Misc/Office_Misc_Plant_01.vox
 Misc/Office_Misc_Wall_Clock_01.vox
 ```
 
-바닥과 두 외벽은 코드로 생성한 단순 box geometry를 사용한다. 전체 통합 파일 `3D Voxel Office Pack.vox`는 로드하지 않는다.
+`public/assets/office/` 아래에는 ZIP 내부 상대 경로를 그대로 보존한다. 예를 들어 프린터는 `public/assets/office/Misc/Electronics/Office_Misc_Printer.vox`에 둔다. 전체 통합 파일 `3D Voxel Office Pack.vox`는 로드하거나 포함하지 않는다. 바닥과 두 외벽은 코드로 생성한 단순 box geometry를 사용한다.
 
 ## 6. 시스템 아키텍처
 
@@ -224,6 +225,23 @@ Canvas / Minibot visuals / Office assets
 
 시각 상태와 게임 상태는 `MinibotMotionState` 문자열 union으로 연결한다. 애니메이션은 world position을 변경하지 않는다.
 
+### 7.3 행동-모션 매핑
+
+| 시뮬레이션 행동/상태 | 기본 모션 | 완료/특수 모션 |
+|---|---|---|
+| Navigate | `Walk` | 도착 후 대상 행동으로 전환 |
+| Idle | `Idle` | 없음 |
+| Work | `Work` | 완료 시 0.6초 `Cheer` |
+| Print | `Work` | 완료 시 0.6초 `Cheer` |
+| Coffee | `Talk` | 완료 시 0.8초 `Cheer` |
+| Rest | `Idle`의 relaxed variant | 없음 |
+| Talk | `Talk` | NPC-NPC 대화의 deterministic variant에서 `Gossip` 사용 가능 |
+| Busy response | 기존 행동 유지 | 머리만 0.5초 `Refuse` overlay |
+| Path failure | `Complain` 0.8초 | 이후 `Idle` |
+| Quit | `Quit` | 디버그 모션 미리보기/향후 원격 이벤트 전용 |
+
+Utility AI는 `Quit`를 선택하지 않는다. `Quit`와 강제 `Gossip`, `Refuse`는 디버그 패널 또는 향후 Argus 이벤트 연결을 위한 표현 계약으로만 유지한다.
+
 ## 8. 플레이어 제어와 충돌
 
 ### 8.1 이동
@@ -245,7 +263,7 @@ Canvas / Minibot visuals / Office assets
 
 ## 9. NPC Utility AI
 
-### 9.1 NPC 구성
+### 9.1 NPC 구성과 초기 상태
 
 | ID | 역할 | 우선 성향 |
 |---|---|---|
@@ -265,11 +283,30 @@ coffeeNeed: number    // 0..1
 pendingPrint: boolean
 ```
 
-초기값은 고정 seed에서 생성하되 각 역할별 범위가 정의돼 같은 seed에서 항상 같은 시작 상태가 나온다.
+기본 초기값은 `energy=0.72`, `stress=0.24`, `socialNeed=0.35`, `workBacklog=0.55`, `coffeeNeed=0.25`, `pendingPrint=false`다. 각 연속값에는 고정 seed에서 생성한 독립 perturbation을 적용한다.
+
+```text
+energy        ±0.08
+stress        ±0.08
+socialNeed    ±0.12
+workBacklog   ±0.10
+coffeeNeed    ±0.10
+```
+
+모든 값은 적용 후 `0..1`로 clamp한다. 기본 seed는 URL query `?seed=`가 없을 때 `20260802`다.
+
+역할 affinity는 아래 값만 사용하며 표에 없는 조합은 0이다.
+
+| 역할 | Work | Print | Coffee | Rest | Talk |
+|---|---:|---:|---:|---:|---:|
+| 개발 | 0.12 | 0.02 | 0.00 | 0.00 | 0.00 |
+| 관리 | 0.06 | 0.12 | 0.00 | 0.00 | 0.00 |
+| 지원 | 0.00 | 0.00 | 0.08 | 0.00 | 0.12 |
+| 일반 | 0.04 | 0.04 | 0.04 | 0.04 | 0.04 |
 
 ### 9.2 Utility 점수
 
-모든 값은 계산 후 `0..1`로 clamp하며, 역할 affinity는 `0..0.12`, 시드 기반 jitter는 `[-0.03, 0.03]`이다.
+모든 값은 계산 후 `0..1`로 clamp하며, action별 시드 기반 jitter는 각 decision tick에 `[-0.03, 0.03]` 범위에서 생성한다. `nearbyAvailable`은 path distance 4.0 이내에 `Idle`, `Navigate`, `Rest` 상태이며 다른 Talk 예약이 없는 파트너가 있으면 1, 없으면 0이다. `pendingPrint`는 수식에서 true=1, false=0으로 취급한다.
 
 ```text
 Work   = 0.55*workBacklog + 0.25*energy - 0.20*stress + affinity.work
@@ -280,7 +317,7 @@ Print  = 0.45*workBacklog + 0.35*pendingPrint + affinity.print
 Idle   = 0.08
 ```
 
-경로가 없거나 사용 가능한 anchor가 없는 행동의 점수는 선택 후보에서 제거한다. 현재 행동 최소 유지 시간과 cooldown을 만족한 뒤 가장 높은 행동을 선택한다.
+경로가 없거나 사용 가능한 anchor가 없는 행동의 점수는 선택 후보에서 제거한다. 현재 행동 최소 유지 시간과 cooldown을 만족한 뒤 가장 높은 행동을 선택한다. 동점은 고정 action priority `Work > Print > Coffee > Rest > Talk > Idle`로 해소한다.
 
 ### 9.3 필요도 변화
 
@@ -303,7 +340,7 @@ stress      -0.002 when Idle/Rest, otherwise unchanged
 | Coffee | 2.5 s | coffeeNeed -0.65, energy +0.18, stress -0.08 |
 | Rest | 4.0 s | energy +0.30, stress -0.25 |
 | Talk | 3.0 s | 양쪽 socialNeed -0.55, stress -0.08 |
-| Idle | 1.5–3.0 s | 추가 효과 없음 |
+| Idle | seed 기반 1.5–3.0 s | 추가 효과 없음 |
 
 값은 모두 `0..1`로 clamp한다.
 
@@ -316,11 +353,15 @@ Idle
   -> Work | Print | Coffee | Rest | Talk
   -> Idle
 
-Any non-Quit state
-  -> ReactToPlayer
-  -> previous recoverable state or Idle
+Idle | Navigate | Rest
+  -> ReactToPlayer(Talk)
+  -> Idle
 
-Any state
+Work | Print
+  -> ReactToPlayer(Busy overlay only)
+  -> previous state
+
+Debug/remote command only
   -> Quit
   -> Navigate(exit)
   -> Despawned
@@ -359,13 +400,14 @@ interface InteractionAnchor {
 - 예약에는 owner, 만료 시각, 목적 행동이 포함됨
 - 목적지까지 도달하지 못한 채 8초가 지나면 예약 자동 해제
 - 도착 후 행동 완료 시 즉시 해제
+- 플레이어 상호작용도 같은 예약 시스템을 사용해 NPC와 한 자리를 중복 점유하지 않음
 
 ### 10.3 막힘 복구
 
 - 1.2초 동안 목표 방향 진행량이 임계치 미만이면 재탐색
 - 동일 목적지에서 3회 연속 실패하면 예약을 해제하고 해당 행동을 5초 cooldown
 - 대체 anchor가 있으면 가장 낮은 경로 비용의 anchor 선택
-- 대체가 없으면 Idle로 복귀하고 디버그 이벤트 기록
+- 대체가 없으면 `Complain` 0.8초 후 Idle로 복귀하고 디버그 이벤트 기록
 
 ## 11. 상호작용 시스템
 
@@ -376,13 +418,13 @@ interface InteractionAnchor {
 3. 명시적 interactable 우선, NPC는 그 다음
 4. 같은 우선순위에서는 거리 최소 대상
 
-| 대상 | 프롬프트 | 플레이어 표현 |
+| 대상 | 프롬프트 | 플레이어 행동/모션 |
 |---|---|---|
-| PC/책상 | `E · 업무 시작` | 4초 Work, 이동하면 취소 |
-| 프린터 | `E · 문서 출력` | 2.5초 Print/Work |
-| 커피 머신 | `E · 커피 마시기` | 2.5초 Coffee 후 Cheer |
-| 소파 | `E · 잠깐 쉬기` | 4초 Rest |
-| NPC | `E · 대화하기` | 사용 가능 시 양쪽 Talk |
+| PC/책상 | `E · 업무 시작` | 4초 Work / `Work`, 이동하면 취소 |
+| 프린터 | `E · 문서 출력` | 2.5초 Print / `Work` |
+| 커피 머신 | `E · 커피 마시기` | 2.5초 Coffee / `Talk`, 완료 후 `Cheer` |
+| 소파 | `E · 잠깐 쉬기` | 4초 Rest / relaxed `Idle` |
+| NPC | `E · 대화하기` | 사용 가능 시 양쪽 Talk / `Talk` |
 
 상호작용 중 movement command가 들어오면 플레이어 행동과 anchor 예약을 취소한다. 완료/취소는 이벤트 로그와 HUD에 반영한다.
 
@@ -427,7 +469,10 @@ web/office-sim/
   public/
     assets/office/
       asset-manifest.json
-      *.vox
+      Chairs/...
+      Cubicles/...
+      Misc/...
+      Tables/...
   src/
     app/
       App.tsx
@@ -482,7 +527,7 @@ web/office-sim/
       browserTestApi.ts
 ```
 
-상태 머신은 별도 XState 의존성 대신 TypeScript discriminated union과 순수 transition 함수로 구현한다.
+상태 머신은 별도 XState 의존성 대신 TypeScript discriminated union과 순수 transition 함수로 구현한다. JavaScript 패키지는 `web/office-sim` 내부 npm 프로젝트로 격리하고 lockfile을 커밋한다.
 
 ## 14. 렌더링과 성능
 
@@ -504,7 +549,7 @@ web/office-sim/
 - 유효하지 않은 spawn: 가장 가까운 walkable cell로 보정하고 이벤트 기록
 - 경로 없음: 대상 예약 해제, 행동 cooldown, Idle 복귀
 - 시뮬레이션 예외: ErrorBoundary에서 정적 사무실과 재시작 버튼 표시
-- 저장소나 네트워크 없이 동작해야 하므로 런타임 fetch는 로컬 정적 에셋에만 허용
+- 저장소나 네트워크 없이 동작해야 하므로 런타임 fetch는 동일 origin의 정적 에셋에만 허용
 
 ## 16. 테스트 전략
 
@@ -513,13 +558,14 @@ web/office-sim/
 - A* 최단 경로, 대각선 corner-cut 방지, 경로 없음
 - path smoothing이 장애물을 통과하지 않는지
 - circle-AABB slide와 월드 경계
-- utility 점수와 역할 affinity
+- utility 점수, 역할 affinity, 동점 priority
 - 같은 seed에서 동일 행동 시퀀스
 - anchor 예약, 만료, 해제, capacity
 - stuck recovery 3회 실패 처리
 - 상호작용 후보 거리/방향/우선순위
 - NPC busy 대화 규칙
 - 필요도 변화와 clamp
+- action-to-motion mapping
 
 ### 16.2 React 컴포넌트 테스트
 
@@ -527,6 +573,7 @@ web/office-sim/
 - 최근 이벤트 최대 세 개 표시
 - 저작자/라이선스 표시
 - 에셋 fallback UI
+- editable element 포커스 시 게임 키 입력 무시
 
 ### 16.3 Playwright 브라우저 테스트
 
@@ -537,8 +584,9 @@ web/office-sim/
 - 벽 방향 장기 입력에도 경계 밖으로 나가지 않음
 - 커피 머신 근처에서 `E` 후 player action이 Coffee로 전환
 - NPC 네 대가 15초 안에 적어도 한 번 자율 행동 시작
-- 두 NPC가 같은 capacity 1 anchor를 동시에 소유하지 않음
+- 두 NPC 또는 플레이어/NPC가 같은 capacity 1 anchor를 동시에 소유하지 않음
 - 고정 카메라 transform이 입력 후에도 변하지 않음
+- 같은 `?seed=20260802`에서 첫 30초 action event sequence가 동일함
 
 ## 17. 완료 기준
 
@@ -550,7 +598,7 @@ web/office-sim/
 6. NPC가 A* 경로를 따라 이동하며 장애물을 통과하지 않는다.
 7. capacity 1 anchor는 동시에 한 에이전트만 점유한다.
 8. NPC 막힘이 발생해도 재탐색 또는 행동 포기로 복구한다.
-9. Minibot 상태가 절차 애니메이션으로 구분된다.
+9. 런타임 행동과 디버그 미리보기에서 모든 Minibot 모션 상태를 확인할 수 있다.
 10. 서버와 LLM 없이 동일 seed에서 재현 가능하다.
 11. Vitest와 Playwright 필수 테스트가 통과한다.
 12. 앱과 `THIRD_PARTY_NOTICES.md`에 MariaIsMe 및 CC BY 4.0 표기가 있다.
@@ -578,3 +626,9 @@ web/office-sim/
 | React 리렌더로 프레임 저하 | transform을 React state에서 제외, 저빈도 UI만 Zustand 구독 |
 | 행동이 반복적으로 보임 | 역할 affinity, needs 변화, deterministic jitter, cooldown |
 | 에셋 라이선스 누락 | visible attribution, notice 파일, asset manifest를 완료 기준으로 검사 |
+
+## 20. 참조
+
+- Three.js `VOXLoader`: `https://threejs.org/docs/pages/VOXLoader.html`
+- 3D Voxel Office Pack: `https://mariaisme.itch.io/3d-voxel-office`
+- CC BY 4.0: `https://creativecommons.org/licenses/by/4.0/`
